@@ -1,0 +1,17 @@
+@startuml
+hide empty methods
+hide empty attributes
+skinparam style strictuml
+!pragma horizontalLineBetweenDifferentPackageAllowed
+
+interface Fragment <<interface>>
+interface FieldDefinition <<interface>>
+class Select
+class Field
+
+FieldDefinition -u-> Fragment
+Field "1..*" -l-> Select : parent
+
+Field -u-> FieldDefinition
+Select -u-> Fragment
+@enduml
