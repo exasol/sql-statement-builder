@@ -10,5 +10,9 @@ public interface FragmentVisitor {
 
     public void visit(final Field field);
 
-    public void visit(final TableExpression tableExpression);
+    public void visit(FromClause fromClause);
+
+    public void visit(TableReference tableReference);
+
+    public void visit(Table table);
 }

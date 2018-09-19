@@ -36,4 +36,16 @@ public class Select extends AbstractFragement implements SqlStatement {
     public void acceptConcrete(final FragmentVisitor visitor) {
         visitor.visit(this);
     }
+
+    /**
+     * Add a {@link FromClause} to the statement with table names
+     *
+     * @param names table reference names
+     * @return the FROM clause
+     */
+    public FromClause from(final String... names) {
+        final FromClause from = new FromClause(this, names);
+        addChild(from);
+        return from;
+    }
 }

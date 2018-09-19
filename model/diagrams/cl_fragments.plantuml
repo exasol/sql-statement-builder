@@ -4,14 +4,19 @@ hide empty attributes
 skinparam style strictuml
 !pragma horizontalLineBetweenDifferentPackageAllowed
 
-interface Fragment <<interface>>
-interface FieldDefinition <<interface>>
-class Select
-class Field
+together {
+	interface Fragment <<interface>>
+	interface FieldDefinition <<interface>>
+	interface TableReference <<interface>>
+}
 
-FieldDefinition -u-> Fragment
-Field "1..*" -l-> Select : parent
+FieldDefinition -u-|> Fragment
+Field .u.|> FieldDefinition
+Select .u.|> Fragment
+TableReference -u-|> Fragment
 
-Field -u-> FieldDefinition
-Select -u-> Fragment
+Select *-d- "1..*" Field
+Select *-d- FromClause
+FromClause *-d- "1..*" TableReference
+Table .u.|> TableReference
 @enduml

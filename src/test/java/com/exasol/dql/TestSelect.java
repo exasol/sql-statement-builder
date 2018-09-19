@@ -27,8 +27,7 @@ class TestSelect {
 
     @Test
     void testEmptySelect() {
-        final Fragment fragment = StatementFactory.getInstance().select();
-        assertFragmentRenderedTo(fragment, "SELECT");
+        assertFragmentRenderedTo(StatementFactory.getInstance().select(), "SELECT");
     }
 
     private void assertFragmentRenderedTo(final Fragment fragment, final String expected) {
@@ -41,19 +40,24 @@ class TestSelect {
         final StringRendererConfig.Builder builder = new StringRendererConfig.Builder();
         builder.lowerCase(true);
         this.renderer = new StringRenderer(builder.build());
-        final Fragment fragment = StatementFactory.getInstance().select();
-        assertFragmentRenderedTo(fragment, "select");
+        assertFragmentRenderedTo(StatementFactory.getInstance().select(), "select");
     }
 
     @Test
     void testSelectAll() {
-        final Fragment fragment = StatementFactory.getInstance().select().all();
-        assertFragmentRenderedTo(fragment, "SELECT *");
+        assertFragmentRenderedTo(StatementFactory.getInstance().select().all(), //
+                "SELECT *");
     }
 
     @Test
     void testSelectFieldNames() {
-        final Fragment fragment = StatementFactory.getInstance().select().field("a", "b");
-        assertFragmentRenderedTo(fragment, "SELECT a, b");
+        assertFragmentRenderedTo(StatementFactory.getInstance().select().field("a", "b"), //
+                "SELECT a, b");
+    }
+
+    @Test
+    void testSelectFromTable() {
+        assertFragmentRenderedTo(StatementFactory.getInstance().select().all().from("table"), //
+                "SELECT * FROM table");
     }
 }

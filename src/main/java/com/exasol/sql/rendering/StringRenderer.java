@@ -1,5 +1,6 @@
 package com.exasol.sql.rendering;
 
+import com.exasol.sql.Fragment;
 import com.exasol.sql.FragmentVisitor;
 import com.exasol.sql.dql.*;
 
@@ -27,6 +28,15 @@ public class StringRenderer implements FragmentVisitor {
         this.config = config;
     }
 
+    /**
+     * Render an SQL statement to a string.
+     *
+     * @return rendered string
+     */
+    public String render() {
+        return this.builder.toString();
+    }
+
     @Override
     public void visit(final Select select) {
         this.builder.append(this.config.produceLowerCase() ? "select" : "SELECT");
@@ -34,23 +44,30 @@ public class StringRenderer implements FragmentVisitor {
 
     @Override
     public void visit(final Field field) {
-        if (!field.isFirstSibling()) {
-            this.builder.append(",");
-        }
+        appendCommaWhenNeeded(field);
         this.builder.append(" ");
         this.builder.append(field.getName());
     }
 
-    @Override
-    public void visit(final TableExpression tableExpression) {
+    private void appendCommaWhenNeeded(final Fragment fragment) {
+        if (!fragment.isFirstSibling()) {
+            this.builder.append(",");
+        }
     }
 
-    /**
-     * Render an SQL statement to a string.
-     * 
-     * @return rendered string
-     */
-    public String render() {
-        return this.builder.toString();
+    @Override
+    public void visit(final FromClause fromClause) {
+        this.builder.append(this.config.produceLowerCase() ? " from" : " FROM");
+    }
+
+    @Override
+    public void visit(final TableReference tableReference) {
+    }
+
+    @Override
+    public void visit(final Table table) {
+        appendCommaWhenNeeded(table);
+        this.builder.append(" ");
+        this.builder.append(table.getName());
     }
 }
