@@ -1,25 +1,16 @@
 package com.exasol.dql;
 
-import static org.hamcrest.CoreMatchers.equalTo;
+import static com.exasol.hamcrest.RenderResultMatcher.rendersTo;
+import static com.exasol.hamcrest.RenderResultMatcher.rendersWithConfigTo;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.exasol.sql.Fragment;
 import com.exasol.sql.dql.StatementFactory;
 import com.exasol.sql.dql.StringRendererConfig;
-import com.exasol.sql.rendering.StringRenderer;
 
 class TestSelect {
-    private StringRenderer renderer;
-
-    @BeforeEach
-    void beforeEach() {
-        this.renderer = new StringRenderer();
-    }
-
     @Test
     void testGetParentReturnsNull() {
         assertThat(StatementFactory.getInstance().select().getParent(), nullValue());
@@ -27,37 +18,51 @@ class TestSelect {
 
     @Test
     void testEmptySelect() {
-        assertFragmentRenderedTo(StatementFactory.getInstance().select(), "SELECT");
-    }
-
-    private void assertFragmentRenderedTo(final Fragment fragment, final String expected) {
-        fragment.getRoot().accept(this.renderer);
-        assertThat(this.renderer.render(), equalTo(expected));
+        assertThat(StatementFactory.getInstance().select(), rendersTo("SELECT"));
     }
 
     @Test
     void testEmptySelectLowerCase() {
-        final StringRendererConfig.Builder builder = new StringRendererConfig.Builder();
-        builder.lowerCase(true);
-        this.renderer = new StringRenderer(builder.build());
-        assertFragmentRenderedTo(StatementFactory.getInstance().select(), "select");
+        final StringRendererConfig config = new StringRendererConfig.Builder().lowerCase(true).build();
+        assertThat(StatementFactory.getInstance().select(), rendersWithConfigTo(config, "select"));
     }
 
     @Test
     void testSelectAll() {
-        assertFragmentRenderedTo(StatementFactory.getInstance().select().all(), //
-                "SELECT *");
+        assertThat(StatementFactory.getInstance().select().all(), rendersTo("SELECT *"));
     }
 
     @Test
     void testSelectFieldNames() {
-        assertFragmentRenderedTo(StatementFactory.getInstance().select().field("a", "b"), //
-                "SELECT a, b");
+        assertThat(StatementFactory.getInstance().select().field("a", "b"), rendersTo("SELECT a, b"));
+    }
+
+    @Test
+    void testSelectChainOfFieldNames() {
+        assertThat(StatementFactory.getInstance().select().field("a", "b").field("c"), rendersTo("SELECT a, b, c"));
     }
 
     @Test
     void testSelectFromTable() {
-        assertFragmentRenderedTo(StatementFactory.getInstance().select().all().from("table"), //
-                "SELECT * FROM table");
+        assertThat(StatementFactory.getInstance().select().all().from("table"), rendersTo("SELECT * FROM table"));
+    }
+
+    @Test
+    void testSelectFromMultipleTable() {
+        assertThat(StatementFactory.getInstance().select().all().from("table1").from("table2"),
+                rendersTo("SELECT * FROM table1, table2"));
+    }
+
+    @Test
+    void testSelectFromTableAs() {
+        assertThat(StatementFactory.getInstance().select().all().fromTableAs("table", "t"),
+                rendersTo("SELECT * FROM table AS t"));
+    }
+
+    @Test
+    void testSelectFromMultipleTableAs() {
+        assertThat(
+                StatementFactory.getInstance().select().all().fromTableAs("table1", "t1").fromTableAs("table2", "t2"),
+                rendersTo("SELECT * FROM table1 AS t1, table2 AS t2"));
     }
 }

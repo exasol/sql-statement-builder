@@ -40,9 +40,11 @@ public class StringRendererConfig {
          *
          * @param lowerCase set to <code>true</code> if the statement should be produced
          *                  in lower case
+         * @return this instance for fluent programming
          */
-        public void lowerCase(final boolean lowerCase) {
+        public Builder lowerCase(final boolean lowerCase) {
             this.lowerCase = lowerCase;
+            return this;
         }
     }
 }

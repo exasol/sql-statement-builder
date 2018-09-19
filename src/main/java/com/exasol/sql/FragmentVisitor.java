@@ -15,4 +15,6 @@ public interface FragmentVisitor {
     public void visit(TableReference tableReference);
 
     public void visit(Table table);
+
+    public void visit(Join join);
 }

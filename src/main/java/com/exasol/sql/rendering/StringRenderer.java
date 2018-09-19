@@ -1,5 +1,7 @@
 package com.exasol.sql.rendering;
 
+import java.util.Optional;
+
 import com.exasol.sql.Fragment;
 import com.exasol.sql.FragmentVisitor;
 import com.exasol.sql.dql.*;
@@ -16,7 +18,7 @@ public class StringRenderer implements FragmentVisitor {
      * {@link StringRendererConfig}.
      */
     public StringRenderer() {
-        this.config = new StringRendererConfig.Builder().build();
+        this(new StringRendererConfig.Builder().build());
     }
 
     /**
@@ -39,7 +41,11 @@ public class StringRenderer implements FragmentVisitor {
 
     @Override
     public void visit(final Select select) {
-        this.builder.append(this.config.produceLowerCase() ? "select" : "SELECT");
+        this.builder.append(produceLowerCase() ? "select" : "SELECT");
+    }
+
+    private boolean produceLowerCase() {
+        return this.config.produceLowerCase();
     }
 
     @Override
@@ -57,7 +63,7 @@ public class StringRenderer implements FragmentVisitor {
 
     @Override
     public void visit(final FromClause fromClause) {
-        this.builder.append(this.config.produceLowerCase() ? " from" : " FROM");
+        this.builder.append(produceLowerCase() ? " from" : " FROM");
     }
 
     @Override
@@ -69,5 +75,18 @@ public class StringRenderer implements FragmentVisitor {
         appendCommaWhenNeeded(table);
         this.builder.append(" ");
         this.builder.append(table.getName());
+        final Optional<String> as = table.getAs();
+        if (as.isPresent()) {
+            this.builder.append(produceLowerCase() ? " as " : " AS ");
+            this.builder.append(as.get());
+        }
+    }
+
+    @Override
+    public void visit(final Join join) {
+        this.builder.append(produceLowerCase() ? " join " : " JOIN ");
+        this.builder.append(join.getName());
+        this.builder.append(produceLowerCase() ? " on " : " ON ");
+        this.builder.append(join.getSpecification());
     }
 }

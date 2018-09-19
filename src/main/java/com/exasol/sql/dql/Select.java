@@ -38,13 +38,27 @@ public class Select extends AbstractFragement implements SqlStatement {
     }
 
     /**
-     * Add a {@link FromClause} to the statement with table names
+     * Add a {@link FromClause} to the statement with a table identified by its name
      *
-     * @param names table reference names
+     * @param name table reference name
      * @return the FROM clause
      */
-    public FromClause from(final String... names) {
-        final FromClause from = new FromClause(this, names);
+    public FromClause from(final String name) {
+        final FromClause from = FromClause.table(this, name);
+        addChild(from);
+        return from;
+    }
+
+    /**
+     * Add a {@link FromClause} to the statement with an aliased table identified by
+     * its name
+     *
+     * @param name table reference name
+     * @param as   table correlation name
+     * @return the FROM clause
+     */
+    public FromClause fromTableAs(final String name, final String as) {
+        final FromClause from = FromClause.tableAs(this, name, as);
         addChild(from);
         return from;
     }

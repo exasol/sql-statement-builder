@@ -1,5 +1,7 @@
 package com.exasol.sql.dql;
 
+import java.util.Optional;
+
 import com.exasol.sql.*;
 
 /**
@@ -7,6 +9,7 @@ import com.exasol.sql.*;
  */
 public class Table extends AbstractFragement implements TableReference {
     private final String name;
+    private final Optional<String> as;
 
     /**
      * Create a new {@link Table}
@@ -17,6 +20,13 @@ public class Table extends AbstractFragement implements TableReference {
     public Table(final Fragment parent, final String name) {
         super(parent);
         this.name = name;
+        this.as = Optional.empty();
+    }
+
+    public Table(final Fragment parent, final String name, final String as) {
+        super(parent);
+        this.name = name;
+        this.as = Optional.of(as);
     }
 
     /**
@@ -26,6 +36,15 @@ public class Table extends AbstractFragement implements TableReference {
      */
     public String getName() {
         return this.name;
+    }
+
+    /**
+     * Get the correlation name (i.e. an alias) of the table.
+     *
+     * @return correlation name
+     */
+    public Optional<String> getAs() {
+        return this.as;
     }
 
     @Override

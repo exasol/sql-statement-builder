@@ -1,8 +1,5 @@
 @startuml
-hide empty methods
-hide empty attributes
-skinparam style strictuml
-!pragma horizontalLineBetweenDifferentPackageAllowed
+!include ../exasol.skin
 
 together {
 	interface Fragment <<interface>>
