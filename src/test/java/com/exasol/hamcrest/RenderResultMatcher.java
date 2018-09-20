@@ -4,8 +4,8 @@ import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 
 import com.exasol.sql.Fragment;
-import com.exasol.sql.dql.StringRendererConfig;
 import com.exasol.sql.rendering.StringRenderer;
+import com.exasol.sql.rendering.StringRendererConfig;
 
 /**
  * This class implements a matcher for multi-line text that helps finding the

@@ -5,11 +5,12 @@ import java.util.Optional;
 import com.exasol.sql.Fragment;
 import com.exasol.sql.FragmentVisitor;
 import com.exasol.sql.dql.*;
+import com.exasol.util.visitor.AbstractHierarchicalVisitor;
 
 /**
  * The {@link StringRenderer} turns SQL statement structures in to SQL strings.
  */
-public class StringRenderer implements FragmentVisitor {
+public class StringRenderer extends AbstractHierarchicalVisitor implements FragmentVisitor {
     private final StringBuilder builder = new StringBuilder();
     private final StringRendererConfig config;
 
@@ -84,6 +85,11 @@ public class StringRenderer implements FragmentVisitor {
 
     @Override
     public void visit(final Join join) {
+        final JoinType type = join.getType();
+        if (type != JoinType.DEFAULT) {
+            this.builder.append(" ");
+            this.builder.append(produceLowerCase() ? type.toString().toLowerCase() : type.toString());
+        }
         this.builder.append(produceLowerCase() ? " join " : " JOIN ");
         this.builder.append(join.getName());
         this.builder.append(produceLowerCase() ? " on " : " ON ");

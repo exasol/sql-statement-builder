@@ -8,7 +8,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.jupiter.api.Test;
 
 import com.exasol.sql.dql.StatementFactory;
-import com.exasol.sql.dql.StringRendererConfig;
+import com.exasol.sql.rendering.StringRendererConfig;
 
 class TestSelect {
     @Test

@@ -1,4 +1,6 @@
-package com.exasol.sql.dql;
+package com.exasol.sql.rendering;
+
+import com.exasol.sql.dql.StatementFactory;
 
 /**
  * This class implements a parameter object containing the configuration options

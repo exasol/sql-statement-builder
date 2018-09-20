@@ -7,7 +7,7 @@ import com.exasol.sql.*;
 /**
  * This class represents a {@link Table} in an SQL Statement
  */
-public class Table extends AbstractFragement implements TableReference {
+public class Table extends AbstractFragment implements TableReference {
     private final String name;
     private final Optional<String> as;
 

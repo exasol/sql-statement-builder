@@ -5,7 +5,7 @@ import com.exasol.sql.*;
 /**
  * This class implements an SQL {@link Select} statement
  */
-public class Select extends AbstractFragement implements SqlStatement {
+public class Select extends AbstractFragment implements SqlStatement {
     public Select(final Fragment parent) {
         super(parent);
     }

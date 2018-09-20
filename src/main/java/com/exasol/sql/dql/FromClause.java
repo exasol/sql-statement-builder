@@ -2,7 +2,7 @@ package com.exasol.sql.dql;
 
 import com.exasol.sql.*;
 
-public class FromClause extends AbstractFragement {
+public class FromClause extends AbstractFragment {
     public FromClause(final Fragment parent) {
         super(parent);
     }
@@ -35,7 +35,42 @@ public class FromClause extends AbstractFragement {
     }
 
     public FromClause join(final String name, final String specification) {
-        addChild(new Join(this, name, specification));
+        addChild(new Join(this, JoinType.DEFAULT, name, specification));
+        return this;
+    }
+
+    public FromClause innerJoin(final String name, final String specification) {
+        addChild(new Join(this, JoinType.INNER, name, specification));
+        return this;
+    }
+
+    public FromClause leftJoin(final String name, final String specification) {
+        addChild(new Join(this, JoinType.LEFT, name, specification));
+        return this;
+    }
+
+    public FromClause rightJoin(final String name, final String specification) {
+        addChild(new Join(this, JoinType.RIGHT, name, specification));
+        return this;
+    }
+
+    public FromClause fullJoin(final String name, final String specification) {
+        addChild(new Join(this, JoinType.FULL, name, specification));
+        return this;
+    }
+
+    public FromClause leftOuterJoin(final String name, final String specification) {
+        addChild(new Join(this, JoinType.LEFT_OUTER, name, specification));
+        return this;
+    }
+
+    public FromClause rightOuterJoin(final String name, final String specification) {
+        addChild(new Join(this, JoinType.RIGHT_OUTER, name, specification));
+        return this;
+    }
+
+    public FromClause fullOuterJoin(final String name, final String specification) {
+        addChild(new Join(this, JoinType.FULL_OUTER, name, specification));
         return this;
     }
 }

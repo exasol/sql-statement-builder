@@ -9,12 +9,12 @@ import java.util.List;
  *
  * @param <T> the type of the concrete class implementing the missing parts.
  */
-public abstract class AbstractFragement implements Fragment {
+public abstract class AbstractFragment implements Fragment {
     private final Fragment root;
     protected final Fragment parent;
     protected final List<Fragment> children = new ArrayList<>();
 
-    protected AbstractFragement(final Fragment parent) {
+    protected AbstractFragment(final Fragment parent) {
         if (parent == null) {
             this.root = this;
         } else {

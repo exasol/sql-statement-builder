@@ -2,7 +2,7 @@ package com.exasol.sql.dql;
 
 import com.exasol.sql.*;
 
-public class Field extends AbstractFragement implements FieldDefinition {
+public class Field extends AbstractFragment implements FieldDefinition {
     private final String name;
 
     protected Field(final Fragment parent, final String name) {
