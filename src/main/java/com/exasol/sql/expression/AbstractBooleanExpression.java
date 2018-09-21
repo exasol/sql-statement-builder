@@ -25,6 +25,7 @@ public abstract class AbstractBooleanExpression extends AbstractBottomUpTreeNode
         for (final TreeNode child : this.getChildren()) {
             ((BooleanExpression) child).accept(visitor);
         }
+        dismissConcrete(visitor);
     }
 
     /**
@@ -34,4 +35,12 @@ public abstract class AbstractBooleanExpression extends AbstractBottomUpTreeNode
      * @param visitor visitor to accept
      */
     public abstract void acceptConcrete(final BooleanExpressionVisitor visitor);
+
+    /**
+     * Sub-classes must override this method so that the visitor knows the type of
+     * the visited class at compile time.
+     *
+     * @param visitor visitor to accept
+     */
+    public abstract void dismissConcrete(final BooleanExpressionVisitor visitor);
 }

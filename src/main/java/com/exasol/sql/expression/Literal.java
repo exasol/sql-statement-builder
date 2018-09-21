@@ -26,4 +26,23 @@ public class Literal extends AbstractBooleanExpression {
     public void acceptConcrete(final BooleanExpressionVisitor visitor) {
         visitor.visit(this);
     }
+
+    @Override
+    public void dismissConcrete(final BooleanExpressionVisitor visitor) {
+        visitor.leave(this);
+    }
+
+    /**
+     * Map an array of {@link String} to and array of BooleanExpressions
+     * 
+     * @param strings
+     * @return
+     */
+    public static BooleanExpression[] toBooleanExpressions(final String[] strings) {
+        final BooleanExpression[] literals = new BooleanExpression[strings.length];
+        for (int i = 0; i < strings.length; ++i) {
+            literals[i] = Literal.of(strings[i]);
+        }
+        return literals;
+    }
 }

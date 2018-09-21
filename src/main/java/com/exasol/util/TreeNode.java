@@ -47,8 +47,15 @@ public interface TreeNode {
     public TreeNode getChild(int index) throws IndexOutOfBoundsException;
 
     /**
-     * Check whether this node is a child node
+     * Check whether this node is the root of the tree.
      * 
+     * @return <code>true</code> if this node is the root
+     */
+    public boolean isRoot();
+
+    /**
+     * Check whether this node is a child node
+     *
      * @return <code>true</code> if the node is a child of another node
      */
     public boolean isChild();

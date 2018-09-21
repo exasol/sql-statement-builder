@@ -105,6 +105,11 @@ public abstract class AbstractBottomUpTreeNode implements TreeNode {
     }
 
     @Override
+    public boolean isRoot() {
+        return (this == getRoot());
+    }
+
+    @Override
     public boolean isChild() {
         return (this.parent != null);
     }

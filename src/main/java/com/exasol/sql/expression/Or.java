@@ -3,22 +3,22 @@ package com.exasol.sql.expression;
 /**
  * This class represents
  */
-public class And extends AbstractBooleanExpression {
+public class Or extends AbstractBooleanExpression {
     /**
-     * Create a new {@link And} instance
+     * Create a new {@link Or} instance
      *
-     * @param expressions boolean expressions to be connected by a logical AND
+     * @param expressions boolean expressions to be connected by a logical Or
      */
-    public And(final BooleanExpression... expressions) {
+    public Or(final BooleanExpression... expressions) {
         super(expressions);
     }
 
     /**
-     * Create a new {@link And} instance
+     * Create a new {@link Or} instance
      *
-     * @param strings string literals to be connected by a logical AND
+     * @param strings string literals to be connected by a logical Or
      */
-    public And(final String... strings) {
+    public Or(final String... strings) {
         this(Literal.toBooleanExpressions(strings));
     }
 
