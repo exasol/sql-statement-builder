@@ -10,6 +10,10 @@ public class Select extends AbstractFragment implements SqlStatement {
         super(parent);
     }
 
+    public Select() {
+        super();
+    }
+
     @Override
     public String toString() {
         return "SELECT";

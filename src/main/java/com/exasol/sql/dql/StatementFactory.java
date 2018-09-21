@@ -28,6 +28,6 @@ public final class StatementFactory {
      * @return a new instance of a {@link Select} statement
      */
     public Select select() {
-        return new Select(null);
+        return new Select();
     }
 }

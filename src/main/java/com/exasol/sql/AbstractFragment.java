@@ -1,7 +1,7 @@
 package com.exasol.sql;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.exasol.util.AbstractTreeNode;
+import com.exasol.util.TreeNode;
 
 /**
  * This class provides an abstract base for SQL statement fragments. It also
@@ -9,53 +9,20 @@ import java.util.List;
  *
  * @param <T> the type of the concrete class implementing the missing parts.
  */
-public abstract class AbstractFragment implements Fragment {
-    private final Fragment root;
-    protected final Fragment parent;
-    protected final List<Fragment> children = new ArrayList<>();
+public abstract class AbstractFragment extends AbstractTreeNode implements Fragment {
+    protected AbstractFragment() {
+        super();
+    }
 
     protected AbstractFragment(final Fragment parent) {
-        if (parent == null) {
-            this.root = this;
-        } else {
-            this.root = parent.getRoot();
-        }
-        this.parent = parent;
-    }
-
-    @Override
-    public Fragment getRoot() {
-        return this.root;
-    }
-
-    @Override
-    public Fragment getParent() {
-        return this.parent;
-    }
-
-    protected void addChild(final Fragment child) {
-        this.children.add(child);
-    }
-
-    protected List<Fragment> getChildren() {
-        return this.children;
-    }
-
-    @Override
-    public Fragment getChild(final int index) {
-        return this.children.get(index);
-    }
-
-    @Override
-    public boolean isFirstSibling() {
-        return (this.parent != null) && (this.getParent().getChild(0) == this);
+        super(parent);
     }
 
     @Override
     public void accept(final FragmentVisitor visitor) {
         acceptConcrete(visitor);
-        for (final Fragment child : getChildren()) {
-            child.accept(visitor);
+        for (final TreeNode child : this.getChildren()) {
+            ((Fragment) child).accept(visitor);
         }
     }
 

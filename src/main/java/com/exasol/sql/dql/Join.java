@@ -27,7 +27,7 @@ public class Join extends AbstractFragment implements Fragment {
 
     /**
      * Get the type of the join
-     * 
+     *
      * @return join type (e.g. INNER or LEFT)
      */
     public JoinType getType() {

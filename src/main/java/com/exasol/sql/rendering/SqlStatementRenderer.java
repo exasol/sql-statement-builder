@@ -5,29 +5,29 @@ import java.util.Optional;
 import com.exasol.sql.Fragment;
 import com.exasol.sql.FragmentVisitor;
 import com.exasol.sql.dql.*;
-import com.exasol.util.visitor.AbstractHierarchicalVisitor;
+import com.exasol.sql.expression.*;
 
 /**
- * The {@link StringRenderer} turns SQL statement structures in to SQL strings.
+ * The {@link SqlStatementRenderer} turns SQL statement structures in to SQL strings.
  */
-public class StringRenderer extends AbstractHierarchicalVisitor implements FragmentVisitor {
+public class SqlStatementRenderer implements FragmentVisitor {
     private final StringBuilder builder = new StringBuilder();
     private final StringRendererConfig config;
 
     /**
-     * Create a new {@link StringRenderer} using the default
+     * Create a new {@link SqlStatementRenderer} using the default
      * {@link StringRendererConfig}.
      */
-    public StringRenderer() {
+    public SqlStatementRenderer() {
         this(new StringRendererConfig.Builder().build());
     }
 
     /**
-     * Create a new {@link StringRenderer} with custom render settings.
+     * Create a new {@link SqlStatementRenderer} with custom render settings.
      *
      * @param config render configuration settings
      */
-    public StringRenderer(final StringRendererConfig config) {
+    public SqlStatementRenderer(final StringRendererConfig config) {
         this.config = config;
     }
 
@@ -42,29 +42,33 @@ public class StringRenderer extends AbstractHierarchicalVisitor implements Fragm
 
     @Override
     public void visit(final Select select) {
-        this.builder.append(produceLowerCase() ? "select" : "SELECT");
+        appendKeyWord("select");
     }
 
-    private boolean produceLowerCase() {
-        return this.config.produceLowerCase();
+    private void appendKeyWord(final String keyWord) {
+        append(this.config.produceLowerCase() ? keyWord : keyWord.toUpperCase());
+    }
+
+    private StringBuilder append(final String string) {
+        return this.builder.append(string);
     }
 
     @Override
     public void visit(final Field field) {
         appendCommaWhenNeeded(field);
-        this.builder.append(" ");
-        this.builder.append(field.getName());
+        append(" ");
+        append(field.getName());
     }
 
     private void appendCommaWhenNeeded(final Fragment fragment) {
         if (!fragment.isFirstSibling()) {
-            this.builder.append(",");
+            append(",");
         }
     }
 
     @Override
     public void visit(final FromClause fromClause) {
-        this.builder.append(produceLowerCase() ? " from" : " FROM");
+        appendKeyWord(" from");
     }
 
     @Override
@@ -74,12 +78,12 @@ public class StringRenderer extends AbstractHierarchicalVisitor implements Fragm
     @Override
     public void visit(final Table table) {
         appendCommaWhenNeeded(table);
-        this.builder.append(" ");
-        this.builder.append(table.getName());
+        append(" ");
+        append(table.getName());
         final Optional<String> as = table.getAs();
         if (as.isPresent()) {
-            this.builder.append(produceLowerCase() ? " as " : " AS ");
-            this.builder.append(as.get());
+            appendKeyWord(" as ");
+            append(as.get());
         }
     }
 
@@ -87,12 +91,28 @@ public class StringRenderer extends AbstractHierarchicalVisitor implements Fragm
     public void visit(final Join join) {
         final JoinType type = join.getType();
         if (type != JoinType.DEFAULT) {
-            this.builder.append(" ");
-            this.builder.append(produceLowerCase() ? type.toString().toLowerCase() : type.toString());
+            append(" ");
+            appendKeyWord(type.toString());
         }
-        this.builder.append(produceLowerCase() ? " join " : " JOIN ");
-        this.builder.append(join.getName());
-        this.builder.append(produceLowerCase() ? " on " : " ON ");
-        this.builder.append(join.getSpecification());
+        appendKeyWord(" join ");
+        append(join.getName());
+        appendKeyWord(" on ");
+        append(join.getSpecification());
+    }
+
+    @Override
+    public void visit(final AbstractBooleanExpression expression) {
+
+    }
+
+    @Override
+    public void visit(final Not not) {
+        appendKeyWord(" not");
+    }
+
+    @Override
+    public void visit(final Literal literal) {
+        append(" ");
+        append(literal.toString());
     }
 }

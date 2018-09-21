@@ -1,6 +1,6 @@
-package com.exasol.dql;
+package com.exasol.dql.rendering;
 
-import static com.exasol.hamcrest.RenderResultMatcher.rendersTo;
+import static com.exasol.hamcrest.SqlFragmentRenderResultMatcher.rendersTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,7 @@
 hide empty methods
 hide empty attributes
 skinparam style strictuml
+skinparam classAttributeIconSize 0
 !pragma horizontalLineBetweenDifferentPackageAllowed
 
 skinparam Arrow {
@@ -16,6 +17,22 @@ skinparam Class {
     BackgroundColor<<interface>> 00b09b
 	FontColor<<interface>> ffffff
 	StereotypeFontColor<<interface>> ffffff
+}
+
+skinparam ClassAttribute {
+    BackgroundColor fffff
+	FontColor 093e52
+	BorderColor 093e52
+    BackgroundColor<<interface>> 00b09b
+	FontColor<<interface>> ffffff
+	StereotypeFontColor<<interface>> ffffff
+}
+
+skinparam Package {
+    BackgroundColor fffff
+	FontColor 093e52
+	FontStyle bold
+	BorderColor 093e52
 }
 
 skinparam padding 5

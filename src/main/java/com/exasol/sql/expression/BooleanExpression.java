@@ -1,18 +1,15 @@
 package com.exasol.sql.expression;
 
-import com.exasol.sql.*;
+import com.exasol.util.TreeNode;
 
-public class BooleanExpression extends AbstractFragment {
-    protected BooleanExpression(final Fragment parent) {
-        super(parent);
-    }
-
-    public static BooleanExpression not(final String string) {
-        return new BooleanExpression(null);
-    }
-
-    @Override
-    protected void acceptConcrete(final FragmentVisitor visitor) {
-        visitor.visit(this);
-    }
+/**
+ * Common interface for all types of boolean expressions
+ */
+public interface BooleanExpression extends TreeNode {
+    /**
+     * Accept a visitor
+     *
+     * @param visitor visitor to accept
+     */
+    public void accept(final BooleanExpressionVisitor visitor);
 }

@@ -1,7 +1,7 @@
-package com.exasol.dql;
+package com.exasol.dql.rendering;
 
-import static com.exasol.hamcrest.RenderResultMatcher.rendersTo;
-import static com.exasol.hamcrest.RenderResultMatcher.rendersWithConfigTo;
+import static com.exasol.hamcrest.SqlFragmentRenderResultMatcher.rendersTo;
+import static com.exasol.hamcrest.SqlFragmentRenderResultMatcher.rendersWithConfigTo;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
