@@ -5,10 +5,11 @@ import java.util.Optional;
 import com.exasol.sql.Fragment;
 import com.exasol.sql.FragmentVisitor;
 import com.exasol.sql.dql.*;
-import com.exasol.sql.expression.*;
+import com.exasol.sql.expression.AbstractBooleanExpression;
 
 /**
- * The {@link SqlStatementRenderer} turns SQL statement structures in to SQL strings.
+ * The {@link SqlStatementRenderer} turns SQL statement structures in to SQL
+ * strings.
  */
 public class SqlStatementRenderer implements FragmentVisitor {
     private final StringBuilder builder = new StringBuilder();
@@ -103,16 +104,5 @@ public class SqlStatementRenderer implements FragmentVisitor {
     @Override
     public void visit(final AbstractBooleanExpression expression) {
 
-    }
-
-    @Override
-    public void visit(final Not not) {
-        appendKeyWord(" not");
-    }
-
-    @Override
-    public void visit(final Literal literal) {
-        append(" ");
-        append(literal.toString());
     }
 }

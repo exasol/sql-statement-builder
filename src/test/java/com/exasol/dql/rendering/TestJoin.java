@@ -33,7 +33,7 @@ class TestJoin {
     }
 
     @Test
-    public void testRigthJoin() {
+    public void testRightJoin() {
         assertThat(
                 StatementFactory.getInstance().select().all().from("left_table").rightJoin("right_table",
                         "left_table.foo_id = right_table.foo_id"),
@@ -43,10 +43,9 @@ class TestJoin {
     @Test
     public void testFullJoin() {
         assertThat(
-                StatementFactory.getInstance().select().all().from("left_table").fullOuterJoin("right_table",
+                StatementFactory.getInstance().select().all().from("left_table").fullJoin("right_table",
                         "left_table.foo_id = right_table.foo_id"),
-                rendersTo(
-                        "SELECT * FROM left_table FULL OUTER JOIN right_table ON left_table.foo_id = right_table.foo_id"));
+                rendersTo("SELECT * FROM left_table FULL JOIN right_table ON left_table.foo_id = right_table.foo_id"));
     }
 
     @Test
@@ -59,7 +58,7 @@ class TestJoin {
     }
 
     @Test
-    public void testRigthOuterJoin() {
+    public void testRightOuterJoin() {
         assertThat(
                 StatementFactory.getInstance().select().all().from("left_table").rightOuterJoin("right_table",
                         "left_table.foo_id = right_table.foo_id"),

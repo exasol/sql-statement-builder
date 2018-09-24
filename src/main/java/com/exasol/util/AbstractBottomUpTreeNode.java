@@ -18,16 +18,6 @@ public abstract class AbstractBottomUpTreeNode implements TreeNode {
     }
 
     /**
-     * Create a new instance of a {@link AbstractBottomUpTreeNode} that has one
-     * child.
-     */
-    public AbstractBottomUpTreeNode(final TreeNode child) {
-        this.children = new ArrayList<TreeNode>();
-        this.children.add(child);
-        assignThisAsParentTo(child);
-    }
-
-    /**
      * Create a new instance of a {@link AbstractBottomUpTreeNode}.
      *
      * @param children child nodes to be linked to this node.
@@ -54,7 +44,9 @@ public abstract class AbstractBottomUpTreeNode implements TreeNode {
         if (existingParent == null) {
             ((AbstractBottomUpTreeNode) child).parent = this;
         } else {
-            assertChildCanAcceptThisAsParent(child, existingParent);
+            throw new IllegalStateException(
+                    "Tried to link node \"" + child.toString() + "\" in bottom-up tree to parent \"" + this.toString()
+                            + "\" which already has a parent \"" + existingParent + "\"");
         }
     }
 
@@ -63,14 +55,6 @@ public abstract class AbstractBottomUpTreeNode implements TreeNode {
             throw new IllegalArgumentException("A bottom up tree can only be constructed from nodes of type \""
                     + AbstractBottomUpTreeNode.class.getName() + "\" but got an object of type \""
                     + child.getClass().getName() + "\"");
-        }
-    }
-
-    private void assertChildCanAcceptThisAsParent(final TreeNode child, final TreeNode existingParent) {
-        if (existingParent != this) {
-            throw new IllegalStateException(
-                    "Tried to link node \"" + child.toString() + "\" in bottom-up tree to parent \"" + this.toString()
-                            + "\" which already has a parent \"" + existingParent + "\"");
         }
     }
 
