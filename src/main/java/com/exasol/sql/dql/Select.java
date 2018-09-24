@@ -1,38 +1,50 @@
 package com.exasol.sql.dql;
 
 import com.exasol.sql.*;
+import com.exasol.sql.expression.BooleanExpression;
 
 /**
  * This class implements an SQL {@link Select} statement
  */
 public class Select extends AbstractFragment implements SqlStatement {
-    public Select(final Fragment parent) {
-        super(parent);
-    }
-
+    /**
+     * Create a new instance of a {@link Select}
+     */
     public Select() {
         super();
     }
 
-    @Override
-    public String toString() {
-        return "SELECT";
-    }
-
     /**
-     * Create a wildcard field for all involved fields.
+     * Add a wildcard field for all involved fields.
      *
-     * @return this instance for fluent programming
+     * @return <code>this</code> instance for fluent programming
      */
     public Select all() {
         addChild(Field.all(this));
         return this;
     }
 
+    /**
+     * Add one or more named fields.
+     *
+     * @param names field name
+     * @return <code>this</code> instance for fluent programming
+     */
     public Select field(final String... names) {
         for (final String name : names) {
             addChild(new Field(this, name));
         }
+        return this;
+    }
+
+    /**
+     * Add a boolean value expression
+     *
+     * @param expression boolean value expression
+     * @return <code>this</code> instance for fluent programming
+     */
+    public Select value(final BooleanExpression expression) {
+        addChild(new BooleanValueExpression(this, expression));
         return this;
     }
 

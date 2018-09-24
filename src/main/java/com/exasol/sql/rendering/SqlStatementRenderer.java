@@ -5,7 +5,7 @@ import java.util.Optional;
 import com.exasol.sql.Fragment;
 import com.exasol.sql.FragmentVisitor;
 import com.exasol.sql.dql.*;
-import com.exasol.sql.expression.AbstractBooleanExpression;
+import com.exasol.sql.expression.rendering.BooleanExpressionRenderer;
 
 /**
  * The {@link SqlStatementRenderer} turns SQL statement structures in to SQL
@@ -73,10 +73,6 @@ public class SqlStatementRenderer implements FragmentVisitor {
     }
 
     @Override
-    public void visit(final TableReference tableReference) {
-    }
-
-    @Override
     public void visit(final Table table) {
         appendCommaWhenNeeded(table);
         append(" ");
@@ -102,7 +98,10 @@ public class SqlStatementRenderer implements FragmentVisitor {
     }
 
     @Override
-    public void visit(final AbstractBooleanExpression expression) {
-
+    public void visit(final BooleanValueExpression value) {
+        final BooleanExpressionRenderer subRenderer = new BooleanExpressionRenderer();
+        value.getExpression().accept(subRenderer);
+        append(" ");
+        append(subRenderer.render());
     }
 }

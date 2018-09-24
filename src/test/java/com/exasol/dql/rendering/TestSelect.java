@@ -8,6 +8,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.jupiter.api.Test;
 
 import com.exasol.sql.dql.StatementFactory;
+import com.exasol.sql.expression.BooleanTerm;
 import com.exasol.sql.rendering.StringRendererConfig;
 
 class TestSelect {
@@ -64,5 +65,10 @@ class TestSelect {
         assertThat(
                 StatementFactory.getInstance().select().all().fromTableAs("table1", "t1").fromTableAs("table2", "t2"),
                 rendersTo("SELECT * FROM table1 AS t1, table2 AS t2"));
+    }
+
+    @Test
+    void testSelectEmbeddedBooleanExpression() {
+        assertThat(StatementFactory.getInstance().select().value(BooleanTerm.not("a")), rendersTo("SELECT NOT(a)"));
     }
 }

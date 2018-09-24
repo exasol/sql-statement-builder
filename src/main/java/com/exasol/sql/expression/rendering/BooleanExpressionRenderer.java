@@ -95,14 +95,6 @@ public class BooleanExpressionRenderer implements BooleanExpressionVisitor {
         this.builder.append(string);
     }
 
-    @Override
-    public void visit(final BooleanTerm booleanTerm) {
-    }
-
-    @Override
-    public void leave(final BooleanTerm booleanTerm) {
-    }
-
     private void startParenthesis() {
         this.builder.append("(");
     }

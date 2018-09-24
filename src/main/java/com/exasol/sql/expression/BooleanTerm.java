@@ -1,8 +1,8 @@
 package com.exasol.sql.expression;
 
-public class BooleanTerm extends AbstractBooleanExpression {
-    public BooleanTerm(final BooleanExpression nestedExpression) {
-        super(nestedExpression);
+public abstract class BooleanTerm extends AbstractBooleanExpression {
+    private BooleanTerm() {
+        super();
     }
 
     public static BooleanExpression not(final String string) {
@@ -43,15 +43,5 @@ public class BooleanTerm extends AbstractBooleanExpression {
 
     public static BooleanExpression or(final BooleanExpression... expressions) {
         return new Or(expressions);
-    }
-
-    @Override
-    public void acceptConcrete(final BooleanExpressionVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public void dismissConcrete(final BooleanExpressionVisitor visitor) {
-        visitor.leave(this);
     }
 }

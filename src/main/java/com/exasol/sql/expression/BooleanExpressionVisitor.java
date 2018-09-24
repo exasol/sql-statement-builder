@@ -8,15 +8,11 @@ public interface BooleanExpressionVisitor {
 
     void visit(Literal literal);
 
-    void visit(BooleanTerm booleanTerm);
-
     void visit(And and);
 
     void leave(Not not);
 
     void leave(Literal literal);
-
-    void leave(BooleanTerm booleanTerm);
 
     void leave(And and);
 
