@@ -3,8 +3,7 @@ package com.exasol.util;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -94,5 +93,18 @@ class TestAbstractTreeNode {
         final TreeNode child = new DummyTreeNode();
         this.node.addChild(child);
         assertThat(child.getParent(), equalTo(this.node));
+    }
+
+    @Test
+    void testSetParentToNullThrowsException() {
+        assertThrows(IllegalArgumentException.class, () -> new DummyTreeNode().setParent(null));
+    }
+
+    @Test
+    void testSetParentToSelfThrowsException() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            final DummyTreeNode abstractNode = new DummyTreeNode();
+            abstractNode.setParent(abstractNode);
+        });
     }
 }

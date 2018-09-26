@@ -66,13 +66,4 @@ public class LimitClause extends AbstractFragment {
     public boolean hasOffset() {
         return this.offset > 0;
     }
-
-    /**
-     * Check if the limit clause has a count
-     *
-     * @return <code>true</code> if the limit clause has a count
-     */
-    public boolean hasCount() {
-        return this.count > 0;
-    }
 }

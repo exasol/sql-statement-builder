@@ -152,7 +152,6 @@ public class FromClause extends AbstractFragment {
      * @param count maximum number of rows to be included in query result
      * @return new instance
      */
-
     public LimitClause limit(final int offset, final int count) {
         final LimitClause limitClause = new LimitClause(offset, count);
         addChild(limitClause);

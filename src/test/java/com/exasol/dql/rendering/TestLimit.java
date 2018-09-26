@@ -17,6 +17,6 @@ class TestLimit {
     @Test
     void testLimitOffsetCountAfterFrom() {
         assertThat(StatementFactory.getInstance().select().all().from("t").limit(2, 3),
-                rendersTo("SELECT * FROM t LIMIT 3 OFFSET 2"));
+                rendersTo("SELECT * FROM t LIMIT 2, 3"));
     }
 }

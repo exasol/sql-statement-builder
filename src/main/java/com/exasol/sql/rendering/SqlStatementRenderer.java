@@ -112,13 +112,11 @@ public class SqlStatementRenderer implements FragmentVisitor {
     @Override
     public void visit(final LimitClause limit) {
         appendKeyWord(" LIMIT ");
-        if (limit.hasCount()) {
-            append(limit.getCount());
-        }
         if (limit.hasOffset()) {
-            appendKeyWord(" OFFSET ");
             append(limit.getOffset());
+            appendKeyWord(", ");
         }
+        append(limit.getCount());
     }
 
     private void append(final int number) {
