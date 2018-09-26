@@ -34,29 +34,29 @@ class TestAbstractTreeNode {
 
     @Test
     void testIsRootOnChild() {
-        final TreeNode child = new DummyTreeNode(this.node);
+        final TreeNode child = new DummyTreeNode();
         this.node.addChild(child);
         assertFalse(child.isRoot());
     }
 
     @Test
     void testIsChildOnChild() {
-        final TreeNode child = new DummyTreeNode(this.node);
+        final TreeNode child = new DummyTreeNode();
         this.node.addChild(child);
         assertTrue(child.isChild());
     }
 
     @Test
     void testIsFirstSiblingOnChild() {
-        final TreeNode child = new DummyTreeNode(this.node);
+        final TreeNode child = new DummyTreeNode();
         this.node.addChild(child);
         assertTrue(child.isFirstSibling());
     }
 
     @Test
     void testIsFirstSiblingOnFirstChild() {
-        final TreeNode child = new DummyTreeNode(this.node);
-        final TreeNode otherChild = new DummyTreeNode(this.node);
+        final TreeNode child = new DummyTreeNode();
+        final TreeNode otherChild = new DummyTreeNode();
         this.node.addChild(child);
         this.node.addChild(otherChild);
         assertTrue(child.isFirstSibling());
@@ -64,8 +64,8 @@ class TestAbstractTreeNode {
 
     @Test
     void testIsFirstSiblingOnSecondChild() {
-        final TreeNode child = new DummyTreeNode(this.node);
-        final TreeNode otherChild = new DummyTreeNode(this.node);
+        final TreeNode child = new DummyTreeNode();
+        final TreeNode otherChild = new DummyTreeNode();
         this.node.addChild(child);
         this.node.addChild(otherChild);
         assertFalse(otherChild.isFirstSibling());
@@ -73,8 +73,8 @@ class TestAbstractTreeNode {
 
     @Test
     void testGetChildren() {
-        final TreeNode child = new DummyTreeNode(this.node);
-        final TreeNode otherChild = new DummyTreeNode(this.node);
+        final TreeNode child = new DummyTreeNode();
+        final TreeNode otherChild = new DummyTreeNode();
         this.node.addChild(child);
         this.node.addChild(otherChild);
         assertThat(this.node.getChildren(), contains(child, otherChild));
@@ -82,8 +82,8 @@ class TestAbstractTreeNode {
 
     @Test
     void testGetChild() {
-        final TreeNode child = new DummyTreeNode(this.node);
-        final TreeNode otherChild = new DummyTreeNode(this.node);
+        final TreeNode child = new DummyTreeNode();
+        final TreeNode otherChild = new DummyTreeNode();
         this.node.addChild(child);
         this.node.addChild(otherChild);
         assertThat(this.node.getChild(1), equalTo(otherChild));
@@ -91,7 +91,7 @@ class TestAbstractTreeNode {
 
     @Test
     void testGetParent() {
-        final TreeNode child = new DummyTreeNode(this.node);
+        final TreeNode child = new DummyTreeNode();
         this.node.addChild(child);
         assertThat(child.getParent(), equalTo(this.node));
     }

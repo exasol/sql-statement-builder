@@ -14,10 +14,6 @@ public abstract class AbstractFragment extends AbstractTreeNode implements Fragm
         super();
     }
 
-    protected AbstractFragment(final Fragment parent) {
-        super(parent);
-    }
-
     @Override
     public void accept(final FragmentVisitor visitor) {
         acceptConcrete(visitor);

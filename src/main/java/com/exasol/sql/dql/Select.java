@@ -20,7 +20,7 @@ public class Select extends AbstractFragment implements SqlStatement {
      * @return <code>this</code> instance for fluent programming
      */
     public Select all() {
-        addChild(Field.all(this));
+        addChild(Field.all());
         return this;
     }
 
@@ -32,7 +32,7 @@ public class Select extends AbstractFragment implements SqlStatement {
      */
     public Select field(final String... names) {
         for (final String name : names) {
-            addChild(new Field(this, name));
+            addChild(new Field(name));
         }
         return this;
     }
@@ -44,7 +44,7 @@ public class Select extends AbstractFragment implements SqlStatement {
      * @return <code>this</code> instance for fluent programming
      */
     public Select value(final BooleanExpression expression) {
-        addChild(new BooleanValueExpression(this, expression));
+        addChild(new BooleanValueExpression(expression));
         return this;
     }
 
@@ -60,7 +60,7 @@ public class Select extends AbstractFragment implements SqlStatement {
      * @return the FROM clause
      */
     public FromClause from(final String name) {
-        final FromClause from = FromClause.table(this, name);
+        final FromClause from = new FromClause().from(name);
         addChild(from);
         return from;
     }
@@ -70,11 +70,11 @@ public class Select extends AbstractFragment implements SqlStatement {
      * its name
      *
      * @param name table reference name
-     * @param as   table correlation name
+     * @param as table correlation name
      * @return the FROM clause
      */
     public FromClause fromTableAs(final String name, final String as) {
-        final FromClause from = FromClause.tableAs(this, name, as);
+        final FromClause from = new FromClause().fromTableAs(name, as);
         addChild(from);
         return from;
     }

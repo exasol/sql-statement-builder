@@ -1,12 +1,13 @@
 package com.exasol.sql.dql;
 
-import com.exasol.sql.*;
+import com.exasol.sql.AbstractFragment;
+import com.exasol.sql.FragmentVisitor;
 
 public class Field extends AbstractFragment implements FieldDefinition {
     private final String name;
 
-    protected Field(final Fragment parent, final String name) {
-        super(parent);
+    protected Field(final String name) {
+        super();
         this.name = name;
     }
 
@@ -14,8 +15,8 @@ public class Field extends AbstractFragment implements FieldDefinition {
         return this.name;
     }
 
-    public static Field all(final Fragment parent) {
-        return new Field(parent, "*");
+    public static Field all() {
+        return new Field("*");
     }
 
     @Override

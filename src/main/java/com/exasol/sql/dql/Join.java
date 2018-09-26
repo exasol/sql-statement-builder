@@ -13,13 +13,12 @@ public class Join extends AbstractFragment implements Fragment {
     /**
      * Create a new {@link Join} instance
      *
-     * @param parent        parent {@link Fragment}
-     * @param type          type of join (e.g. INNER, LEFT or RIGHT OUTER)
-     * @param name          name of the table to be joined
+     * @param type type of join (e.g. INNER, LEFT or RIGHT OUTER)
+     * @param name name of the table to be joined
      * @param specification join specification (e.g. ON or USING)
      */
-    public Join(final Fragment parent, final JoinType type, final String name, final String specification) {
-        super(parent);
+    public Join(final JoinType type, final String name, final String specification) {
+        super();
         this.type = type;
         this.name = name;
         this.specification = specification;

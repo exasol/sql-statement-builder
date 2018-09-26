@@ -7,8 +7,8 @@ import java.util.List;
  * This is an abstract base class for nodes in a tree structure.
  */
 public abstract class AbstractTreeNode implements TreeNode {
-    private final TreeNode root;
-    private final TreeNode parent;
+    private TreeNode root;
+    private TreeNode parent;
     private final List<TreeNode> children = new ArrayList<>();
 
     /**
@@ -16,20 +16,25 @@ public abstract class AbstractTreeNode implements TreeNode {
      * tree.
      */
     public AbstractTreeNode() {
-        this(null);
+        this.root = this;
+        this.parent = null;
     }
 
     /**
-     * Create a new instance of a {@link AbstractTreeNode}.
+     * Link to a parent node
      *
-     * @param parent the parent to which this node will be linked as a child or
-     *               <code>null</code> if the current node is the root of the tree.
+     * @param parent the parent to which this node will be linked as a child
+     *
+     * @throws IllegalArgumentException if parent is <code>null</code> or parent and
+     * child are identical
      */
-    public AbstractTreeNode(final TreeNode parent) {
-        this.parent = parent;
-        if (this.parent == null) {
-            this.root = this;
+    public void setParent(final TreeNode parent) throws IllegalArgumentException {
+        if (parent == null) {
+            throw new IllegalArgumentException("Parent tree node cannot be NULL.");
+        } else if (parent == this) {
+            throw new IllegalArgumentException("Parent tree node cannot be the same as child tree node.");
         } else {
+            this.parent = parent;
             this.root = this.parent.getRoot();
         }
     }
@@ -47,6 +52,7 @@ public abstract class AbstractTreeNode implements TreeNode {
     @Override
     public void addChild(final TreeNode child) {
         this.children.add(child);
+        ((AbstractTreeNode) child).setParent(this);
     }
 
     @Override

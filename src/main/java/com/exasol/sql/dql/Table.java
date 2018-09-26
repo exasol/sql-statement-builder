@@ -2,7 +2,8 @@ package com.exasol.sql.dql;
 
 import java.util.Optional;
 
-import com.exasol.sql.*;
+import com.exasol.sql.AbstractFragment;
+import com.exasol.sql.FragmentVisitor;
 
 /**
  * This class represents a {@link Table} in an SQL Statement
@@ -14,17 +15,22 @@ public class Table extends AbstractFragment implements TableReference {
     /**
      * Create a new {@link Table}
      *
-     * @param parent parent SQL fragment
-     * @param name   table name
+     * @param name table name
      */
-    public Table(final Fragment parent, final String name) {
-        super(parent);
+    public Table(final String name) {
+        super();
         this.name = name;
         this.as = Optional.empty();
     }
 
-    public Table(final Fragment parent, final String name, final String as) {
-        super(parent);
+    /**
+     * Create a new {@link Table} with a name and an alias
+     *
+     * @param name table name
+     * @param as table alias
+     */
+    public Table(final String name, final String as) {
+        super();
         this.name = name;
         this.as = Optional.of(as);
     }

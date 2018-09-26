@@ -1,6 +1,5 @@
 package com.exasol.sql.dql;
 
-import com.exasol.sql.Fragment;
 import com.exasol.sql.FragmentVisitor;
 import com.exasol.sql.expression.BooleanExpression;
 
@@ -13,11 +12,10 @@ public class BooleanValueExpression extends ValueExpression {
     /**
      * Create a new instance of a {@link BooleanValueExpression}
      *
-     * @param parent     parent fragment
      * @param expression nested boolean expression
      */
-    public BooleanValueExpression(final Fragment parent, final BooleanExpression expression) {
-        super(parent);
+    public BooleanValueExpression(final BooleanExpression expression) {
+        super();
         this.expression = expression;
 
     }
@@ -29,7 +27,7 @@ public class BooleanValueExpression extends ValueExpression {
 
     /**
      * Get the boolean expression nested in this value expression
-     * 
+     *
      * @return nested boolean expression
      */
     public BooleanExpression getExpression() {

@@ -1,6 +1,7 @@
 package com.exasol.sql.dql;
 
-import com.exasol.sql.*;
+import com.exasol.sql.AbstractFragment;
+import com.exasol.sql.FragmentVisitor;
 
 /**
  * This class represents the limit clause of an SQL statement. It lets you
@@ -13,24 +14,23 @@ public class LimitClause extends AbstractFragment {
     /**
      * Create a new instance of a {@link LimitClause}
      *
-     * @param parent parent SQL statement fragment
+     * @param offset index of the first row to be included in the query result
      *
-     * @param count maximum number of rows to be handed back
+     * @param count maximum number of rows to be included in the query result
      */
-    public LimitClause(final Fragment parent, final int count) {
-        this(parent, 0, count);
+    public LimitClause(final int count) {
+        this(0, count);
     }
 
     /**
      * Create a new instance of a {@link LimitClause}
      *
-     * @param parent parent SQL statement fragment
-     * @param offset first row to be handed back
+     * @param offset index of the first row to be included in the query result
      *
-     * @param count maximum number of rows to be handed back
+     * @param count maximum number of rows to be included in the query result
      */
-    public LimitClause(final Fragment parent, final int offset, final int count) {
-        super(parent);
+    public LimitClause(final int offset, final int count) {
+        super();
         this.offset = offset;
         this.count = count;
     }

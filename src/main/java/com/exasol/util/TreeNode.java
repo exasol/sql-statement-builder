@@ -23,6 +23,9 @@ public interface TreeNode {
     /**
      * Add a child node below this node. Children are registered in the order in
      * which they are added.
+     * <p>
+     * <strong>Important:</strong> this also automatically creates a link in the
+     * opposite direction. All implementations must adhere to this rule.
      *
      * @param child child node
      */
@@ -42,13 +45,13 @@ public interface TreeNode {
      * @param index position in the list of siblings
      * @return child node at position
      * @throws IndexOutOfBoundsException if the index is out of range (index < 0 ||
-     *                                   index >= size())
+     * index >= size())
      */
     public TreeNode getChild(int index) throws IndexOutOfBoundsException;
 
     /**
      * Check whether this node is the root of the tree.
-     * 
+     *
      * @return <code>true</code> if this node is the root
      */
     public boolean isRoot();
