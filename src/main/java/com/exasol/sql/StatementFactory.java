@@ -1,4 +1,6 @@
-package com.exasol.sql.dql;
+package com.exasol.sql;
+
+import com.exasol.sql.dql.Select;
 
 /**
  * The {@link StatementFactory} implements an factory for SQL statements.

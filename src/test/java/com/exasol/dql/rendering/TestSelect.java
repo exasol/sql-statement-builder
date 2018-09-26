@@ -7,7 +7,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.jupiter.api.Test;
 
-import com.exasol.sql.dql.StatementFactory;
+import com.exasol.sql.StatementFactory;
 import com.exasol.sql.expression.BooleanTerm;
 import com.exasol.sql.rendering.StringRendererConfig;
 

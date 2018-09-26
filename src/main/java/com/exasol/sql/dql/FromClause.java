@@ -73,4 +73,16 @@ public class FromClause extends AbstractFragment {
         addChild(new Join(this, JoinType.FULL_OUTER, name, specification));
         return this;
     }
+
+    public LimitClause limit(final int count) {
+        final LimitClause limitClause = new LimitClause(this, count);
+        addChild(limitClause);
+        return limitClause;
+    }
+
+    public LimitClause limit(final int offset, final int count) {
+        final LimitClause limitClause = new LimitClause(this, offset, count);
+        addChild(limitClause);
+        return limitClause;
+    }
 }

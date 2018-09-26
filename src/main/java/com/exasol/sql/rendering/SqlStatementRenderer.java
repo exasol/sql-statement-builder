@@ -43,11 +43,11 @@ public class SqlStatementRenderer implements FragmentVisitor {
 
     @Override
     public void visit(final Select select) {
-        appendKeyWord("select");
+        appendKeyWord("SELECT");
     }
 
-    private void appendKeyWord(final String keyWord) {
-        append(this.config.produceLowerCase() ? keyWord : keyWord.toUpperCase());
+    private void appendKeyWord(final String keyword) {
+        append(this.config.produceLowerCase() ? keyword.toLowerCase() : keyword);
     }
 
     private StringBuilder append(final String string) {
@@ -57,8 +57,12 @@ public class SqlStatementRenderer implements FragmentVisitor {
     @Override
     public void visit(final Field field) {
         appendCommaWhenNeeded(field);
-        append(" ");
+        appendSpace();
         append(field.getName());
+    }
+
+    private void appendSpace() {
+        append(" ");
     }
 
     private void appendCommaWhenNeeded(final Fragment fragment) {
@@ -69,17 +73,17 @@ public class SqlStatementRenderer implements FragmentVisitor {
 
     @Override
     public void visit(final FromClause fromClause) {
-        appendKeyWord(" from");
+        appendKeyWord(" FROM");
     }
 
     @Override
     public void visit(final Table table) {
         appendCommaWhenNeeded(table);
-        append(" ");
+        appendSpace();
         append(table.getName());
         final Optional<String> as = table.getAs();
         if (as.isPresent()) {
-            appendKeyWord(" as ");
+            appendKeyWord(" AS ");
             append(as.get());
         }
     }
@@ -88,12 +92,12 @@ public class SqlStatementRenderer implements FragmentVisitor {
     public void visit(final Join join) {
         final JoinType type = join.getType();
         if (type != JoinType.DEFAULT) {
-            append(" ");
+            appendSpace();
             appendKeyWord(type.toString());
         }
-        appendKeyWord(" join ");
+        appendKeyWord(" JOIN ");
         append(join.getName());
-        appendKeyWord(" on ");
+        appendKeyWord(" ON ");
         append(join.getSpecification());
     }
 
@@ -101,7 +105,35 @@ public class SqlStatementRenderer implements FragmentVisitor {
     public void visit(final BooleanValueExpression value) {
         final BooleanExpressionRenderer subRenderer = new BooleanExpressionRenderer();
         value.getExpression().accept(subRenderer);
-        append(" ");
+        appendSpace();
         append(subRenderer.render());
+    }
+
+    @Override
+    public void visit(final LimitClause limit) {
+        appendKeyWord(" LIMIT ");
+        if (limit.hasCount()) {
+            append(limit.getCount());
+        }
+        if (limit.hasOffset()) {
+            appendKeyWord(" OFFSET ");
+            append(limit.getOffset());
+        }
+    }
+
+    private void append(final int number) {
+        this.builder.append(number);
+    }
+
+    /**
+     * Create a renderer for the given {@link Fragment} and render it.
+     *
+     * @param fragment SQL statement fragment to be rendered
+     * @return rendered statement
+     */
+    public static String render(final Fragment fragment) {
+        final SqlStatementRenderer renderer = new SqlStatementRenderer();
+        ((Fragment) fragment.getRoot()).accept(renderer);
+        return renderer.render();
     }
 }

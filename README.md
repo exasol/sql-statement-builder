@@ -3,16 +3,17 @@
 ## Usage
 
 ```java
-SqlStatement statement = StatementFactory.getInstance().select().all().from("foo.bar");
+import com.exasol.sql.StatementFactory;
+import com.exasol.sql.SqlStatement;
+import com.exasol.sql.rendering.SqlStatementRenderer;
 
 SqlStatement statement = StatementFactory.getInstance()
   .select()
   .field("name")
   .from("bar")
     .join("zoo").on("zoo.bar_id").eq("bar.id")
-  
 
-
+String statementText = SqlStatementRenderer.render(statement);
 ```
 
 ## Development
