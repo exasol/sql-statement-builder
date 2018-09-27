@@ -6,7 +6,7 @@ jdk:
   - openjdk10
 
 before_script:
- - version=$(grep -oP '(?<=^    <version>)[^<]*' pom.xml)
+  - version=$(grep -oP '(?<=^  <version>)[^<]*' pom.xml)
 
 script:
   - mvn clean install
