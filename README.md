@@ -9,9 +9,8 @@ import com.exasol.sql.rendering.SqlStatementRenderer;
 
 SqlStatement statement = StatementFactory.getInstance()
   .select()
-  .field("name")
-  .from("bar")
-    .join("zoo").on("zoo.bar_id").eq("bar.id")
+  .field("firstname", "lastname")
+  .from("person");
 
 String statementText = SqlStatementRenderer.render(statement);
 ```
