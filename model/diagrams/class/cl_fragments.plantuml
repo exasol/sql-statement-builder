@@ -1,0 +1,19 @@
+@startuml
+!include ../exasol.skin
+
+together {
+	interface Fragment <<interface>>
+	interface FieldDefinition <<interface>>
+	interface TableReference <<interface>>
+}
+
+FieldDefinition -u-|> Fragment
+Field .u.|> FieldDefinition
+Select .u.|> Fragment
+TableReference -u-|> Fragment
+
+Select *-d- "1..*" Field
+Select *-d- FromClause
+FromClause *-d- "1..*" TableReference
+Table .u.|> TableReference
+@enduml

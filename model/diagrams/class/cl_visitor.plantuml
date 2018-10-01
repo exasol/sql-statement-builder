@@ -1,0 +1,31 @@
+@startuml
+!include ../exasol.skin
+
+package com.exasol.sql {
+	interface Fragment <<interface>>
+
+	abstract class AbstractFragment <<abstract>> {
+		+ accept(visitor : FragmentVisitor) : void
+	}
+
+	interface FragmentVisitor <<interface>>	{
+		+ visit(statement : SqlStatement) : void
+		+ visit(field : Field) : void
+	}
+	
+	package dql {
+		class SqlStatement
+		class Field
+	}
+	
+	package rendering {
+	    class StringRenderer
+	}
+	
+	AbstractFragment .u.|> Fragment
+	AbstractFragment -r-> FragmentVisitor : accepts
+	SqlStatement -u-|> AbstractFragment
+	Field -u-|> AbstractFragment
+	StringRenderer .u.|> FragmentVisitor
+}
+@enduml
