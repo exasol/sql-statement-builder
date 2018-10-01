@@ -44,4 +44,9 @@ public abstract class BooleanTerm extends AbstractBooleanExpression {
     public static BooleanExpression or(final BooleanExpression... expressions) {
         return new Or(expressions);
     }
+
+    // [impl->dsn~comparison-operations~1]
+    public static BooleanExpression eq(final String left, final String right) {
+        return new Comparison(ComparisonOperator.EQUAL, Literal.of(left), Literal.of(right));
+    }
 }

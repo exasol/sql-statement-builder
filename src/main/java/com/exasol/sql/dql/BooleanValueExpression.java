@@ -17,7 +17,6 @@ public class BooleanValueExpression extends ValueExpression {
     public BooleanValueExpression(final BooleanExpression expression) {
         super();
         this.expression = expression;
-
     }
 
     @Override

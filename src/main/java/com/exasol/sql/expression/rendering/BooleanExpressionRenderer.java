@@ -106,4 +106,18 @@ public class BooleanExpressionRenderer implements BooleanExpressionVisitor {
     public String render() {
         return this.builder.toString();
     }
+
+    @Override
+    public void visit(final Comparison comparison) {
+        comparison.getLeftOperand().accept(this);
+        this.builder.append(" ");
+        this.builder.append(comparison.getOperator().toString());
+        this.builder.append(" ");
+        comparison.getRightOperand().accept(this);
+    }
+
+    @Override
+    public void leave(final Comparison comparison) {
+        // intentionally empty
+    }
 }

@@ -77,4 +77,11 @@ class TestBooleanExpressionRenderer {
         final StringRendererConfig config = new StringRendererConfig.Builder().lowerCase(true).build();
         assertThat(expression, rendersWithConfigTo(config, "(not(a) or b) and (c or d)"));
     }
+
+    // [utest->dsn~comparison-operations~1]
+    @Test
+    void testComparison() {
+        final BooleanExpression expression = eq("a", "b");
+        assertThat(expression, rendersTo("a = b"));
+    }
 }

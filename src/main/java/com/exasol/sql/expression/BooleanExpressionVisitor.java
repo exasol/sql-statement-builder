@@ -4,19 +4,23 @@ package com.exasol.sql.expression;
  * Visitor interface for a {@link BooleanTerm}
  */
 public interface BooleanExpressionVisitor {
-    void visit(Not not);
+    public void visit(Not not);
 
-    void visit(Literal literal);
+    public void visit(Literal literal);
 
-    void visit(And and);
+    public void visit(And and);
 
-    void leave(Not not);
+    public void leave(Not not);
 
-    void leave(Literal literal);
+    public void leave(Literal literal);
 
-    void leave(And and);
+    public void leave(And and);
 
-    void visit(Or or);
+    public void visit(Or or);
 
-    void leave(Or or);
+    public void leave(Or or);
+
+    public void visit(Comparison comparison);
+
+    public void leave(Comparison comparison);
 }
