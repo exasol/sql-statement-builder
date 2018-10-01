@@ -2,6 +2,7 @@ package com.exasol.sql.dql;
 
 import com.exasol.sql.AbstractFragment;
 import com.exasol.sql.FragmentVisitor;
+import com.exasol.sql.expression.BooleanExpression;
 
 /**
  * This class represents the FROM clause of an SQL SELECT statement.
@@ -156,6 +157,18 @@ public class FromClause extends AbstractFragment {
         final LimitClause limitClause = new LimitClause(offset, count);
         addChild(limitClause);
         return limitClause;
+    }
+
+    /**
+     * Create a new {@link WhereClause}
+     *
+     * @param expression boolean expression that defines the filter criteria
+     * @return new instance
+     */
+    public WhereClause where(final BooleanExpression expression) {
+        final WhereClause whereClause = new WhereClause(expression);
+        addChild(whereClause);
+        return whereClause;
     }
 
     @Override

@@ -5,6 +5,7 @@ import java.util.Optional;
 import com.exasol.sql.Fragment;
 import com.exasol.sql.FragmentVisitor;
 import com.exasol.sql.dql.*;
+import com.exasol.sql.expression.BooleanExpression;
 import com.exasol.sql.expression.rendering.BooleanExpressionRenderer;
 
 /**
@@ -103,10 +104,14 @@ public class SqlStatementRenderer implements FragmentVisitor {
 
     @Override
     public void visit(final BooleanValueExpression value) {
-        final BooleanExpressionRenderer subRenderer = new BooleanExpressionRenderer();
-        value.getExpression().accept(subRenderer);
         appendSpace();
-        append(subRenderer.render());
+        appendRenderedExpression(value.getExpression());
+    }
+
+    private void appendRenderedExpression(final BooleanExpression expression) {
+        final BooleanExpressionRenderer expressionRenderer = new BooleanExpressionRenderer();
+        expression.accept(expressionRenderer);
+        append(expressionRenderer.render());
     }
 
     @Override
@@ -121,6 +126,12 @@ public class SqlStatementRenderer implements FragmentVisitor {
 
     private void append(final int number) {
         this.builder.append(number);
+    }
+
+    @Override
+    public void visit(final WhereClause whereClause) {
+        appendKeyWord(" WHERE ");
+        appendRenderedExpression(whereClause.getExpression());
     }
 
     /**
