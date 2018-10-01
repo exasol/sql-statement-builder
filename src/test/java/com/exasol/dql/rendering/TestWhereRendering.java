@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import com.exasol.sql.StatementFactory;
 
-class TestWhere {
+class TestWhereRendering {
     @Test
     public void testWhere() {
         assertThat(StatementFactory.getInstance().select().all().from("person").where(eq("firstname", "Jane")),

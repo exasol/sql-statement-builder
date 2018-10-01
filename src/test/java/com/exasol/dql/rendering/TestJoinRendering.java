@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import com.exasol.sql.StatementFactory;
 
-class TestJoin {
+class TestJoinRendering {
     @Test
     public void testJoin() {
         assertThat(

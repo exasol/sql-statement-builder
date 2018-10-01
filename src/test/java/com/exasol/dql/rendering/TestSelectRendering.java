@@ -11,7 +11,7 @@ import com.exasol.sql.StatementFactory;
 import com.exasol.sql.expression.BooleanTerm;
 import com.exasol.sql.rendering.StringRendererConfig;
 
-class TestSelect {
+class TestSelectRendering {
     @Test
     void testGetParentReturnsNull() {
         assertThat(StatementFactory.getInstance().select().getParent(), nullValue());

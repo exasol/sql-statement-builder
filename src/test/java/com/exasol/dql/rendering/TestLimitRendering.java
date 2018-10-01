@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import com.exasol.sql.StatementFactory;
 
-class TestLimit {
+class TestLimitRendering {
     @Test
     void testLimitCountAfterFrom() {
         assertThat(StatementFactory.getInstance().select().all().from("t").limit(1),
