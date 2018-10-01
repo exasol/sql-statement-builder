@@ -4,6 +4,7 @@ import static com.exasol.hamcrest.BooleanExpressionRenderResultMatcher.rendersTo
 import static com.exasol.hamcrest.BooleanExpressionRenderResultMatcher.rendersWithConfigTo;
 import static com.exasol.sql.expression.BooleanTerm.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 import org.junit.jupiter.api.Test;
 
@@ -80,8 +81,21 @@ class TestBooleanExpressionRenderer {
 
     // [utest->dsn~comparison-operations~1]
     @Test
-    void testComparison() {
-        final BooleanExpression expression = eq("a", "b");
-        assertThat(expression, rendersTo("a = b"));
+    void testComparisonFromSymbol() {
+        final BooleanExpression expression = compare("a", ">=", "b");
+        assertThat(expression, rendersTo("a >= b"));
+    }
+
+    // [utest->dsn~comparison-operations~1]
+    @Test
+    void testComparisonOperators() {
+        assertAll( //
+                () -> assertThat("equal", eq("a", "b"), rendersTo("a = b")), //
+                () -> assertThat("not equal", ne("a", "b"), rendersTo("a <> b")), //
+                () -> assertThat("not equal", lt("a", "b"), rendersTo("a < b")), //
+                () -> assertThat("not equal", gt("a", "b"), rendersTo("a > b")), //
+                () -> assertThat("not equal", le("a", "b"), rendersTo("a <= b")), //
+                () -> assertThat("not equal", ge("a", "b"), rendersTo("a >= b")) //
+        );
     }
 }

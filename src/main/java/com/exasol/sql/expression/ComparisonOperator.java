@@ -8,7 +8,7 @@ import java.beans.Expression;
  */
 public enum ComparisonOperator {
     // [impl->dsn~comparison-operations~1]
-    EQUAL("="), NOT_EQUAL("<>"), GREATER(">"), GREATER_OR_EQUAL(">="), LESS_THAN("<"), LESS_THAN_OR_EQUAL("<=");
+    EQUAL("="), NOT_EQUAL("<>"), GREATER_THAN(">"), GREATER_THAN_OR_EQUAL(">="), LESS_THAN("<"), LESS_THAN_OR_EQUAL("<=");
 
     private final String operatorSymbol;
 
