@@ -11,7 +11,7 @@ class TestJoinRendering {
     @Test
     public void testJoin() {
         assertThat(
-                StatementFactory.getInstance().select().all().from("left_table").join("right_table",
+                StatementFactory.getInstance().select().all().from().table("left_table").join("right_table",
                         "left_table.foo_id = right_table.foo_id"),
                 rendersTo("SELECT * FROM left_table JOIN right_table ON left_table.foo_id = right_table.foo_id"));
     }
@@ -19,7 +19,7 @@ class TestJoinRendering {
     @Test
     public void testInnerJoin() {
         assertThat(
-                StatementFactory.getInstance().select().all().from("left_table").innerJoin("right_table",
+                StatementFactory.getInstance().select().all().from().table("left_table").innerJoin("right_table",
                         "left_table.foo_id = right_table.foo_id"),
                 rendersTo("SELECT * FROM left_table INNER JOIN right_table ON left_table.foo_id = right_table.foo_id"));
     }
@@ -27,7 +27,7 @@ class TestJoinRendering {
     @Test
     public void testLeftJoin() {
         assertThat(
-                StatementFactory.getInstance().select().all().from("left_table").leftJoin("right_table",
+                StatementFactory.getInstance().select().all().from().table("left_table").leftJoin("right_table",
                         "left_table.foo_id = right_table.foo_id"),
                 rendersTo("SELECT * FROM left_table LEFT JOIN right_table ON left_table.foo_id = right_table.foo_id"));
     }
@@ -35,7 +35,7 @@ class TestJoinRendering {
     @Test
     public void testRightJoin() {
         assertThat(
-                StatementFactory.getInstance().select().all().from("left_table").rightJoin("right_table",
+                StatementFactory.getInstance().select().all().from().table("left_table").rightJoin("right_table",
                         "left_table.foo_id = right_table.foo_id"),
                 rendersTo("SELECT * FROM left_table RIGHT JOIN right_table ON left_table.foo_id = right_table.foo_id"));
     }
@@ -43,7 +43,7 @@ class TestJoinRendering {
     @Test
     public void testFullJoin() {
         assertThat(
-                StatementFactory.getInstance().select().all().from("left_table").fullJoin("right_table",
+                StatementFactory.getInstance().select().all().from().table("left_table").fullJoin("right_table",
                         "left_table.foo_id = right_table.foo_id"),
                 rendersTo("SELECT * FROM left_table FULL JOIN right_table ON left_table.foo_id = right_table.foo_id"));
     }
@@ -51,7 +51,7 @@ class TestJoinRendering {
     @Test
     public void testLeftOuterJoin() {
         assertThat(
-                StatementFactory.getInstance().select().all().from("left_table").leftOuterJoin("right_table",
+                StatementFactory.getInstance().select().all().from().table("left_table").leftOuterJoin("right_table",
                         "left_table.foo_id = right_table.foo_id"),
                 rendersTo(
                         "SELECT * FROM left_table LEFT OUTER JOIN right_table ON left_table.foo_id = right_table.foo_id"));
@@ -60,7 +60,7 @@ class TestJoinRendering {
     @Test
     public void testRightOuterJoin() {
         assertThat(
-                StatementFactory.getInstance().select().all().from("left_table").rightOuterJoin("right_table",
+                StatementFactory.getInstance().select().all().from().table("left_table").rightOuterJoin("right_table",
                         "left_table.foo_id = right_table.foo_id"),
                 rendersTo(
                         "SELECT * FROM left_table RIGHT OUTER JOIN right_table ON left_table.foo_id = right_table.foo_id"));
@@ -69,7 +69,7 @@ class TestJoinRendering {
     @Test
     public void testFullOuterJoin() {
         assertThat(
-                StatementFactory.getInstance().select().all().from("left_table").fullOuterJoin("right_table",
+                StatementFactory.getInstance().select().all().from().table("left_table").fullOuterJoin("right_table",
                         "left_table.foo_id = right_table.foo_id"),
                 rendersTo(
                         "SELECT * FROM left_table FULL OUTER JOIN right_table ON left_table.foo_id = right_table.foo_id"));

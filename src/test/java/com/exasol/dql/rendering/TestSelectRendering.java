@@ -45,25 +45,25 @@ class TestSelectRendering {
 
     @Test
     void testSelectFromTable() {
-        assertThat(StatementFactory.getInstance().select().all().from("table"), rendersTo("SELECT * FROM table"));
+        assertThat(StatementFactory.getInstance().select().all().from().table("persons"),
+                rendersTo("SELECT * FROM persons"));
     }
 
     @Test
     void testSelectFromMultipleTable() {
-        assertThat(StatementFactory.getInstance().select().all().from("table1").from("table2"),
+        assertThat(StatementFactory.getInstance().select().all().from().table("table1").table("table2"),
                 rendersTo("SELECT * FROM table1, table2"));
     }
 
     @Test
     void testSelectFromTableAs() {
-        assertThat(StatementFactory.getInstance().select().all().fromTableAs("table", "t"),
+        assertThat(StatementFactory.getInstance().select().all().from().tableAs("table", "t"),
                 rendersTo("SELECT * FROM table AS t"));
     }
 
     @Test
     void testSelectFromMultipleTableAs() {
-        assertThat(
-                StatementFactory.getInstance().select().all().fromTableAs("table1", "t1").fromTableAs("table2", "t2"),
+        assertThat(StatementFactory.getInstance().select().all().from().tableAs("table1", "t1").tableAs("table2", "t2"),
                 rendersTo("SELECT * FROM table1 AS t1, table2 AS t2"));
     }
 

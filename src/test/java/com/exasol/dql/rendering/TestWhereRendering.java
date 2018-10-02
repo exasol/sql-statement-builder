@@ -11,7 +11,7 @@ import com.exasol.sql.StatementFactory;
 class TestWhereRendering {
     @Test
     public void testWhere() {
-        assertThat(StatementFactory.getInstance().select().all().from("person").where(eq("firstname", "Jane")),
+        assertThat(StatementFactory.getInstance().select().all().from().table("person").where(eq("firstname", "Jane")),
                 rendersTo("SELECT * FROM person WHERE firstname = Jane"));
     }
 }

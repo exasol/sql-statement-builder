@@ -21,6 +21,30 @@ The goals of the ESB are:
 * Renderer: extension that turns the abstract representation into a different one (most notably an SQL string)
 * Validator: extension that validates a statements structure and content
 
+### Notation
+
+#### Augmented Backus–Naur Form (ABNF)
+
+This document uses Augmented Backus–Naur Form (ABNF) for syntax definitions.
+
+#### ABNF Terminals
+
+This subsection list the ABNF terminals used in this document. Terminals are ABNF rules that cannot be split further down, like string literals for example.
+
+##### Operator Terminals
+
+    EQUAL-OPERATOR = "="
+    
+    NOT-EQUAL-OPERATOR = "<>"
+    
+    LESS-THAN-OPERATOR = "<"
+    
+    LESS-THAN-OR-EQUAL-OPERATOR = "<="
+    
+    GREATER-THAN-OPERATOR = ">"
+    
+    GREATER-THAN-OR-EQUAL-OPERATOR = ">="
+
 ## Features
 
 ### Statement Definition
@@ -54,6 +78,23 @@ Needs: req
 
 ## Functional Requirements
 
+### Statement Structure
+
+##### Building the Statement Structure Step-wise
+`req~statement-structure.step-wise~1`
+
+ESB lets users build the statement structure step-by-step.
+
+Rationale:
+
+This is necessary since complex statements are usually build as a result of multi-layered decision trees and parts of the statements are constructed in different places.
+
+Covers:
+
+* [feat~statment-definition~1](#statement-definition)
+
+Needs: dsn
+
 ### SQL String Rendering
 
 #### Configurable Case Rendering
@@ -74,7 +115,7 @@ Needs: dsn
 * Upper case / lower case
 * One line / pretty
 
-##### Comparison Operations
+#### Comparison Operations
 `req~comparison-operations~1`
 
 ESB supports the following comparison operations:
@@ -83,7 +124,7 @@ ESB supports the following comparison operations:
     
     left-operand = field-reference / literal
     
-    operator = equal-operator / unequal-operator / greater-operator / less-than-operator /
+    operator = equal-operator / not-equal-operator / greater-operator / less-than-operator /
         greater-or-equal-operator / less-than-or-equal-operator
     
     right-operand = field-reference / literal

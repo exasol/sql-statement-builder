@@ -7,6 +7,9 @@ import com.exasol.sql.expression.BooleanExpression;
  * This class implements an SQL {@link Select} statement
  */
 public class Select extends AbstractFragment implements SqlStatement {
+    private FromClause from;
+    private WhereClause where;
+
     /**
      * Create a new instance of a {@link Select}
      */
@@ -48,34 +51,33 @@ public class Select extends AbstractFragment implements SqlStatement {
         return this;
     }
 
+    /**
+     * Get the {@link FromClause} of this select statement
+     *
+     * @return from clause
+     */
+    public synchronized FromClause from() {
+        if (this.from == null) {
+            this.from = new FromClause();
+            addChild(this.from);
+        }
+        return this.from;
+    }
+
+    /**
+     * Get the {@link WhereClause} of this select statement
+     *
+     * @return from clause
+     */
+    public synchronized WhereClause where() {
+        if (this.where == null) {
+            throw new IllegalStateException("Tried to access a WHERE clause before it was constructed.");
+        }
+        return this.where;
+    }
+
     @Override
     public void acceptConcrete(final FragmentVisitor visitor) {
         visitor.visit(this);
-    }
-
-    /**
-     * Add a {@link FromClause} to the statement with a table identified by its name
-     *
-     * @param name table reference name
-     * @return the FROM clause
-     */
-    public FromClause from(final String name) {
-        final FromClause from = new FromClause().from(name);
-        addChild(from);
-        return from;
-    }
-
-    /**
-     * Add a {@link FromClause} to the statement with an aliased table identified by
-     * its name
-     *
-     * @param name table reference name
-     * @param as table correlation name
-     * @return the FROM clause
-     */
-    public FromClause fromTableAs(final String name, final String as) {
-        final FromClause from = new FromClause().fromTableAs(name, as);
-        addChild(from);
-        return from;
     }
 }

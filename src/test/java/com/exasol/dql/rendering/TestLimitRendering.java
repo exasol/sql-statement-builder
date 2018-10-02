@@ -10,13 +10,13 @@ import com.exasol.sql.StatementFactory;
 class TestLimitRendering {
     @Test
     void testLimitCountAfterFrom() {
-        assertThat(StatementFactory.getInstance().select().all().from("t").limit(1),
+        assertThat(StatementFactory.getInstance().select().all().from().table("t").limit(1),
                 rendersTo("SELECT * FROM t LIMIT 1"));
     }
 
     @Test
     void testLimitOffsetCountAfterFrom() {
-        assertThat(StatementFactory.getInstance().select().all().from("t").limit(2, 3),
+        assertThat(StatementFactory.getInstance().select().all().from().table("t").limit(2, 3),
                 rendersTo("SELECT * FROM t LIMIT 2, 3"));
     }
 }

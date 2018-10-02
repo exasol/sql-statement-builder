@@ -21,7 +21,7 @@ public class FromClause extends AbstractFragment {
      * @param name table name
      * @return new instance
      */
-    public FromClause from(final String name) {
+    public FromClause table(final String name) {
         addChild(new Table(name));
         return this;
     }
@@ -33,7 +33,7 @@ public class FromClause extends AbstractFragment {
      * @param as table alias
      * @return new instance
      */
-    public FromClause fromTableAs(final String name, final String as) {
+    public FromClause tableAs(final String name, final String as) {
         addChild(new Table(name, as));
         return this;
     }

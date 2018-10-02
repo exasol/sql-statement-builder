@@ -11,7 +11,7 @@ import com.exasol.sql.rendering.SqlStatementRenderer;
 class TestSqlStatementRenderer {
     @Test
     void testCreateAndRender() {
-        assertThat(SqlStatementRenderer.render(StatementFactory.getInstance().select().all().from("foo")),
+        assertThat(SqlStatementRenderer.render(StatementFactory.getInstance().select().all().from().table("foo")),
                 equalTo("SELECT * FROM foo"));
     }
 }
