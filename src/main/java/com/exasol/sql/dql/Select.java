@@ -1,5 +1,8 @@
 package com.exasol.sql.dql;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.exasol.sql.*;
 import com.exasol.sql.expression.BooleanExpression;
 
@@ -7,14 +10,16 @@ import com.exasol.sql.expression.BooleanExpression;
  * This class implements an SQL {@link Select} statement
  */
 public class Select extends AbstractFragment implements SqlStatement {
-    private FromClause from;
-    private WhereClause where;
+    private final List<Field> fields = new ArrayList<>();
+    private FromClause fromClause = null;
+    private WhereClause whereClause = null;
+    private LimitClause limitClause = null;
 
     /**
      * Create a new instance of a {@link Select}
      */
     public Select() {
-        super();
+        super(null);
     }
 
     /**
@@ -23,7 +28,7 @@ public class Select extends AbstractFragment implements SqlStatement {
      * @return <code>this</code> instance for fluent programming
      */
     public Select all() {
-        addChild(Field.all());
+        this.fields.add(new Field(this, "*"));
         return this;
     }
 
@@ -35,19 +40,8 @@ public class Select extends AbstractFragment implements SqlStatement {
      */
     public Select field(final String... names) {
         for (final String name : names) {
-            addChild(new Field(name));
+            this.fields.add(new Field(this, name));
         }
-        return this;
-    }
-
-    /**
-     * Add a boolean value expression
-     *
-     * @param expression boolean value expression
-     * @return <code>this</code> instance for fluent programming
-     */
-    public Select value(final BooleanExpression expression) {
-        addChild(new BooleanValueExpression(expression));
         return this;
     }
 
@@ -57,11 +51,56 @@ public class Select extends AbstractFragment implements SqlStatement {
      * @return from clause
      */
     public synchronized FromClause from() {
-        if (this.from == null) {
-            this.from = new FromClause();
-            addChild(this.from);
+        if (this.fromClause == null) {
+            this.fromClause = new FromClause(this);
         }
-        return this.from;
+        return this.fromClause;
+    }
+
+    /**
+     * Create a new full outer {@link LimitClause}
+     *
+     * @param count maximum number of rows to be included in query result
+     * @return new instance
+     * @throws IllegalStateException if a limit clause already exists
+     */
+    public synchronized Select limit(final int count) {
+        if (this.limitClause != null) {
+            throw new IllegalStateException(
+                    "Tried to create a LIMIT clause in a SELECT statement that already had one.");
+        }
+        this.limitClause = new LimitClause(this, count);
+        return this;
+    }
+
+    /**
+     * Create a new full outer {@link LimitClause}
+     *
+     * @param offset index of the first row in the query result
+     * @param count maximum number of rows to be included in query result
+     * @return <code>this</code for fluent programming
+     * @throws IllegalStateException if a limit clause already exists
+     */
+    public synchronized Select limit(final int offset, final int count) {
+        if (this.limitClause != null) {
+            throw new IllegalStateException(
+                    "Tried to create a LIMIT clause in a SELECT statement that already had one.");
+        }
+        this.limitClause = new LimitClause(this, offset, count);
+        return this;
+    }
+
+    /**
+     * Create a new {@link WhereClause}
+     *
+     * @param expression boolean expression that defines the filter criteria
+     * @return new instance
+     */
+    public synchronized Select where(final BooleanExpression expression) {
+        if (this.whereClause == null) {
+            this.whereClause = new WhereClause(this, expression);
+        }
+        return this;
     }
 
     /**
@@ -70,14 +109,26 @@ public class Select extends AbstractFragment implements SqlStatement {
      * @return from clause
      */
     public synchronized WhereClause where() {
-        if (this.where == null) {
+        if (this.whereClause == null) {
             throw new IllegalStateException("Tried to access a WHERE clause before it was constructed.");
         }
-        return this.where;
+        return this.whereClause;
     }
 
     @Override
-    public void acceptConcrete(final FragmentVisitor visitor) {
+    public void accept(final FragmentVisitor visitor) {
         visitor.visit(this);
+        for (final Field field : this.fields) {
+            field.accept(visitor);
+        }
+        if (this.fromClause != null) {
+            this.fromClause.accept(visitor);
+        }
+        if (this.whereClause != null) {
+            this.whereClause.accept(visitor);
+        }
+        if (this.limitClause != null) {
+            this.limitClause.accept(visitor);
+        }
     }
 }

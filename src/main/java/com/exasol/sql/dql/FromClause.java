@@ -1,18 +1,25 @@
 package com.exasol.sql.dql;
 
-import com.exasol.sql.AbstractFragment;
-import com.exasol.sql.FragmentVisitor;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.exasol.sql.*;
 import com.exasol.sql.expression.BooleanExpression;
 
 /**
  * This class represents the FROM clause of an SQL SELECT statement.
  */
 public class FromClause extends AbstractFragment {
+    private final List<Table> tables = new ArrayList<>();
+    private final List<Join> joins = new ArrayList<>();
+
     /**
      * Create a new instance of a {@link FromClause}
+     *
+     * @param root root SQL statement this FROM clause belongs to
      */
-    public FromClause() {
-        super();
+    public FromClause(final SqlStatement root) {
+        super(root);
     }
 
     /**
@@ -22,7 +29,7 @@ public class FromClause extends AbstractFragment {
      * @return new instance
      */
     public FromClause table(final String name) {
-        addChild(new Table(name));
+        this.tables.add(new Table(this.rootStatement, name));
         return this;
     }
 
@@ -34,7 +41,7 @@ public class FromClause extends AbstractFragment {
      * @return new instance
      */
     public FromClause tableAs(final String name, final String as) {
-        addChild(new Table(name, as));
+        this.tables.add(new Table(this.rootStatement, name, as));
         return this;
     }
 
@@ -46,7 +53,7 @@ public class FromClause extends AbstractFragment {
      * @return parent FROM clause
      */
     public FromClause join(final String name, final String specification) {
-        addChild(new Join(JoinType.DEFAULT, name, specification));
+        this.joins.add(new Join(this.rootStatement, JoinType.DEFAULT, name, specification));
         return this;
     }
 
@@ -58,7 +65,7 @@ public class FromClause extends AbstractFragment {
      * @return parent FROM clause
      */
     public FromClause innerJoin(final String name, final String specification) {
-        addChild(new Join(JoinType.INNER, name, specification));
+        this.joins.add(new Join(this.rootStatement, JoinType.INNER, name, specification));
         return this;
     }
 
@@ -70,7 +77,7 @@ public class FromClause extends AbstractFragment {
      * @return parent FROM clause
      */
     public FromClause leftJoin(final String name, final String specification) {
-        addChild(new Join(JoinType.LEFT, name, specification));
+        this.joins.add(new Join(this.rootStatement, JoinType.LEFT, name, specification));
         return this;
     }
 
@@ -82,7 +89,7 @@ public class FromClause extends AbstractFragment {
      * @return parent FROM clause
      */
     public FromClause rightJoin(final String name, final String specification) {
-        addChild(new Join(JoinType.RIGHT, name, specification));
+        this.joins.add(new Join(this.rootStatement, JoinType.RIGHT, name, specification));
         return this;
     }
 
@@ -94,7 +101,7 @@ public class FromClause extends AbstractFragment {
      * @return parent FROM clause
      */
     public FromClause fullJoin(final String name, final String specification) {
-        addChild(new Join(JoinType.FULL, name, specification));
+        this.joins.add(new Join(this.rootStatement, JoinType.FULL, name, specification));
         return this;
     }
 
@@ -106,7 +113,7 @@ public class FromClause extends AbstractFragment {
      * @return parent FROM clause
      */
     public FromClause leftOuterJoin(final String name, final String specification) {
-        addChild(new Join(JoinType.LEFT_OUTER, name, specification));
+        this.joins.add(new Join(this.rootStatement, JoinType.LEFT_OUTER, name, specification));
         return this;
     }
 
@@ -118,7 +125,7 @@ public class FromClause extends AbstractFragment {
      * @return parent FROM clause
      */
     public FromClause rightOuterJoin(final String name, final String specification) {
-        addChild(new Join(JoinType.RIGHT_OUTER, name, specification));
+        this.joins.add(new Join(this.rootStatement, JoinType.RIGHT_OUTER, name, specification));
         return this;
     }
 
@@ -130,49 +137,39 @@ public class FromClause extends AbstractFragment {
      * @return parent FROM clause
      */
     public FromClause fullOuterJoin(final String name, final String specification) {
-        addChild(new Join(JoinType.FULL_OUTER, name, specification));
+        this.joins.add(new Join(this.rootStatement, JoinType.FULL_OUTER, name, specification));
         return this;
     }
 
     /**
-     * Create a new full outer {@link LimitClause}
-     *
-     * @param count maximum number of rows to be included in query result
-     * @return new instance
+     * @see com.exasol.sql.dql.Select#limit(int)
      */
-    public LimitClause limit(final int count) {
-        final LimitClause limitClause = new LimitClause(count);
-        addChild(limitClause);
-        return limitClause;
+    public Select limit(final int count) {
+        return ((Select) this.rootStatement).limit(count);
     }
 
     /**
-     * Create a new full outer {@link LimitClause}
-     *
-     * @param offset index of the first row in the query result
-     * @param count maximum number of rows to be included in query result
-     * @return new instance
+     * @see com.exasol.sql.dql.Select#limit(int,int)
      */
-    public LimitClause limit(final int offset, final int count) {
-        final LimitClause limitClause = new LimitClause(offset, count);
-        addChild(limitClause);
-        return limitClause;
+    public Select limit(final int offset, final int count) {
+        return ((Select) this.rootStatement).limit(offset, count);
     }
 
     /**
-     * Create a new {@link WhereClause}
-     *
-     * @param expression boolean expression that defines the filter criteria
-     * @return new instance
+     * @see com.exasol.sql.dql.Select#where(BooleanExpression)
      */
-    public WhereClause where(final BooleanExpression expression) {
-        final WhereClause whereClause = new WhereClause(expression);
-        addChild(whereClause);
-        return whereClause;
+    public Select where(final BooleanExpression expression) {
+        return ((Select) this.rootStatement).where(expression);
     }
 
     @Override
-    protected void acceptConcrete(final FragmentVisitor visitor) {
+    public void accept(final FragmentVisitor visitor) {
         visitor.visit(this);
+        for (final Table table : this.tables) {
+            table.accept(visitor);
+        }
+        for (final Join join : this.joins) {
+            join.accept(visitor);
+        }
     }
 }

@@ -135,6 +135,16 @@ Covers:
 
 Needs: dsn
 
+##### Boolean Operators
+`req~boolean-operators~1`
+
+ESB supports the following boolean operators: `AND`, `OR` and `NOT`
+
+Covers:
+
+* [feat~statement-definition~1](#statement-definition)
+
+Needs: dsn
 
 ### TODO
 

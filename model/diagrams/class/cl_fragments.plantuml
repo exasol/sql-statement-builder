@@ -1,5 +1,5 @@
 @startuml
-!include ../exasol.skin
+'!include ../exasol.skin
 
 together {
 	interface Fragment <<interface>>

@@ -30,3 +30,4 @@ Tags: Select Statement Builder
 ## Forwarded Requirements
 
 * dsn --> impl, utest : req~comparison-operations~1
+* dsn --> impl, utest : req~boolean-operators~1

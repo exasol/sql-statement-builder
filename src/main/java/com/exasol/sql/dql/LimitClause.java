@@ -1,11 +1,10 @@
 package com.exasol.sql.dql;
 
-import com.exasol.sql.AbstractFragment;
-import com.exasol.sql.FragmentVisitor;
+import com.exasol.sql.*;
 
 /**
- * This class represents the limit clause of an SQL statement. It lets you
- * choose offset and / or count of rows to be handed back in the result.
+ * This class represents the limit clause of an SQL statement. It lets you choose offset and / or count of rows to be
+ * handed back in the result.
  */
 public class LimitClause extends AbstractFragment {
     private final int count;
@@ -14,30 +13,29 @@ public class LimitClause extends AbstractFragment {
     /**
      * Create a new instance of a {@link LimitClause}
      *
+     * @param root SQL statement this LIMIT clause belongs to
+     *
      * @param offset index of the first row to be included in the query result
      *
      * @param count maximum number of rows to be included in the query result
      */
-    public LimitClause(final int count) {
-        this(0, count);
+    public LimitClause(final SqlStatement root, final int count) {
+        this(root, 0, count);
     }
 
     /**
      * Create a new instance of a {@link LimitClause}
      *
+     * @param root SQL statement this LIMIT clause belongs to
+     *
      * @param offset index of the first row to be included in the query result
      *
      * @param count maximum number of rows to be included in the query result
      */
-    public LimitClause(final int offset, final int count) {
-        super();
+    public LimitClause(final SqlStatement root, final int offset, final int count) {
+        super(root);
         this.offset = offset;
         this.count = count;
-    }
-
-    @Override
-    protected void acceptConcrete(final FragmentVisitor visitor) {
-        visitor.visit(this);
     }
 
     /**
@@ -65,5 +63,10 @@ public class LimitClause extends AbstractFragment {
      */
     public boolean hasOffset() {
         return this.offset > 0;
+    }
+
+    @Override
+    public void accept(final FragmentVisitor visitor) {
+        visitor.visit(this);
     }
 }

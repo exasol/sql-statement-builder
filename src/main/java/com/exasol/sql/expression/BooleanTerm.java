@@ -79,4 +79,32 @@ public abstract class BooleanTerm extends AbstractBooleanExpression {
     public static BooleanExpression ge(final String left, final String right) {
         return new Comparison(ComparisonOperator.GREATER_THAN_OR_EQUAL, Literal.of(left), Literal.of(right));
     }
+
+    /**
+     * Create a logical operation from an operator name and a list of operands
+     *
+     * @param operator name of the operator
+     * @param expressions operands
+     * @return instance of either {@link And}, {@link Or} or {@link Not}
+     * @throws IllegalArgumentException
+     */
+    public static BooleanExpression operation(final String operator, final BooleanExpression... expressions)
+            throws IllegalArgumentException {
+        switch (operator.toLowerCase()) {
+        case "and":
+            return new And(expressions);
+        case "or":
+            return new Or(expressions);
+        case "not":
+            if (expressions.length == 1) {
+                return new Not(expressions[0]);
+            } else {
+                throw new IllegalArgumentException(
+                        "Logical \"not\" must have exactly one operand. Got " + expressions.length + ".");
+            }
+        default:
+            throw new IllegalArgumentException(
+                    "Unknown boolean connector \"" + operator + "\". Must be one of \"and\" or \"or\".");
+        }
+    }
 }

@@ -1,26 +1,35 @@
 package com.exasol.sql.dql;
 
-import com.exasol.sql.AbstractFragment;
-import com.exasol.sql.FragmentVisitor;
+import com.exasol.sql.*;
 
-public class Field extends AbstractFragment implements FieldDefinition {
+/**
+ * This class represents a table field in an SQL statement.
+ */
+public class Field extends AbstractFragment {
     private final String name;
 
-    protected Field(final String name) {
-        super();
+    /**
+     * Create a new instance of a {@link Field}
+     *
+     * @param root root SQL statement
+     * @param name field name
+     */
+    protected Field(final SqlStatement root, final String name) {
+        super(root);
         this.name = name;
     }
 
+    /**
+     * Get the field name
+     *
+     * @return field name
+     */
     public String getName() {
         return this.name;
     }
 
-    public static Field all() {
-        return new Field("*");
-    }
-
     @Override
-    protected void acceptConcrete(final FragmentVisitor visitor) {
+    public void accept(final FragmentVisitor visitor) {
         visitor.visit(this);
     }
 }

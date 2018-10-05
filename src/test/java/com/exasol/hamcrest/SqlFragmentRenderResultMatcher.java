@@ -30,7 +30,7 @@ public class SqlFragmentRenderResultMatcher extends AbstractRenderResultMatcher<
      */
     @Override
     public boolean matchesSafely(final Fragment fragment) {
-        ((Fragment) fragment.getRoot()).accept(this.renderer);
+        fragment.accept(this.renderer);
         this.renderedText = this.renderer.render();
         return this.renderedText.equals(this.expectedText);
     }
@@ -53,8 +53,7 @@ public class SqlFragmentRenderResultMatcher extends AbstractRenderResultMatcher<
     /**
      * Factory method for {@link SqlFragmentRenderResultMatcher}
      *
-     * @param config       configuration settings for the
-     *                     {@link SqlStatementRenderer}
+     * @param config configuration settings for the {@link SqlStatementRenderer}
      * @param expectedText text that represents the expected rendering result
      * @return the matcher
      */

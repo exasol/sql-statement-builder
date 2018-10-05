@@ -1,0 +1,11 @@
+@startuml
+'!include ../exasol.skin
+
+Select *-- "*" Field
+Select *-- "0..1" From
+Select *-- "0..1" LimitClause
+Select *-- "0..1" WhereClause
+From *-- "*" Table
+WhereClause *-- BooleanExpression
+BooleanExpression *-- "0..1" BooleanExpression
+@enduml

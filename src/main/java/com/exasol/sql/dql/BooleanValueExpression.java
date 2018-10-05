@@ -1,6 +1,7 @@
 package com.exasol.sql.dql;
 
 import com.exasol.sql.FragmentVisitor;
+import com.exasol.sql.SqlStatement;
 import com.exasol.sql.expression.BooleanExpression;
 
 /**
@@ -12,16 +13,12 @@ public class BooleanValueExpression extends ValueExpression {
     /**
      * Create a new instance of a {@link BooleanValueExpression}
      *
+     * @param root SQL statement this expression belongs to
      * @param expression nested boolean expression
      */
-    public BooleanValueExpression(final BooleanExpression expression) {
-        super();
+    public BooleanValueExpression(final SqlStatement root, final BooleanExpression expression) {
+        super(root);
         this.expression = expression;
-    }
-
-    @Override
-    protected void acceptConcrete(final FragmentVisitor visitor) {
-        visitor.visit(this);
     }
 
     /**
@@ -31,5 +28,10 @@ public class BooleanValueExpression extends ValueExpression {
      */
     public BooleanExpression getExpression() {
         return this.expression;
+    }
+
+    @Override
+    public void accept(final FragmentVisitor visitor) {
+        visitor.visit(this);
     }
 }

@@ -1,8 +1,8 @@
 hide empty methods
 hide empty attributes
 skinparam style strictuml
-skinparam classAttributeIconSize 0
-!pragma horizontalLineBetweenDifferentPackageAllowed
+'skinparam classAttributeIconSize 0
+'!pragma horizontalLineBetweenDifferentPackageAllowed
 
 skinparam Arrow {
 	Color 093e52

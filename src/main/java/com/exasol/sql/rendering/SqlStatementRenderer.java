@@ -15,6 +15,7 @@ import com.exasol.sql.expression.rendering.BooleanExpressionRenderer;
 public class SqlStatementRenderer implements FragmentVisitor {
     private final StringBuilder builder = new StringBuilder();
     private final StringRendererConfig config;
+    private Fragment lastVisited;
 
     /**
      * Create a new {@link SqlStatementRenderer} using the default
@@ -45,6 +46,7 @@ public class SqlStatementRenderer implements FragmentVisitor {
     @Override
     public void visit(final Select select) {
         appendKeyWord("SELECT");
+        setLastVisited(select);
     }
 
     private void appendKeyWord(final String keyword) {
@@ -60,6 +62,11 @@ public class SqlStatementRenderer implements FragmentVisitor {
         appendCommaWhenNeeded(field);
         appendSpace();
         append(field.getName());
+        setLastVisited(field);
+    }
+
+    private void setLastVisited(final Fragment fragment) {
+        this.lastVisited = fragment;
     }
 
     private void appendSpace() {
@@ -67,7 +74,7 @@ public class SqlStatementRenderer implements FragmentVisitor {
     }
 
     private void appendCommaWhenNeeded(final Fragment fragment) {
-        if (!fragment.isFirstSibling()) {
+        if (this.lastVisited.getClass().equals(fragment.getClass())) {
             append(",");
         }
     }
@@ -75,6 +82,7 @@ public class SqlStatementRenderer implements FragmentVisitor {
     @Override
     public void visit(final FromClause fromClause) {
         appendKeyWord(" FROM");
+        setLastVisited(fromClause);
     }
 
     @Override
@@ -87,6 +95,7 @@ public class SqlStatementRenderer implements FragmentVisitor {
             appendKeyWord(" AS ");
             append(as.get());
         }
+        setLastVisited(table);
     }
 
     @Override
@@ -100,18 +109,27 @@ public class SqlStatementRenderer implements FragmentVisitor {
         append(join.getName());
         appendKeyWord(" ON ");
         append(join.getSpecification());
+        setLastVisited(join);
     }
 
     @Override
     public void visit(final BooleanValueExpression value) {
         appendSpace();
         appendRenderedExpression(value.getExpression());
+        setLastVisited(value);
     }
 
     private void appendRenderedExpression(final BooleanExpression expression) {
         final BooleanExpressionRenderer expressionRenderer = new BooleanExpressionRenderer();
         expression.accept(expressionRenderer);
         append(expressionRenderer.render());
+    }
+
+    @Override
+    public void visit(final WhereClause whereClause) {
+        appendKeyWord(" WHERE ");
+        appendRenderedExpression(whereClause.getExpression());
+        setLastVisited(whereClause);
     }
 
     @Override
@@ -122,16 +140,11 @@ public class SqlStatementRenderer implements FragmentVisitor {
             appendKeyWord(", ");
         }
         append(limit.getCount());
+        setLastVisited(limit);
     }
 
     private void append(final int number) {
         this.builder.append(number);
-    }
-
-    @Override
-    public void visit(final WhereClause whereClause) {
-        appendKeyWord(" WHERE ");
-        appendRenderedExpression(whereClause.getExpression());
     }
 
     /**
@@ -142,7 +155,7 @@ public class SqlStatementRenderer implements FragmentVisitor {
      */
     public static String render(final Fragment fragment) {
         final SqlStatementRenderer renderer = new SqlStatementRenderer();
-        ((Fragment) fragment.getRoot()).accept(renderer);
+        fragment.accept(renderer);
         return renderer.render();
     }
 }

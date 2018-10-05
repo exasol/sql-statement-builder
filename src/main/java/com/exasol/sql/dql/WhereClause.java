@@ -1,24 +1,24 @@
 package com.exasol.sql.dql;
 
-import com.exasol.sql.AbstractFragment;
-import com.exasol.sql.FragmentVisitor;
+import com.exasol.sql.*;
 import com.exasol.sql.expression.BooleanExpression;
 
+/**
+ * This class represents the where clause of an SQL statement. It contains the filter criteria in form of a
+ * {@link BooleanExpression}.
+ */
 public class WhereClause extends AbstractFragment {
     private final BooleanExpression expression;
 
     /**
-     * Create a new instance of a WhereClause
-     *
-     * @param expression boolean expression that defines the filter criteria
+     * Create a new instance of a {@link WhereClause}
+     * 
+     * @param root SQL statement this WHERE clause belongs to
+     * @param expression
      */
-    public WhereClause(final BooleanExpression expression) {
+    public WhereClause(final SqlStatement root, final BooleanExpression expression) {
+        super(root);
         this.expression = expression;
-    }
-
-    @Override
-    protected void acceptConcrete(final FragmentVisitor visitor) {
-        visitor.visit(this);
     }
 
     /**
@@ -28,5 +28,10 @@ public class WhereClause extends AbstractFragment {
      */
     public BooleanExpression getExpression() {
         return this.expression;
+    }
+
+    @Override
+    public void accept(final FragmentVisitor visitor) {
+        visitor.visit(this);
     }
 }

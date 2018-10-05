@@ -13,12 +13,13 @@ public class Join extends AbstractFragment implements Fragment {
     /**
      * Create a new {@link Join} instance
      *
+     * @param root SQL statement this JOIN belongs to
      * @param type type of join (e.g. INNER, LEFT or RIGHT OUTER)
      * @param name name of the table to be joined
      * @param specification join specification (e.g. ON or USING)
      */
-    public Join(final JoinType type, final String name, final String specification) {
-        super();
+    public Join(final SqlStatement root, final JoinType type, final String name, final String specification) {
+        super(root);
         this.type = type;
         this.name = name;
         this.specification = specification;
@@ -52,7 +53,7 @@ public class Join extends AbstractFragment implements Fragment {
     }
 
     @Override
-    protected void acceptConcrete(final FragmentVisitor visitor) {
+    public void accept(final FragmentVisitor visitor) {
         visitor.visit(this);
     }
 }

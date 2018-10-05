@@ -4,14 +4,24 @@ import static com.exasol.hamcrest.SqlFragmentRenderResultMatcher.rendersTo;
 import static com.exasol.sql.expression.BooleanTerm.eq;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.exasol.sql.StatementFactory;
+import com.exasol.sql.dql.Select;
 
 class TestWhereRendering {
+    private Select select;
+
+    @BeforeEach
+    void beforeEach() {
+        this.select = StatementFactory.getInstance().select();
+        this.select.all().from().table("person");
+    }
+
     @Test
-    public void testWhere() {
-        assertThat(StatementFactory.getInstance().select().all().from().table("person").where(eq("firstname", "Jane")),
+    void testWhere() {
+        assertThat(this.select.where(eq("firstname", "Jane")),
                 rendersTo("SELECT * FROM person WHERE firstname = Jane"));
     }
 }
