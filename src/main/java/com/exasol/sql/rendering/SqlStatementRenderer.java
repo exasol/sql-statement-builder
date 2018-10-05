@@ -9,8 +9,7 @@ import com.exasol.sql.expression.BooleanExpression;
 import com.exasol.sql.expression.rendering.BooleanExpressionRenderer;
 
 /**
- * The {@link SqlStatementRenderer} turns SQL statement structures in to SQL
- * strings.
+ * The {@link SqlStatementRenderer} turns SQL statement structures in to SQL strings.
  */
 public class SqlStatementRenderer implements FragmentVisitor {
     private final StringBuilder builder = new StringBuilder();
@@ -18,8 +17,7 @@ public class SqlStatementRenderer implements FragmentVisitor {
     private Fragment lastVisited;
 
     /**
-     * Create a new {@link SqlStatementRenderer} using the default
-     * {@link StringRendererConfig}.
+     * Create a new {@link SqlStatementRenderer} using the default {@link StringRendererConfig}.
      */
     public SqlStatementRenderer() {
         this(new StringRendererConfig.Builder().build());
@@ -110,13 +108,6 @@ public class SqlStatementRenderer implements FragmentVisitor {
         appendKeyWord(" ON ");
         append(join.getSpecification());
         setLastVisited(join);
-    }
-
-    @Override
-    public void visit(final BooleanValueExpression value) {
-        appendSpace();
-        appendRenderedExpression(value.getExpression());
-        setLastVisited(value);
     }
 
     private void appendRenderedExpression(final BooleanExpression expression) {

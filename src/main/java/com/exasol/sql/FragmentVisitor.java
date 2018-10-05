@@ -16,8 +16,6 @@ public interface FragmentVisitor {
 
     public void visit(Join join);
 
-    public void visit(BooleanValueExpression booleanValueExpression);
-
     public void visit(LimitClause limitClause);
 
     public void visit(WhereClause whereClause);

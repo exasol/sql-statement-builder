@@ -17,6 +17,6 @@ public abstract class AbstractFragment implements Fragment {
 
     @Override
     public Fragment getRoot() {
-        return this.rootStatement;
+        return (this.rootStatement == null) ? this : this.rootStatement;
     }
 }

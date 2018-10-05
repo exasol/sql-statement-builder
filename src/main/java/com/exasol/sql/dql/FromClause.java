@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.exasol.sql.*;
-import com.exasol.sql.expression.BooleanExpression;
 
 /**
  * This class represents the FROM clause of an SQL SELECT statement.
@@ -139,27 +138,6 @@ public class FromClause extends AbstractFragment {
     public FromClause fullOuterJoin(final String name, final String specification) {
         this.joins.add(new Join(this.rootStatement, JoinType.FULL_OUTER, name, specification));
         return this;
-    }
-
-    /**
-     * @see com.exasol.sql.dql.Select#limit(int)
-     */
-    public Select limit(final int count) {
-        return ((Select) this.rootStatement).limit(count);
-    }
-
-    /**
-     * @see com.exasol.sql.dql.Select#limit(int,int)
-     */
-    public Select limit(final int offset, final int count) {
-        return ((Select) this.rootStatement).limit(offset, count);
-    }
-
-    /**
-     * @see com.exasol.sql.dql.Select#where(BooleanExpression)
-     */
-    public Select where(final BooleanExpression expression) {
-        return ((Select) this.rootStatement).where(expression);
     }
 
     @Override

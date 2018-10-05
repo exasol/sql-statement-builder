@@ -7,8 +7,7 @@ import com.exasol.sql.rendering.SqlStatementRenderer;
 import com.exasol.sql.rendering.StringRendererConfig;
 
 /**
- * This class implements a matcher for the results of rendering SQL statements
- * to text.
+ * This class implements a matcher for the results of rendering SQL statements to text.
  */
 public class SqlFragmentRenderResultMatcher extends AbstractRenderResultMatcher<Fragment> {
     private final SqlStatementRenderer renderer;
@@ -30,7 +29,7 @@ public class SqlFragmentRenderResultMatcher extends AbstractRenderResultMatcher<
      */
     @Override
     public boolean matchesSafely(final Fragment fragment) {
-        fragment.accept(this.renderer);
+        fragment.getRoot().accept(this.renderer);
         this.renderedText = this.renderer.render();
         return this.renderedText.equals(this.expectedText);
     }

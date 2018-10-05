@@ -86,7 +86,7 @@ public abstract class BooleanTerm extends AbstractBooleanExpression {
      * @param operator name of the operator
      * @param expressions operands
      * @return instance of either {@link And}, {@link Or} or {@link Not}
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException if the operator is unknown or null
      */
     public static BooleanExpression operation(final String operator, final BooleanExpression... expressions)
             throws IllegalArgumentException {

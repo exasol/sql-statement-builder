@@ -103,18 +103,6 @@ public class Select extends AbstractFragment implements SqlStatement {
         return this;
     }
 
-    /**
-     * Get the {@link WhereClause} of this select statement
-     *
-     * @return from clause
-     */
-    public synchronized WhereClause where() {
-        if (this.whereClause == null) {
-            throw new IllegalStateException("Tried to access a WHERE clause before it was constructed.");
-        }
-        return this.whereClause;
-    }
-
     @Override
     public void accept(final FragmentVisitor visitor) {
         visitor.visit(this);
