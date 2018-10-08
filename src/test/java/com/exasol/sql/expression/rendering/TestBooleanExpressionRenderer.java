@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import org.junit.jupiter.api.Test;
 
 import com.exasol.sql.expression.BooleanExpression;
+import com.exasol.sql.expression.ComparisonOperator;
 import com.exasol.sql.rendering.StringRendererConfig;
 
 class TestBooleanExpressionRenderer {
@@ -31,6 +32,14 @@ class TestBooleanExpressionRenderer {
     void testAndWithLiterals() {
         final BooleanExpression expression = and("a", "b", "c");
         assertThat(expression, rendersTo("a AND b AND c"));
+    }
+
+    // [utest->dsn~boolean-operators~1]
+    @Test
+    void testAndNestedComparisons() {
+        final BooleanExpression expression = and(compare("a", ComparisonOperator.EQUAL, "b"),
+                compare("c", ComparisonOperator.NOT_EQUAL, "d"));
+        assertThat(expression, rendersTo("(a = b) AND (c <> d)"));
     }
 
     // [utest->dsn~boolean-operators~1]

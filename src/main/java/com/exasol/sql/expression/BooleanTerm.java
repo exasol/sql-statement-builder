@@ -51,7 +51,7 @@ public abstract class BooleanTerm extends AbstractBooleanExpression {
     }
 
     // [dsn~boolean-operation.comparison.constructing-from-enum~1]
-    public static Object compare(final String left, final ComparisonOperator operator, final String right) {
+    public static BooleanExpression compare(final String left, final ComparisonOperator operator, final String right) {
         return new Comparison(operator, Literal.of(left), Literal.of(right));
     }
 

@@ -109,6 +109,10 @@ public class BooleanExpressionRenderer implements BooleanExpressionVisitor {
 
     @Override
     public void visit(final Comparison comparison) {
+        connect(comparison);
+        if (!comparison.isRoot()) {
+            startParenthesis();
+        }
         comparison.getLeftOperand().accept(this);
         this.builder.append(" ");
         this.builder.append(comparison.getOperator().toString());
@@ -118,6 +122,8 @@ public class BooleanExpressionRenderer implements BooleanExpressionVisitor {
 
     @Override
     public void leave(final Comparison comparison) {
-        // intentionally empty
+        if (!comparison.isRoot()) {
+            endParenthesis(comparison);
+        }
     }
 }
