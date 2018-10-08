@@ -75,4 +75,16 @@ class TestBooleanTerm {
     void testOperationFromNullOperatorThrowsException() {
         assertThrows(NullPointerException.class, () -> BooleanTerm.operation(null, not("a"), not("b")));
     }
+
+    // [impl->dsn~boolean-operation.comparison.constructing-from-strings~1]
+    @Test
+    void testOperationFromComparisonOperatorString() {
+        assertThat(BooleanTerm.compare("a", "<>", "b"), instanceOf(Comparison.class));
+    }
+
+    // [impl->dsn~boolean-operation.comparison.constructing-from-strings~1]
+    @Test
+    void testOperationFromComparisonOperatorEnum() {
+        assertThat(BooleanTerm.compare("a", ComparisonOperator.NOT_EQUAL, "b"), instanceOf(Comparison.class));
+    }
 }

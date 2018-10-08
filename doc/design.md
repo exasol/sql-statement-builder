@@ -11,7 +11,7 @@ The Data Query Language (DQL) building block is responsible for managing `SELECT
 
 ### Building Select Statements
 
-##### Accessing the Clauses That Make Up a SELECT Statement
+#### Accessing the Clauses That Make Up a SELECT Statement
 `dsn~select-statement.accessing-clauses~1`
 
 The DQL statement component allows getting the following clauses, provided that they already exist:
@@ -23,9 +23,37 @@ Covers:
 
 * `req~statement-structure.step-wise~1`
 
-Needs: impl, utest, itest
+Needs: impl, utest
 
 Tags: Select Statement Builder
+
+##### Constructing Boolean Comparison Operations From Operator Strings
+`dsn~boolean-operation.comparison.constructing-from-strings~1`
+
+The Boolean Expression builder allows creating expression objects from a string representing the comparison operator (options listed below) and a list of operands.
+
+* `>`
+* `<`
+* `=`
+* `>=`
+* `<=`
+* `<>`
+
+Covers:
+
+* `req~boolean-operators~1`
+
+Needs: impl, utest
+
+##### Constructing Boolean Comparison Operations From Operator Enumeration
+`dsn~boolean-operation.comparison.constructing-from-enum~1`
+
+The Boolean Expression builder allows creating expression objects from a enumeration of comparison operators.
+Covers:
+
+* `req~boolean-operators~1`
+
+Needs: impl, utest
 
 ## Forwarded Requirements
 

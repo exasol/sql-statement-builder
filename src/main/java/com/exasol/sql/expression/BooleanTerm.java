@@ -45,9 +45,14 @@ public abstract class BooleanTerm extends AbstractBooleanExpression {
         return new Or(expressions);
     }
 
-    // [impl->dsn~comparison-operations~1]
+    // [impl->dsn~boolean-operation.comparison.constructing-from-strings~1]
     public static BooleanExpression compare(final String left, final String operatorSymbol, final String right) {
         return new Comparison(ComparisonOperator.ofSymbol(operatorSymbol), Literal.of(left), Literal.of(right));
+    }
+
+    // [dsn~boolean-operation.comparison.constructing-from-enum~1]
+    public static Object compare(final String left, final ComparisonOperator operator, final String right) {
+        return new Comparison(operator, Literal.of(left), Literal.of(right));
     }
 
     // [impl->dsn~comparison-operations~1]
