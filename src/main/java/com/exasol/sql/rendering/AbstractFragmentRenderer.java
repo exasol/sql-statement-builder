@@ -2,7 +2,9 @@ package com.exasol.sql.rendering;
 
 import com.exasol.sql.Fragment;
 import com.exasol.sql.expression.BooleanExpression;
+import com.exasol.sql.expression.ValueExpression;
 import com.exasol.sql.expression.rendering.BooleanExpressionRenderer;
+import com.exasol.sql.expression.rendering.ValueExpressionRenderer;
 
 /**
  * Abstract base class for SQL fragment renderers
@@ -15,11 +17,6 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
     public AbstractFragmentRenderer(final StringRendererConfig config) {
         this.config = config;
         this.lastVisited = null;
-    }
-
-    @Override
-    public String render() {
-        return this.builder.toString();
     }
 
     protected void appendKeyWord(final String keyword) {
@@ -52,5 +49,16 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
 
     protected void append(final int number) {
         this.builder.append(number);
+    }
+
+    protected void appendRenderedValueExpression(final ValueExpression expression) {
+        final ValueExpressionRenderer renderer = new ValueExpressionRenderer(this.config);
+        expression.accept(renderer);
+        append(renderer.render());
+    }
+
+    @Override
+    public String render() {
+        return this.builder.toString();
     }
 }

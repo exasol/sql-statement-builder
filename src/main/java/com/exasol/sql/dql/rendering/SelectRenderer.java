@@ -2,7 +2,8 @@ package com.exasol.sql.dql.rendering;
 
 import java.util.Optional;
 
-import com.exasol.sql.*;
+import com.exasol.sql.Field;
+import com.exasol.sql.Table;
 import com.exasol.sql.dql.*;
 import com.exasol.sql.rendering.AbstractFragmentRenderer;
 import com.exasol.sql.rendering.StringRendererConfig;
@@ -81,29 +82,5 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
         }
         append(limit.getCount());
         setLastVisited(limit);
-    }
-
-    /**
-     * Create a renderer for the given {@link Fragment} and render it.
-     *
-     * @param fragment SQL statement fragment to be rendered
-     * @return rendered statement
-     */
-    public static String render(final Fragment fragment) {
-        return render(fragment, StringRendererConfig.createDefault());
-    }
-
-    /**
-     * Create a renderer for the given {@link Fragment} and render it.
-     *
-     * @param fragment SQL statement fragment to be rendered
-     * @param config renderer configuration
-     * @return rendered statement
-     */
-    public static String render(final Fragment fragment, final StringRendererConfig config) {
-        assert (fragment instanceof SelectFragment);
-        final SelectRenderer renderer = new SelectRenderer(config);
-        ((SelectFragment) fragment).accept(renderer);
-        return renderer.render();
     }
 }

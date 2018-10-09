@@ -8,7 +8,8 @@ import com.exasol.sql.dql.Select;
  */
 public class Insert extends AbstractFragment implements SqlStatement, InsertFragment {
     private final Table table;
-    private InsertFields fields;
+    private InsertFields insertFields;
+    private InsertValues insertValues;
 
     /**
      * Create a new instance of an {@link Insert} statement
@@ -27,10 +28,10 @@ public class Insert extends AbstractFragment implements SqlStatement, InsertFrag
      * @return <code>this</code> for fluent programming
      */
     public synchronized Insert field(final String... names) {
-        if (this.fields == null) {
-            this.fields = new InsertFields(this);
+        if (this.insertFields == null) {
+            this.insertFields = new InsertFields(this);
         }
-        this.fields.add(names);
+        this.insertFields.add(names);
         return this;
     }
 
@@ -49,8 +50,25 @@ public class Insert extends AbstractFragment implements SqlStatement, InsertFrag
         if (this.table != null) {
             this.table.accept(visitor);
         }
-        if (this.fields != null) {
-            this.fields.accept(visitor);
+        if (this.insertFields != null) {
+            this.insertFields.accept(visitor);
         }
+        if (this.insertValues != null) {
+            this.insertValues.accept(visitor);
+        }
+    }
+
+    /**
+     * Insert a list of concrete values
+     *
+     * @param values values to be inserted
+     * @return <code>this</code> for fluent programming
+     */
+    public synchronized Insert values(final Object... values) {
+        if (this.insertValues == null) {
+            this.insertValues = new InsertValues(this);
+        }
+        this.insertValues.add(values);
+        return this;
     }
 }
