@@ -1,7 +1,14 @@
 package com.exasol.sql;
 
-import com.exasol.util.TreeNode;
-
-public interface Fragment extends TreeNode {
-    public void accept(FragmentVisitor visitor);
+/**
+ * This is the common interface for all fragments of SQL statements. Fragments can be clauses like the WHERE clause of
+ * an SELECT statement but also lower level concepts like boolean expressions.
+ */
+public interface Fragment {
+    /**
+     * Get the root statement of this SQL fragment
+     *
+     * @return the root fragment
+     */
+    public Fragment getRoot();
 }

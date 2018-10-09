@@ -2,9 +2,9 @@ package com.exasol.hamcrest;
 
 import org.hamcrest.Description;
 
+import com.exasol.sql.dql.rendering.SelectRenderer;
 import com.exasol.sql.expression.BooleanExpression;
 import com.exasol.sql.expression.rendering.BooleanExpressionRenderer;
-import com.exasol.sql.rendering.SqlStatementRenderer;
 import com.exasol.sql.rendering.StringRendererConfig;
 
 /**
@@ -55,7 +55,7 @@ public class BooleanExpressionRenderResultMatcher extends AbstractRenderResultMa
      * Factory method for {@link BooleanExpressionRenderResultMatcher}
      *
      * @param config       configuration settings for the
-     *                     {@link SqlStatementRenderer}
+     *                     {@link SelectRenderer}
      * @param expectedText text that represents the expected rendering result
      * @return the matcher
      */

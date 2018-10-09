@@ -1,24 +1,22 @@
-package com.exasol.sql.dql;
+package com.exasol.sql;
 
 import java.util.Optional;
-
-import com.exasol.sql.AbstractFragment;
-import com.exasol.sql.FragmentVisitor;
 
 /**
  * This class represents a {@link Table} in an SQL Statement
  */
-public class Table extends AbstractFragment implements TableReference {
+public class Table extends AbstractFragment implements TableReference, GenericFragment {
     private final String name;
     private final Optional<String> as;
 
     /**
-     * Create a new {@link Table}
+     * Create a new {@link Table} with a name and an alias
      *
+     * @param root SQL statement this table belongs to
      * @param name table name
      */
-    public Table(final String name) {
-        super();
+    public Table(final Fragment root, final String name) {
+        super(root);
         this.name = name;
         this.as = Optional.empty();
     }
@@ -26,11 +24,12 @@ public class Table extends AbstractFragment implements TableReference {
     /**
      * Create a new {@link Table} with a name and an alias
      *
+     * @param root SQL statement this table belongs to
      * @param name table name
      * @param as table alias
      */
-    public Table(final String name, final String as) {
-        super();
+    public Table(final Fragment root, final String name, final String as) {
+        super(root);
         this.name = name;
         this.as = Optional.of(as);
     }
@@ -54,7 +53,7 @@ public class Table extends AbstractFragment implements TableReference {
     }
 
     @Override
-    protected void acceptConcrete(final FragmentVisitor visitor) {
+    public void accept(final FragmentVisitor visitor) {
         visitor.visit(this);
     }
 }

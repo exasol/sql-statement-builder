@@ -1,17 +1,25 @@
 package com.exasol.sql.dql;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.exasol.sql.*;
 import com.exasol.sql.expression.BooleanExpression;
 
 /**
  * This class implements an SQL {@link Select} statement
  */
-public class Select extends AbstractFragment implements SqlStatement {
+public class Select extends AbstractFragment implements SqlStatement, SelectFragment {
+    private final List<Field> fields = new ArrayList<>();
+    private FromClause fromClause = null;
+    private WhereClause whereClause = null;
+    private LimitClause limitClause = null;
+
     /**
      * Create a new instance of a {@link Select}
      */
     public Select() {
-        super();
+        super(null);
     }
 
     /**
@@ -20,7 +28,7 @@ public class Select extends AbstractFragment implements SqlStatement {
      * @return <code>this</code> instance for fluent programming
      */
     public Select all() {
-        addChild(Field.all());
+        this.fields.add(new Field(this, "*"));
         return this;
     }
 
@@ -32,50 +40,83 @@ public class Select extends AbstractFragment implements SqlStatement {
      */
     public Select field(final String... names) {
         for (final String name : names) {
-            addChild(new Field(name));
+            this.fields.add(new Field(this, name));
         }
         return this;
     }
 
     /**
-     * Add a boolean value expression
+     * Get the {@link FromClause} of this select statement
      *
-     * @param expression boolean value expression
-     * @return <code>this</code> instance for fluent programming
+     * @return from clause
      */
-    public Select value(final BooleanExpression expression) {
-        addChild(new BooleanValueExpression(expression));
+    public synchronized FromClause from() {
+        if (this.fromClause == null) {
+            this.fromClause = new FromClause(this);
+        }
+        return this.fromClause;
+    }
+
+    /**
+     * Create a new full outer {@link LimitClause}
+     *
+     * @param count maximum number of rows to be included in query result
+     * @return new instance
+     * @throws IllegalStateException if a limit clause already exists
+     */
+    public synchronized Select limit(final int count) {
+        if (this.limitClause != null) {
+            throw new IllegalStateException(
+                    "Tried to create a LIMIT clause in a SELECT statement that already had one.");
+        }
+        this.limitClause = new LimitClause(this, count);
+        return this;
+    }
+
+    /**
+     * Create a new full outer {@link LimitClause}
+     *
+     * @param offset index of the first row in the query result
+     * @param count maximum number of rows to be included in query result
+     * @return <code>this</code for fluent programming
+     * @throws IllegalStateException if a limit clause already exists
+     */
+    public synchronized Select limit(final int offset, final int count) {
+        if (this.limitClause != null) {
+            throw new IllegalStateException(
+                    "Tried to create a LIMIT clause in a SELECT statement that already had one.");
+        }
+        this.limitClause = new LimitClause(this, offset, count);
+        return this;
+    }
+
+    /**
+     * Create a new {@link WhereClause}
+     *
+     * @param expression boolean expression that defines the filter criteria
+     * @return new instance
+     */
+    public synchronized Select where(final BooleanExpression expression) {
+        if (this.whereClause == null) {
+            this.whereClause = new WhereClause(this, expression);
+        }
         return this;
     }
 
     @Override
-    public void acceptConcrete(final FragmentVisitor visitor) {
+    public void accept(final SelectVisitor visitor) {
         visitor.visit(this);
-    }
-
-    /**
-     * Add a {@link FromClause} to the statement with a table identified by its name
-     *
-     * @param name table reference name
-     * @return the FROM clause
-     */
-    public FromClause from(final String name) {
-        final FromClause from = new FromClause().from(name);
-        addChild(from);
-        return from;
-    }
-
-    /**
-     * Add a {@link FromClause} to the statement with an aliased table identified by
-     * its name
-     *
-     * @param name table reference name
-     * @param as table correlation name
-     * @return the FROM clause
-     */
-    public FromClause fromTableAs(final String name, final String as) {
-        final FromClause from = new FromClause().fromTableAs(name, as);
-        addChild(from);
-        return from;
+        for (final Field field : this.fields) {
+            field.accept(visitor);
+        }
+        if (this.fromClause != null) {
+            this.fromClause.accept(visitor);
+        }
+        if (this.whereClause != null) {
+            this.whereClause.accept(visitor);
+        }
+        if (this.limitClause != null) {
+            this.limitClause.accept(visitor);
+        }
     }
 }

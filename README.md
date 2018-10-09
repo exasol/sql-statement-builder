@@ -20,9 +20,8 @@ import com.exasol.sql.SqlStatement;
 import com.exasol.sql.rendering.SqlStatementRenderer;
 
 SqlStatement statement = StatementFactory.getInstance()
-  .select()
-  .field("firstname", "lastname")
-  .from("person");
+  .select().field("firstname", "lastname")
+  .from().table("person");
 
 String statementText = SqlStatementRenderer.render(statement);
 ```

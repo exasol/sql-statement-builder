@@ -1,26 +1,22 @@
 package com.exasol.sql;
 
-import com.exasol.util.AbstractTreeNode;
-import com.exasol.util.TreeNode;
-
 /**
- * This class provides an abstract base for SQL statement fragments. It also
- * keeps track of the relationships to other fragments.
- *
- * @param <T> the type of the concrete class implementing the missing parts.
+ * Common base class for SQL statement fragments
  */
-public abstract class AbstractFragment extends AbstractTreeNode implements Fragment {
-    protected AbstractFragment() {
-        super();
+public abstract class AbstractFragment implements Fragment {
+    private final Fragment root;
+
+    /**
+     * Create an instance of an SQL fragment
+     *
+     * @param root root SQL statement this fragment belongs to.
+     */
+    public AbstractFragment(final Fragment root) {
+        this.root = root;
     }
 
     @Override
-    public void accept(final FragmentVisitor visitor) {
-        acceptConcrete(visitor);
-        for (final TreeNode child : this.getChildren()) {
-            ((Fragment) child).accept(visitor);
-        }
+    public Fragment getRoot() {
+        return (this.root == null) ? this : this.root;
     }
-
-    protected abstract void acceptConcrete(final FragmentVisitor visitor);
 }
