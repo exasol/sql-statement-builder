@@ -61,4 +61,23 @@ public class InsertRenderer extends AbstractFragmentRenderer implements InsertVi
     public void leave(final InsertValues insertValues) {
         // intentionally empty
     }
+
+    /**
+     * Create an {@link InsertRenderer} using the default renderer configuration
+     *
+     * @return insert renderer
+     */
+    public static InsertRenderer create() {
+        return create(StringRendererConfig.createDefault());
+    }
+
+    /**
+     * Create an {@link InsertRenderer}
+     *
+     * @param config renderer configuration
+     * @return insert renderer
+     */
+    public static InsertRenderer create(final StringRendererConfig config) {
+        return new InsertRenderer(config);
+    }
 }

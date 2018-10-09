@@ -83,4 +83,23 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
         append(limit.getCount());
         setLastVisited(limit);
     }
+
+    /**
+     * Create an {@link SelectRenderer} using the default renderer configuration
+     *
+     * @return select renderer
+     */
+    public static SelectRenderer create() {
+        return create(StringRendererConfig.createDefault());
+    }
+
+    /**
+     * Create an {@link SelectRenderer}
+     *
+     * @param config renderer configuration
+     * @return select renderer
+     */
+    public static SelectRenderer create(final StringRendererConfig config) {
+        return new SelectRenderer(config);
+    }
 }
