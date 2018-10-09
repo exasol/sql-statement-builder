@@ -1,12 +1,13 @@
 package com.exasol.sql.dql;
 
-import com.exasol.sql.*;
+import com.exasol.sql.AbstractFragment;
+import com.exasol.sql.SqlStatement;
 
 /**
  * This class represents the limit clause of an SQL statement. It lets you choose offset and / or count of rows to be
  * handed back in the result.
  */
-public class LimitClause extends AbstractFragment {
+public class LimitClause extends AbstractFragment implements SelectFragment {
     private final int count;
     private final int offset;
 
@@ -66,7 +67,7 @@ public class LimitClause extends AbstractFragment {
     }
 
     @Override
-    public void accept(final FragmentVisitor visitor) {
+    public void accept(final SelectVisitor visitor) {
         visitor.visit(this);
     }
 }

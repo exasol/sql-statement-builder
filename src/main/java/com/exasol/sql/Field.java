@@ -1,11 +1,9 @@
-package com.exasol.sql.dql;
-
-import com.exasol.sql.*;
+package com.exasol.sql;
 
 /**
  * This class represents a table field in an SQL statement.
  */
-public class Field extends AbstractFragment {
+public class Field extends AbstractFragment implements GenericFragment {
     private final String name;
 
     /**
@@ -14,7 +12,7 @@ public class Field extends AbstractFragment {
      * @param root root SQL statement
      * @param name field name
      */
-    protected Field(final SqlStatement root, final String name) {
+    public Field(final Fragment root, final String name) {
         super(root);
         this.name = name;
     }

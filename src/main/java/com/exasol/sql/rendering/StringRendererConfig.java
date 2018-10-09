@@ -3,8 +3,7 @@ package com.exasol.sql.rendering;
 import com.exasol.sql.StatementFactory;
 
 /**
- * This class implements a parameter object containing the configuration options
- * for the {@link StatementFactory}.
+ * This class implements a parameter object containing the configuration options for the {@link StatementFactory}.
  */
 public class StringRendererConfig {
     private final boolean lowerCase;
@@ -40,13 +39,21 @@ public class StringRendererConfig {
         /**
          * Define whether the statement should be produced in lower case
          *
-         * @param lowerCase set to <code>true</code> if the statement should be produced
-         *                  in lower case
+         * @param lowerCase set to <code>true</code> if the statement should be produced in lower case
          * @return this instance for fluent programming
          */
         public Builder lowerCase(final boolean lowerCase) {
             this.lowerCase = lowerCase;
             return this;
         }
+    }
+
+    /**
+     * Create the default configuration.
+     * 
+     * @return default configuration
+     */
+    public static StringRendererConfig createDefault() {
+        return new Builder().build();
     }
 }

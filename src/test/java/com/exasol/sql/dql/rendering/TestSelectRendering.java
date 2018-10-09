@@ -1,7 +1,6 @@
-package com.exasol.dql.rendering;
+package com.exasol.sql.dql.rendering;
 
 import static com.exasol.hamcrest.SqlFragmentRenderResultMatcher.rendersTo;
-import static com.exasol.hamcrest.SqlFragmentRenderResultMatcher.rendersWithConfigTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -9,7 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import com.exasol.sql.StatementFactory;
 import com.exasol.sql.dql.Select;
-import com.exasol.sql.rendering.StringRendererConfig;
 
 class TestSelectRendering {
     private Select select;
@@ -19,47 +17,43 @@ class TestSelectRendering {
         this.select = StatementFactory.getInstance().select();
     }
 
-    @Test
-    void testEmptySelect() {
-        assertThat(this.select, rendersTo("SELECT"));
-    }
-
-    @Test
-    void testEmptySelectLowerCase() {
-        final StringRendererConfig config = new StringRendererConfig.Builder().lowerCase(true).build();
-        assertThat(this.select, rendersWithConfigTo(config, "select"));
-    }
-
+    // [dsn~rendering.sql.select~1]
     @Test
     void testSelectAll() {
         assertThat(this.select.all(), rendersTo("SELECT *"));
     }
 
+    // [dsn~rendering.sql.select~1]
     @Test
     void testSelectFieldNames() {
         assertThat(this.select.field("a", "b"), rendersTo("SELECT a, b"));
     }
 
+    // [dsn~rendering.sql.select~1]
     @Test
     void testSelectChainOfFieldNames() {
         assertThat(this.select.field("a", "b").field("c"), rendersTo("SELECT a, b, c"));
     }
 
+    // [dsn~rendering.sql.select~1]
     @Test
     void testSelectFromTable() {
         assertThat(this.select.all().from().table("persons"), rendersTo("SELECT * FROM persons"));
     }
 
+    // [dsn~rendering.sql.select~1]
     @Test
     void testSelectFromMultipleTable() {
         assertThat(this.select.all().from().table("table1").table("table2"), rendersTo("SELECT * FROM table1, table2"));
     }
 
+    // [dsn~rendering.sql.select~1]
     @Test
     void testSelectFromTableAs() {
         assertThat(this.select.all().from().tableAs("table", "t"), rendersTo("SELECT * FROM table AS t"));
     }
 
+    // [dsn~rendering.sql.select~1]
     @Test
     void testSelectFromMultipleTableAs() {
         assertThat(this.select.all().from().tableAs("table1", "t1").tableAs("table2", "t2"),

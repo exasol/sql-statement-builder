@@ -9,7 +9,7 @@ import com.exasol.sql.expression.BooleanExpression;
 /**
  * This class implements an SQL {@link Select} statement
  */
-public class Select extends AbstractFragment implements SqlStatement {
+public class Select extends AbstractFragment implements SqlStatement, SelectFragment {
     private final List<Field> fields = new ArrayList<>();
     private FromClause fromClause = null;
     private WhereClause whereClause = null;
@@ -104,7 +104,7 @@ public class Select extends AbstractFragment implements SqlStatement {
     }
 
     @Override
-    public void accept(final FragmentVisitor visitor) {
+    public void accept(final SelectVisitor visitor) {
         visitor.visit(this);
         for (final Field field : this.fields) {
             field.accept(visitor);

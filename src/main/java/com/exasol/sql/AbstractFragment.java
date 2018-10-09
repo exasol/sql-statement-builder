@@ -4,19 +4,19 @@ package com.exasol.sql;
  * Common base class for SQL statement fragments
  */
 public abstract class AbstractFragment implements Fragment {
-    protected final SqlStatement rootStatement;
+    private final Fragment root;
 
     /**
      * Create an instance of an SQL fragment
      *
-     * @param rootStatement root SQL statement this fragment belongs to.
+     * @param root root SQL statement this fragment belongs to.
      */
-    public AbstractFragment(final SqlStatement rootStatement) {
-        this.rootStatement = rootStatement;
+    public AbstractFragment(final Fragment root) {
+        this.root = root;
     }
 
     @Override
     public Fragment getRoot() {
-        return (this.rootStatement == null) ? this : this.rootStatement;
+        return (this.root == null) ? this : this.root;
     }
 }

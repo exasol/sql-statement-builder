@@ -8,7 +8,7 @@ import com.exasol.sql.*;
 /**
  * This class represents the FROM clause of an SQL SELECT statement.
  */
-public class FromClause extends AbstractFragment {
+public class FromClause extends AbstractFragment implements SelectFragment {
     private final List<Table> tables = new ArrayList<>();
     private final List<Join> joins = new ArrayList<>();
 
@@ -17,7 +17,7 @@ public class FromClause extends AbstractFragment {
      *
      * @param root root SQL statement this FROM clause belongs to
      */
-    public FromClause(final SqlStatement root) {
+    public FromClause(final Fragment root) {
         super(root);
     }
 
@@ -28,7 +28,7 @@ public class FromClause extends AbstractFragment {
      * @return new instance
      */
     public FromClause table(final String name) {
-        this.tables.add(new Table(this.rootStatement, name));
+        this.tables.add(new Table(getRoot(), name));
         return this;
     }
 
@@ -40,7 +40,7 @@ public class FromClause extends AbstractFragment {
      * @return new instance
      */
     public FromClause tableAs(final String name, final String as) {
-        this.tables.add(new Table(this.rootStatement, name, as));
+        this.tables.add(new Table(getRoot(), name, as));
         return this;
     }
 
@@ -52,7 +52,7 @@ public class FromClause extends AbstractFragment {
      * @return parent FROM clause
      */
     public FromClause join(final String name, final String specification) {
-        this.joins.add(new Join(this.rootStatement, JoinType.DEFAULT, name, specification));
+        this.joins.add(new Join(getRoot(), JoinType.DEFAULT, name, specification));
         return this;
     }
 
@@ -64,7 +64,7 @@ public class FromClause extends AbstractFragment {
      * @return parent FROM clause
      */
     public FromClause innerJoin(final String name, final String specification) {
-        this.joins.add(new Join(this.rootStatement, JoinType.INNER, name, specification));
+        this.joins.add(new Join(getRoot(), JoinType.INNER, name, specification));
         return this;
     }
 
@@ -76,7 +76,7 @@ public class FromClause extends AbstractFragment {
      * @return parent FROM clause
      */
     public FromClause leftJoin(final String name, final String specification) {
-        this.joins.add(new Join(this.rootStatement, JoinType.LEFT, name, specification));
+        this.joins.add(new Join(getRoot(), JoinType.LEFT, name, specification));
         return this;
     }
 
@@ -88,7 +88,7 @@ public class FromClause extends AbstractFragment {
      * @return parent FROM clause
      */
     public FromClause rightJoin(final String name, final String specification) {
-        this.joins.add(new Join(this.rootStatement, JoinType.RIGHT, name, specification));
+        this.joins.add(new Join(getRoot(), JoinType.RIGHT, name, specification));
         return this;
     }
 
@@ -100,7 +100,7 @@ public class FromClause extends AbstractFragment {
      * @return parent FROM clause
      */
     public FromClause fullJoin(final String name, final String specification) {
-        this.joins.add(new Join(this.rootStatement, JoinType.FULL, name, specification));
+        this.joins.add(new Join(getRoot(), JoinType.FULL, name, specification));
         return this;
     }
 
@@ -112,7 +112,7 @@ public class FromClause extends AbstractFragment {
      * @return parent FROM clause
      */
     public FromClause leftOuterJoin(final String name, final String specification) {
-        this.joins.add(new Join(this.rootStatement, JoinType.LEFT_OUTER, name, specification));
+        this.joins.add(new Join(getRoot(), JoinType.LEFT_OUTER, name, specification));
         return this;
     }
 
@@ -124,7 +124,7 @@ public class FromClause extends AbstractFragment {
      * @return parent FROM clause
      */
     public FromClause rightOuterJoin(final String name, final String specification) {
-        this.joins.add(new Join(this.rootStatement, JoinType.RIGHT_OUTER, name, specification));
+        this.joins.add(new Join(getRoot(), JoinType.RIGHT_OUTER, name, specification));
         return this;
     }
 
@@ -136,12 +136,12 @@ public class FromClause extends AbstractFragment {
      * @return parent FROM clause
      */
     public FromClause fullOuterJoin(final String name, final String specification) {
-        this.joins.add(new Join(this.rootStatement, JoinType.FULL_OUTER, name, specification));
+        this.joins.add(new Join(getRoot(), JoinType.FULL_OUTER, name, specification));
         return this;
     }
 
     @Override
-    public void accept(final FragmentVisitor visitor) {
+    public void accept(final SelectVisitor visitor) {
         visitor.visit(this);
         for (final Table table : this.tables) {
             table.accept(visitor);

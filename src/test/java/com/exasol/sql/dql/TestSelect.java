@@ -1,4 +1,4 @@
-package com.exasol.dql;
+package com.exasol.sql.dql;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

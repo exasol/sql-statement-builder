@@ -27,7 +27,9 @@ Needs: impl, utest
 
 Tags: Select Statement Builder
 
-##### Constructing Boolean Comparison Operations From Operator Strings
+### Building Boolean Expressions
+
+#### Constructing Boolean Comparison Operations From Operator Strings
 `dsn~boolean-operation.comparison.constructing-from-strings~1`
 
 The Boolean Expression builder allows creating expression objects from a string representing the comparison operator (options listed below) and a list of operands.
@@ -45,7 +47,7 @@ Covers:
 
 Needs: impl, utest
 
-##### Constructing Boolean Comparison Operations From Operator Enumeration
+#### Constructing Boolean Comparison Operations From Operator Enumeration
 `dsn~boolean-operation.comparison.constructing-from-enum~1`
 
 The Boolean Expression builder allows creating expression objects from a enumeration of comparison operators.
@@ -55,7 +57,22 @@ Covers:
 
 Needs: impl, utest
 
-## Forwarded Requirements
+#### Forwarded Requirements
 
-* dsn --> impl, utest : req~comparison-operations~1
-* dsn --> impl, utest : req~boolean-operators~1
+* `dsn --> impl, utest : req~comparison-operations~1`
+* `dsn --> impl, utest : req~boolean-operators~1`
+
+### Building INSERT Statements
+
+#### Forwarded Requirements
+
+* `dsn --> impl, utest: req~insert-statements~1`
+* `dsn --> impl, utest: req~values-as-insert-source~1`
+
+### Rendering Statements
+
+#### Forwarded Requirements
+
+* `dsn --> req~rendering.sql.configurable-case~1`
+* `dsn --> impl, utest: req~rendering.sql.select~1`
+* `dsn --> impl, utest: req~rendering.sql.insert~1`

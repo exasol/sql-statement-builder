@@ -1,4 +1,4 @@
-package com.exasol.dql.rendering;
+package com.exasol.sql.dql.rendering;
 
 import static com.exasol.hamcrest.SqlFragmentRenderResultMatcher.rendersTo;
 import static org.hamcrest.MatcherAssert.assertThat;

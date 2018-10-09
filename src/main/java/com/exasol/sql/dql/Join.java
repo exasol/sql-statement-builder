@@ -1,11 +1,12 @@
 package com.exasol.sql.dql;
 
-import com.exasol.sql.*;
+import com.exasol.sql.AbstractFragment;
+import com.exasol.sql.Fragment;
 
 /**
  * This class implements the {@link Join} part of a WHERE clause.
  */
-public class Join extends AbstractFragment implements Fragment {
+public class Join extends AbstractFragment implements SelectFragment {
     private final JoinType type;
     private final String name;
     private final String specification;
@@ -18,7 +19,7 @@ public class Join extends AbstractFragment implements Fragment {
      * @param name name of the table to be joined
      * @param specification join specification (e.g. ON or USING)
      */
-    public Join(final SqlStatement root, final JoinType type, final String name, final String specification) {
+    public Join(final Fragment root, final JoinType type, final String name, final String specification) {
         super(root);
         this.type = type;
         this.name = name;
@@ -53,7 +54,7 @@ public class Join extends AbstractFragment implements Fragment {
     }
 
     @Override
-    public void accept(final FragmentVisitor visitor) {
+    public void accept(final SelectVisitor visitor) {
         visitor.visit(this);
     }
 }
