@@ -29,14 +29,14 @@ public class InsertRenderer extends AbstractFragmentRenderer implements InsertVi
 
     @Override
     public void visit(final Table table) {
-        append(table.getName());
+        appendAutoQuoted(table.getName());
         setLastVisited(table);
     }
 
     @Override
     public void visit(final Field field) {
         appendCommaWhenNeeded(field);
-        append(field.getName());
+        appendAutoQuoted(field.getName());
         setLastVisited(field);
     }
 

@@ -21,7 +21,7 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
 
     // [impl->dsn~rendering.sql.configurable-case~1]
     protected void appendKeyWord(final String keyword) {
-        append(this.config.produceLowerCase() ? keyword.toLowerCase() : keyword);
+        append(this.config.useLowerCase() ? keyword.toLowerCase() : keyword);
     }
 
     protected StringBuilder append(final String string) {
@@ -56,6 +56,40 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
         final ValueExpressionRenderer renderer = new ValueExpressionRenderer(this.config);
         expression.accept(renderer);
         append(renderer.render());
+    }
+
+    // [impl->dsn~rendering.add-double-quotes-for-schema-table-and-column-identifiers~1]
+    protected void appendAutoQuoted(final String identifier) {
+        if (this.config.useQuotes()) {
+            appendQuoted(identifier);
+        } else {
+            append(identifier);
+        }
+    }
+
+    private void appendQuoted(final String identifier) {
+        boolean first = true;
+        for (final String part : identifier.split("\\.")) {
+            if (!first) {
+                append(".");
+            }
+            quoteIdentiferPart(part);
+            first = false;
+        }
+    }
+
+    private void quoteIdentiferPart(final String part) {
+        if ("*".equals(part)) {
+            append("*");
+        } else {
+            if (!part.startsWith("\"")) {
+                append("\"");
+            }
+            append(part);
+            if (!part.endsWith("\"")) {
+                append("\"");
+            }
+        }
     }
 
     @Override

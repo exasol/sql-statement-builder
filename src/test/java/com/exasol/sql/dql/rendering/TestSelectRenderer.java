@@ -18,7 +18,7 @@ class TestSelectRenderer {
 
     @Test
     void testCreateWithConfig() {
-        final StringRendererConfig config = new StringRendererConfig.Builder().lowerCase(true).build();
+        final StringRendererConfig config = StringRendererConfig.builder().lowerCase(true).build();
         final SelectRenderer renderer = SelectRenderer.create(config);
         final Select select = StatementFactory.getInstance().select();
         select.accept(renderer);

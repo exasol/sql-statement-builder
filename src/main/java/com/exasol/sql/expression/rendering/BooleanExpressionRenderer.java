@@ -9,7 +9,7 @@ public class BooleanExpressionRenderer extends AbstractExpressionRenderer implem
     }
 
     public BooleanExpressionRenderer() {
-        this(new StringRendererConfig.Builder().build());
+        this(StringRendererConfig.builder().build());
     }
 
     @Override

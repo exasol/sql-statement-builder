@@ -18,7 +18,7 @@ class TestInsertRenderer {
 
     @Test
     void testCreateWithConfig() {
-        final StringRendererConfig config = new StringRendererConfig.Builder().lowerCase(true).build();
+        final StringRendererConfig config = StringRendererConfig.builder().lowerCase(true).build();
         final InsertRenderer renderer = InsertRenderer.create(config);
         final Insert insert = StatementFactory.getInstance().insertInto("city");
         insert.accept(renderer);

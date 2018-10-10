@@ -30,7 +30,7 @@ class TestSelectRendering {
     @Test
     void testSelectAllLowerCase() {
         assertThat(this.select.all(),
-                rendersWithConfigTo(new StringRendererConfig.Builder().lowerCase(true).build(), "select *"));
+                rendersWithConfigTo(StringRendererConfig.builder().lowerCase(true).build(), "select *"));
     }
 
     // [utest->dsn~rendering.sql.select~1]
@@ -75,5 +75,13 @@ class TestSelectRendering {
     void testAddClausesInRandomOrder() {
         assertThat(this.select.limit(1).all().where(BooleanTerm.not("foo")).from().join("A", "A.aa = B.bb").table("B"),
                 rendersTo("SELECT * FROM B JOIN A ON A.aa = B.bb WHERE NOT(foo) LIMIT 1"));
+    }
+
+    // [utest->dsn~rendering.add-double-quotes-for-schema-table-and-column-identifiers~1]
+    @Test
+    void testSelectWithQuotedIdentifiers() {
+        final StringRendererConfig config = StringRendererConfig.builder().quoteIdentifiers(true).build();
+        assertThat(this.select.field("fieldA", "tableA.fieldB").from().table("schemaA.tableA"),
+                rendersWithConfigTo(config, "SELECT \"fieldA\", \"tableA\".\"fieldB\" FROM \"schemaA\".\"tableA\""));
     }
 }

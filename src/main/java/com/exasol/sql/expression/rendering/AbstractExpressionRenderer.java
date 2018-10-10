@@ -18,7 +18,7 @@ public class AbstractExpressionRenderer {
     }
 
     protected void appendKeyword(final String keyword) {
-        this.builder.append(this.config.produceLowerCase() ? keyword.toLowerCase() : keyword);
+        this.builder.append(this.config.useLowerCase() ? keyword.toLowerCase() : keyword);
     }
 
     protected void connect(final BooleanExpression expression) {

@@ -94,3 +94,22 @@ Needs: impl, utest
 * `dsn --> impl, utest: req~rendering.sql.configurable-case~1`
 * `dsn --> impl, utest: req~rendering.sql.select~1`
 * `dsn --> impl, utest: req~rendering.sql.insert~1`
+
+#### Renderer add Double Quotes for Schema, Table and Column Identifiers
+`dsn~rendering.add-double-quotes-for-schema-table-and-column-identifiers~1`
+
+The renderer adds double quotes the following identifiers if configured:
+
+* Schema identifiers
+* Table identifiers
+* Column identifiers (except the asterisks)
+
+Comment:
+
+Examples are `"my_schema"."my_table"."my_field"`, `"MY_TABLE"."MyField"` and `"MyTable".*`
+
+Covers:
+
+* `req~rendering.sql.confiugrable-identifier-quoting~1`
+
+Needs: impl, utest

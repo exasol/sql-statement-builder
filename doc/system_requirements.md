@@ -202,6 +202,25 @@ Covers:
 
 Needs: dsn
 
+###### Configurable Identifier Quoting
+`req~rendering.sql.confiugrable-identifier-quoting~1`
+
+ESB allows users to choose whether the following identifiers should be quoted in the rendered query:
+
+* Schema identifiers
+* Table identifiers
+* Column identifiers
+
+Rationale:
+
+The Exasol database for example requires identifiers to be enclosed in double quotes in order to enable case sensitivity.
+
+Covers:
+
+* [feat~sql-string-rendering~1](#sql-string-rendering)
+
+Needs: dsn
+
 #### TODO
 
 * One line / pretty

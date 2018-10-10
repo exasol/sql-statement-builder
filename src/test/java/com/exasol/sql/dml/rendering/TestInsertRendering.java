@@ -30,7 +30,7 @@ class TestInsertRendering {
     @Test
     void testInsertRendersToWithConfig() {
         assertThat(this.insert,
-                rendersWithConfigTo(new StringRendererConfig.Builder().lowerCase(true).build(), "insert into person"));
+                rendersWithConfigTo(StringRendererConfig.builder().lowerCase(true).build(), "insert into person"));
     }
 
     // [utest->dsn~rendering.sql.insert~1]

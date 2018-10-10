@@ -31,7 +31,7 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
     @Override
     public void visit(final Field field) {
         appendCommaWhenNeeded(field);
-        append(field.getName());
+        appendAutoQuoted(field.getName());
         setLastVisited(field);
     }
 
@@ -44,7 +44,7 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
     @Override
     public void visit(final Table table) {
         appendCommaWhenNeeded(table);
-        append(table.getName());
+        appendAutoQuoted(table.getName());
         final Optional<String> as = table.getAs();
         if (as.isPresent()) {
             appendKeyWord(" AS ");
@@ -61,7 +61,7 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
             appendKeyWord(type.toString());
         }
         appendKeyWord(" JOIN ");
-        append(join.getName());
+        appendAutoQuoted(join.getName());
         appendKeyWord(" ON ");
         append(join.getSpecification());
         setLastVisited(join);

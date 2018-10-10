@@ -95,7 +95,7 @@ class TestBooleanExpressionRenderer {
     @Test
     void testAndWhitNestedOrInLowercase() {
         final BooleanExpression expression = and(or(not("a"), "b"), or("c", "d"));
-        final StringRendererConfig config = new StringRendererConfig.Builder().lowerCase(true).build();
+        final StringRendererConfig config = StringRendererConfig.builder().lowerCase(true).build();
         assertThat(expression, rendersWithConfigTo(config, "(not(a) or b) and (c or d)"));
     }
 
