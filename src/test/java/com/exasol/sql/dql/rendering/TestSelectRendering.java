@@ -81,7 +81,15 @@ class TestSelectRendering {
     @Test
     void testSelectWithQuotedIdentifiers() {
         final StringRendererConfig config = StringRendererConfig.builder().quoteIdentifiers(true).build();
-        assertThat(this.select.field("fieldA", "tableA.fieldB").from().table("schemaA.tableA"),
-                rendersWithConfigTo(config, "SELECT \"fieldA\", \"tableA\".\"fieldB\" FROM \"schemaA\".\"tableA\""));
+        assertThat(this.select.field("fieldA", "tableA.fieldB", "tableB.*").from().table("schemaA.tableA"),
+                rendersWithConfigTo(config,
+                        "SELECT \"fieldA\", \"tableA\".\"fieldB\", \"tableB\".* FROM \"schemaA\".\"tableA\""));
+    }
+
+    @Test
+    void testSelectWithQuotedIdentifiersDoesNotAddExtraQuotes() {
+        final StringRendererConfig config = StringRendererConfig.builder().quoteIdentifiers(true).build();
+        assertThat(this.select.field("\"fieldA\"", "\"tableA\".fieldB"),
+                rendersWithConfigTo(config, "SELECT \"fieldA\", \"tableA\".\"fieldB\""));
     }
 }

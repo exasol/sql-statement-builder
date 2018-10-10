@@ -43,21 +43,21 @@ class TestInsertRendering {
     // [utest->dsn~values-as-insert-source~1]
     @Test
     void testInsertValues() {
-        assertThat(this.insert.values(1, "a"), rendersTo("INSERT INTO person VALUES 1, 'a'"));
+        assertThat(this.insert.values(1, "a"), rendersTo("INSERT INTO person VALUES (1, 'a')"));
     }
 
     // [utest->dsn~rendering.sql.insert~1]
     // [utest->dsn~values-as-insert-source~1]
     @Test
     void testInsertValuePlaceholder() {
-        assertThat(this.insert.valuePlaceholder(), rendersTo("INSERT INTO person VALUES ?"));
+        assertThat(this.insert.valuePlaceholder(), rendersTo("INSERT INTO person VALUES (?)"));
     }
 
     // [utest->dsn~rendering.sql.insert~1]
     // [utest->dsn~values-as-insert-source~1]
     @Test
     void testInsertValuePlaceholders() {
-        assertThat(this.insert.valuePlaceholders(3), rendersTo("INSERT INTO person VALUES ?, ?, ?"));
+        assertThat(this.insert.valuePlaceholders(3), rendersTo("INSERT INTO person VALUES (?, ?, ?)"));
     }
 
     // [utest->dsn~rendering.sql.insert~1]
@@ -65,6 +65,6 @@ class TestInsertRendering {
     @Test
     void testInsertMixedValuesAndPlaceholders() {
         assertThat(this.insert.values(1).valuePlaceholders(3).values("b", 4),
-                rendersTo("INSERT INTO person VALUES 1, ?, ?, ?, 'b', 4"));
+                rendersTo("INSERT INTO person VALUES (1, ?, ?, ?, 'b', 4)"));
     }
 }

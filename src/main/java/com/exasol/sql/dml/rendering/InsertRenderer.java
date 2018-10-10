@@ -53,7 +53,7 @@ public class InsertRenderer extends AbstractFragmentRenderer implements InsertVi
 
     @Override
     public void visit(final InsertValues insertValues) {
-        appendKeyWord(" VALUES ");
+        appendKeyWord(" VALUES (");
         for (final ValueExpression expression : insertValues.getValues()) {
             appendCommaWhenNeeded(insertValues);
             appendRenderedValueExpression(expression);
@@ -63,7 +63,7 @@ public class InsertRenderer extends AbstractFragmentRenderer implements InsertVi
 
     @Override
     public void leave(final InsertValues insertValues) {
-        // intentionally empty
+        append(")");
     }
 
     /**
