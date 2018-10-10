@@ -1,5 +1,6 @@
 package com.exasol.sql.expression.rendering;
 
+import com.exasol.sql.UnnamedPlaceholder;
 import com.exasol.sql.expression.Value;
 import com.exasol.sql.expression.ValueExpressionVisitor;
 import com.exasol.sql.rendering.StringRendererConfig;
@@ -22,5 +23,10 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
         } else {
             this.builder.append(value.get().toString());
         }
+    }
+
+    @Override
+    public void visit(final UnnamedPlaceholder unnamedPlaceholder) {
+        append("?");
     }
 }

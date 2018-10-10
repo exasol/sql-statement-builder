@@ -99,7 +99,22 @@ This is necessary since complex statements are usually build as a result of mult
 
 Covers:
 
-* [feat~statment-definition~1](#statement-definition)
+* [feat~statement-definition~1](#statement-definition)
+
+Needs: dsn
+
+#### Statement Structure Limited at Compile-time
+`req~statement-structure-limited-at-compile-time~1`
+
+ESB lets users create only valid statement structures at compile-time.
+
+Rationale:
+
+If users can't get illegal structures to compile, they don't need to spend time debugging them later.
+
+Covers:
+
+* [feat~compile-time-error-checking~1](#compile-time-error-checking)
 
 Needs: dsn
 
@@ -187,7 +202,8 @@ Covers:
 
 Needs: dsn
 
-* Upper case / lower case
+#### TODO
+
 * One line / pretty
 
 #### SELECT Statement Rendering

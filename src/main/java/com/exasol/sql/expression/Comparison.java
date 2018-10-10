@@ -6,6 +6,7 @@ public class Comparison extends AbstractBooleanExpression {
     private final Literal leftOperand;
     private final Literal rightOperand;
 
+    // [impl->dsn~boolean-operation.comparison.constructing-from-enum~1]
     public Comparison(final ComparisonOperator equal, final Literal leftOperand, final Literal rightOperand) {
         this.operator = equal;
         this.leftOperand = leftOperand;
@@ -24,7 +25,7 @@ public class Comparison extends AbstractBooleanExpression {
 
     /**
      * Get the left-hand side operator of the comparison
-     * 
+     *
      * @return left operator
      */
     public AbstractBooleanExpression getLeftOperand() {
@@ -33,7 +34,7 @@ public class Comparison extends AbstractBooleanExpression {
 
     /**
      * Get the right-hand side operator of the comparison
-     * 
+     *
      * @return right operator
      */
     public AbstractBooleanExpression getRightOperand() {
@@ -42,7 +43,7 @@ public class Comparison extends AbstractBooleanExpression {
 
     /**
      * Get the comparison operator
-     * 
+     *
      * @return comparison operator
      */
     public ComparisonOperator getOperator() {

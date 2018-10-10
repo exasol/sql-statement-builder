@@ -3,8 +3,7 @@ package com.exasol.sql.dml;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.exasol.sql.AbstractFragment;
-import com.exasol.sql.Fragment;
+import com.exasol.sql.*;
 import com.exasol.sql.expression.Value;
 import com.exasol.sql.expression.ValueExpression;
 
@@ -25,7 +24,7 @@ public class InsertValues extends AbstractFragment implements InsertFragment {
 
     /**
      * Add one or more values
-     * 
+     *
      * @param values values
      */
     public void add(final Object... values) {
@@ -36,7 +35,7 @@ public class InsertValues extends AbstractFragment implements InsertFragment {
 
     /**
      * Get the values
-     * 
+     *
      * @return value
      */
     public List<ValueExpression> getValues() {
@@ -48,5 +47,9 @@ public class InsertValues extends AbstractFragment implements InsertFragment {
         visitor.visit(this);
         // sub-expression left out intentionally
         visitor.leave(this);
+    }
+
+    public void addPlaceholder() {
+        this.values.add(new UnnamedPlaceholder());
     }
 }

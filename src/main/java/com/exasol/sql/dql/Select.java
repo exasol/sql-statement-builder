@@ -50,6 +50,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      *
      * @return from clause
      */
+    // [impl->dsn~select-statement.out-of-order-clauses~1]
     public synchronized FromClause from() {
         if (this.fromClause == null) {
             this.fromClause = new FromClause(this);
@@ -64,6 +65,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      * @return new instance
      * @throws IllegalStateException if a limit clause already exists
      */
+    // [impl->dsn~select-statement.out-of-order-clauses~1]
     public synchronized Select limit(final int count) {
         if (this.limitClause != null) {
             throw new IllegalStateException(
@@ -81,6 +83,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      * @return <code>this</code for fluent programming
      * @throws IllegalStateException if a limit clause already exists
      */
+    // [impl->dsn~select-statement.out-of-order-clauses~1]
     public synchronized Select limit(final int offset, final int count) {
         if (this.limitClause != null) {
             throw new IllegalStateException(
@@ -96,6 +99,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      * @param expression boolean expression that defines the filter criteria
      * @return new instance
      */
+    // [impl->dsn~select-statement.out-of-order-clauses~1]
     public synchronized Select where(final BooleanExpression expression) {
         if (this.whereClause == null) {
             this.whereClause = new WhereClause(this, expression);

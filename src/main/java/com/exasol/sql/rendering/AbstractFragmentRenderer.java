@@ -19,6 +19,7 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
         this.lastVisited = null;
     }
 
+    // [impl->dsn~rendering.sql.configurable-case~1]
     protected void appendKeyWord(final String keyword) {
         append(this.config.produceLowerCase() ? keyword.toLowerCase() : keyword);
     }
