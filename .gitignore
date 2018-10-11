@@ -1,0 +1,7 @@
+/bin/
+/target/
+**/*.md.html
+**/*.bak
+**/*.swp
+**/*.log
+**/*.out
