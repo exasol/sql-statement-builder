@@ -98,7 +98,7 @@ Needs: impl, utest
 #### Renderer add Double Quotes for Schema, Table and Column Identifiers
 `dsn~rendering.add-double-quotes-for-schema-table-and-column-identifiers~1`
 
-The renderer adds double quotes the following identifiers if configured:
+The renderer sets the following identifiers in double quotes if configured:
 
 * Schema identifiers
 * Table identifiers
