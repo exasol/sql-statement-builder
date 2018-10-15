@@ -7,9 +7,11 @@ import com.exasol.sql.StatementFactory;
  */
 public class StringRendererConfig {
     private final boolean lowerCase;
+    private final boolean quote;
 
-    private StringRendererConfig(final boolean lowerCase) {
-        this.lowerCase = lowerCase;
+    private StringRendererConfig(final Builder builder) {
+        this.lowerCase = builder.lowerCase;
+        this.quote = builder.quote;
     }
 
     /**
@@ -17,8 +19,35 @@ public class StringRendererConfig {
      *
      * @return <code>true</code> if statements are produced in lower case
      */
-    public boolean produceLowerCase() {
+    public boolean useLowerCase() {
         return this.lowerCase;
+    }
+
+    /**
+     * Get whether identifiers should be enclosed in double quotation marks.
+     *
+     * @return <code>true</code> if should be enclosed in quotes
+     */
+    public boolean useQuotes() {
+        return this.quote;
+    }
+
+    /**
+     * Create the default configuration.
+     *
+     * @return default configuration
+     */
+    public static StringRendererConfig createDefault() {
+        return builder().build();
+    }
+
+    /**
+     * Get a builder for {@link StringRendererConfig}
+     *
+     * @return builder
+     */
+    public static Builder builder() {
+        return new Builder();
     }
 
     /**
@@ -26,6 +55,10 @@ public class StringRendererConfig {
      */
     public static class Builder {
         private boolean lowerCase = false;
+        private boolean quote = false;
+
+        private Builder() {
+        }
 
         /**
          * Create a new instance of a {@link StringRendererConfig}
@@ -33,7 +66,7 @@ public class StringRendererConfig {
          * @return new instance
          */
         public StringRendererConfig build() {
-            return new StringRendererConfig(this.lowerCase);
+            return new StringRendererConfig(this);
         }
 
         /**
@@ -46,14 +79,16 @@ public class StringRendererConfig {
             this.lowerCase = lowerCase;
             return this;
         }
-    }
 
-    /**
-     * Create the default configuration.
-     * 
-     * @return default configuration
-     */
-    public static StringRendererConfig createDefault() {
-        return new Builder().build();
+        /**
+         * Define whether schema, table and field identifiers should be enclosed in double quotation marks.
+         *
+         * @param quote set to <code>true</code> if identifiers should be enclosed in quotes
+         * @return this instance for fluent programming
+         */
+        public Builder quoteIdentifiers(final boolean quote) {
+            this.quote = quote;
+            return this;
+        }
     }
 }

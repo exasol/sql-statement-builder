@@ -7,17 +7,35 @@
 
 The Data Query Language (DQL) building block is responsible for managing `SELECT` statements.
 
+## Solution Strategy
+
+### Fluent Programming
+
+###### Statement Construction With Fluent Programming
+`dsn~statement-construction-with-fluent-programming~1`
+
+All statement builders use the "fluent programming" model, where the return type of each builder step determines the possible next structural elements that can be added.
+
+Comment:
+
+This is a design principle that cuts across the whole project. Therefore locating it in a single test or implementation part makes no sense.
+
+Covers:
+
+* `req~statement-structure-limited-at-compile-time~1`
+
 ## Runtime View
 
 ### Building Select Statements
 
 #### Accessing the Clauses That Make Up a SELECT Statement
-`dsn~select-statement.accessing-clauses~1`
+`dsn~select-statement.out-of-order-clauses~1`
 
-The DQL statement component allows getting the following clauses, provided that they already exist:
+`SELECT` commands allow attaching the following clauses in any order:
 
 * `FROM` clause
 * `WHERE` clause
+* `LIMIT` clause
 
 Covers:
 
@@ -28,6 +46,11 @@ Needs: impl, utest
 Tags: Select Statement Builder
 
 ### Building Boolean Expressions
+
+#### Forwarded Requirements
+
+* `dsn --> impl, utest: req~boolean-operators~1`
+* `dsn --> impl, utest: req~comparison-operations~1`
 
 #### Constructing Boolean Comparison Operations From Operator Strings
 `dsn~boolean-operation.comparison.constructing-from-strings~1`
@@ -57,11 +80,6 @@ Covers:
 
 Needs: impl, utest
 
-#### Forwarded Requirements
-
-* `dsn --> impl, utest : req~comparison-operations~1`
-* `dsn --> impl, utest : req~boolean-operators~1`
-
 ### Building INSERT Statements
 
 #### Forwarded Requirements
@@ -73,6 +91,25 @@ Needs: impl, utest
 
 #### Forwarded Requirements
 
-* `dsn --> req~rendering.sql.configurable-case~1`
+* `dsn --> impl, utest: req~rendering.sql.configurable-case~1`
 * `dsn --> impl, utest: req~rendering.sql.select~1`
 * `dsn --> impl, utest: req~rendering.sql.insert~1`
+
+#### Renderer add Double Quotes for Schema, Table and Column Identifiers
+`dsn~rendering.add-double-quotes-for-schema-table-and-column-identifiers~1`
+
+The renderer sets the following identifiers in double quotes if configured:
+
+* Schema identifiers
+* Table identifiers
+* Column identifiers (except the asterisks)
+
+Comment:
+
+Examples are `"my_schema"."my_table"."my_field"`, `"MY_TABLE"."MyField"` and `"MyTable".*`
+
+Covers:
+
+* `req~rendering.sql.confiugrable-identifier-quoting~1`
+
+Needs: impl, utest

@@ -1,5 +1,6 @@
 package com.exasol.sql.expression;
 
+// [impl->dsn~boolean-operators~1]
 public abstract class BooleanTerm extends AbstractBooleanExpression {
     private BooleanTerm() {
         super();
@@ -50,7 +51,7 @@ public abstract class BooleanTerm extends AbstractBooleanExpression {
         return new Comparison(ComparisonOperator.ofSymbol(operatorSymbol), Literal.of(left), Literal.of(right));
     }
 
-    // [dsn~boolean-operation.comparison.constructing-from-enum~1]
+    // [impl->dsn~boolean-operation.comparison.constructing-from-enum~1]
     public static BooleanExpression compare(final String left, final ComparisonOperator operator, final String right) {
         return new Comparison(operator, Literal.of(left), Literal.of(right));
     }

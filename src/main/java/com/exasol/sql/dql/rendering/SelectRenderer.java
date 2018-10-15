@@ -2,7 +2,8 @@ package com.exasol.sql.dql.rendering;
 
 import java.util.Optional;
 
-import com.exasol.sql.*;
+import com.exasol.sql.Field;
+import com.exasol.sql.Table;
 import com.exasol.sql.dql.*;
 import com.exasol.sql.rendering.AbstractFragmentRenderer;
 import com.exasol.sql.rendering.StringRendererConfig;
@@ -10,6 +11,7 @@ import com.exasol.sql.rendering.StringRendererConfig;
 /**
  * The {@link SelectRenderer} turns SQL statement structures in to SQL strings.
  */
+// [impl->dsn~rendering.sql.select~1]
 public class SelectRenderer extends AbstractFragmentRenderer implements SelectVisitor {
     /**
      * Create a new {@link SelectRenderer} with custom render settings.
@@ -29,7 +31,7 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
     @Override
     public void visit(final Field field) {
         appendCommaWhenNeeded(field);
-        append(field.getName());
+        appendAutoQuoted(field.getName());
         setLastVisited(field);
     }
 
@@ -42,7 +44,7 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
     @Override
     public void visit(final Table table) {
         appendCommaWhenNeeded(table);
-        append(table.getName());
+        appendAutoQuoted(table.getName());
         final Optional<String> as = table.getAs();
         if (as.isPresent()) {
             appendKeyWord(" AS ");
@@ -59,7 +61,7 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
             appendKeyWord(type.toString());
         }
         appendKeyWord(" JOIN ");
-        append(join.getName());
+        appendAutoQuoted(join.getName());
         appendKeyWord(" ON ");
         append(join.getSpecification());
         setLastVisited(join);
@@ -84,26 +86,21 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
     }
 
     /**
-     * Create a renderer for the given {@link Fragment} and render it.
+     * Create an {@link SelectRenderer} using the default renderer configuration
      *
-     * @param fragment SQL statement fragment to be rendered
-     * @return rendered statement
+     * @return select renderer
      */
-    public static String render(final Fragment fragment) {
-        return render(fragment, StringRendererConfig.createDefault());
+    public static SelectRenderer create() {
+        return create(StringRendererConfig.createDefault());
     }
 
     /**
-     * Create a renderer for the given {@link Fragment} and render it.
+     * Create an {@link SelectRenderer}
      *
-     * @param fragment SQL statement fragment to be rendered
      * @param config renderer configuration
-     * @return rendered statement
+     * @return select renderer
      */
-    public static String render(final Fragment fragment, final StringRendererConfig config) {
-        assert (fragment instanceof SelectFragment);
-        final SelectRenderer renderer = new SelectRenderer(config);
-        ((SelectFragment) fragment).accept(renderer);
-        return renderer.render();
+    public static SelectRenderer create(final StringRendererConfig config) {
+        return new SelectRenderer(config);
     }
 }

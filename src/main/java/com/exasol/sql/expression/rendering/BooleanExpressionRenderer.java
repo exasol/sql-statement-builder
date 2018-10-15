@@ -1,25 +1,15 @@
 package com.exasol.sql.expression.rendering;
 
-import java.util.Stack;
-
 import com.exasol.sql.expression.*;
 import com.exasol.sql.rendering.StringRendererConfig;
 
-public class BooleanExpressionRenderer implements BooleanExpressionVisitor {
-    private final StringRendererConfig config;
-    private final StringBuilder builder = new StringBuilder();
-    private final Stack<String> connectorStack = new Stack<>();
-
+public class BooleanExpressionRenderer extends AbstractExpressionRenderer implements BooleanExpressionVisitor {
     public BooleanExpressionRenderer(final StringRendererConfig config) {
-        this.config = config;
+        super(config);
     }
 
     public BooleanExpressionRenderer() {
-        this.config = new StringRendererConfig.Builder().build();
-    }
-
-    private void appendKeyword(final String keyword) {
-        this.builder.append(this.config.produceLowerCase() ? keyword.toLowerCase() : keyword);
+        this(StringRendererConfig.builder().build());
     }
 
     @Override
@@ -74,37 +64,9 @@ public class BooleanExpressionRenderer implements BooleanExpressionVisitor {
         appendLiteral(literal.toString());
     }
 
-    private void connect(final BooleanExpression expression) {
-        if (expression.isChild() && !expression.isFirstSibling()) {
-            appendConnector();
-        }
-    }
-
     @Override
     public void leave(final Literal literal) {
         // intentionally empty
-    }
-
-    private void appendConnector() {
-        if (!this.connectorStack.isEmpty()) {
-            appendKeyword(this.connectorStack.peek());
-        }
-    }
-
-    private void appendLiteral(final String string) {
-        this.builder.append(string);
-    }
-
-    private void startParenthesis() {
-        this.builder.append("(");
-    }
-
-    private void endParenthesis(final BooleanExpression expression) {
-        this.builder.append(")");
-    }
-
-    public String render() {
-        return this.builder.toString();
     }
 
     @Override

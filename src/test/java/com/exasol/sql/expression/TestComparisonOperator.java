@@ -12,11 +12,13 @@ class TestComparisonOperator {
         assertThat(ComparisonOperator.EQUAL.toString(), equalTo("="));
     }
 
+    // [utest->dsn~boolean-operation.comparison.constructing-from-strings~1]
     @Test
     void testOfSymbol() {
         assertThat(ComparisonOperator.ofSymbol("<>"), equalTo(ComparisonOperator.NOT_EQUAL));
     }
 
+    // [utest->dsn~boolean-operation.comparison.constructing-from-strings~1]
     @Test
     void testOfUnknownSymbolThrowsException() {
         assertThrows(IllegalArgumentException.class, () -> ComparisonOperator.ofSymbol("§"));
