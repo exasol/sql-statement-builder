@@ -113,3 +113,37 @@ Covers:
 * `req~rendering.sql.confiugrable-identifier-quoting~1`
 
 Needs: impl, utest
+
+### Exasol Dialect Specific
+
+#### Converting from 64 bit Integers to INTERVAL DAY TO SECOND
+`dsn~exasol.converting-int-to-interval-day-to-second~1`
+
+The data converter converts integers to `INTERVAL DAY TO SECOND`.
+
+Covers:
+
+* `req~integer-interval-conversion~1`
+
+Needs: impl, utest
+
+#### Parsing INTERVAL DAY TO SECOND From Strings
+`dsn~exasol.parsing-interval-day-to-second-from-strings~1`
+
+The data converter can parse `INTERVAL DAY TO SECOND` from strings in the following format:
+
+    inverval-d2s = [ days SP ] hours ":" minutes [ ":" seconds [ "." milliseconds ] ]
+    
+    hours = "2" "0" - "3" / [ "0" / "1" ] DIGIT
+    
+    minutes = "5" DIGIT / [ "0" - "4" ] DIGIT
+
+    seconds = "5" DIGIT / [ "0" - "4" ] DIGIT
+
+    milliseconds = 1*3DIGIT
+
+Covers:
+
+* `req~integer-interval-conversion~1`
+
+Needs: impl, utest
