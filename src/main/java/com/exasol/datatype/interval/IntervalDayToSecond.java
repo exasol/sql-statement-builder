@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
  * <li>milliseconds (or fraction of seconds)</li>
  * </ul>
  *
- * Since milliseconds are the highest resolution, each interval can also be expresses as a total number of milliseconds.
+ * Since milliseconds are the highest resolution, each interval can also be expressed as a total number of milliseconds.
  * This is also the recommended way to represent the interval values in other systems which do not natively support this
  * data type.
  */

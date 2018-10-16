@@ -8,7 +8,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-class TestInterval {
+class TestIntervalDayToSecond {
     // [utest->dsn~exasol.converting-int-to-interval-day-to-second~1]
     @ParameterizedTest
     @CsvSource({ //
@@ -20,7 +20,7 @@ class TestInterval {
             999999999L * 24 * 60 * 60 * 1000 + ", '999999999 0:00:00.000'", //
             1L * 24 * 60 * 60 * 1000 + 1 * 60 * 60 * 1000 + 1 * 60 * 1000 + 1 * 1000 + 1 + ", '1 1:01:01.001'" //
     })
-    void testMillisecondsToIntervalDayToSecond(final long value, final String expected) {
+    void testofMillis(final long value, final String expected) {
         assertThat(IntervalDayToSecond.ofMillis(value).toString(), equalTo(expected));
     }
 
