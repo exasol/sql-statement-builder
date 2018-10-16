@@ -3,6 +3,10 @@ package com.exasol.datatype.interval;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * This class implements the Exasol-proprietary data type <code>INTERVAL DAY(x) TO SECONDS(y)</code>. It supports
+ * conversions to and from strings and from milliseconds.
+ */
 public class IntervalDayToSecond {
     private static final long MILLIS_PER_SECOND = 1000L;
     private static final long SECONDS_PER_MINUTE = 60L;
@@ -11,7 +15,6 @@ public class IntervalDayToSecond {
     private static final long MILLIS_PER_MINUTE = SECONDS_PER_MINUTE * MILLIS_PER_SECOND;
     private static final long MILLIS_PER_HOUR = MINUTES_PER_HOUR * MILLIS_PER_MINUTE;
     private static final long MILLIS_PER_DAY = HOURS_PER_DAY * MILLIS_PER_HOUR;
-    private final long value;
     private static final int DAYS_MATCHING_GROUP = 1;
     private static final int HOURS_MATCHING_GROUP = 2;
     private static final int MINUTES_MATCHING_GROUP = 3;
@@ -23,6 +26,7 @@ public class IntervalDayToSecond {
             + "(?::(\\d{1,2})" // seconds
             + "(?:\\.(\\d{1,3}))?)?" // milliseconds
     );
+    private final long value;
 
     private IntervalDayToSecond(final long value) {
         this.value = value;
