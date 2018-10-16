@@ -132,7 +132,7 @@ Needs: impl, utest
 
 The data converter can parse `INTERVAL DAY TO SECOND` from strings in the following format:
 
-    inverval-d2s = [ days SP ] hours ":" minutes [ ":" seconds [ "." milliseconds ] ]
+    interval-d2s = [ days SP ] hours ":" minutes [ ":" seconds [ "." milliseconds ] ]
     
     hours = ( "2" "0" - "3" ) / ( [ "0" / "1" ] DIGIT )
     
@@ -141,6 +141,8 @@ The data converter can parse `INTERVAL DAY TO SECOND` from strings in the follow
     seconds = ( "5" DIGIT ) / ( [ "0" - "4" ] DIGIT )
 
     milliseconds = 1*3DIGIT
+
+Examples are `12:30`, `12:30.081` or `100 12:30:00.081`.
 
 Covers:
 
@@ -164,11 +166,13 @@ Needs: impl, utest
 
 The data converter can parse `INTERVAL YEAR TO MONTH` from strings in the following format:
 
-    inverval-y2m = days "-" months
+    interval-y2m = days "-" months
     
     days = 1*9DIGIT
     
     months = ( "1" "0" - "2" ) / DIGIT
+
+Examples are `0-1` and `100-11`.
 
 Covers:
 

@@ -263,7 +263,7 @@ ESB converts values of type `INTERVAL` to integer and vice-versa.
 
 Rationale:
 
-Neighboring systems of an Exasol database often do to have equivalent data types, so conversion to a primitive data type is required.
+Neighboring systems of an Exasol database often do not have equivalent data types, so conversion to a primitive data type is required.
 
 Covers:
 
