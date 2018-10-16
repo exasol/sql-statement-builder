@@ -6,6 +6,21 @@ import java.util.regex.Pattern;
 /**
  * This class implements the Exasol-proprietary data type <code>INTERVAL DAY(x) TO SECONDS(y)</code>. It supports
  * conversions to and from strings and from milliseconds.
+ *
+ * <p>
+ * In Exasol this data type represents a time difference consisting of the following components:
+ * </p>
+ * <ul>
+ * <li>days</li>
+ * <li>hours</li>
+ * <li>minutes</li>
+ * <li>seconds</li>
+ * <li>milliseconds (or fraction of seconds)</li>
+ * </ul>
+ *
+ * Since milliseconds are the highest resolution, each interval can also be expresses as a total number of milliseconds.
+ * This is also the recommended way to represent the interval values in other systems which do not natively support this
+ * data type.
  */
 public class IntervalDayToSecond {
     private static final long MILLIS_PER_SECOND = 1000L;
@@ -84,8 +99,8 @@ public class IntervalDayToSecond {
     /**
      * Create an {@link IntervalDayToSecond} from a number of milliseconds
      *
-     * @param value milliseconds
-     * @return interval
+     * @param value total length of the interval in milliseconds
+     * @return interval with milliseconds resolution
      */
     public static IntervalDayToSecond ofMillis(final long value) {
         return new IntervalDayToSecond(value);
@@ -94,8 +109,24 @@ public class IntervalDayToSecond {
     /**
      * Parse an {@link IntervalDayToSecond} from a string
      *
-     * @param text
-     * @return
+     * <p>
+     * The accepted format is:
+     * </p>
+     * <p>
+     * <code>[dddddddd ]hh:mm[:ss[.SSS]]</code>
+     * <p>
+     * Where
+     * </p>
+     * <ul>
+     * <li>d: day, 1-9 digits, optional</li>
+     * <li>h: hours, 1-2 digits, mandatory</li>
+     * <li>m: minutes, 1-2 digits, mandatory</li>
+     * <li>s: seconds, 1-2 digits, optional</li>
+     * <li>S: milliseconds, 1-3 digits, optional</li>
+     * </ul>
+     *
+     * @param text string representing an interval
+     * @return interval with milliseconds resolution
      */
     public static IntervalDayToSecond parse(final String text) {
         return new IntervalDayToSecond(text);
