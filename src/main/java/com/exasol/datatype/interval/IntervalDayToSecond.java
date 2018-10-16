@@ -102,6 +102,7 @@ public class IntervalDayToSecond {
      * @param value total length of the interval in milliseconds
      * @return interval with milliseconds resolution
      */
+    // [impl->dsn~exasol.converting-int-to-interval-day-to-second~1]
     public static IntervalDayToSecond ofMillis(final long value) {
         return new IntervalDayToSecond(value);
     }
@@ -133,6 +134,7 @@ public class IntervalDayToSecond {
      * @param text string representing an interval
      * @return interval with milliseconds resolution
      */
+    // [impl->dsn~exasol.parsing-interval-day-to-second-from-strings~1]
     public static IntervalDayToSecond parse(final String text) {
         return new IntervalDayToSecond(text);
     }

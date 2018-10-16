@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class TestInterval {
-    // [utest->req~integer-interval-conversion~1]
+    // [utest->dsn~exasol.converting-int-to-interval-day-to-second~1]
     @ParameterizedTest
     @CsvSource({ //
             0L + ", '0:00:00.000'", //
