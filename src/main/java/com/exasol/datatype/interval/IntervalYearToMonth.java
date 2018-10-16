@@ -64,6 +64,7 @@ public class IntervalYearToMonth {
      * @param value total length of the interval in months
      * @return interval with months resolution
      */
+    // [impl->dsn~exasol.converting-int-to-interval-year-to-month~1]
     public static IntervalYearToMonth ofMonths(final long value) {
         return new IntervalYearToMonth(value);
     }
@@ -89,6 +90,7 @@ public class IntervalYearToMonth {
      * @param text string representing an interval
      * @return interval with months resolution
      */
+    // [impl->dsn~exasol.parsing-interval-year-to-month-from-strings~1]
     public static IntervalYearToMonth parse(final String text) {
         return new IntervalYearToMonth(text);
     }

@@ -33,7 +33,7 @@ class TestIntervalYearToMonth {
         assertThat(IntervalYearToMonth.parse(text).toString(), equalTo(expected));
     }
 
-    // [utest->dsn~exasol.parsing-interval-day-to-second-from-strings~1]
+    // [utest->dsn~exasol.parsing-interval-year-to-month-from-strings~1]
     @ParameterizedTest
     @ValueSource(strings = { "0", "-0", "0-", "0-123", "1000000000-0" })
     void testParseIllegalInputThrowsException(final String text) {
