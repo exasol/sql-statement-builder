@@ -113,17 +113,22 @@ public class IntervalDayToSecond {
      * The accepted format is:
      * </p>
      * <p>
-     * <code>[dddddddd ]hh:mm[:ss[.SSS]]</code>
+     * <code>[dddddddd ]<strong>hh:mm</strong>[:ss[.SSS]]</code>
      * <p>
      * Where
      * </p>
-     * <ul>
-     * <li>d: day, 1-9 digits, optional</li>
-     * <li>h: hours, 1-2 digits, mandatory</li>
-     * <li>m: minutes, 1-2 digits, mandatory</li>
-     * <li>s: seconds, 1-2 digits, optional</li>
-     * <li>S: milliseconds, 1-3 digits, optional</li>
-     * </ul>
+     * <dl>
+     * <dt>d</dt>
+     * <dd>day, 1-9 digits, optional</dd>
+     * <dt>h</dt>
+     * <dd>hours, 1-2 digits, mandatory</dd>
+     * <dt>m</dt>
+     * <dd>minutes, 1-2 digits, mandatory</dd>
+     * <dt>s</dt>
+     * <dd>seconds, 1-2 digits, optional</dd>
+     * <dt>S</dt>
+     * <dd>milliseconds, 1-3 digits, optional</dd>
+     * </dl>
      *
      * @param text string representing an interval
      * @return interval with milliseconds resolution
