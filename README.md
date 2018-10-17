@@ -17,7 +17,7 @@ Goals:
 ```java
 import com.exasol.sql.StatementFactory;
 import com.exasol.sql.SqlStatement;
-import com.exasol.sql.rendering.SqlStatementRenderer;
+import com.exasol.sql.rendering.SelectRenderer;
 
 SqlStatement statement = StatementFactory.getInstance()
   .select().field("firstname", "lastname")
