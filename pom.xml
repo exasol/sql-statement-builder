@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>sql-statement-builder</groupId>
+  <groupId>com.exasol</groupId>
   <artifactId>sql-statement-builder</artifactId>
-  <version>0.1.2</version>
+  <version>0.2.0</version>
   <name>Exasol SQL Statement Builder</name>
   <description>This module provides a Builder for SQL statements that helps creating the correct structure and validates variable parts of the statements.</description>
   <properties>
@@ -62,4 +62,10 @@
       </plugin>
     </plugins>
   </build>
+  <url>https://github.com/EXASOL/sql-statement-builder</url>
+  <scm>
+    <developerConnection>https://github.com/EXASOL/sql-statement-builder.git</developerConnection>
+    <connection>https://github.com/EXASOL/sql-statement-builder.git</connection>
+  </scm>
+  <inceptionYear>2018</inceptionYear>
 </project>

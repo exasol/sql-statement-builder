@@ -9,33 +9,36 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class TestIntervalYearToMonth {
-    // [utest->dsn~exasol.converting-int-to-interval-year-to-month~1]
+    // [utest->dsn~exasol.converting-int-to-interval-year-to-month~2]
     @ParameterizedTest
     @CsvSource({ //
-            0L + ", '0-00'", //
-            11L + ", '0-11'", //
-            999999999L * 12 + ", '999999999-00'", //
-            999999999L * 12 + 11 + ", '999999999-11'", //
-            1L * 12 + 1 + ", '1-01'" //
+            0L + ", '+0-00'", //
+            11L + ", '+0-11'", //
+            999999999L * 12 + ", '+999999999-00'", //
+            999999999L * 12 + 11 + ", '+999999999-11'", //
+            1L * 12 + 1 + ", '+1-01'", //
+            -(1L * 12 + 1) + ", '-1-01'" //
     })
     void testOfMonths(final long value, final String expected) {
         assertThat(IntervalYearToMonth.ofMonths(value).toString(), equalTo(expected));
     }
 
-    // [utest->dsn~exasol.parsing-interval-year-to-month-from-strings~1]
+    // [utest->dsn~exasol.parsing-interval-year-to-month-from-strings~2]
     @ParameterizedTest
-    @CsvSource({ "'0-0', '0-00'", //
-            "'1-2', '1-02'", //
-            "'22-11', '22-11'", //
-            "'999999999-11', '999999999-11'" //
+    @CsvSource({ "'0-0', '+0-00'", //
+            "'1-2', '+1-02'", //
+            "'22-11', '+22-11'", //
+            "'+22-11', '+22-11'", //
+            "'-22-11', '-22-11'", //
+            "'999999999-11', '+999999999-11'" //
     })
     void testParse(final String text, final String expected) {
         assertThat(IntervalYearToMonth.parse(text).toString(), equalTo(expected));
     }
 
-    // [utest->dsn~exasol.parsing-interval-year-to-month-from-strings~1]
+    // [utest->dsn~exasol.parsing-interval-year-to-month-from-strings~2]
     @ParameterizedTest
-    @ValueSource(strings = { "0", "-0", "0-", "0-123", "1000000000-0" })
+    @ValueSource(strings = { "0", "-0", "0-", "0-123", "- 1-1", "+ 1-1", "*1-1", "1000000000-0" })
     void testParseIllegalInputThrowsException(final String text) {
         assertThrows(IllegalArgumentException.class, () -> IntervalYearToMonth.parse(text));
     }
