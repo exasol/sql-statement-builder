@@ -11,7 +11,7 @@ The Data Query Language (DQL) building block is responsible for managing `SELECT
 
 ### Fluent Programming
 
-###### Statement Construction With Fluent Programming
+#### Statement Construction With Fluent Programming
 `dsn~statement-construction-with-fluent-programming~1`
 
 All statement builders use the "fluent programming" model, where the return type of each builder step determines the possible next structural elements that can be added.
@@ -111,5 +111,71 @@ Examples are `"my_schema"."my_table"."my_field"`, `"MY_TABLE"."MyField"` and `"M
 Covers:
 
 * `req~rendering.sql.confiugrable-identifier-quoting~1`
+
+Needs: impl, utest
+
+### Exasol Dialect Specific
+
+#### Converting from 64 bit Integers to INTERVAL DAY TO SECOND
+`dsn~exasol.converting-int-to-interval-day-to-second~1`
+
+The data converter converts integers to `INTERVAL DAY TO SECOND`.
+
+Covers:
+
+* `req~integer-interval-conversion~1`
+
+Needs: impl, utest
+
+#### Parsing INTERVAL DAY TO SECOND From Strings
+`dsn~exasol.parsing-interval-day-to-second-from-strings~1`
+
+The data converter can parse `INTERVAL DAY TO SECOND` from strings in the following format:
+
+    interval-d2s = [ days SP ] hours ":" minutes [ ":" seconds [ "." milliseconds ] ]
+    
+    hours = ( "2" "0" - "3" ) / ( [ "0" / "1" ] DIGIT )
+    
+    minutes = ( "5" DIGIT ) / ( [ "0" - "4" ] DIGIT )
+
+    seconds = ( "5" DIGIT ) / ( [ "0" - "4" ] DIGIT )
+
+    milliseconds = 1*3DIGIT
+
+Examples are `12:30`, `12:30.081` or `100 12:30:00.081`.
+
+Covers:
+
+* `req~integer-interval-conversion~1`
+
+Needs: impl, utest
+
+#### Converting from 64 bit Integers to INTERVAL YEAR TO MONTH
+`dsn~exasol.converting-int-to-interval-year-to-month~1`
+
+The data converter converts integers to `INTERVAL YEAR TO MONTH`.
+
+Covers:
+
+* `req~integer-interval-conversion~1`
+
+Needs: impl, utest
+
+#### Parsing INTERVAL YEAR TO MONTH From Strings
+`dsn~exasol.parsing-interval-year-to-month-from-strings~1`
+
+The data converter can parse `INTERVAL YEAR TO MONTH` from strings in the following format:
+
+    interval-y2m = days "-" months
+    
+    days = 1*9DIGIT
+    
+    months = ( "1" "0" - "2" ) / DIGIT
+
+Examples are `0-1` and `100-11`.
+
+Covers:
+
+* `req~integer-interval-conversion~1`
 
 Needs: impl, utest

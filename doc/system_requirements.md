@@ -84,6 +84,17 @@ Making sure at compile time that illegal constructs do not compile make the resu
 
 Needs: req
 
+### Data Conversion
+`feat~data-conversion~1`
+
+ESB converts between values of compatible data types.
+
+Rationale:
+
+Different databases and related tools use different ways to store and process similar data types. A collection of well-tested converters saves the API users time and trouble.
+
+Needs: req
+
 ## Functional Requirements
 
 ### Statement Structure
@@ -202,7 +213,7 @@ Covers:
 
 Needs: dsn
 
-###### Configurable Identifier Quoting
+#### Configurable Identifier Quoting
 `req~rendering.sql.confiugrable-identifier-quoting~1`
 
 ESB allows users to choose whether the following identifiers should be quoted in the rendered query:
@@ -220,10 +231,6 @@ Covers:
 * [feat~sql-string-rendering~1](#sql-string-rendering)
 
 Needs: dsn
-
-#### TODO
-
-* One line / pretty
 
 #### SELECT Statement Rendering
 `req~rendering.sql.select~1`
@@ -247,19 +254,19 @@ Covers:
 
 Needs: dsn
 
-### TODO
+### Exasol Dialect Specific Requirements
 
----
+###### Integer - Interval Conversion
+`req~integer-interval-conversion~1`
 
-SELECT
-* Fields
-* Asterisk ("*")
+ESB converts values of type `INTERVAL` to integer and vice-versa.
 
-FROM
+Rationale:
 
-( INNER / ( LEFT / RIGHT / FULL ) OUTER ) JOIN
-* ON
+Neighboring systems of an Exasol database often do not have equivalent data types, so conversion to a primitive data type is required.
 
-LIMIT
-* offset
-* count
+Covers:
+
+* [feat~data-conversion~1](#data-conversion)
+
+Needs: dsn
