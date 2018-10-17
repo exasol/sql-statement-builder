@@ -67,13 +67,7 @@ public class IntervalDayToSecond {
 
     @Override
     public String toString() {
-        return hasDays() //
-                ? String.format("%d %d:%02d:%02d.%03d", getDays(), getHours(), getMinutes(), getSeconds(), getMillis()) //
-                : String.format("%d:%02d:%02d.%03d", getHours(), getMinutes(), getSeconds(), getMillis());
-    }
-
-    private boolean hasDays() {
-        return this.value >= MILLIS_PER_DAY;
+        return String.format("%d %d:%02d:%02d.%03d", getDays(), getHours(), getMinutes(), getSeconds(), getMillis());
     }
 
     private long getDays() {
