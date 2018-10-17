@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>sql-statement-builder</groupId>
   <artifactId>sql-statement-builder</artifactId>
-  <version>0.2.0</version>
+  <version>0.1.1</version>
   <name>Exasol SQL Statement Builder</name>
   <description>This module provides a Builder for SQL statements that helps creating the correct structure and validates variable parts of the statements.</description>
   <properties>
