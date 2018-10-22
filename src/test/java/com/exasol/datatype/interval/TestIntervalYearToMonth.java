@@ -20,7 +20,8 @@ class TestIntervalYearToMonth {
             -(1L * 12 + 1) + ", '-1-01'" //
     })
     void testOfMonths(final long value, final String expected) {
-        assertThat(IntervalYearToMonth.ofMonths(value).toString(), equalTo(expected));
+        final AbstractInterval interval = IntervalYearToMonth.ofMonths(value);
+        assertThat(interval.toString(), equalTo(expected));
     }
 
     // [utest->dsn~exasol.parsing-interval-year-to-month-from-strings~2]
@@ -33,7 +34,8 @@ class TestIntervalYearToMonth {
             "'999999999-11', '+999999999-11'" //
     })
     void testParse(final String text, final String expected) {
-        assertThat(IntervalYearToMonth.parse(text).toString(), equalTo(expected));
+        final AbstractInterval interval = IntervalYearToMonth.parse(text);
+        assertThat(interval.toString(), equalTo(expected));
     }
 
     // [utest->dsn~exasol.parsing-interval-year-to-month-from-strings~2]

@@ -19,10 +19,12 @@ class TestIntervalDayToSecond {
             23L * 60 * 60 * 1000 + ", '+0 23:00:00.000'", //
             999999999L * 24 * 60 * 60 * 1000 + ", '+999999999 0:00:00.000'", //
             1L * 24 * 60 * 60 * 1000 + 1 * 60 * 60 * 1000 + 1 * 60 * 1000 + 1 * 1000 + 1 + ", '+1 1:01:01.001'", //
-            -(1L * 24 * 60 * 60 * 1000 + 1 * 60 * 60 * 1000 + 1 * 60 * 1000 + 1 * 1000 + 1) + ", '-1 1:01:01.001'" //
+            -(1L * 24 * 60 * 60 * 1000 + 1 * 60 * 60 * 1000 + 1 * 60 * 1000 + 1 * 1000 + 1) + ", '-1 1:01:01.001'", //
+            -(1000L + 1) + ", '-0 0:00:01.001'" //
     })
-    void testofMillis(final long value, final String expected) {
-        assertThat(IntervalDayToSecond.ofMillis(value).toString(), equalTo(expected));
+    void testOfMillis(final long value, final String expected) {
+        final IntervalDayToSecond interval = IntervalDayToSecond.ofMillis(value);
+        assertThat(interval.toString(), equalTo(expected));
     }
 
     // [utest->dsn~exasol.parsing-interval-day-to-second-from-strings~2]
@@ -36,7 +38,8 @@ class TestIntervalDayToSecond {
             "'999999999 22:33:44', '+999999999 22:33:44.000'" //
     })
     void testParse(final String text, final String expected) {
-        assertThat(IntervalDayToSecond.parse(text).toString(), equalTo(expected));
+        final IntervalDayToSecond interval = IntervalDayToSecond.parse(text);
+        assertThat(interval.toString(), equalTo(expected));
     }
 
     // [utest->dsn~exasol.parsing-interval-day-to-second-from-strings~2]

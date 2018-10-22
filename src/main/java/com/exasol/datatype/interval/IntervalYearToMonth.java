@@ -55,7 +55,7 @@ public class IntervalYearToMonth extends AbstractInterval {
      * @return interval with months resolution
      */
     // [impl->dsn~exasol.converting-int-to-interval-year-to-month~2]
-    public static AbstractInterval ofMonths(final long value) {
+    public static IntervalYearToMonth ofMonths(final long value) {
         return new IntervalYearToMonth(value);
     }
 
@@ -81,7 +81,7 @@ public class IntervalYearToMonth extends AbstractInterval {
      * @return interval with months resolution
      */
     // [impl->dsn~exasol.parsing-interval-year-to-month-from-strings~2]
-    public static AbstractInterval parse(final String text) {
+    public static IntervalYearToMonth parse(final String text) {
         final Matcher matcher = INTERVAL_PATTERN.matcher(text);
         if (matcher.matches()) {
             final long parsedValue = MONTHS_PER_YEAR * parseMatchingGroupToLong(matcher, YEARS_MATCHING_GROUP) //
