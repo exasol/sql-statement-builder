@@ -121,7 +121,7 @@ public class IntervalDayToSecond extends AbstractInterval {
      * @return interval with milliseconds resolution
      */
     // [impl->dsn~exasol.parsing-interval-day-to-second-from-strings~2]
-    public static AbstractInterval parse(final String text) {
+    public static IntervalDayToSecond parse(final String text) {
         final Matcher matcher = INTERVAL_PATTERN.matcher(text);
         if (matcher.matches()) {
             return createIntervalFromParsingResults(matcher);
@@ -131,7 +131,7 @@ public class IntervalDayToSecond extends AbstractInterval {
         }
     }
 
-    private static AbstractInterval createIntervalFromParsingResults(final Matcher matcher) {
+    private static IntervalDayToSecond createIntervalFromParsingResults(final Matcher matcher) {
         final long parsedValue = MILLIS_PER_DAY * parseMatchingGroupToLong(matcher, DAYS_MATCHING_GROUP) //
                 + MILLIS_PER_HOUR * parseMatchingGroupToLong(matcher, HOURS_MATCHING_GROUP) //
                 + MILLIS_PER_MINUTE * parseMatchingGroupToLong(matcher, MINUTES_MATCHING_GROUP) //
