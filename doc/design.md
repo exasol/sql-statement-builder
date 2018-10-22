@@ -127,6 +127,17 @@ Covers:
 
 Needs: impl, utest
 
+#### Converting from INTERVAL DAY TO SECOND to 64 bit Integers 
+`dsn~exasol.converting-interval-day-to-second-to-int~1`
+
+The data converter converts `INTERVAL DAY TO SECOND` to signed integers.
+
+Covers:
+
+* `req~integer-interval-conversion~1`
+
+Needs: impl, utest
+
 #### Parsing INTERVAL DAY TO SECOND From Strings
 `dsn~exasol.parsing-interval-day-to-second-from-strings~2`
 
@@ -154,6 +165,17 @@ Needs: impl, utest
 
 #### Converting from 64 bit Integers to INTERVAL YEAR TO MONTH
 `dsn~exasol.converting-int-to-interval-year-to-month~2`
+
+The data converter converts signed integers to `INTERVAL YEAR TO MONTH`.
+
+Covers:
+
+* `req~integer-interval-conversion~1`
+
+Needs: impl, utest
+
+#### Converting from INTERVAL YEAR TO MONTH to 64 bit Integers
+`dsn~exasol.converting-interval-year-to-month-to-int~1`
 
 The data converter converts signed integers to `INTERVAL YEAR TO MONTH`.
 

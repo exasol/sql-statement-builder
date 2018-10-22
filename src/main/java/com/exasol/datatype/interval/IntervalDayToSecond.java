@@ -73,6 +73,16 @@ public class IntervalDayToSecond extends AbstractInterval {
     }
 
     /**
+     * Get the interval as the total number of milliseconds between two points in time.
+     *
+     * @return total number of milliseconds
+     */
+    // [impl->dsn~exasol.converting-interval-day-to-second-to-int~1]
+    public long toMillis() {
+        return getSignedValue();
+    }
+
+    /**
      * Create an {@link IntervalDayToSecond} from a number of milliseconds
      *
      * @param value total length of the interval in milliseconds
@@ -111,7 +121,7 @@ public class IntervalDayToSecond extends AbstractInterval {
      * @return interval with milliseconds resolution
      */
     // [impl->dsn~exasol.parsing-interval-day-to-second-from-strings~2]
-    public static IntervalDayToSecond parse(final String text) {
+    public static AbstractInterval parse(final String text) {
         final Matcher matcher = INTERVAL_PATTERN.matcher(text);
         if (matcher.matches()) {
             return createIntervalFromParsingResults(matcher);
@@ -121,7 +131,7 @@ public class IntervalDayToSecond extends AbstractInterval {
         }
     }
 
-    private static IntervalDayToSecond createIntervalFromParsingResults(final Matcher matcher) {
+    private static AbstractInterval createIntervalFromParsingResults(final Matcher matcher) {
         final long parsedValue = MILLIS_PER_DAY * parseMatchingGroupToLong(matcher, DAYS_MATCHING_GROUP) //
                 + MILLIS_PER_HOUR * parseMatchingGroupToLong(matcher, HOURS_MATCHING_GROUP) //
                 + MILLIS_PER_MINUTE * parseMatchingGroupToLong(matcher, MINUTES_MATCHING_GROUP) //

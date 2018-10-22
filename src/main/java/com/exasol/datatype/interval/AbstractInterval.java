@@ -28,4 +28,8 @@ public abstract class AbstractInterval {
     protected String getSign() {
         return this.positive ? "+" : "-";
     }
+
+    protected long getSignedValue() {
+        return this.value * (this.positive ? 1 : -1);
+    }
 }

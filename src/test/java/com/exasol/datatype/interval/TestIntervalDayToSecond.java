@@ -23,7 +23,7 @@ class TestIntervalDayToSecond {
             -(1000L + 1) + ", '-0 0:00:01.001'" //
     })
     void testOfMillis(final long value, final String expected) {
-        final IntervalDayToSecond interval = IntervalDayToSecond.ofMillis(value);
+        final AbstractInterval interval = IntervalDayToSecond.ofMillis(value);
         assertThat(interval.toString(), equalTo(expected));
     }
 
@@ -38,7 +38,7 @@ class TestIntervalDayToSecond {
             "'999999999 22:33:44', '+999999999 22:33:44.000'" //
     })
     void testParse(final String text, final String expected) {
-        final IntervalDayToSecond interval = IntervalDayToSecond.parse(text);
+        final AbstractInterval interval = IntervalDayToSecond.parse(text);
         assertThat(interval.toString(), equalTo(expected));
     }
 
@@ -49,5 +49,12 @@ class TestIntervalDayToSecond {
     })
     void testParseIllegalInputThrowsException(final String text) {
         assertThrows(IllegalArgumentException.class, () -> IntervalDayToSecond.parse(text));
+    }
+
+    // [utest->dsn~exasol.converting-interval-day-to-second-to-int~1]
+    @ParameterizedTest
+    @ValueSource(longs = { 1234, 0, -2345 })
+    void testToMillis(final long millis) {
+        assertThat(IntervalDayToSecond.ofMillis(millis).toMillis(), equalTo(millis));
     }
 }
