@@ -50,10 +50,10 @@ public class IntervalYearToMonth extends AbstractInterval {
 
     /**
      * Get the interval as the total number of months between two points in time
-     * 
+     *
      * @return total number of months
      */
-    // [impl->converting-interval-year-to-month-to-int~1]
+    // [impl->dsn~exasol.converting-interval-year-to-month-to-int~1]
     public long toMonths() {
         return getSignedValue();
     }

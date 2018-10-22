@@ -45,7 +45,7 @@ class TestIntervalYearToMonth {
         assertThrows(IllegalArgumentException.class, () -> IntervalYearToMonth.parse(text));
     }
 
-    // [utest->converting-interval-year-to-month-to-int~1]
+    // [utest->dsn~exasol.converting-interval-year-to-month-to-int~1]
     @ParameterizedTest
     @ValueSource(longs = { 1234, 0, -2345 })
     void testGetMonths(final long months) {
