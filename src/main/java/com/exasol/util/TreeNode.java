@@ -21,11 +21,10 @@ public interface TreeNode {
     public TreeNode getParent();
 
     /**
-     * Add a child node below this node. Children are registered in the order in
-     * which they are added.
+     * Add a child node below this node. Children are registered in the order in which they are added.
      * <p>
-     * <strong>Important:</strong> this also automatically creates a link in the
-     * opposite direction. All implementations must adhere to this rule.
+     * <strong>Important:</strong> this also automatically creates a link in the opposite direction. All implementations
+     * must adhere to this rule.
      *
      * @param child child node
      */
@@ -34,18 +33,17 @@ public interface TreeNode {
     /**
      * Get all child nodes of this node
      *
-     * @param child child nodes
+     * @return child nodes
      */
     public List<TreeNode> getChildren();
 
     /**
-     * Get child node by position in the list of siblings. The position depends on
-     * the order in which the children were added.
+     * Get child node by position in the list of siblings. The position depends on the order in which the children were
+     * added.
      *
      * @param index position in the list of siblings
      * @return child node at position
-     * @throws IndexOutOfBoundsException if the index is out of range (index < 0 ||
-     * index >= size())
+     * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &ge; size())
      */
     public TreeNode getChild(int index) throws IndexOutOfBoundsException;
 

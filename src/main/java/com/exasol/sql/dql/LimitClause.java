@@ -16,8 +16,6 @@ public class LimitClause extends AbstractFragment implements SelectFragment {
      *
      * @param root SQL statement this LIMIT clause belongs to
      *
-     * @param offset index of the first row to be included in the query result
-     *
      * @param count maximum number of rows to be included in the query result
      */
     public LimitClause(final SqlStatement root, final int count) {

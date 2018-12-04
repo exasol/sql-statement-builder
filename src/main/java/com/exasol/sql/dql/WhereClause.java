@@ -15,7 +15,7 @@ public class WhereClause extends AbstractFragment implements SelectFragment {
      * Create a new instance of a {@link WhereClause}
      *
      * @param root SQL statement this WHERE clause belongs to
-     * @param expression
+     * @param expression boolean expression servicing as criteria for the WHERE clause
      */
     public WhereClause(final SqlStatement root, final BooleanExpression expression) {
         super(root);
