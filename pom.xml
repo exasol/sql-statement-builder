@@ -32,8 +32,18 @@
   <scm>
     <connection>scm:git:https://github.com/exasol/sql-statement-builder.git</connection>
     <developerConnection>scm:git:https://github.com/exasol/sql-statement-builder.git</developerConnection>
-    <url>https://github.com/itsallcode/openfasttrace/tree/master</url>
+    <url>https://github.com/exasol/sql-statement-builder/tree/master</url>
   </scm>
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
   <dependencies>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
