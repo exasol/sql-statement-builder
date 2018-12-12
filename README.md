@@ -40,6 +40,7 @@ The list below show all build time dependencies in alphabetical order. Note that
 | [Equals Verifier](https://github.com/jqno/equalsverifier)                      | Automatic contract checker for `equals()` and `hash()` | Apache License 2.0            |
 | [Hamcrest](http://hamcrest.org/)                                               | Advanced matchers for JUnit                            | GNU BSD-3-Clause              |
 | [JUnit 5](https://junit.org/junit5/)                                           | Unit testing framework                                 | Eclipse Public License 1.0    |
+| [Maven GPG Plugin](https://maven.apache.org/plugins/maven-gpg-plugin/)         | Signs JARs                                             | Apache License 2.0            |
 | [Maven JavaDoc Plugin](https://maven.apache.org/plugins/maven-javadoc-plugin/) | Creates JavaDoc JARs                                   | Apache License 2.0            |
 | [Maven Source Plugin](https://maven.apache.org/plugins/maven-source-plugin/)   | Creates source JARs                                    | Apache License 2.0            |
 | [Mockito](http://site.mockito.org/)                                            | Mocking framework                                      | MIT License                   |
