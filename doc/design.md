@@ -117,9 +117,20 @@ Needs: impl, utest
 ### Exasol Dialect Specific
 
 #### Converting from 64 bit Integers to INTERVAL DAY TO SECOND
-`dsn~exasol.converting-int-to-interval-day-to-second~1`
+`dsn~exasol.converting-int-to-interval-day-to-second~2`
 
-The data converter converts integers to `INTERVAL DAY TO SECOND`.
+The data converter converts signed integers to `INTERVAL DAY TO SECOND`.
+
+Covers:
+
+* `req~integer-interval-conversion~1`
+
+Needs: impl, utest
+
+#### Converting from INTERVAL DAY TO SECOND to 64 bit Integers 
+`dsn~exasol.converting-interval-day-to-second-to-int~1`
+
+The data converter converts `INTERVAL DAY TO SECOND` to signed integers.
 
 Covers:
 
@@ -128,11 +139,13 @@ Covers:
 Needs: impl, utest
 
 #### Parsing INTERVAL DAY TO SECOND From Strings
-`dsn~exasol.parsing-interval-day-to-second-from-strings~1`
+`dsn~exasol.parsing-interval-day-to-second-from-strings~2`
 
 The data converter can parse `INTERVAL DAY TO SECOND` from strings in the following format:
 
-    interval-d2s = [ days SP ] hours ":" minutes [ ":" seconds [ "." milliseconds ] ]
+    interval-d2s = [ "+" / "-" ] [ days SP ] time-interval
+    
+    time-interval = hours ":" minutes [ ":" seconds [ "." milliseconds ] ]
     
     hours = ( "2" "0" - "3" ) / ( [ "0" / "1" ] DIGIT )
     
@@ -151,9 +164,20 @@ Covers:
 Needs: impl, utest
 
 #### Converting from 64 bit Integers to INTERVAL YEAR TO MONTH
-`dsn~exasol.converting-int-to-interval-year-to-month~1`
+`dsn~exasol.converting-int-to-interval-year-to-month~2`
 
-The data converter converts integers to `INTERVAL YEAR TO MONTH`.
+The data converter converts signed integers to `INTERVAL YEAR TO MONTH`.
+
+Covers:
+
+* `req~integer-interval-conversion~1`
+
+Needs: impl, utest
+
+#### Converting from INTERVAL YEAR TO MONTH to 64 bit Integers
+`dsn~exasol.converting-interval-year-to-month-to-int~1`
+
+The data converter converts signed integers to `INTERVAL YEAR TO MONTH`.
 
 Covers:
 
@@ -162,11 +186,11 @@ Covers:
 Needs: impl, utest
 
 #### Parsing INTERVAL YEAR TO MONTH From Strings
-`dsn~exasol.parsing-interval-year-to-month-from-strings~1`
+`dsn~exasol.parsing-interval-year-to-month-from-strings~2`
 
 The data converter can parse `INTERVAL YEAR TO MONTH` from strings in the following format:
 
-    interval-y2m = days "-" months
+    interval-y2m = [ "+" / "-" ]  days "-" months
     
     days = 1*9DIGIT
     

@@ -1,5 +1,7 @@
 package com.exasol.datatype.interval;
 
+import static com.exasol.datatype.interval.IntervalConstants.*;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,52 +24,32 @@ import java.util.regex.Pattern;
  * This is also the recommended way to represent the interval values in other systems which do not natively support this
  * data type.
  */
-public class IntervalDayToSecond {
-    private static final long MILLIS_PER_SECOND = 1000L;
-    private static final long SECONDS_PER_MINUTE = 60L;
-    private static final long MINUTES_PER_HOUR = 60L;
-    private static final long HOURS_PER_DAY = 24L;
-    private static final long MILLIS_PER_MINUTE = SECONDS_PER_MINUTE * MILLIS_PER_SECOND;
-    private static final long MILLIS_PER_HOUR = MINUTES_PER_HOUR * MILLIS_PER_MINUTE;
-    private static final long MILLIS_PER_DAY = HOURS_PER_DAY * MILLIS_PER_HOUR;
-    private static final int DAYS_MATCHING_GROUP = 1;
-    private static final int HOURS_MATCHING_GROUP = 2;
-    private static final int MINUTES_MATCHING_GROUP = 3;
-    private static final int SECONDS_MATCHING_GROUP = 4;
-    private static final int MILLIS_MATCHING_GROUP = 5;
-    private static final Pattern INTERVAL_PATTERN = Pattern.compile("(?:(\\d{1,9})\\s+)?" // days
+public class IntervalDayToSecond extends AbstractInterval {
+    private static final int SIGN_MATCHING_GROUP = 1;
+    private static final int DAYS_MATCHING_GROUP = 2;
+    private static final int HOURS_MATCHING_GROUP = 3;
+    private static final int MINUTES_MATCHING_GROUP = 4;
+    private static final int SECONDS_MATCHING_GROUP = 5;
+    private static final int MILLIS_MATCHING_GROUP = 6;
+    private static final Pattern INTERVAL_PATTERN = Pattern.compile("([-+])?(?:(\\d{1,9})\\s+)?" // days
             + "(\\d{1,2})" // hours
             + ":(\\d{1,2})" // minutes
             + "(?::(\\d{1,2})" // seconds
             + "(?:\\.(\\d{1,3}))?)?" // milliseconds
     );
-    private final long value;
 
     private IntervalDayToSecond(final long value) {
-        this.value = value;
+        super(value);
     }
 
-    private IntervalDayToSecond(final String text) {
-        final Matcher matcher = INTERVAL_PATTERN.matcher(text);
-        if (matcher.matches()) {
-            this.value = MILLIS_PER_DAY * parseMatchingGroupToLong(matcher, DAYS_MATCHING_GROUP) //
-                    + MILLIS_PER_HOUR * parseMatchingGroupToLong(matcher, HOURS_MATCHING_GROUP) //
-                    + MILLIS_PER_MINUTE * parseMatchingGroupToLong(matcher, MINUTES_MATCHING_GROUP) //
-                    + MILLIS_PER_SECOND * parseMatchingGroupToLong(matcher, SECONDS_MATCHING_GROUP) //
-                    + parseMatchingGroupToLong(matcher, MILLIS_MATCHING_GROUP);
-        } else {
-            throw new IllegalArgumentException(
-                    "Text \"" + text + "\" cannot be parsed to an INTERVAL. Must match \"" + INTERVAL_PATTERN + "\"");
-        }
-    }
-
-    private long parseMatchingGroupToLong(final Matcher matcher, final int groupNumber) {
-        return (matcher.group(groupNumber) == null) ? 0 : Long.parseLong(matcher.group(groupNumber));
+    private IntervalDayToSecond(final long absoluteValue, final boolean positive) {
+        super(absoluteValue, positive);
     }
 
     @Override
     public String toString() {
-        return String.format("%d %d:%02d:%02d.%03d", getDays(), getHours(), getMinutes(), getSeconds(), getMillis());
+        return String.format("%s%d %d:%02d:%02d.%03d", getSign(), getDays(), getHours(), getMinutes(), getSeconds(),
+                getMillis());
     }
 
     private long getDays() {
@@ -91,12 +73,22 @@ public class IntervalDayToSecond {
     }
 
     /**
+     * Get the interval as the total number of milliseconds between two points in time.
+     *
+     * @return total number of milliseconds
+     */
+    // [impl->dsn~exasol.converting-interval-day-to-second-to-int~1]
+    public long toMillis() {
+        return getSignedValue();
+    }
+
+    /**
      * Create an {@link IntervalDayToSecond} from a number of milliseconds
      *
      * @param value total length of the interval in milliseconds
      * @return interval with milliseconds resolution
      */
-    // [impl->dsn~exasol.converting-int-to-interval-day-to-second~1]
+    // [impl->dsn~exasol.converting-int-to-interval-day-to-second~2]
     public static IntervalDayToSecond ofMillis(final long value) {
         return new IntervalDayToSecond(value);
     }
@@ -128,8 +120,24 @@ public class IntervalDayToSecond {
      * @param text string representing an interval
      * @return interval with milliseconds resolution
      */
-    // [impl->dsn~exasol.parsing-interval-day-to-second-from-strings~1]
+    // [impl->dsn~exasol.parsing-interval-day-to-second-from-strings~2]
     public static IntervalDayToSecond parse(final String text) {
-        return new IntervalDayToSecond(text);
+        final Matcher matcher = INTERVAL_PATTERN.matcher(text);
+        if (matcher.matches()) {
+            return createIntervalFromParsingResults(matcher);
+        } else {
+            throw new IllegalArgumentException(
+                    "Text \"" + text + "\" cannot be parsed to an INTERVAL. Must match \"" + INTERVAL_PATTERN + "\"");
+        }
+    }
+
+    private static IntervalDayToSecond createIntervalFromParsingResults(final Matcher matcher) {
+        final long parsedValue = MILLIS_PER_DAY * parseMatchingGroupToLong(matcher, DAYS_MATCHING_GROUP) //
+                + MILLIS_PER_HOUR * parseMatchingGroupToLong(matcher, HOURS_MATCHING_GROUP) //
+                + MILLIS_PER_MINUTE * parseMatchingGroupToLong(matcher, MINUTES_MATCHING_GROUP) //
+                + MILLIS_PER_SECOND * parseMatchingGroupToLong(matcher, SECONDS_MATCHING_GROUP) //
+                + parseMatchingGroupToLong(matcher, MILLIS_MATCHING_GROUP);
+        final boolean parsedPositive = !"-".equals(matcher.group(SIGN_MATCHING_GROUP));
+        return new IntervalDayToSecond(parsedValue, parsedPositive);
     }
 }

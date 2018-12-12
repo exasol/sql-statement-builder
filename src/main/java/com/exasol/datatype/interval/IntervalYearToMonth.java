@@ -1,5 +1,7 @@
 package com.exasol.datatype.interval;
 
+import static com.exasol.datatype.interval.IntervalConstants.MONTHS_PER_YEAR;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,35 +21,23 @@ import java.util.regex.Pattern;
  * also the recommended way to represent the interval values in other systems which do not natively support this data
  * type.
  */
-public class IntervalYearToMonth {
-    private static final long MONTHS_PER_YEAR = 12L;
-    private static final int YEARS_MATCHING_GROUP = 1;
-    private static final int MONTHS_MATCHING_GROUP = 2;
-    private static final Pattern INTERVAL_PATTERN = Pattern.compile("(\\d{1,9})-(\\d{1,2})");
-    private final long value;
+public class IntervalYearToMonth extends AbstractInterval {
+    private static final int SIGN_MATCHING_GROUP = 1;
+    private static final int YEARS_MATCHING_GROUP = 2;
+    private static final int MONTHS_MATCHING_GROUP = 3;
+    private static final Pattern INTERVAL_PATTERN = Pattern.compile("([-+])?(\\d{1,9})-(\\d{1,2})");
 
     private IntervalYearToMonth(final long value) {
-        this.value = value;
+        super(value);
     }
 
-    private IntervalYearToMonth(final String text) {
-        final Matcher matcher = INTERVAL_PATTERN.matcher(text);
-        if (matcher.matches()) {
-            this.value = MONTHS_PER_YEAR * parseMatchingGroupToLong(matcher, YEARS_MATCHING_GROUP) //
-                    + parseMatchingGroupToLong(matcher, MONTHS_MATCHING_GROUP);
-        } else {
-            throw new IllegalArgumentException(
-                    "Text \"" + text + "\" cannot be parsed to an INTERVAL. Must match \"" + INTERVAL_PATTERN + "\"");
-        }
-    }
-
-    private long parseMatchingGroupToLong(final Matcher matcher, final int groupNumber) {
-        return Long.parseLong(matcher.group(groupNumber));
+    private IntervalYearToMonth(final long absoluteValue, final boolean positive) {
+        super(absoluteValue, positive);
     }
 
     @Override
     public String toString() {
-        return String.format("%d-%02d", getYears(), getMonths());
+        return String.format("%s%d-%02d", getSign(), getYears(), getMonths());
     }
 
     private long getYears() {
@@ -59,12 +49,22 @@ public class IntervalYearToMonth {
     }
 
     /**
+     * Get the interval as the total number of months between two points in time
+     *
+     * @return total number of months
+     */
+    // [impl->dsn~exasol.converting-interval-year-to-month-to-int~1]
+    public long toMonths() {
+        return getSignedValue();
+    }
+
+    /**
      * Create an {@link IntervalDayToSecond} from a number of months
      *
      * @param value total length of the interval in months
      * @return interval with months resolution
      */
-    // [impl->dsn~exasol.converting-int-to-interval-year-to-month~1]
+    // [impl->dsn~exasol.converting-int-to-interval-year-to-month~2]
     public static IntervalYearToMonth ofMonths(final long value) {
         return new IntervalYearToMonth(value);
     }
@@ -90,8 +90,17 @@ public class IntervalYearToMonth {
      * @param text string representing an interval
      * @return interval with months resolution
      */
-    // [impl->dsn~exasol.parsing-interval-year-to-month-from-strings~1]
+    // [impl->dsn~exasol.parsing-interval-year-to-month-from-strings~2]
     public static IntervalYearToMonth parse(final String text) {
-        return new IntervalYearToMonth(text);
+        final Matcher matcher = INTERVAL_PATTERN.matcher(text);
+        if (matcher.matches()) {
+            final long parsedValue = MONTHS_PER_YEAR * parseMatchingGroupToLong(matcher, YEARS_MATCHING_GROUP) //
+                    + parseMatchingGroupToLong(matcher, MONTHS_MATCHING_GROUP);
+            final boolean parsedPositive = !"-".equals(matcher.group(SIGN_MATCHING_GROUP));
+            return new IntervalYearToMonth(parsedValue, parsedPositive);
+        } else {
+            throw new IllegalArgumentException(
+                    "Text \"" + text + "\" cannot be parsed to an INTERVAL. Must match \"" + INTERVAL_PATTERN + "\"");
+        }
     }
 }

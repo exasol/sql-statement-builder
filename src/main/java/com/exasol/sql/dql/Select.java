@@ -80,7 +80,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      *
      * @param offset index of the first row in the query result
      * @param count maximum number of rows to be included in query result
-     * @return <code>this</code for fluent programming
+     * @return <code>this</code> for fluent programming
      * @throws IllegalStateException if a limit clause already exists
      */
     // [impl->dsn~select-statement.out-of-order-clauses~1]

@@ -8,8 +8,7 @@ import com.exasol.sql.expression.rendering.BooleanExpressionRenderer;
 import com.exasol.sql.rendering.StringRendererConfig;
 
 /**
- * This class implements a matcher for the results of rendering boolean
- * expressions to text.
+ * This class implements a matcher for the results of rendering boolean expressions to text.
  */
 public class BooleanExpressionRenderResultMatcher extends AbstractRenderResultMatcher<BooleanExpression> {
     private final BooleanExpressionRenderer renderer;
@@ -27,7 +26,7 @@ public class BooleanExpressionRenderResultMatcher extends AbstractRenderResultMa
     /**
      * Match the rendered result against original text.
      *
-     * @param text the text to be matched against the original text.
+     * @param expression expression to be matched against the original text.
      */
     @Override
     public boolean matchesSafely(final BooleanExpression expression) {
@@ -54,8 +53,7 @@ public class BooleanExpressionRenderResultMatcher extends AbstractRenderResultMa
     /**
      * Factory method for {@link BooleanExpressionRenderResultMatcher}
      *
-     * @param config       configuration settings for the
-     *                     {@link SelectRenderer}
+     * @param config configuration settings for the {@link SelectRenderer}
      * @param expectedText text that represents the expected rendering result
      * @return the matcher
      */
