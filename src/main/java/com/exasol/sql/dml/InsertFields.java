@@ -11,7 +11,7 @@ public class InsertFields extends AbstractFragment implements InsertFragment {
     /**
      * Create an new instance of {@link InsertFields}
      *
-     * @param root
+     * @param root root statement
      */
     public InsertFields(final SqlStatement root) {
         super(root);
@@ -26,12 +26,6 @@ public class InsertFields extends AbstractFragment implements InsertFragment {
         for (final String name : names) {
             this.fields.add(new Field(getRoot(), name));
         }
-    }
-
-    @Override
-    public Fragment getRoot() {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     @Override

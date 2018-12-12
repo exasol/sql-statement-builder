@@ -34,9 +34,9 @@ public class Literal extends AbstractBooleanExpression {
 
     /**
      * Map an array of {@link String} to and array of BooleanExpressions
-     * 
-     * @param strings
-     * @return
+     *
+     * @param strings string literals to be turned into boolean expressions
+     * @return boolean expressions
      */
     public static BooleanExpression[] toBooleanExpressions(final String[] strings) {
         final BooleanExpression[] literals = new BooleanExpression[strings.length];

@@ -14,7 +14,7 @@ public class InsertValues extends AbstractFragment implements InsertFragment {
     private final List<ValueExpression> values = new ArrayList<>();
 
     /**
-     * Create a new instance of {@link InsertValues
+     * Create a new instance of {@link InsertValues}
      *
      * @param root root SQL statement
      */

@@ -29,7 +29,7 @@ public class SqlFragmentRenderResultMatcher extends AbstractRenderResultMatcher<
     /**
      * Match the rendered result against original text.
      *
-     * @param text the text to be matched against the original text.
+     * @param fragment fragment to be matched against the original text.
      */
     @Override
     public boolean matchesSafely(final Fragment fragment) {
