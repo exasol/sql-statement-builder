@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.exasol</groupId>
   <artifactId>sql-statement-builder</artifactId>
-  <version>0.2.0</version>
+  <version>0.3.0</version>
   <name>Exasol SQL Statement Builder</name>
   <description>This module provides a Builder for SQL statements that helps creating the correct structure and validates variable parts of the statements.</description>
   <url>https://github.com/EXASOL/sql-statement-builder</url>
@@ -124,6 +124,11 @@
           <failOnError>true</failOnError>
           <failOnWarnings>true</failOnWarnings>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>1.6</version>
       </plugin>
     </plugins>
   </build>

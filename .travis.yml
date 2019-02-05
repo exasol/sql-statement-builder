@@ -2,7 +2,6 @@ language: java
 
 jdk:
   - openjdk8
-  - openjdk11
 
 before_script:
   - version=$(grep -oP '(?<=^  <version>)[^<]*' pom.xml)
