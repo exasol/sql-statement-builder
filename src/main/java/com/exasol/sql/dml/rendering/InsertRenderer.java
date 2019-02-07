@@ -3,6 +3,8 @@ package com.exasol.sql.dml.rendering;
 import com.exasol.sql.Field;
 import com.exasol.sql.Table;
 import com.exasol.sql.dml.*;
+import com.exasol.sql.dql.ValueTable;
+import com.exasol.sql.dql.ValueTableRow;
 import com.exasol.sql.expression.ValueExpression;
 import com.exasol.sql.rendering.AbstractFragmentRenderer;
 import com.exasol.sql.rendering.StringRendererConfig;
@@ -64,6 +66,32 @@ public class InsertRenderer extends AbstractFragmentRenderer implements InsertVi
     @Override
     public void leave(final InsertValues insertValues) {
         append(")");
+    }
+
+    @Override
+    public void visit(final ValueTable valueTable) {
+        appendKeyWord("( VALUES ");
+        setLastVisited(valueTable);
+    }
+
+    @Override
+    public void leave(final ValueTable valueTable) {
+        appendKeyWord(" ) ");
+        setLastVisited(valueTable);
+    }
+
+    @Override
+    public void visit(final ValueTableRow valueTableRow) {
+        appendCommaWhenNeeded(valueTableRow);
+        append("(");
+        appendValueTableRow(valueTableRow);
+        setLastVisited(valueTableRow);
+    }
+
+    @Override
+    public void leave(final ValueTableRow valueTableRow) {
+        append(")");
+        setLastVisited(valueTableRow);
     }
 
     /**

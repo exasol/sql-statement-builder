@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.exasol.sql.*;
-import com.exasol.sql.expression.Value;
-import com.exasol.sql.expression.ValueExpression;
+import com.exasol.sql.expression.*;
 
 /**
  * Container class for values to be inserted by an INSERT statement.
@@ -23,13 +22,24 @@ public class InsertValues extends AbstractFragment implements InsertFragment {
     }
 
     /**
-     * Add one or more values
+     * Add one or more string literals
      *
-     * @param values values
+     * @param values string literals
      */
-    public void add(final Object... values) {
-        for (final Object value : values) {
-            this.getValues().add(new Value(value));
+    public void add(final String... values) {
+        for (final String value : values) {
+            this.getValues().add(StringLiteral.of(value));
+        }
+    }
+
+    /**
+     * Add one or more integer literals
+     *
+     * @param values integer literals
+     */
+    public void add(final int... values) {
+        for (final int value : values) {
+            this.getValues().add(IntegerLiteral.of(value));
         }
     }
 

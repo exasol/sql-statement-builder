@@ -1,6 +1,8 @@
 package com.exasol.sql.rendering;
 
 import com.exasol.sql.Fragment;
+import com.exasol.sql.dml.InsertValues;
+import com.exasol.sql.dql.ValueTableRow;
 import com.exasol.sql.expression.BooleanExpression;
 import com.exasol.sql.expression.ValueExpression;
 import com.exasol.sql.expression.rendering.BooleanExpressionRenderer;
@@ -89,6 +91,26 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
             if (!part.endsWith("\"")) {
                 append("\"");
             }
+        }
+    }
+
+    protected void appendValuesTable(final InsertValues insertValues) {
+        appendKeyWord(" VALUES (");
+        for (final ValueExpression expression : insertValues.getValues()) {
+            appendCommaWhenNeeded(insertValues);
+            appendRenderedValueExpression(expression);
+        }
+    }
+
+    protected void appendValueTableRow(final ValueTableRow valueTableRow) {
+        boolean first = true;
+        for (final ValueExpression expression : valueTableRow.getExpressions()) {
+            if (first) {
+                first = false;
+            } else {
+                append(", ");
+            }
+            appendRenderedValueExpression(expression);
         }
     }
 

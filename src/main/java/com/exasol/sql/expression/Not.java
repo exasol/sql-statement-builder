@@ -5,12 +5,21 @@ package com.exasol.sql.expression;
  */
 public class Not extends AbstractBooleanExpression {
     /**
+     * Create a new instance of a unary {@link Not} from a boolean literal
+     *
+     * @param value boolean literal to be negated
+     */
+    public Not(final boolean value) {
+        super(BooleanLiteral.of(value));
+    }
+
+    /**
      * Create a new instance of a unary {@link Not} from a string literal
      *
-     * @param string string literal to be negated
+     * @param value string literal to be negated
      */
-    protected Not(final String string) {
-        super(Literal.of(string));
+    public Not(final String value) {
+        super(BooleanLiteral.of(value));
     }
 
     /**

@@ -162,7 +162,38 @@ Covers:
 
 Needs: dsn
 
-### Data Manipulation Language
+#### Boolean Literals
+`req~boolean-literal`
+
+ESB can convert the following string literals into boolean values, independently of the case they are written in:
+
+* true: `true`, `t`, `yes`, `y`, `on`, `enabled`, `1`
+* false: `false`, `f`, `no`, `n`, `off`, `disabled`, `0`
+
+Covers:
+
+* [feat~statement-definition~1](#statement-definition)
+
+Needs: dsn
+
+### Data Query Language (DQL)
+
+#### Table Value
+`req~table_value~1`
+
+ESB supports the following way to construct tables from value matrixes:
+
+    value-table = VALUES value-row *( COMMA value-row )
+    
+    value-row = L-BRACKET expression *( COMMA expression ) R-BRACKET
+
+Covers:
+
+* [feat~statement-definition~1](#statement-definition)
+
+Needs: dsn
+
+### Data Manipulation Language (DML)
 
 #### INSERT Statements
 `req~insert-statements~1`

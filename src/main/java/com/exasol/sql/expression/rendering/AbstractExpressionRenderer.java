@@ -3,6 +3,7 @@ package com.exasol.sql.expression.rendering;
 import java.util.Stack;
 
 import com.exasol.sql.expression.BooleanExpression;
+import com.exasol.sql.expression.BooleanLiteral;
 import com.exasol.sql.rendering.StringRendererConfig;
 
 /**
@@ -33,8 +34,12 @@ public class AbstractExpressionRenderer {
         }
     }
 
-    protected void appendLiteral(final String string) {
-        this.builder.append(string);
+    protected void appendStringLiteral(final String value) {
+        this.builder.append(value);
+    }
+
+    protected void appendBooleanLiteral(final BooleanLiteral literal) {
+        this.builder.append(this.config.useLowerCase() ? literal.toString().toLowerCase() : literal.toString());
     }
 
     protected void startParenthesis() {

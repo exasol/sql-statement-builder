@@ -16,10 +16,19 @@ public class Or extends AbstractBooleanExpression {
     /**
      * Create a new {@link Or} instance
      *
+     * @param values boolean literals to be connected by a logical Or
+     */
+    public Or(final boolean... values) {
+        this(BooleanLiteral.toBooleanExpressions(values));
+    }
+
+    /**
+     * Create a new {@link Or} instance
+     *
      * @param strings string literals to be connected by a logical Or
      */
     public Or(final String... strings) {
-        this(Literal.toBooleanExpressions(strings));
+        this(BooleanLiteral.toBooleanExpressions(strings));
     }
 
     @Override

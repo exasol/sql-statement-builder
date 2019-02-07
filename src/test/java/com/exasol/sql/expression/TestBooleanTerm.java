@@ -11,7 +11,7 @@ class TestBooleanTerm {
     // [utest->dsn~boolean-operators~1]
     @Test
     void testOperationYieldsAnd() {
-        final BooleanExpression term = BooleanTerm.operation("and", not("a"), not("b"));
+        final BooleanExpression term = BooleanTerm.operation("and", not(true), not(false));
         assertThat(term, instanceOf(And.class));
     }
 
@@ -19,61 +19,61 @@ class TestBooleanTerm {
     // [utest->dsn~boolean-operators~1]
     @Test
     void testOperationFromUpperCaseYieldsAnd() {
-        assertThat(BooleanTerm.operation("AND", not("a"), not("b")), instanceOf(And.class));
+        assertThat(BooleanTerm.operation("AND", not(true), not(false)), instanceOf(And.class));
     }
 
     // [utest->dsn~boolean-operators~1]
     @Test
     void testOperationYieldsOr() {
-        assertThat(BooleanTerm.operation("or", not("a"), not("b")), instanceOf(Or.class));
+        assertThat(BooleanTerm.operation("or", not(true), not(false)), instanceOf(Or.class));
     }
 
     // [utest->dsn~boolean-operators~1]
     @Test
     void testOperationFromUpperCaseYieldsOr() {
-        assertThat(BooleanTerm.operation("OR", not("a"), not("b")), instanceOf(Or.class));
+        assertThat(BooleanTerm.operation("OR", not(true), not(false)), instanceOf(Or.class));
     }
 
     // [utest->dsn~boolean-operators~1]
     @Test
     void testOperationYieldsNot() {
-        assertThat(BooleanTerm.operation("not", not("a")), instanceOf(Not.class));
+        assertThat(BooleanTerm.operation("not", not(true)), instanceOf(Not.class));
     }
 
     // [utest->dsn~boolean-operators~1]
     @Test
     void testOperationFromUpperCaseYieldsNot() {
-        assertThat(BooleanTerm.operation("NOT", not("a")), instanceOf(Not.class));
+        assertThat(BooleanTerm.operation("NOT", not(true)), instanceOf(Not.class));
     }
 
     // [utest->dsn~boolean-operators~1]
     @Test
     void testOperationFromUnknownOperatorThrowsException() {
-        assertThrows(IllegalArgumentException.class, () -> BooleanTerm.operation("illegal", not("a")));
+        assertThrows(IllegalArgumentException.class, () -> BooleanTerm.operation("illegal", not(true)));
     }
 
     // [utest->dsn~boolean-operators~1]
     @Test
     void testOperationFromNotWithMoreOrLessThanOneOperandThrowsException() {
-        assertThrows(IllegalArgumentException.class, () -> BooleanTerm.operation("not", not("a"), not("b")));
+        assertThrows(IllegalArgumentException.class, () -> BooleanTerm.operation("not", not(true), not(false)));
     }
 
     // [utest->dsn~boolean-operators~1]
     @Test
     void testOperationFromUpperCaseUnknownOperatorThrowsException() {
-        assertThrows(IllegalArgumentException.class, () -> BooleanTerm.operation("ILLEGAL", not("a")));
+        assertThrows(IllegalArgumentException.class, () -> BooleanTerm.operation("ILLEGAL", not(true)));
     }
 
     // [utest->dsn~boolean-operators~1]
     @Test
     void testOperationFromUpperCaseNotWithMoreOrLessThanOneOperandThrowsException() {
-        assertThrows(IllegalArgumentException.class, () -> BooleanTerm.operation("NOT", not("a"), not("b")));
+        assertThrows(IllegalArgumentException.class, () -> BooleanTerm.operation("NOT", not(true), not(false)));
     }
 
     // [utest->dsn~boolean-operators~1]
     @Test
     void testOperationFromNullOperatorThrowsException() {
-        assertThrows(NullPointerException.class, () -> BooleanTerm.operation(null, not("a"), not("b")));
+        assertThrows(NullPointerException.class, () -> BooleanTerm.operation(null, not(true), not(false)));
     }
 
     // [utest->dsn~boolean-operation.comparison.constructing-from-strings~1]

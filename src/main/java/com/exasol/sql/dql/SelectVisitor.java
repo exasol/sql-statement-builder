@@ -12,4 +12,8 @@ public interface SelectVisitor extends FragmentVisitor {
     public void visit(LimitClause limitClause);
 
     public void visit(WhereClause whereClause);
+
+    public void visit(ValueTable valueTable);
+
+    public void visit(ValueTableRow valueTableRow);
 }

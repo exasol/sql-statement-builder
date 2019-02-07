@@ -11,6 +11,7 @@ import com.exasol.sql.*;
 public class FromClause extends AbstractFragment implements SelectFragment {
     private final List<Table> tables = new ArrayList<>();
     private final List<Join> joins = new ArrayList<>();
+    private final List<ValueTable> valueTables = new ArrayList<>();
 
     /**
      * Create a new instance of a {@link FromClause}
@@ -22,10 +23,10 @@ public class FromClause extends AbstractFragment implements SelectFragment {
     }
 
     /**
-     * Create a {@link FromClause} from a table name
+     * Add a table name to the {@link FromClause}
      *
      * @param name table name
-     * @return new instance
+     * @return FROM clause
      */
     public FromClause table(final String name) {
         this.tables.add(new Table(getRoot(), name));
@@ -33,14 +34,25 @@ public class FromClause extends AbstractFragment implements SelectFragment {
     }
 
     /**
-     * Create a {@link FromClause} from a table name and an alias
+     * Add a table name with an an alias to the {@link FromClause}
      *
      * @param name table name
      * @param as table alias
-     * @return new instance
+     * @return FROM clause
      */
     public FromClause tableAs(final String name, final String as) {
         this.tables.add(new Table(getRoot(), name, as));
+        return this;
+    }
+
+    /**
+     * Create a {@link FromClause} from a value table
+     *
+     * @param valueTable table of value expressions
+     * @return new instance
+     */
+    public FromClause valueTable(final ValueTable valueTable) {
+        this.valueTables.add(valueTable);
         return this;
     }
 
@@ -148,6 +160,9 @@ public class FromClause extends AbstractFragment implements SelectFragment {
         }
         for (final Join join : this.joins) {
             join.accept(visitor);
+        }
+        for (final ValueTable valueTable : this.valueTables) {
+            valueTable.accept(visitor);
         }
     }
 }

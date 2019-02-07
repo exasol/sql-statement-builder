@@ -6,13 +6,13 @@ package com.exasol.sql.expression;
 public interface BooleanExpressionVisitor {
     public void visit(Not not);
 
-    public void visit(Literal literal);
+    public void visit(BooleanLiteral literal);
 
     public void visit(And and);
 
     public void leave(Not not);
 
-    public void leave(Literal literal);
+    public void leave(BooleanLiteral literal);
 
     public void leave(And and);
 

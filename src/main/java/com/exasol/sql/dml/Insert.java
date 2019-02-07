@@ -46,16 +46,33 @@ public class Insert extends AbstractFragment implements SqlStatement, InsertFrag
     }
 
     /**
-     * Insert a list of concrete values
+     * Insert a list of string values
      *
-     * @param values values to be inserted
+     * @param values string values to be inserted
      * @return <code>this</code> for fluent programming
      */
     // [impl->dsn~values-as-insert-source~1]
-    public synchronized Insert values(final Object... values) {
+    public synchronized Insert values(final String... values) {
+        createInsertValueInstanceIfItDoesNotExist();
+        this.insertValues.add(values);
+        return this;
+    }
+
+    protected void createInsertValueInstanceIfItDoesNotExist() {
         if (this.insertValues == null) {
             this.insertValues = new InsertValues(this);
         }
+    }
+
+    /**
+     * Insert a list of integer values
+     *
+     * @param values integer values to be inserted
+     * @return <code>this</code> for fluent programming
+     */
+    // [impl->dsn~values-as-insert-source~1]
+    public Insert values(final int... values) {
+        createInsertValueInstanceIfItDoesNotExist();
         this.insertValues.add(values);
         return this;
     }
@@ -67,9 +84,7 @@ public class Insert extends AbstractFragment implements SqlStatement, InsertFrag
      */
     // [impl->dsn~values-as-insert-source~1]
     public synchronized Insert valuePlaceholder() {
-        if (this.insertValues == null) {
-            this.insertValues = new InsertValues(this);
-        }
+        createInsertValueInstanceIfItDoesNotExist();
         this.insertValues.addPlaceholder();
         return this;
     }
@@ -82,9 +97,7 @@ public class Insert extends AbstractFragment implements SqlStatement, InsertFrag
      */
     // [impl->dsn~values-as-insert-source~1]
     public synchronized Insert valuePlaceholders(final int amount) {
-        if (this.insertValues == null) {
-            this.insertValues = new InsertValues(this);
-        }
+        createInsertValueInstanceIfItDoesNotExist();
         for (int i = 0; i < amount; ++i) {
             this.insertValues.addPlaceholder();
         }

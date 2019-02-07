@@ -43,7 +43,7 @@ class TestInsertRendering {
     // [utest->dsn~values-as-insert-source~1]
     @Test
     void testInsertValues() {
-        assertThat(this.insert.values(1, "a"), rendersTo("INSERT INTO person VALUES (1, 'a')"));
+        assertThat(this.insert.values(1).values("a"), rendersTo("INSERT INTO person VALUES (1, 'a')"));
     }
 
     // [utest->dsn~rendering.sql.insert~1]
@@ -64,7 +64,7 @@ class TestInsertRendering {
     // [utest->dsn~values-as-insert-source~1]
     @Test
     void testInsertMixedValuesAndPlaceholders() {
-        assertThat(this.insert.values(1).valuePlaceholders(3).values("b", 4),
+        assertThat(this.insert.values(1).valuePlaceholders(3).values("b").values(4),
                 rendersTo("INSERT INTO person VALUES (1, ?, ?, ?, 'b', 4)"));
     }
 }

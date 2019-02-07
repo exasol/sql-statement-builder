@@ -6,7 +6,9 @@ import com.exasol.sql.UnnamedPlaceholder;
  * Visitor interface for a {@link BooleanTerm}
  */
 public interface ValueExpressionVisitor {
-    void visit(Value value);
+    public void visit(UnnamedPlaceholder unnamedPlaceholder);
 
-    void visit(UnnamedPlaceholder unnamedPlaceholder);
+    public void visit(StringLiteral literal);
+
+    public void visit(IntegerLiteral literal);
 }

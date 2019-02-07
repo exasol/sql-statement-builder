@@ -16,10 +16,19 @@ public class And extends AbstractBooleanExpression {
     /**
      * Create a new {@link And} instance
      *
-     * @param strings string literals to be connected by a logical AND
+     * @param values boolean literals to be connected by a logical AND
      */
-    public And(final String... strings) {
-        this(Literal.toBooleanExpressions(strings));
+    public And(final boolean... values) {
+        this(BooleanLiteral.toBooleanExpressions(values));
+    }
+
+    /**
+     * Create a new {@link And} instance
+     *
+     * @param values string literals to be connected by a logical AND
+     */
+    public And(final String... values) {
+        this(BooleanLiteral.toBooleanExpressions(values));
     }
 
     @Override

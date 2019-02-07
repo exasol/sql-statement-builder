@@ -59,13 +59,13 @@ public class BooleanExpressionRenderer extends AbstractExpressionRenderer implem
     }
 
     @Override
-    public void visit(final Literal literal) {
+    public void visit(final BooleanLiteral literal) {
         connect(literal);
-        appendLiteral(literal.toString());
+        appendBooleanLiteral(literal);
     }
 
     @Override
-    public void leave(final Literal literal) {
+    public void leave(final BooleanLiteral literal) {
         // intentionally empty
     }
 
@@ -75,11 +75,17 @@ public class BooleanExpressionRenderer extends AbstractExpressionRenderer implem
         if (!comparison.isRoot()) {
             startParenthesis();
         }
-        comparison.getLeftOperand().accept(this);
+        appendOperand(comparison.getLeftOperand());
         this.builder.append(" ");
         this.builder.append(comparison.getOperator().toString());
         this.builder.append(" ");
-        comparison.getRightOperand().accept(this);
+        appendOperand(comparison.getRightOperand());
+    }
+
+    protected void appendOperand(final StringLiteral leftOperand) {
+        final ValueExpressionRenderer leftExpressionRenderer = new ValueExpressionRenderer(this.config);
+        leftOperand.accept(leftExpressionRenderer);
+        this.builder.append(leftExpressionRenderer.render());
     }
 
     @Override

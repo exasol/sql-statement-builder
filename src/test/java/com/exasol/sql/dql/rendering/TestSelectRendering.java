@@ -73,8 +73,8 @@ class TestSelectRendering {
     // [utest->dsn~select-statement.out-of-order-clauses~1]
     @Test
     void testAddClausesInRandomOrder() {
-        assertThat(this.select.limit(1).all().where(BooleanTerm.not("foo")).from().join("A", "A.aa = B.bb").table("B"),
-                rendersTo("SELECT * FROM B JOIN A ON A.aa = B.bb WHERE NOT(foo) LIMIT 1"));
+        assertThat(this.select.limit(1).all().where(BooleanTerm.not(true)).from().join("A", "A.aa = B.bb").table("B"),
+                rendersTo("SELECT * FROM B JOIN A ON A.aa = B.bb WHERE NOT(TRUE) LIMIT 1"));
     }
 
     // [utest->dsn~rendering.add-double-quotes-for-schema-table-and-column-identifiers~1]
