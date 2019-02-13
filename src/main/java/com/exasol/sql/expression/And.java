@@ -22,15 +22,6 @@ public class And extends AbstractBooleanExpression {
         this(BooleanLiteral.toBooleanExpressions(values));
     }
 
-    /**
-     * Create a new {@link And} instance
-     *
-     * @param values string literals to be connected by a logical AND
-     */
-    public And(final String... values) {
-        this(BooleanLiteral.toBooleanExpressions(values));
-    }
-
     @Override
     public void acceptConcrete(final BooleanExpressionVisitor visitor) {
         visitor.visit(this);

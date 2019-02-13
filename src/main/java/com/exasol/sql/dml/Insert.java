@@ -2,6 +2,7 @@ package com.exasol.sql.dml;
 
 import com.exasol.sql.*;
 import com.exasol.sql.dql.Select;
+import com.exasol.sql.dql.ValueTable;
 
 /**
  * This class implements an SQL {@link Select} statement
@@ -10,7 +11,7 @@ import com.exasol.sql.dql.Select;
 public class Insert extends AbstractFragment implements SqlStatement, InsertFragment {
     private final Table table;
     private InsertFields insertFields;
-    private InsertValues insertValues;
+    private ValueTable insertValueTable;
 
     /**
      * Create a new instance of an {@link Insert} statement
@@ -36,6 +37,12 @@ public class Insert extends AbstractFragment implements SqlStatement, InsertFrag
         return this;
     }
 
+    protected synchronized void createInsertValueInstanceIfItDoesNotExist() {
+        if (this.insertValueTable == null) {
+            this.insertValueTable = new ValueTable(this);
+        }
+    }
+
     /**
      * Get the name of the table into which data should be inserted
      *
@@ -43,6 +50,20 @@ public class Insert extends AbstractFragment implements SqlStatement, InsertFrag
      */
     public String getTableName() {
         return this.table.getName();
+    }
+
+    /**
+     * Insert a value table
+     *
+     * @param table value table to be inserted
+     * @return <code>this</code> for fluentProgramming
+     */
+    public synchronized Insert valueTable(final ValueTable table) {
+        if (this.insertValueTable != null) {
+            throw new IllegalStateException("Cannot add a value table to an INSERT command that already has one.");
+        }
+        this.insertValueTable = table;
+        return this;
     }
 
     /**
@@ -54,14 +75,8 @@ public class Insert extends AbstractFragment implements SqlStatement, InsertFrag
     // [impl->dsn~values-as-insert-source~1]
     public synchronized Insert values(final String... values) {
         createInsertValueInstanceIfItDoesNotExist();
-        this.insertValues.add(values);
+        this.insertValueTable.add(values);
         return this;
-    }
-
-    protected void createInsertValueInstanceIfItDoesNotExist() {
-        if (this.insertValues == null) {
-            this.insertValues = new InsertValues(this);
-        }
     }
 
     /**
@@ -73,7 +88,7 @@ public class Insert extends AbstractFragment implements SqlStatement, InsertFrag
     // [impl->dsn~values-as-insert-source~1]
     public Insert values(final int... values) {
         createInsertValueInstanceIfItDoesNotExist();
-        this.insertValues.add(values);
+        this.insertValueTable.add(values);
         return this;
     }
 
@@ -85,7 +100,7 @@ public class Insert extends AbstractFragment implements SqlStatement, InsertFrag
     // [impl->dsn~values-as-insert-source~1]
     public synchronized Insert valuePlaceholder() {
         createInsertValueInstanceIfItDoesNotExist();
-        this.insertValues.addPlaceholder();
+        this.insertValueTable.addPlaceholder();
         return this;
     }
 
@@ -99,7 +114,7 @@ public class Insert extends AbstractFragment implements SqlStatement, InsertFrag
     public synchronized Insert valuePlaceholders(final int amount) {
         createInsertValueInstanceIfItDoesNotExist();
         for (int i = 0; i < amount; ++i) {
-            this.insertValues.addPlaceholder();
+            valuePlaceholder();
         }
         return this;
     }
@@ -113,8 +128,8 @@ public class Insert extends AbstractFragment implements SqlStatement, InsertFrag
         if (this.insertFields != null) {
             this.insertFields.accept(visitor);
         }
-        if (this.insertValues != null) {
-            this.insertValues.accept(visitor);
+        if (this.insertValueTable != null) {
+            this.insertValueTable.accept(visitor);
         }
     }
 }

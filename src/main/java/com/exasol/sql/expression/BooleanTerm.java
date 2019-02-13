@@ -10,10 +10,6 @@ public abstract class BooleanTerm extends AbstractBooleanExpression {
         return new Not(value);
     }
 
-    public static BooleanExpression not(final String value) {
-        return new Not(value);
-    }
-
     public static BooleanExpression not(final BooleanExpression expression) {
         return new Not(expression);
     }
@@ -22,23 +18,11 @@ public abstract class BooleanTerm extends AbstractBooleanExpression {
         return new And(values);
     }
 
-    public static BooleanExpression and(final String... values) {
-        return new And(values);
-    }
-
     public static BooleanExpression and(final BooleanExpression expression, final boolean value) {
         return new And(expression, BooleanLiteral.of(value));
     }
 
-    public static BooleanExpression and(final BooleanExpression expression, final String string) {
-        return new And(expression, BooleanLiteral.of(string));
-    }
-
     public static BooleanExpression and(final boolean value, final BooleanExpression expression) {
-        return new And(BooleanLiteral.of(value), expression);
-    }
-
-    public static BooleanExpression and(final String value, final BooleanExpression expression) {
         return new And(BooleanLiteral.of(value), expression);
     }
 
@@ -50,23 +34,11 @@ public abstract class BooleanTerm extends AbstractBooleanExpression {
         return new Or(values);
     }
 
-    public static BooleanExpression or(final String... values) {
-        return new Or(values);
-    }
-
     public static BooleanExpression or(final BooleanExpression expression, final boolean value) {
         return new Or(expression, BooleanLiteral.of(value));
     }
 
-    public static BooleanExpression or(final BooleanExpression expression, final String value) {
-        return new Or(expression, BooleanLiteral.of(value));
-    }
-
     public static BooleanExpression or(final boolean value, final BooleanExpression expression) {
-        return new Or(BooleanLiteral.of(value), expression);
-    }
-
-    public static BooleanExpression or(final String value, final BooleanExpression expression) {
         return new Or(BooleanLiteral.of(value), expression);
     }
 

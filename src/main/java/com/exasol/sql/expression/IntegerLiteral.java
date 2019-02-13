@@ -1,25 +1,32 @@
 package com.exasol.sql.expression;
 
-import javax.annotation.Generated;
-
 /**
  * This class represents integer literals (or character literals in SQL terms).
  */
-public class IntegerLiteral extends AbstractValueExpression {
-    private final int literal;
+public final class IntegerLiteral extends AbstractValueExpression {
+    private final int value;
 
-    private IntegerLiteral(final int literal) {
-        this.literal = literal;
+    private IntegerLiteral(final int value) {
+        this.value = value;
     }
 
     /**
      * Create a new {@link IntegerLiteral} from an integer
      *
-     * @param literal content
+     * @param value content
      * @return new {@link IntegerLiteral}
      */
-    public static IntegerLiteral of(final int literal) {
-        return new IntegerLiteral(literal);
+    public static IntegerLiteral of(final int value) {
+        return new IntegerLiteral(value);
+    }
+
+    /**
+     * Get the value of the {@link IntegerLiteral}
+     *
+     * @return integer value
+     */
+    public int getValue() {
+        return this.value;
     }
 
     @Override
@@ -29,34 +36,6 @@ public class IntegerLiteral extends AbstractValueExpression {
 
     @Override
     public String toString() {
-        return Integer.toString(this.literal);
-    }
-
-    @Generated("org.eclipse.Eclipse")
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + this.literal;
-        return result;
-    }
-
-    @Generated("org.eclipse.Eclipse")
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final IntegerLiteral other = (IntegerLiteral) obj;
-        if (this.literal != other.literal) {
-            return false;
-        }
-        return true;
+        return Integer.toString(this.value);
     }
 }

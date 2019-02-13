@@ -5,7 +5,6 @@ import com.exasol.sql.Table;
 import com.exasol.sql.dml.*;
 import com.exasol.sql.dql.ValueTable;
 import com.exasol.sql.dql.ValueTableRow;
-import com.exasol.sql.expression.ValueExpression;
 import com.exasol.sql.rendering.AbstractFragmentRenderer;
 import com.exasol.sql.rendering.StringRendererConfig;
 
@@ -54,29 +53,13 @@ public class InsertRenderer extends AbstractFragmentRenderer implements InsertVi
     }
 
     @Override
-    public void visit(final InsertValues insertValues) {
-        appendKeyWord(" VALUES (");
-        for (final ValueExpression expression : insertValues.getValues()) {
-            appendCommaWhenNeeded(insertValues);
-            appendRenderedValueExpression(expression);
-            setLastVisited(insertValues);
-        }
-    }
-
-    @Override
-    public void leave(final InsertValues insertValues) {
-        append(")");
-    }
-
-    @Override
     public void visit(final ValueTable valueTable) {
-        appendKeyWord("( VALUES ");
+        appendKeyWord(" VALUES ");
         setLastVisited(valueTable);
     }
 
     @Override
     public void leave(final ValueTable valueTable) {
-        appendKeyWord(" ) ");
         setLastVisited(valueTable);
     }
 
@@ -111,5 +94,17 @@ public class InsertRenderer extends AbstractFragmentRenderer implements InsertVi
      */
     public static InsertRenderer create(final StringRendererConfig config) {
         return new InsertRenderer(config);
+    }
+
+    @Override
+    public void visit(final InsertValues insertValues) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void leave(final InsertValues insertValues) {
+        // TODO Auto-generated method stub
+
     }
 }

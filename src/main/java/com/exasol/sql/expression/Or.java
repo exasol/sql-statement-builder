@@ -22,15 +22,6 @@ public class Or extends AbstractBooleanExpression {
         this(BooleanLiteral.toBooleanExpressions(values));
     }
 
-    /**
-     * Create a new {@link Or} instance
-     *
-     * @param strings string literals to be connected by a logical Or
-     */
-    public Or(final String... strings) {
-        this(BooleanLiteral.toBooleanExpressions(strings));
-    }
-
     @Override
     public void acceptConcrete(final BooleanExpressionVisitor visitor) {
         visitor.visit(this);

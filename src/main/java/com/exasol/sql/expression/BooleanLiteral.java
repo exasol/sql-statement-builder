@@ -3,7 +3,7 @@ package com.exasol.sql.expression;
 /**
  * This class represents boolean literals (read "true" and "false")
  */
-public class BooleanLiteral extends AbstractBooleanExpression {
+public final class BooleanLiteral extends AbstractBooleanExpression {
     private static final String FALSE = "FALSE";
     private static final String TRUE = "TRUE";
     private final boolean value;
@@ -87,20 +87,6 @@ public class BooleanLiteral extends AbstractBooleanExpression {
         final BooleanExpression[] literals = new BooleanExpression[values.length];
         for (int i = 0; i < values.length; ++i) {
             literals[i] = BooleanLiteral.of(values[i]);
-        }
-        return literals;
-    }
-
-    /**
-     * Map an array of {@link String} to and array of BooleanExpressions
-     *
-     * @param strings string literals to be turned into boolean expressions
-     * @return boolean expressions
-     */
-    public static BooleanExpression[] toBooleanExpressions(final String[] strings) {
-        final BooleanExpression[] literals = new BooleanExpression[strings.length];
-        for (int i = 0; i < strings.length; ++i) {
-            literals[i] = BooleanLiteral.of(strings[i]);
         }
         return literals;
     }

@@ -10,8 +10,7 @@ public abstract class AbstractBottomUpTreeNode implements TreeNode {
     private final List<TreeNode> children;
 
     /**
-     * Create a new instance of a {@link AbstractBottomUpTreeNode} that serves as
-     * leaf node for a tree.
+     * Create a new instance of a {@link AbstractBottomUpTreeNode} that serves as leaf node for a tree.
      */
     public AbstractBottomUpTreeNode() {
         this.children = Collections.emptyList();
@@ -40,14 +39,8 @@ public abstract class AbstractBottomUpTreeNode implements TreeNode {
 
     private void assignThisAsParentTo(final TreeNode child) {
         assertChildType(child);
-        final TreeNode existingParent = child.getParent();
-        if (existingParent == null) {
-            ((AbstractBottomUpTreeNode) child).parent = this;
-        } else {
-            throw new IllegalStateException(
-                    "Tried to link node \"" + child.toString() + "\" in bottom-up tree to parent \"" + this.toString()
-                            + "\" which already has a parent \"" + existingParent + "\"");
-        }
+        assertChildDoesNotAlreadyHaveAParent(child);
+        ((AbstractBottomUpTreeNode) child).parent = this;
     }
 
     private void assertChildType(final TreeNode child) {
@@ -55,6 +48,14 @@ public abstract class AbstractBottomUpTreeNode implements TreeNode {
             throw new IllegalArgumentException("A bottom up tree can only be constructed from nodes of type \""
                     + AbstractBottomUpTreeNode.class.getName() + "\" but got an object of type \""
                     + child.getClass().getName() + "\"");
+        }
+    }
+
+    private void assertChildDoesNotAlreadyHaveAParent(final TreeNode child) {
+        if (child.getParent() != null) {
+            throw new IllegalStateException(
+                    "Tried to link node \"" + child.toString() + "\" in bottom-up tree to parent \"" + this.toString()
+                            + "\" which already has a parent \"" + child.getParent() + "\"");
         }
     }
 

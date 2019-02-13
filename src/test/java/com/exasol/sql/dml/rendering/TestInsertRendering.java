@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import com.exasol.sql.StatementFactory;
 import com.exasol.sql.dml.Insert;
+import com.exasol.sql.dql.ValueTable;
 import com.exasol.sql.rendering.StringRendererConfig;
 
 class TestInsertRendering {
@@ -66,5 +67,15 @@ class TestInsertRendering {
     void testInsertMixedValuesAndPlaceholders() {
         assertThat(this.insert.values(1).valuePlaceholders(3).values("b").values(4),
                 rendersTo("INSERT INTO person VALUES (1, ?, ?, ?, 'b', 4)"));
+    }
+
+    // [utest->dsn~rendering.sql.insert~1]
+    // [utest->dsn~values-as-insert-source~1]
+    @Test
+    void testInsertValueTable() {
+        final ValueTable table = new ValueTable(this.insert);
+        table.appendRow("a", "b") //
+                .appendRow("c", "d");
+        assertThat(this.insert.valueTable(table), rendersTo("INSERT INTO person VALUES ('a', 'b'), ('c', 'd')"));
     }
 }
