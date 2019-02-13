@@ -25,11 +25,11 @@ public class ValueTableRow extends AbstractFragment {
     }
 
     /**
-     * Create a value table row from a list of value literals
+     * Create a value table row from a list of string literals
      *
      * @param root root node of the SQL statement
      *
-     * @param values
+     * @param values sting literals
      */
     public ValueTableRow(final Fragment root, final String... values) {
         super(root);
@@ -110,7 +110,7 @@ public class ValueTableRow extends AbstractFragment {
 
         /**
          * Add an {@link UnnamedPlaceholder} to the row.
-         * 
+         *
          * @return <code>this</code> for fluent programming
          */
         public Builder addPlaceholder() {
