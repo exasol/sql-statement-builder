@@ -1,6 +1,6 @@
 # sql-statement-builder
 
-[![Build Status](https://travis-ci.com/EXASOL/sql-statement-builder.svg?branch=develop)](https://travis-ci.com/exasol/sql-statement-builder)
+[![Build Status](https://travis-ci.com/exasol/sql-statement-builder.svg?branch=develop)](https://travis-ci.com/exasol/sql-statement-builder)
 
 The Exasol SQL Statement Builder abstracts programmatic creation of SQL statements and is intended to replace ubiquitous string concatenation solutions which make the code hard to read and are prone to error and security risks.
 
