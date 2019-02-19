@@ -95,16 +95,4 @@ public class InsertRenderer extends AbstractFragmentRenderer implements InsertVi
     public static InsertRenderer create(final StringRendererConfig config) {
         return new InsertRenderer(config);
     }
-
-    @Override
-    public void visit(final InsertValues insertValues) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void leave(final InsertValues insertValues) {
-        // TODO Auto-generated method stub
-
-    }
 }

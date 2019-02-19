@@ -61,7 +61,7 @@ public class ValueTable extends AbstractFragment implements GenericFragment {
      * @param values values to be added
      */
     public void add(final String... values) {
-        ammendLastRow(createLastRowBuilder().add(values).build());
+        amendLastRow(createLastRowBuilder().add(values).build());
     }
 
     private ValueTableRow.Builder createLastRowBuilder() {
@@ -72,7 +72,7 @@ public class ValueTable extends AbstractFragment implements GenericFragment {
         return builder;
     }
 
-    private synchronized void ammendLastRow(final ValueTableRow row) {
+    private synchronized void amendLastRow(final ValueTableRow row) {
         if (isEmpty()) {
             this.rows.add(row);
         } else {
@@ -82,11 +82,11 @@ public class ValueTable extends AbstractFragment implements GenericFragment {
     }
 
     public void add(final int... values) {
-        ammendLastRow(createLastRowBuilder().add(values).build());
+        amendLastRow(createLastRowBuilder().add(values).build());
     }
 
     public void addPlaceholder() {
-        ammendLastRow(createLastRowBuilder().addPlaceholder().build());
+        amendLastRow(createLastRowBuilder().addPlaceholder().build());
     }
 
     private ValueTableRow getLastRow() {

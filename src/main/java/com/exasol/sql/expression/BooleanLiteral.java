@@ -20,7 +20,7 @@ public final class BooleanLiteral extends AbstractBooleanExpression {
      * Create a new {@link BooleanLiteral} instance from a String
      *
      * @param value the string to be turned into a literal
-     * @return new Literal instance
+     * @return new {@link BooleanLiteral} instance
      * @throws IllegalArgumentException in case the literal is not recognized.
      */
     public static BooleanLiteral of(final String value) throws IllegalArgumentException {

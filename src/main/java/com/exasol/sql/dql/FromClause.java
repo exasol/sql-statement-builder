@@ -38,7 +38,7 @@ public class FromClause extends AbstractFragment implements SelectFragment {
      *
      * @param name table name
      * @param as table alias
-     * @return FROM clause
+     * @return parent FROM clause
      */
     public FromClause tableAs(final String name, final String as) {
         this.tables.add(new Table(getRoot(), name, as));
@@ -49,7 +49,7 @@ public class FromClause extends AbstractFragment implements SelectFragment {
      * Create a {@link FromClause} from a value table
      *
      * @param valueTable table of value expressions
-     * @return new instance
+     * @return parent FROM clause
      */
     public FromClause valueTable(final ValueTable valueTable) {
         this.valueTables.add(valueTable);
