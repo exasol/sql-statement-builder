@@ -21,13 +21,13 @@ public class BooleanExpressionRenderer extends AbstractExpressionRenderer implem
 
     @Override
     public void leave(final Not not) {
-        endParenthesis(not);
+        endParenthesis();
     }
 
     @Override
     public void visit(final And and) {
         connect(and);
-        this.connectorStack.push(" AND ");
+        this.connectorDeque.push(" AND ");
         if (!and.isRoot()) {
             startParenthesis();
         }
@@ -36,15 +36,15 @@ public class BooleanExpressionRenderer extends AbstractExpressionRenderer implem
     @Override
     public void leave(final And and) {
         if (!and.isRoot()) {
-            endParenthesis(and);
+            endParenthesis();
         }
-        this.connectorStack.pop();
+        this.connectorDeque.pop();
     }
 
     @Override
     public void visit(final Or or) {
         connect(or);
-        this.connectorStack.push(" OR ");
+        this.connectorDeque.push(" OR ");
         if (!or.isRoot()) {
             startParenthesis();
         }
@@ -53,9 +53,9 @@ public class BooleanExpressionRenderer extends AbstractExpressionRenderer implem
     @Override
     public void leave(final Or or) {
         if (!or.isRoot()) {
-            endParenthesis(or);
+            endParenthesis();
         }
-        this.connectorStack.pop();
+        this.connectorDeque.pop();
     }
 
     @Override
@@ -91,7 +91,7 @@ public class BooleanExpressionRenderer extends AbstractExpressionRenderer implem
     @Override
     public void leave(final Comparison comparison) {
         if (!comparison.isRoot()) {
-            endParenthesis(comparison);
+            endParenthesis();
         }
     }
 }
