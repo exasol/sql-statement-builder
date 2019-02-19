@@ -79,10 +79,36 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
         appendKeyWord(" LIMIT ");
         if (limit.hasOffset()) {
             append(limit.getOffset());
-            appendKeyWord(", ");
+            append(", ");
         }
         append(limit.getCount());
         setLastVisited(limit);
+    }
+
+    @Override
+    public void visit(final ValueTable valueTable) {
+        appendKeyWord("(VALUES ");
+        setLastVisited(valueTable);
+    }
+
+    @Override
+    public void leave(final ValueTable valueTable) {
+        append(")");
+        setLastVisited(valueTable);
+    }
+
+    @Override
+    public void visit(final ValueTableRow valueTableRow) {
+        appendCommaWhenNeeded(valueTableRow);
+        append("(");
+        appendValueTableRow(valueTableRow);
+        setLastVisited(valueTableRow);
+    }
+
+    @Override
+    public void leave(final ValueTableRow valueTableRow) {
+        append(")");
+        setLastVisited(valueTableRow);
     }
 
     /**

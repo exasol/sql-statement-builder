@@ -50,6 +50,7 @@ Tags: Select Statement Builder
 #### Forwarded Requirements
 
 * `dsn --> impl, utest: req~boolean-operators~1`
+* `dsn --> impl, utest: req~boolean-literals~1`
 * `dsn --> impl, utest: req~comparison-operations~1`
 
 #### Constructing Boolean Comparison Operations From Operator Strings
@@ -79,6 +80,12 @@ Covers:
 * `req~boolean-operators~1`
 
 Needs: impl, utest
+
+### Building SELECT Statements
+
+#### Forwarded Requirements
+
+* `dsn --> impl, utest: req~value-table~1`
 
 ### Building INSERT Statements
 

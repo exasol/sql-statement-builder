@@ -58,3 +58,4 @@ The list below show all build time dependencies in alphabetical order. Note that
 | [Maven JavaDoc Plugin](https://maven.apache.org/plugins/maven-javadoc-plugin/) | Creates JavaDoc JARs                                   | Apache License 2.0            |
 | [Maven Source Plugin](https://maven.apache.org/plugins/maven-source-plugin/)   | Creates source JARs                                    | Apache License 2.0            |
 | [Mockito](http://site.mockito.org/)                                            | Mocking framework                                      | MIT License                   |
+| [OFT Maven Plugin](https://github.com/itsallcode/openfasttrace-maven-plugin)   | Requirement tracing                                    | GPL 3.0                       |
