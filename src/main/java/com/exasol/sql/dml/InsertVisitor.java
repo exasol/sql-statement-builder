@@ -8,8 +8,4 @@ public interface InsertVisitor extends FragmentVisitor {
     public void visit(InsertFields insertFields);
 
     public void leave(InsertFields insertFields);
-
-    public void visit(InsertValues insertValues);
-
-    public void leave(InsertValues insertValues);
 }

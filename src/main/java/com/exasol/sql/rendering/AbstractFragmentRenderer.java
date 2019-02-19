@@ -1,7 +1,6 @@
 package com.exasol.sql.rendering;
 
 import com.exasol.sql.Fragment;
-import com.exasol.sql.dml.InsertValues;
 import com.exasol.sql.dql.ValueTableRow;
 import com.exasol.sql.expression.BooleanExpression;
 import com.exasol.sql.expression.ValueExpression;
@@ -91,14 +90,6 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
             if (!part.endsWith("\"")) {
                 append("\"");
             }
-        }
-    }
-
-    protected void appendValuesTable(final InsertValues insertValues) {
-        appendKeyWord(" VALUES (");
-        for (final ValueExpression expression : insertValues.getValues()) {
-            appendCommaWhenNeeded(insertValues);
-            appendRenderedValueExpression(expression);
         }
     }
 
