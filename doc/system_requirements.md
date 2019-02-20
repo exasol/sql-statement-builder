@@ -193,6 +193,25 @@ Covers:
 
 Needs: dsn
 
+### Data Definition Language (DDL)
+
+#### CREATE Statements
+`req~create-statements~1`
+
+ESB supports the following create statement:
+
+    create-statement = "CREATE TABLE" table-reference table-element-list
+    
+    table-reference = table [AS table-alias]
+    
+    table-element-list = L-BRACKET table-element [*( COMMA table-element )] R-BRACKET
+
+Covers:
+
+* [feat~statement-definition~1](#statement-definition)
+
+Needs: dsn
+
 ### Data Manipulation Language (DML)
 
 #### INSERT Statements
