@@ -293,6 +293,17 @@ Covers:
 
 Needs: dsn
 
+#### CREATE Statement Rendering
+`req~rendering.sql.create~1`
+
+ESB renders abstract `CREATE` statements into SQL data definition language strings.
+
+Covers:
+
+* [feat~sql-string-rendering~1](#sql-string-rendering)
+
+Needs: dsn
+
 #### INSERT Statement Rendering
 `req~rendering.sql.insert~1`
 

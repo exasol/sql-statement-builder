@@ -87,6 +87,12 @@ Needs: impl, utest
 
 * `dsn --> impl, utest: req~value-table~1`
 
+### Building CREATE Statements
+
+#### Forwarded Requirements
+
+* `dsn --> impl, utest: req~create-statements~1`
+
 ### Building INSERT Statements
 
 #### Forwarded Requirements
@@ -100,6 +106,7 @@ Needs: impl, utest
 
 * `dsn --> impl, utest: req~rendering.sql.configurable-case~1`
 * `dsn --> impl, utest: req~rendering.sql.select~1`
+* `dsn --> impl, utest: req~rendering.sql.create~1`
 * `dsn --> impl, utest: req~rendering.sql.insert~1`
 
 #### Renderer add Double Quotes for Schema, Table and Column Identifiers
