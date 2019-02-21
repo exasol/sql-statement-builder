@@ -1,8 +1,10 @@
 package com.exasol.datatype.interval;
 
+import com.exasol.datatype.DataType;
+
 import java.util.regex.Matcher;
 
-public abstract class AbstractInterval {
+public abstract class AbstractInterval implements DataType {
     protected final long value;
     protected boolean positive;
 
@@ -22,7 +24,8 @@ public abstract class AbstractInterval {
     }
 
     protected static long parseMatchingGroupToLong(final Matcher matcher, final int groupNumber) {
-        return (matcher.group(groupNumber) == null) ? 0 : Long.parseLong(matcher.group(groupNumber));
+        return (matcher.group(groupNumber) == null) ? 0 :
+              Long.parseLong(matcher.group(groupNumber));
     }
 
     protected String getSign() {

@@ -1,5 +1,6 @@
 package com.exasol.sql;
 
+import com.exasol.sql.ddl.Create;
 import com.exasol.sql.dml.Insert;
 import com.exasol.sql.dql.Select;
 
@@ -36,11 +37,20 @@ public final class StatementFactory {
 
     /**
      * Create a {@link Insert} statement
-     * 
+     *
      * @param tableName name of the table into which to insert the data
      * @return a new instance of a {@link Insert} statement
      */
     public Insert insertInto(final String tableName) {
         return new Insert(tableName);
+    }
+
+    /**
+     * Create a {@link Create} statement
+     *
+     * @return a new instance of a {@link Create} statement
+     */
+    public Create create() {
+        return new Create();
     }
 }
