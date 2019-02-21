@@ -2,7 +2,7 @@ package com.exasol.sql;
 
 import com.exasol.datatype.DataType;
 
-public class Column extends AbstractFragment implements GenericFragment {
+public class Column extends AbstractFragment {
     private final String columnName;
     private final DataType dataType;
 
@@ -20,8 +20,5 @@ public class Column extends AbstractFragment implements GenericFragment {
         return this.dataType;
     }
 
-    @Override
-    public void accept(final FragmentVisitor visitor) {
-
-    }
+    //todo accept method
 }

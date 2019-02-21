@@ -1,6 +1,8 @@
 package com.exasol.sql.ddl;
 
 import com.exasol.datatype.Boolean;
+import com.exasol.datatype.Char;
+import com.exasol.datatype.Date;
 import com.exasol.sql.AbstractFragment;
 import com.exasol.sql.Column;
 import com.exasol.sql.Fragment;
@@ -25,6 +27,16 @@ public class CreateTable extends AbstractFragment {
 
     public CreateTable booleanColumn(final String columnName) {
         this.columns.add(new Column(this, columnName, Boolean.bool()));
+        return this;
+    }
+
+    public CreateTable charColumn(final String columnName, final int size) {
+        this.columns.add(new Column(this, columnName, new Char(size)));
+        return this;
+    }
+
+    public CreateTable dateColumn(final String columnName) {
+        this.columns.add(new Column(this, columnName, Date.date()));
         return this;
     }
 

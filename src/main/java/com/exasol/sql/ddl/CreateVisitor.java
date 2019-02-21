@@ -1,5 +1,10 @@
 package com.exasol.sql.ddl;
 
-public interface CreateVisitor {
+import com.exasol.sql.Column;
+import com.exasol.sql.FragmentVisitor;
+
+public interface CreateVisitor extends FragmentVisitor {
     public void visit(final Create create);
+
+    public void visit(final Column column);
 }
