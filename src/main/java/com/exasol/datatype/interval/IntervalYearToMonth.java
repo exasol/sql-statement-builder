@@ -1,5 +1,7 @@
 package com.exasol.datatype.interval;
 
+import com.exasol.sql.ddl.CreateTableVisitor;
+
 import static com.exasol.datatype.interval.IntervalConstants.MONTHS_PER_YEAR;
 
 import java.util.regex.Matcher;
@@ -102,5 +104,10 @@ public class IntervalYearToMonth extends AbstractInterval {
             throw new IllegalArgumentException(
                     "Text \"" + text + "\" cannot be parsed to an INTERVAL. Must match \"" + INTERVAL_PATTERN + "\"");
         }
+    }
+
+    @Override
+    public void accept(final CreateTableVisitor visitor) {
+
     }
 }

@@ -1,6 +1,6 @@
 package com.exasol.sql;
 
-import com.exasol.sql.ddl.Create;
+import com.exasol.sql.ddl.CreateTable;
 import com.exasol.sql.dml.Insert;
 import com.exasol.sql.dql.Select;
 
@@ -46,11 +46,11 @@ public final class StatementFactory {
     }
 
     /**
-     * Create a {@link Create} statement
+     * Create a {@link CreateTable} statement
      *
-     * @return a new instance of a {@link Create} statement
+     * @return a new instance of a {@link CreateTable} statement
      */
-    public Create create() {
-        return new Create();
+    public CreateTable createTable(final String tableName) {
+        return new CreateTable(tableName);
     }
 }

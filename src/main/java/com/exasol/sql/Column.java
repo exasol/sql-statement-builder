@@ -1,8 +1,10 @@
 package com.exasol.sql;
 
 import com.exasol.datatype.DataType;
+import com.exasol.sql.ddl.CreateTableFragment;
+import com.exasol.sql.ddl.CreateTableVisitor;
 
-public class Column extends AbstractFragment {
+public class Column extends AbstractFragment implements CreateTableFragment {
     private final String columnName;
     private final DataType dataType;
 
@@ -20,5 +22,9 @@ public class Column extends AbstractFragment {
         return this.dataType;
     }
 
-    //todo accept method
+    @Override
+    public void accept(final CreateTableVisitor visitor) {
+        visitor.visit(this);
+        this.dataType.accept(visitor);
+    }
 }

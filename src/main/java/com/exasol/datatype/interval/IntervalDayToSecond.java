@@ -1,5 +1,7 @@
 package com.exasol.datatype.interval;
 
+import com.exasol.sql.ddl.CreateTableVisitor;
+
 import static com.exasol.datatype.interval.IntervalConstants.*;
 
 import java.util.regex.Matcher;
@@ -139,5 +141,10 @@ public class IntervalDayToSecond extends AbstractInterval {
                 + parseMatchingGroupToLong(matcher, MILLIS_MATCHING_GROUP);
         final boolean parsedPositive = !"-".equals(matcher.group(SIGN_MATCHING_GROUP));
         return new IntervalDayToSecond(parsedValue, parsedPositive);
+    }
+
+    @Override
+    public void accept(final CreateTableVisitor visitor) {
+
     }
 }
