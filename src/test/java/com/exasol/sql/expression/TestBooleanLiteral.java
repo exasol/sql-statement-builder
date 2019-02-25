@@ -31,6 +31,12 @@ class TestBooleanLiteral {
 
     // [utest->dsn~boolean-literals~1]
     @Test
+    void testLiteralOfUnknownStringThrowsException() {
+        assertThrows(IllegalArgumentException.class, () -> BooleanLiteral.of("unknown"));
+    }
+
+    // [utest->dsn~boolean-literals~1]
+    @Test
     void testToStringTrue() {
         assertThat(BooleanLiteral.of("true").toString(), equalTo("TRUE"));
     }

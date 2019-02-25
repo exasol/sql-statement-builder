@@ -23,11 +23,11 @@ public final class BooleanLiteral extends AbstractBooleanExpression {
      * @return new {@link BooleanLiteral} instance
      * @throws IllegalArgumentException in case the literal is not recognized.
      */
-    public static BooleanLiteral of(final String value) throws IllegalArgumentException {
+    public static BooleanLiteral of(final String value) {
         return new BooleanLiteral(parse(value));
     }
 
-    private static boolean parse(final String value) throws IllegalArgumentException {
+    private static boolean parse(final String value) {
         if (value == null) {
             throw new IllegalArgumentException("Unable to covert null value into a boolean value");
         } else {
@@ -48,9 +48,10 @@ public final class BooleanLiteral extends AbstractBooleanExpression {
             case "DISABLED":
             case "0":
                 return false;
+            default:
+                throw new IllegalArgumentException("Unable to covert literal '" + value + "' into a boolean value");
             }
         }
-        throw new IllegalArgumentException("Unable to covert literal '" + value + "' into a boolean value");
     }
 
     @Override
