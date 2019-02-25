@@ -33,7 +33,7 @@ public class ValueTableRow extends AbstractFragment {
      */
     public ValueTableRow(final Fragment root, final String... values) {
         super(root);
-        this.expressions = new ArrayList<ValueExpression>(values.length);
+        this.expressions = new ArrayList<>(values.length);
         for (final String value : values) {
             this.expressions.add(StringLiteral.of(value));
         }
