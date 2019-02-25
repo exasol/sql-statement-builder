@@ -1,19 +1,14 @@
 package com.exasol.datatype;
 
+import com.exasol.sql.AbstractFragment;
+import com.exasol.sql.Fragment;
 import com.exasol.sql.ddl.CreateTableVisitor;
 
-public final class Date implements DataType {
+public final class Date extends AbstractFragment implements DataType {
     private static final String NAME = "DATE";
-    private static Date date;
 
-    private Date() {
-    }
-
-    public static synchronized Date date() {
-        if (date == null) {
-            date = new Date();
-        }
-        return date;
+    public Date(final Fragment root) {
+        super(root);
     }
 
     @Override

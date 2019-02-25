@@ -53,7 +53,30 @@ public class TestCreateTableRendering {
 
     @Test
     void testCreateTableWithInvalidVarcharSizeColumn() {
-        assertThrows(IllegalArgumentException.class, () -> this.createTable.varcharColumn("a", 2000001));
+        assertThrows(IllegalArgumentException.class,
+              () -> this.createTable.varcharColumn("a", 2000001));
         assertThrows(IllegalArgumentException.class, () -> this.createTable.varcharColumn("a", -1));
+    }
+
+    @Test
+    void testCreateTableWithDecimalColumn() {
+        assertThat(this.createTable.decimalColumn("a", 18, 0),
+              rendersTo("CREATE TABLE testName (a DECIMAL(18,0))"));
+    }
+
+    @Test
+    void testCreateTableWithInvalidDecimalPrecisionColumn() {
+        assertThrows(IllegalArgumentException.class,
+              () -> this.createTable.decimalColumn("b", 37, 0));
+        assertThrows(IllegalArgumentException.class,
+              () -> this.createTable.decimalColumn("b", 0, 0));
+    }
+
+    @Test
+    void testCreateTableWithInvalidDecimalScaleColumn() {
+        assertThrows(IllegalArgumentException.class,
+              () -> this.createTable.decimalColumn("b", 18, -1));
+        assertThrows(IllegalArgumentException.class,
+              () -> this.createTable.decimalColumn("b", 18, 19));
     }
 }

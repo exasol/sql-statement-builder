@@ -1,9 +1,7 @@
 package com.exasol.sql.ddl;
 
 import com.exasol.datatype.Boolean;
-import com.exasol.datatype.Char;
-import com.exasol.datatype.Date;
-import com.exasol.datatype.Varchar;
+import com.exasol.datatype.*;
 import com.exasol.sql.AbstractFragment;
 import com.exasol.sql.SqlStatement;
 import com.exasol.sql.Table;
@@ -23,7 +21,7 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
 
     public CreateTable booleanColumn(final String columnName) {
         checkIfCreateTableColumnsExists();
-        this.columnsDefinition.add(columnName, Boolean.bool());
+        this.columnsDefinition.add(columnName, new Boolean(this));
         return this;
     }
 
@@ -41,7 +39,14 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
 
     public CreateTable dateColumn(final String columnName) {
         checkIfCreateTableColumnsExists();
-        this.columnsDefinition.add(columnName, Date.date());
+        this.columnsDefinition.add(columnName, new Date(this));
+        return this;
+    }
+
+    public CreateTable decimalColumn(final String columnName, final int precision,
+          final int scale) {
+        checkIfCreateTableColumnsExists();
+        this.columnsDefinition.add(columnName, new Decimal(this, precision, scale));
         return this;
     }
 

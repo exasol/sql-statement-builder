@@ -51,23 +51,39 @@ public class CreateTableRenderer extends AbstractFragmentRenderer implements Cre
     @Override
     public void visit(final Char charColumn) {
         appendStringDataType(charColumn);
+        setLastVisited(charColumn);
     }
 
     @Override
     public void visit(final Varchar varcharColumn) {
         appendStringDataType(varcharColumn);
+        setLastVisited(varcharColumn);
     }
 
     @Override
     public void visit(final Boolean booleanColumn) {
         appendSpace();
         append(booleanColumn.getName());
+        setLastVisited(booleanColumn);
     }
 
     @Override
     public void visit(final Date dateColumn) {
         appendSpace();
         append(dateColumn.getName());
+        setLastVisited(dateColumn);
+    }
+
+    @Override
+    public void visit(final Decimal decimalColumn) {
+        appendSpace();
+        append(decimalColumn.getName());
+        append("(");
+        append(decimalColumn.getPrecision());
+        append(",");
+        append(decimalColumn.getScale());
+        append(")");
+        setLastVisited(decimalColumn);
     }
 
     @Override
@@ -87,6 +103,5 @@ public class CreateTableRenderer extends AbstractFragmentRenderer implements Cre
         append("(");
         append(stringDataType.getLength());
         append(")");
-        setLastVisited(stringDataType);
     }
 }

@@ -2,10 +2,8 @@ package com.exasol.datatype;
 
 import com.exasol.sql.AbstractFragment;
 import com.exasol.sql.Fragment;
-import com.exasol.sql.ddl.CreateTableFragment;
 
-public abstract class AbstractStringDataType extends AbstractFragment
-      implements DataType, CreateTableFragment {
+public abstract class AbstractStringDataType extends AbstractFragment implements DataType {
     private final int length;
 
     public AbstractStringDataType(final Fragment root, final int length, final int maxLength,

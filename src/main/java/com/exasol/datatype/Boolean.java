@@ -1,19 +1,14 @@
 package com.exasol.datatype;
 
+import com.exasol.sql.AbstractFragment;
+import com.exasol.sql.Fragment;
 import com.exasol.sql.ddl.CreateTableVisitor;
 
-public final class Boolean implements DataType {
+public final class Boolean extends AbstractFragment implements DataType {
     private static final String NAME = "BOOLEAN";
-    private static Boolean bool;
 
-    private Boolean() {
-    }
-
-    public static synchronized Boolean bool() {
-        if (bool == null) {
-            bool = new Boolean();
-        }
-        return bool;
+    public Boolean(final Fragment root) {
+        super(root);
     }
 
     @Override
