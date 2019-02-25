@@ -2,10 +2,10 @@ package com.exasol.datatype.interval;
 
 import com.exasol.sql.ddl.CreateTableVisitor;
 
-import static com.exasol.datatype.interval.IntervalConstants.MONTHS_PER_YEAR;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.exasol.datatype.interval.IntervalConstants.MONTHS_PER_YEAR;
 
 /**
  * This class implements the Exasol-proprietary data type <code>INTERVAL YEAR(x) TO MONTH(y)</code>. It supports
@@ -108,6 +108,12 @@ public class IntervalYearToMonth extends AbstractInterval {
 
     @Override
     public void accept(final CreateTableVisitor visitor) {
+        //todo
+    }
 
+    @Override
+    public String getName() {
+        //todo
+        return null;
     }
 }

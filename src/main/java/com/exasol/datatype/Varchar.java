@@ -3,11 +3,11 @@ package com.exasol.datatype;
 import com.exasol.sql.Fragment;
 import com.exasol.sql.ddl.CreateTableVisitor;
 
-public class Char extends AbstractStringDataType {
-    private static final String NAME = "CHAR";
-    private static final int MAX_LENGTH = 2000;
+public class Varchar extends AbstractStringDataType {
+    private static final String NAME = "VARCHAR";
+    private static final int MAX_LENGTH = 2000000;
 
-    public Char(final Fragment root, final int length) {
+    public Varchar(final Fragment root, final int length) {
         super(root, length, MAX_LENGTH, NAME);
     }
 

@@ -3,6 +3,7 @@ package com.exasol.sql.ddl;
 import com.exasol.datatype.Boolean;
 import com.exasol.datatype.Char;
 import com.exasol.datatype.Date;
+import com.exasol.datatype.Varchar;
 import com.exasol.sql.Column;
 import com.exasol.sql.FragmentVisitor;
 
@@ -16,6 +17,8 @@ public interface CreateTableVisitor extends FragmentVisitor {
     public void leave(final ColumnsDefinition columnsDefinition);
 
     public void visit(final Char charColumn);
+
+    public void visit(final Varchar varcharColumn);
 
     public void visit(final Boolean booleanColumn);
 

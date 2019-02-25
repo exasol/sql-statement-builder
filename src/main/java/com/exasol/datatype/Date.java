@@ -16,7 +16,8 @@ public final class Date implements DataType {
         return date;
     }
 
-    public static String getName() {
+    @Override
+    public String getName() {
         return NAME;
     }
 

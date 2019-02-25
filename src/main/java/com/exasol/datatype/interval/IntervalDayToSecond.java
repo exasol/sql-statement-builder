@@ -2,10 +2,10 @@ package com.exasol.datatype.interval;
 
 import com.exasol.sql.ddl.CreateTableVisitor;
 
-import static com.exasol.datatype.interval.IntervalConstants.*;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.exasol.datatype.interval.IntervalConstants.*;
 
 /**
  * This class implements the Exasol-proprietary data type <code>INTERVAL DAY(x) TO SECONDS(y)</code>. It supports
@@ -145,6 +145,12 @@ public class IntervalDayToSecond extends AbstractInterval {
 
     @Override
     public void accept(final CreateTableVisitor visitor) {
+        //todo
+    }
 
+    @Override
+    public String getName() {
+        return null;
+        //todo
     }
 }

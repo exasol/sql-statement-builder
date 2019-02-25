@@ -16,7 +16,8 @@ public final class Boolean implements DataType {
         return bool;
     }
 
-    public static String getName() {
+    @Override
+    public String getName() {
         return NAME;
     }
 

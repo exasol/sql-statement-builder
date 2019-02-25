@@ -1,16 +1,13 @@
 package com.exasol.sql.ddl.rendering;
 
 import com.exasol.datatype.Boolean;
-import com.exasol.datatype.Char;
-import com.exasol.datatype.Date;
+import com.exasol.datatype.*;
 import com.exasol.sql.Column;
 import com.exasol.sql.Field;
 import com.exasol.sql.Table;
-import com.exasol.sql.ddl.CreateTable;
 import com.exasol.sql.ddl.ColumnsDefinition;
+import com.exasol.sql.ddl.CreateTable;
 import com.exasol.sql.ddl.CreateTableVisitor;
-import com.exasol.sql.dql.ValueTable;
-import com.exasol.sql.dql.ValueTableRow;
 import com.exasol.sql.rendering.AbstractFragmentRenderer;
 import com.exasol.sql.rendering.StringRendererConfig;
 
@@ -53,29 +50,29 @@ public class CreateTableRenderer extends AbstractFragmentRenderer implements Cre
 
     @Override
     public void visit(final Char charColumn) {
-        appendSpace();
-        append(charColumn.getName());
-        append("(");
-        append(charColumn.getSize());
-        append(")");
-        setLastVisited(charColumn);
+        appendStringDataType(charColumn);
+    }
+
+    @Override
+    public void visit(final Varchar varcharColumn) {
+        appendStringDataType(varcharColumn);
     }
 
     @Override
     public void visit(final Boolean booleanColumn) {
         appendSpace();
-        append(Boolean.getName());
+        append(booleanColumn.getName());
     }
 
     @Override
     public void visit(final Date dateColumn) {
         appendSpace();
-        append(Date.getName());
+        append(dateColumn.getName());
     }
 
     @Override
     public void visit(final Field field) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -84,23 +81,12 @@ public class CreateTableRenderer extends AbstractFragmentRenderer implements Cre
         setLastVisited(table);
     }
 
-    @Override
-    public void visit(final ValueTable valueTable) {
-
-    }
-
-    @Override
-    public void leave(final ValueTable valueTable) {
-
-    }
-
-    @Override
-    public void visit(final ValueTableRow valueTableRow) {
-
-    }
-
-    @Override
-    public void leave(final ValueTableRow valueTableRow) {
-
+    private void appendStringDataType(final AbstractStringDataType stringDataType) {
+        appendSpace();
+        append(stringDataType.getName());
+        append("(");
+        append(stringDataType.getLength());
+        append(")");
+        setLastVisited(stringDataType);
     }
 }

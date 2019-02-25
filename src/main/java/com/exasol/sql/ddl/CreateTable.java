@@ -3,6 +3,7 @@ package com.exasol.sql.ddl;
 import com.exasol.datatype.Boolean;
 import com.exasol.datatype.Char;
 import com.exasol.datatype.Date;
+import com.exasol.datatype.Varchar;
 import com.exasol.sql.AbstractFragment;
 import com.exasol.sql.SqlStatement;
 import com.exasol.sql.Table;
@@ -29,6 +30,12 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
     public CreateTable charColumn(final String columnName, final int size) {
         checkIfCreateTableColumnsExists();
         this.columnsDefinition.add(columnName, new Char(this, size));
+        return this;
+    }
+
+    public CreateTable varcharColumn(final String columnName, final int size) {
+        checkIfCreateTableColumnsExists();
+        this.columnsDefinition.add(columnName, new Varchar(this, size));
         return this;
     }
 
