@@ -96,8 +96,7 @@ public abstract class BooleanTerm extends AbstractBooleanExpression {
      * @return instance of either {@link And}, {@link Or} or {@link Not}
      * @throws IllegalArgumentException if the operator is unknown or null
      */
-    public static BooleanExpression operation(final String operator, final BooleanExpression... expressions)
-            throws IllegalArgumentException {
+    public static BooleanExpression operation(final String operator, final BooleanExpression... expressions) {
         switch (operator.toLowerCase()) {
         case "and":
             return new And(expressions);

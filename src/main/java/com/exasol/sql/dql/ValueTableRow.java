@@ -73,7 +73,7 @@ public class ValueTableRow extends AbstractFragment {
      * Builder for {@link ValueTableRow}s
      */
     public static class Builder {
-        public Fragment root;
+        private final Fragment root;
         private final List<ValueExpression> expressions = new ArrayList<>();
 
         public Builder(final Fragment root) {

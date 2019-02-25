@@ -2,8 +2,7 @@ package com.exasol.sql.dql.rendering;
 
 import java.util.Optional;
 
-import com.exasol.sql.Field;
-import com.exasol.sql.Table;
+import com.exasol.sql.*;
 import com.exasol.sql.dql.*;
 import com.exasol.sql.rendering.AbstractFragmentRenderer;
 import com.exasol.sql.rendering.StringRendererConfig;
@@ -12,7 +11,7 @@ import com.exasol.sql.rendering.StringRendererConfig;
  * The {@link SelectRenderer} turns SQL statement structures in to SQL strings.
  */
 // [impl->dsn~rendering.sql.select~1]
-public class SelectRenderer extends AbstractFragmentRenderer implements SelectVisitor {
+public class SelectRenderer extends AbstractFragmentRenderer implements SelectVisitor, ValueTableVisitor {
     /**
      * Create a new {@link SelectRenderer} with custom render settings.
      *
