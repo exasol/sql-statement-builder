@@ -4,9 +4,11 @@ import com.exasol.sql.dql.ValueTable;
 import com.exasol.sql.dql.ValueTableRow;
 
 public interface ValueTableVisitor extends FragmentVisitor {
-    @Override
     public void visit(ValueTable valueTable);
 
-    @Override
+    public void leave(ValueTable valueTable);
+
     public void visit(ValueTableRow valueTableRow);
+
+    public void leave(ValueTableRow valueTableRow);
 }

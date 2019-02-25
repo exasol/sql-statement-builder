@@ -10,7 +10,7 @@ import com.exasol.sql.*;
  *
  */
 // [impl->dsn~value-table~1]
-public class ValueTable extends AbstractFragment implements GenericFragment {
+public class ValueTable extends AbstractFragment {
     private final List<ValueTableRow> rows = new ArrayList<>();
 
     /**
@@ -97,8 +97,7 @@ public class ValueTable extends AbstractFragment implements GenericFragment {
         return this.rows.isEmpty();
     }
 
-    @Override
-    public void accept(final FragmentVisitor visitor) {
+    public void accept(final ValueTableVisitor visitor) {
         visitor.visit(this);
         for (final ValueTableRow row : this.rows) {
             row.accept(visitor);
