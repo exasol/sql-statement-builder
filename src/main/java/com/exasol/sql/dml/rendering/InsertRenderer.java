@@ -1,6 +1,7 @@
 package com.exasol.sql.dml.rendering;
 
-import com.exasol.sql.*;
+import com.exasol.sql.Field;
+import com.exasol.sql.Table;
 import com.exasol.sql.dml.*;
 import com.exasol.sql.dql.ValueTable;
 import com.exasol.sql.dql.ValueTableRow;
@@ -11,7 +12,7 @@ import com.exasol.sql.rendering.StringRendererConfig;
  * The {@link InsertRenderer} turns SQL statement structures in to SQL strings.
  */
 // [impl->dsn~rendering.sql.insert~1]
-public class InsertRenderer extends AbstractFragmentRenderer implements InsertVisitor, ValueTableVisitor {
+public class InsertRenderer extends AbstractFragmentRenderer implements InsertVisitor {
     /**
      * Create a new {@link InsertRenderer} with custom render settings.
      *
