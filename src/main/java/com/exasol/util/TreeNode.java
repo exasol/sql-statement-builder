@@ -45,7 +45,7 @@ public interface TreeNode {
      * @return child node at position
      * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &ge; size())
      */
-    public TreeNode getChild(int index) throws IndexOutOfBoundsException;
+    public TreeNode getChild(int index);
 
     /**
      * Check whether this node is the root of the tree.
