@@ -7,7 +7,7 @@ import com.exasol.sql.Column;
 import com.exasol.sql.Field;
 import com.exasol.sql.Table;
 import com.exasol.sql.ddl.CreateTable;
-import com.exasol.sql.ddl.CreateTableColumns;
+import com.exasol.sql.ddl.ColumnsDefinition;
 import com.exasol.sql.ddl.CreateTableVisitor;
 import com.exasol.sql.dql.ValueTable;
 import com.exasol.sql.dql.ValueTableRow;
@@ -40,15 +40,15 @@ public class CreateTableRenderer extends AbstractFragmentRenderer implements Cre
     }
 
     @Override
-    public void visit(final CreateTableColumns createTableColumns) {
+    public void visit(final ColumnsDefinition columnsDefinition) {
         append(" (");
-        setLastVisited(createTableColumns);
+        setLastVisited(columnsDefinition);
     }
 
     @Override
-    public void leave(final CreateTableColumns createTableColumns) {
+    public void leave(final ColumnsDefinition columnsDefinition) {
         append(")");
-        setLastVisited(createTableColumns);
+        setLastVisited(columnsDefinition);
     }
 
     @Override

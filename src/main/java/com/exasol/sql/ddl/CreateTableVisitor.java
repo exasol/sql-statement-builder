@@ -11,9 +11,9 @@ public interface CreateTableVisitor extends FragmentVisitor {
 
     public void visit(final Column column);
 
-    public void visit(final CreateTableColumns createTableColumns);
+    public void visit(final ColumnsDefinition columnsDefinition);
 
-    public void leave(final CreateTableColumns createTableColumns);
+    public void leave(final ColumnsDefinition columnsDefinition);
 
     public void visit(final Char charColumn);
 

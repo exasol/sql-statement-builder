@@ -8,15 +8,15 @@ import com.exasol.sql.SqlStatement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateTableColumns extends AbstractFragment implements CreateTableFragment {
+public class ColumnsDefinition extends AbstractFragment implements CreateTableFragment {
     private final List<Column> columns = new ArrayList<>();
 
     /**
-     * Create an new instance of {@link CreateTableColumns}
+     * Create an new instance of {@link ColumnsDefinition}
      *
      * @param root root statement
      */
-    public CreateTableColumns(final SqlStatement root) {
+    public ColumnsDefinition(final SqlStatement root) {
         super(root);
     }
 

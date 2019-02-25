@@ -2,7 +2,7 @@ package com.exasol.datatype;
 
 import com.exasol.sql.ddl.CreateTableVisitor;
 
-public class Boolean implements DataType {
+public final class Boolean implements DataType {
     private static final String NAME = "BOOLEAN";
     private static Boolean bool;
 

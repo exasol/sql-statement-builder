@@ -33,7 +33,7 @@ class TestCreateTable {
     @Test
     void testCreateTableWithBooleanColumn() {
         final Column column =
-              this.createTable.booleanColumn(BOOLEAN_COLUMN_NAME).getCreateTableColumns()
+              this.createTable.booleanColumn(BOOLEAN_COLUMN_NAME).getColumns()
                     .getColumns().get(0);
         assertThat(column.getColumnName(), equalTo(BOOLEAN_COLUMN_NAME));
         assertThat(column.getDataType(), instanceOf(Boolean.class));
@@ -42,7 +42,7 @@ class TestCreateTable {
     @Test
     void testCreateTableWithCharColumn() {
         final Column column =
-              this.createTable.charColumn(CHAR_COLUMN_NAME, CHAR_SIZE).getCreateTableColumns()
+              this.createTable.charColumn(CHAR_COLUMN_NAME, CHAR_SIZE).getColumns()
                     .getColumns().get(0);
         assertThat(column.getColumnName(), equalTo(CHAR_COLUMN_NAME));
         assertThat(column.getDataType(), instanceOf(Char.class));
@@ -51,7 +51,7 @@ class TestCreateTable {
     @Test
     void testCreateTableWithDateColumn() {
         final Column column =
-              this.createTable.dateColumn(DATE_COLUMN_NAME).getCreateTableColumns().getColumns()
+              this.createTable.dateColumn(DATE_COLUMN_NAME).getColumns().getColumns()
                     .get(0);
         assertThat(column.getColumnName(), equalTo(DATE_COLUMN_NAME));
         assertThat(column.getDataType(), instanceOf(Date.class));
