@@ -2,6 +2,8 @@ package com.exasol.sql.ddl.rendering;
 
 import com.exasol.datatype.Boolean;
 import com.exasol.datatype.*;
+import com.exasol.datatype.interval.IntervalDayToSecond;
+import com.exasol.datatype.interval.IntervalYearToMonth;
 import com.exasol.sql.Column;
 import com.exasol.sql.Field;
 import com.exasol.sql.Table;
@@ -11,15 +13,34 @@ import com.exasol.sql.ddl.CreateTableVisitor;
 import com.exasol.sql.rendering.AbstractFragmentRenderer;
 import com.exasol.sql.rendering.StringRendererConfig;
 
+/**
+ * The {@link CreateTableRenderer} turns SQL statement structures in to SQL strings.
+ */
 public class CreateTableRenderer extends AbstractFragmentRenderer implements CreateTableVisitor {
+    /**
+     * Create a new {@link CreateTableRenderer} with custom render settings.
+     *
+     * @param config render configuration settings
+     */
     public CreateTableRenderer(final StringRendererConfig config) {
         super(config);
     }
 
+    /**
+     * Create an {@link CreateTableRenderer} using the default renderer configuration
+     *
+     * @return insert renderer
+     */
     public static CreateTableRenderer create() {
         return new CreateTableRenderer(StringRendererConfig.createDefault());
     }
 
+    /**
+     * Create an {@link CreateTableRenderer}
+     *
+     * @param config renderer configuration
+     * @return create table renderer
+     */
     public static CreateTableRenderer create(final StringRendererConfig config) {
         return new CreateTableRenderer(config);
     }
@@ -81,18 +102,30 @@ public class CreateTableRenderer extends AbstractFragmentRenderer implements Cre
     }
 
     @Override
-    public void visit(final DoublePrecision doublePrecision) {
-        appendDataTypeWithoutParameters(doublePrecision);
+    public void visit(final DoublePrecision doublePrecisionColumn) {
+        appendDataTypeWithoutParameters(doublePrecisionColumn);
     }
 
     @Override
-    public void visit(final Timestamp timestamp) {
-        appendDataTypeWithoutParameters(timestamp);
+    public void visit(final Timestamp timestampColumn) {
+        appendDataTypeWithoutParameters(timestampColumn);
     }
 
     @Override
-    public void visit(final TimestampWithLocalTimezone timestampWithLocalTimezone) {
-        appendDataTypeWithoutParameters(timestampWithLocalTimezone);
+    public void visit(final TimestampWithLocalTimezone timestampWithLocalTimezoneColumn) {
+        appendDataTypeWithoutParameters(timestampWithLocalTimezoneColumn);
+    }
+
+    @Override
+    public void visit(final IntervalDayToSecond intervalDayToSecondColumn) {
+        appendSpace();
+        append(getIntervalDayToSecondNameWithPrecision(intervalDayToSecondColumn));
+    }
+
+    @Override
+    public void visit(final IntervalYearToMonth intervalYearToMonthColumn) {
+        appendSpace();
+        append(getIntervalYearToMonthNameWithPrecision(intervalYearToMonthColumn));
     }
 
     @Override
@@ -104,6 +137,19 @@ public class CreateTableRenderer extends AbstractFragmentRenderer implements Cre
     public void visit(final Table table) {
         appendAutoQuoted(table.getName());
         setLastVisited(table);
+    }
+
+    private String getIntervalDayToSecondNameWithPrecision(
+          final IntervalDayToSecond intervalDayToSecondColumn) {
+        return String.format(intervalDayToSecondColumn.getName(),
+              intervalDayToSecondColumn.getYearPrecision(),
+              intervalDayToSecondColumn.getMillisecondPrecision());
+    }
+
+    private String getIntervalYearToMonthNameWithPrecision(
+          final IntervalYearToMonth intervalYearToMonthColumn) {
+        return String.format(intervalYearToMonthColumn.getName(),
+              intervalYearToMonthColumn.getYearPrecision());
     }
 
     private void appendDataTypeWithoutParameters(final DataType dataType) {

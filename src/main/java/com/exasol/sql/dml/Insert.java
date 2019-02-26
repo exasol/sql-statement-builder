@@ -56,7 +56,7 @@ public class Insert extends AbstractFragment implements SqlStatement, InsertFrag
      * Insert a value table
      *
      * @param table value table to be inserted
-     * @return <code>this</code> for fluentProgramming
+     * @return <code>this</code> for fluent programming
      */
     public synchronized Insert valueTable(final ValueTable table) {
         if (this.insertValueTable != null) {

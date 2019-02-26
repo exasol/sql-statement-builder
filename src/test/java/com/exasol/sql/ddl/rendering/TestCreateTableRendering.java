@@ -81,6 +81,34 @@ public class TestCreateTableRendering {
     }
 
     @Test
+    void testCreateTableWithIntervalYearToMonthColumn() {
+        assertThat(this.createTable.intervalYearToMonthColumn("a", 2),
+              rendersTo("CREATE TABLE testName (a INTERVAL YEAR(2) TO MONTH)"));
+    }
+
+    @Test
+    void testCreateTableWithInvalidIntervalYearToMonthColumn() {
+        assertThrows(IllegalArgumentException.class,
+              () -> this.createTable.intervalYearToMonthColumn("b", 37));
+        assertThrows(IllegalArgumentException.class,
+              () -> this.createTable.intervalYearToMonthColumn("b", 0));
+    }
+
+    @Test
+    void testCreateTableWithIntervalDayToSecondColumn() {
+        assertThat(this.createTable.intervalDayToSecondColumn("a", 2, 3),
+              rendersTo("CREATE TABLE testName (a INTERVAL DAY(2) TO SECOND(3))"));
+    }
+
+    @Test
+    void testCreateTableWithInvalidIntervalDayToSecodColumn() {
+        assertThrows(IllegalArgumentException.class,
+              () -> this.createTable.intervalDayToSecondColumn("b", 2, -1));
+        assertThrows(IllegalArgumentException.class,
+              () -> this.createTable.intervalDayToSecondColumn("b", 2, 10));
+    }
+
+    @Test
     void testCreateTableWithInvalidVarcharSizeColumn() {
         assertThrows(IllegalArgumentException.class,
               () -> this.createTable.varcharColumn("a", 2000001));

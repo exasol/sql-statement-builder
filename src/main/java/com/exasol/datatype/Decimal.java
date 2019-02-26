@@ -1,16 +1,16 @@
 package com.exasol.datatype;
 
-import com.exasol.sql.AbstractFragment;
-import com.exasol.sql.Fragment;
 import com.exasol.sql.ddl.CreateTableVisitor;
 
-public class Decimal extends AbstractFragment implements DataType {
+/**
+ * This class implements the Exasol-proprietary data type decimal
+ */
+public class Decimal implements DataType {
     private static final String NAME = "DECIMAL";
     private final int precision;
     private final int scale;
 
-    public Decimal(final Fragment root, final int precision, final int scale) {
-        super(root);
+    public Decimal(final int precision, final int scale) {
         validatePrecision(precision);
         validateScale(precision, scale);
         this.precision = precision;

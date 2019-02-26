@@ -1,15 +1,12 @@
 package com.exasol.datatype;
 
-import com.exasol.sql.AbstractFragment;
-import com.exasol.sql.Fragment;
 import com.exasol.sql.ddl.CreateTableVisitor;
 
-public class Boolean extends AbstractFragment implements DataType {
+/**
+ * This class implements the Exasol-proprietary data type boolean
+ */
+public class Boolean implements DataType {
     private static final String NAME = "BOOLEAN";
-
-    public Boolean(final Fragment root) {
-        super(root);
-    }
 
     @Override
     public String getName() {

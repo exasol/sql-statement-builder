@@ -2,6 +2,8 @@ package com.exasol.sql.ddl;
 
 import com.exasol.datatype.Boolean;
 import com.exasol.datatype.*;
+import com.exasol.datatype.interval.IntervalDayToSecond;
+import com.exasol.datatype.interval.IntervalYearToMonth;
 import com.exasol.sql.Column;
 import com.exasol.sql.StatementFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,6 +27,8 @@ class TestCreateTable {
     private static final String TIMESTAMP_COLUMN_NAME = "timestampColumn";
     private static final String TIMESTAMP_WITH_LOCAL_TIMEZONE_COLUMN_NAME =
           "timestampWithLocalTimeZoneColumn";
+    private static final String INTERVAL_DAY_TO_SECOND_COLUMN_NAME = "intervalDayToSecondColumn";
+    private static final String INTERVAL_YEAR_TO_MONTH_COLUMN_NAME = "intervalYearToMonthColumn";
     private CreateTable createTable;
 
     @BeforeEach
@@ -100,10 +104,28 @@ class TestCreateTable {
 
     @Test
     void testCreateTableWithTimestampWithLocalTimeZoneColumn() {
-        final Column column =
-              this.createTable.timestampWithLocalTimeZoneColumn(TIMESTAMP_WITH_LOCAL_TIMEZONE_COLUMN_NAME)
-                    .getColumns().getColumns().get(0);
+        final Column column = this.createTable
+              .timestampWithLocalTimeZoneColumn(TIMESTAMP_WITH_LOCAL_TIMEZONE_COLUMN_NAME)
+              .getColumns().getColumns().get(0);
         assertThat(column.getColumnName(), equalTo(TIMESTAMP_WITH_LOCAL_TIMEZONE_COLUMN_NAME));
         assertThat(column.getDataType(), instanceOf(TimestampWithLocalTimezone.class));
+    }
+
+    @Test
+    void testCreateTableWithIntervalDayToSecondColumn() {
+        final Column column =
+              this.createTable.intervalDayToSecondColumn(INTERVAL_DAY_TO_SECOND_COLUMN_NAME, 2, 2)
+                    .getColumns().getColumns().get(0);
+        assertThat(column.getColumnName(), equalTo(INTERVAL_DAY_TO_SECOND_COLUMN_NAME));
+        assertThat(column.getDataType(), instanceOf(IntervalDayToSecond.class));
+    }
+
+    @Test
+    void testCreateTableWithIntervalYearToMonthColumn() {
+        final Column column =
+              this.createTable.intervalYearToMonthColumn(INTERVAL_YEAR_TO_MONTH_COLUMN_NAME, 2)
+                    .getColumns().getColumns().get(0);
+        assertThat(column.getColumnName(), equalTo(INTERVAL_YEAR_TO_MONTH_COLUMN_NAME));
+        assertThat(column.getDataType(), instanceOf(IntervalYearToMonth.class));
     }
 }

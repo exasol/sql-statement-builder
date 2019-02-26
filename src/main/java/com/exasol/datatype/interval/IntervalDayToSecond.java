@@ -8,7 +8,8 @@ import java.util.regex.Pattern;
 import static com.exasol.datatype.interval.IntervalConstants.*;
 
 /**
- * This class implements the Exasol-proprietary data type <code>INTERVAL DAY(x) TO SECONDS(y)</code>. It supports
+ * This class implements the Exasol-proprietary data type <code>INTERVAL DAY(x) TO SECONDS(y)
+ * </code>. It supports
  * conversions to and from strings and from milliseconds.
  *
  * <p>
@@ -21,24 +22,50 @@ import static com.exasol.datatype.interval.IntervalConstants.*;
  * <li>seconds</li>
  * <li>milliseconds (or fraction of seconds)</li>
  * </ul>
- *
- * Since milliseconds are the highest resolution, each interval can also be expressed as a total number of milliseconds.
- * This is also the recommended way to represent the interval values in other systems which do not natively support this
+ * <p>
+ * Since milliseconds are the highest resolution, each interval can also be expressed as a total
+ * number of milliseconds.
+ * This is also the recommended way to represent the interval values in other systems which do
+ * not natively support this
  * data type.
  */
 public class IntervalDayToSecond extends AbstractInterval {
+    private static final String NAME = "INTERVAL DAY(%s) TO SECOND(%s)";
+    private int yearPrecision;
+    private int millisecondPrecision;
     private static final int SIGN_MATCHING_GROUP = 1;
     private static final int DAYS_MATCHING_GROUP = 2;
     private static final int HOURS_MATCHING_GROUP = 3;
     private static final int MINUTES_MATCHING_GROUP = 4;
     private static final int SECONDS_MATCHING_GROUP = 5;
     private static final int MILLIS_MATCHING_GROUP = 6;
-    private static final Pattern INTERVAL_PATTERN = Pattern.compile("([-+])?(?:(\\d{1,9})\\s+)?" // days
-            + "(\\d{1,2})" // hours
-            + ":(\\d{1,2})" // minutes
-            + "(?::(\\d{1,2})" // seconds
-            + "(?:\\.(\\d{1,3}))?)?" // milliseconds
-    );
+    private static final Pattern INTERVAL_PATTERN =
+          Pattern.compile("([-+])?(?:(\\d{1,9})\\s+)?" // days
+                + "(\\d{1,2})" // hours
+                + ":(\\d{1,2})" // minutes
+                + "(?::(\\d{1,2})" // seconds
+                + "(?:\\.(\\d{1,3}))?)?" // milliseconds
+          );
+
+    public IntervalDayToSecond(final int yearPrecision, final int millisecondPrecision) {
+        validateYearPrecision(yearPrecision);
+        validateMillisecondPrecision(millisecondPrecision);
+        this.yearPrecision = yearPrecision;
+        this.millisecondPrecision = millisecondPrecision;
+    }
+
+    private void validateMillisecondPrecision(final int millisecondPrecision) {
+        if (millisecondPrecision < 0 || millisecondPrecision > 9) {
+            throw new IllegalArgumentException(
+                  "Millisecond precision should belong interval [0, 9]");
+        }
+    }
+
+    private void validateYearPrecision(final int yearPrecision) {
+        if (yearPrecision < 1 || yearPrecision > 9) {
+            throw new IllegalArgumentException("Year precision should belong interval [1, 9]");
+        }
+    }
 
     private IntervalDayToSecond(final long value) {
         super(value);
@@ -50,8 +77,9 @@ public class IntervalDayToSecond extends AbstractInterval {
 
     @Override
     public String toString() {
-        return String.format("%s%d %d:%02d:%02d.%03d", getSign(), getDays(), getHours(), getMinutes(), getSeconds(),
-                getMillis());
+        return String
+              .format("%s%d %d:%02d:%02d.%03d", getSign(), getDays(), getHours(), getMinutes(),
+                    getSeconds(), getMillis());
     }
 
     private long getDays() {
@@ -129,28 +157,39 @@ public class IntervalDayToSecond extends AbstractInterval {
             return createIntervalFromParsingResults(matcher);
         } else {
             throw new IllegalArgumentException(
-                    "Text \"" + text + "\" cannot be parsed to an INTERVAL. Must match \"" + INTERVAL_PATTERN + "\"");
+                  "Text \"" + text + "\" cannot be parsed to an INTERVAL. Must match \"" +
+                        INTERVAL_PATTERN + "\"");
         }
     }
 
     private static IntervalDayToSecond createIntervalFromParsingResults(final Matcher matcher) {
-        final long parsedValue = MILLIS_PER_DAY * parseMatchingGroupToLong(matcher, DAYS_MATCHING_GROUP) //
-                + MILLIS_PER_HOUR * parseMatchingGroupToLong(matcher, HOURS_MATCHING_GROUP) //
-                + MILLIS_PER_MINUTE * parseMatchingGroupToLong(matcher, MINUTES_MATCHING_GROUP) //
-                + MILLIS_PER_SECOND * parseMatchingGroupToLong(matcher, SECONDS_MATCHING_GROUP) //
-                + parseMatchingGroupToLong(matcher, MILLIS_MATCHING_GROUP);
+        final long parsedValue =
+              MILLIS_PER_DAY * parseMatchingGroupToLong(matcher, DAYS_MATCHING_GROUP) //
+                    + MILLIS_PER_HOUR * parseMatchingGroupToLong(matcher, HOURS_MATCHING_GROUP) //
+                    + MILLIS_PER_MINUTE * parseMatchingGroupToLong(matcher, MINUTES_MATCHING_GROUP)
+                    //
+                    + MILLIS_PER_SECOND * parseMatchingGroupToLong(matcher, SECONDS_MATCHING_GROUP)
+                    //
+                    + parseMatchingGroupToLong(matcher, MILLIS_MATCHING_GROUP);
         final boolean parsedPositive = !"-".equals(matcher.group(SIGN_MATCHING_GROUP));
         return new IntervalDayToSecond(parsedValue, parsedPositive);
     }
 
     @Override
     public void accept(final CreateTableVisitor visitor) {
-        //todo
+        visitor.visit(this);
     }
 
     @Override
     public String getName() {
-        return null;
-        //todo
+        return NAME;
+    }
+
+    public int getYearPrecision() {
+        return this.yearPrecision;
+    }
+
+    public int getMillisecondPrecision() {
+        return this.millisecondPrecision;
     }
 }

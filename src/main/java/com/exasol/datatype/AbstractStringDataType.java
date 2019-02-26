@@ -1,14 +1,9 @@
 package com.exasol.datatype;
 
-import com.exasol.sql.AbstractFragment;
-import com.exasol.sql.Fragment;
-
-public abstract class AbstractStringDataType<T extends AbstractStringDataType>
-      extends AbstractFragment implements DataType {
+public abstract class AbstractStringDataType<T extends AbstractStringDataType> implements DataType {
     private final int length;
 
-    public AbstractStringDataType(final Fragment root, final int length, final int maxLength) {
-        super(root);
+    public AbstractStringDataType(final int length, final int maxLength) {
         validateLength(length, maxLength);
         this.length = length;
     }

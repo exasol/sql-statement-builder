@@ -1,15 +1,12 @@
 package com.exasol.datatype;
 
-import com.exasol.sql.AbstractFragment;
-import com.exasol.sql.Fragment;
 import com.exasol.sql.ddl.CreateTableVisitor;
 
-public class Date extends AbstractFragment implements DataType {
+/**
+ * This class implements the Exasol-proprietary data type date
+ */
+public class Date implements DataType {
     private static final String NAME = "DATE";
-
-    public Date(final Fragment root) {
-        super(root);
-    }
 
     @Override
     public String getName() {

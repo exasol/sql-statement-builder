@@ -8,7 +8,8 @@ import java.util.regex.Pattern;
 import static com.exasol.datatype.interval.IntervalConstants.MONTHS_PER_YEAR;
 
 /**
- * This class implements the Exasol-proprietary data type <code>INTERVAL YEAR(x) TO MONTH(y)</code>. It supports
+ * This class implements the Exasol-proprietary data type <code>INTERVAL YEAR(x) TO MONTH(y)
+ * </code>. It supports
  * conversions to and from strings and from a number of months.
  *
  * <p>
@@ -18,16 +19,31 @@ import static com.exasol.datatype.interval.IntervalConstants.MONTHS_PER_YEAR;
  * <li>years</li>
  * <li>months</li>
  * </ul>
- *
- * Since months are the highest resolution, each interval can also be expressed as a total number of months. This is
- * also the recommended way to represent the interval values in other systems which do not natively support this data
+ * <p>
+ * Since months are the highest resolution, each interval can also be expressed as a total number
+ * of months. This is
+ * also the recommended way to represent the interval values in other systems which do not
+ * natively support this data
  * type.
  */
 public class IntervalYearToMonth extends AbstractInterval {
+    private static final String NAME = "INTERVAL YEAR(%s) TO MONTH";
+    private int yearPrecision;
     private static final int SIGN_MATCHING_GROUP = 1;
     private static final int YEARS_MATCHING_GROUP = 2;
     private static final int MONTHS_MATCHING_GROUP = 3;
     private static final Pattern INTERVAL_PATTERN = Pattern.compile("([-+])?(\\d{1,9})-(\\d{1,2})");
+
+    public IntervalYearToMonth(final int yearPrecision) {
+        validatePrecision(yearPrecision);
+        this.yearPrecision = yearPrecision;
+    }
+
+    private void validatePrecision(final int yearPrecision) {
+        if (yearPrecision < 1 || yearPrecision > 9) {
+            throw new IllegalArgumentException("Year precision should belong interval [1, 9]");
+        }
+    }
 
     private IntervalYearToMonth(final long value) {
         super(value);
@@ -96,24 +112,29 @@ public class IntervalYearToMonth extends AbstractInterval {
     public static IntervalYearToMonth parse(final String text) {
         final Matcher matcher = INTERVAL_PATTERN.matcher(text);
         if (matcher.matches()) {
-            final long parsedValue = MONTHS_PER_YEAR * parseMatchingGroupToLong(matcher, YEARS_MATCHING_GROUP) //
-                    + parseMatchingGroupToLong(matcher, MONTHS_MATCHING_GROUP);
+            final long parsedValue =
+                  MONTHS_PER_YEAR * parseMatchingGroupToLong(matcher, YEARS_MATCHING_GROUP) //
+                        + parseMatchingGroupToLong(matcher, MONTHS_MATCHING_GROUP);
             final boolean parsedPositive = !"-".equals(matcher.group(SIGN_MATCHING_GROUP));
             return new IntervalYearToMonth(parsedValue, parsedPositive);
         } else {
             throw new IllegalArgumentException(
-                    "Text \"" + text + "\" cannot be parsed to an INTERVAL. Must match \"" + INTERVAL_PATTERN + "\"");
+                  "Text \"" + text + "\" cannot be parsed to an INTERVAL. Must match \"" +
+                        INTERVAL_PATTERN + "\"");
         }
     }
 
     @Override
     public void accept(final CreateTableVisitor visitor) {
-        //todo
+        visitor.visit(this);
     }
 
     @Override
     public String getName() {
-        //todo
-        return null;
+        return NAME;
+    }
+
+    public int getYearPrecision() {
+        return this.yearPrecision;
     }
 }

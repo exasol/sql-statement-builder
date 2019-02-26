@@ -1,15 +1,12 @@
 package com.exasol.datatype;
 
-import com.exasol.sql.AbstractFragment;
-import com.exasol.sql.Fragment;
 import com.exasol.sql.ddl.CreateTableVisitor;
 
-public class TimestampWithLocalTimezone extends AbstractFragment implements DataType {
+/**
+ * This class implements the Exasol-proprietary data type timestamp with local timezone data
+ */
+public class TimestampWithLocalTimezone implements DataType {
     private static final String NAME = "TIMESTAMP WITH LOCAL TIME ZONE";
-
-    public TimestampWithLocalTimezone(final Fragment root) {
-        super(root);
-    }
 
     @Override
     public String getName() {

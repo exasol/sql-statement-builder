@@ -2,6 +2,8 @@ package com.exasol.sql.ddl;
 
 import com.exasol.datatype.Boolean;
 import com.exasol.datatype.*;
+import com.exasol.datatype.interval.IntervalDayToSecond;
+import com.exasol.datatype.interval.IntervalYearToMonth;
 import com.exasol.sql.Column;
 import com.exasol.sql.FragmentVisitor;
 
@@ -29,4 +31,8 @@ public interface CreateTableVisitor extends FragmentVisitor {
     public void visit(Timestamp timestamp);
 
     public void visit(TimestampWithLocalTimezone timestampWithLocalTimezone);
+
+    public void visit(IntervalDayToSecond intervalDayToSecond);
+
+    public void visit(IntervalYearToMonth intervalYearToMonth);
 }

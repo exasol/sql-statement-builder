@@ -20,11 +20,18 @@ public class ColumnsDefinition extends AbstractFragment implements CreateTableFr
         super(root);
     }
 
+    /**
+     * Add a new column to the {@link ColumnsDefinition}
+     *
+     * @param name     name of the column to be added
+     * @param dataType data type of the column to be added
+     */
     public void add(final String name, final DataType dataType) {
         this.columns.add(new Column(this, name, dataType));
     }
 
-    public List<Column> getColumns() {
+
+    protected List<Column> getColumns() {
         return this.columns;
     }
 

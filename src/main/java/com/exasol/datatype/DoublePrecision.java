@@ -1,15 +1,12 @@
 package com.exasol.datatype;
 
-import com.exasol.sql.AbstractFragment;
-import com.exasol.sql.Fragment;
 import com.exasol.sql.ddl.CreateTableVisitor;
 
-public class DoublePrecision extends AbstractFragment implements DataType {
+/**
+ * This class implements the Exasol-proprietary data type precision
+ */
+public class DoublePrecision implements DataType {
     private static final String NAME = "DOUBLE PRECISION";
-
-    public DoublePrecision(final Fragment root) {
-        super(root);
-    }
 
     @Override
     public String getName() {
