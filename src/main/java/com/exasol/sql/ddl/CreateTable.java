@@ -56,6 +56,18 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
         return this;
     }
 
+    public CreateTable timestampColumn(final String columnName) {
+        checkIfCreateTableColumnsExists();
+        this.columnsDefinition.add(columnName, new Timestamp(this));
+        return this;
+    }
+
+    public CreateTable timestampWithLocalTimeZoneColumn(final String columnName) {
+        checkIfCreateTableColumnsExists();
+        this.columnsDefinition.add(columnName, new TimestampWithLocalTimezone(this));
+        return this;
+    }
+
     public ColumnsDefinition getColumns() {
         return this.columnsDefinition;
     }

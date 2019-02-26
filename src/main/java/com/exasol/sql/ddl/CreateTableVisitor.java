@@ -25,4 +25,8 @@ public interface CreateTableVisitor extends FragmentVisitor {
     public void visit(final Decimal decimalColumn);
 
     public void visit(DoublePrecision doublePrecision);
+
+    public void visit(Timestamp timestamp);
+
+    public void visit(TimestampWithLocalTimezone timestampWithLocalTimezone);
 }

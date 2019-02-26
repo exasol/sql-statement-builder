@@ -41,14 +41,25 @@ public class TestCreateTableRendering {
 
     @Test
     void testCreateTableWithDateColumn() {
-        assertThat(this.createTable.dateColumn("a"),
-              rendersTo("CREATE TABLE testName (a DATE)"));
+        assertThat(this.createTable.dateColumn("a"), rendersTo("CREATE TABLE testName (a DATE)"));
     }
 
     @Test
     void testCreateTableWithDoublePrecisionColumn() {
         assertThat(this.createTable.doublePrecisionColumn("a"),
               rendersTo("CREATE TABLE testName (a DOUBLE PRECISION)"));
+    }
+
+    @Test
+    void testCreateTableWithTimestampColumn() {
+        assertThat(this.createTable.timestampColumn("a"),
+              rendersTo("CREATE TABLE testName (a TIMESTAMP)"));
+    }
+
+    @Test
+    void testCreateTableWithTimestampWithLocalTimeZoneColumn() {
+        assertThat(this.createTable.timestampWithLocalTimeZoneColumn("a"),
+              rendersTo("CREATE TABLE testName (a TIMESTAMP WITH LOCAL TIME ZONE)"));
     }
 
     @Test
@@ -101,6 +112,7 @@ public class TestCreateTableRendering {
     @Test
     void testCreateTableWithCharAFewColumns() {
         assertThat(this.createTable.decimalColumn("dec_col", 9, 0).charColumn("char_col", 10)
-              .booleanColumn("bool_col"), rendersTo("CREATE TABLE testName (dec_col DECIMAL(9,0), char_col CHAR(10), bool_col BOOLEAN)"));
+              .booleanColumn("bool_col"), rendersTo(
+              "CREATE TABLE testName (dec_col DECIMAL(9,0), char_col CHAR(10), bool_col BOOLEAN)"));
     }
 }

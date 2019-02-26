@@ -86,6 +86,16 @@ public class CreateTableRenderer extends AbstractFragmentRenderer implements Cre
     }
 
     @Override
+    public void visit(final Timestamp timestamp) {
+        appendDataTypeWithoutParameters(timestamp);
+    }
+
+    @Override
+    public void visit(final TimestampWithLocalTimezone timestampWithLocalTimezone) {
+        appendDataTypeWithoutParameters(timestampWithLocalTimezone);
+    }
+
+    @Override
     public void visit(final Field field) {
         throw new UnsupportedOperationException();
     }

@@ -21,7 +21,10 @@ class TestCreateTable {
     private static final String DECIMAL_COLUMN_NAME = "decimalColumn";
     private static final int PRECISION = 18;
     private static final int SCALE = 0;
-    private static final String DOUBLE_PRECISION_COLUMN_NAME = "doublePresicionColumn";
+    private static final String DOUBLE_PRECISION_COLUMN_NAME = "doublePrecisionColumn";
+    private static final String TIMESTAMP_COLUMN_NAME = "timestampColumn";
+    private static final String TIMESTAMP_WITH_LOCAL_TIMEZONE_COLUMN_NAME =
+          "timestampWithLocalTimeZoneColumn";
     private CreateTable createTable;
 
     @BeforeEach
@@ -84,5 +87,23 @@ class TestCreateTable {
                     .getColumns().get(0);
         assertThat(column.getColumnName(), equalTo(DOUBLE_PRECISION_COLUMN_NAME));
         assertThat(column.getDataType(), instanceOf(DoublePrecision.class));
+    }
+
+    @Test
+    void testCreateTableWithTimestampColumn() {
+        final Column column =
+              this.createTable.timestampColumn(TIMESTAMP_COLUMN_NAME).getColumns().getColumns()
+                    .get(0);
+        assertThat(column.getColumnName(), equalTo(TIMESTAMP_COLUMN_NAME));
+        assertThat(column.getDataType(), instanceOf(Timestamp.class));
+    }
+
+    @Test
+    void testCreateTableWithTimestampWithLocalTimeZoneColumn() {
+        final Column column =
+              this.createTable.timestampWithLocalTimeZoneColumn(TIMESTAMP_WITH_LOCAL_TIMEZONE_COLUMN_NAME)
+                    .getColumns().getColumns().get(0);
+        assertThat(column.getColumnName(), equalTo(TIMESTAMP_WITH_LOCAL_TIMEZONE_COLUMN_NAME));
+        assertThat(column.getDataType(), instanceOf(TimestampWithLocalTimezone.class));
     }
 }
