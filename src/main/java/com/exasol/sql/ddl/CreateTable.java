@@ -50,6 +50,12 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
         return this;
     }
 
+    public CreateTable doublePrecisionColumn(final String columnName) {
+        checkIfCreateTableColumnsExists();
+        this.columnsDefinition.add(columnName, new DoublePrecision(this));
+        return this;
+    }
+
     public ColumnsDefinition getColumns() {
         return this.columnsDefinition;
     }

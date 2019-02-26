@@ -8,7 +8,7 @@ public class Char extends AbstractStringDataType {
     private static final int MAX_LENGTH = 2000;
 
     public Char(final Fragment root, final int length) {
-        super(root, length, MAX_LENGTH, NAME);
+        super(root, length, MAX_LENGTH);
     }
 
     @Override
@@ -19,5 +19,10 @@ public class Char extends AbstractStringDataType {
     @Override
     public void accept(final CreateTableVisitor visitor) {
         visitor.visit(this);
+    }
+
+    @Override
+    protected AbstractStringDataType self() {
+        return this;
     }
 }

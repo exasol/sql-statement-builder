@@ -4,10 +4,10 @@ import com.exasol.sql.AbstractFragment;
 import com.exasol.sql.Fragment;
 import com.exasol.sql.ddl.CreateTableVisitor;
 
-public class Date extends AbstractFragment implements DataType {
-    private static final String NAME = "DATE";
+public class DoublePrecision extends AbstractFragment implements DataType {
+    private static final String NAME = "DOUBLE PRECISION";
 
-    public Date(final Fragment root) {
+    public DoublePrecision(final Fragment root) {
         super(root);
     }
 

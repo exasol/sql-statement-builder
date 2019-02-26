@@ -34,6 +34,24 @@ public class TestCreateTableRendering {
     }
 
     @Test
+    void testCreateTableWithBooleanColumn() {
+        assertThat(this.createTable.booleanColumn("a"),
+              rendersTo("CREATE TABLE testName (a BOOLEAN)"));
+    }
+
+    @Test
+    void testCreateTableWithDateColumn() {
+        assertThat(this.createTable.dateColumn("a"),
+              rendersTo("CREATE TABLE testName (a DATE)"));
+    }
+
+    @Test
+    void testCreateTableWithDoublePrecisionColumn() {
+        assertThat(this.createTable.doublePrecisionColumn("a"),
+              rendersTo("CREATE TABLE testName (a DOUBLE PRECISION)"));
+    }
+
+    @Test
     void testCreateTableWithCharColumn() {
         assertThat(this.createTable.charColumn("a", 10),
               rendersTo("CREATE TABLE testName (a CHAR(10))"));
@@ -78,5 +96,11 @@ public class TestCreateTableRendering {
               () -> this.createTable.decimalColumn("b", 18, -1));
         assertThrows(IllegalArgumentException.class,
               () -> this.createTable.decimalColumn("b", 18, 19));
+    }
+
+    @Test
+    void testCreateTableWithCharAFewColumns() {
+        assertThat(this.createTable.decimalColumn("dec_col", 9, 0).charColumn("char_col", 10)
+              .booleanColumn("bool_col"), rendersTo("CREATE TABLE testName (dec_col DECIMAL(9,0), char_col CHAR(10), bool_col BOOLEAN)"));
     }
 }

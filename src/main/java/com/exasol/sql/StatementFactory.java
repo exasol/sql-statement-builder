@@ -36,7 +36,7 @@ public final class StatementFactory {
     }
 
     /**
-     * Create a {@link Insert} statement
+     * Create an {@link Insert} statement
      *
      * @param tableName name of the table into which to insert the data
      * @return a new instance of a {@link Insert} statement

@@ -23,4 +23,6 @@ public interface CreateTableVisitor extends FragmentVisitor {
     public void visit(final Date dateColumn);
 
     public void visit(final Decimal decimalColumn);
+
+    public void visit(DoublePrecision doublePrecision);
 }

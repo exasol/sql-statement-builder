@@ -32,6 +32,7 @@ public class CreateTableRenderer extends AbstractFragmentRenderer implements Cre
 
     @Override
     public void visit(final Column column) {
+        appendCommaWhenNeeded(column);
         appendAutoQuoted(column.getColumnName());
         setLastVisited(column);
     }
@@ -51,27 +52,21 @@ public class CreateTableRenderer extends AbstractFragmentRenderer implements Cre
     @Override
     public void visit(final Char charColumn) {
         appendStringDataType(charColumn);
-        setLastVisited(charColumn);
     }
 
     @Override
     public void visit(final Varchar varcharColumn) {
         appendStringDataType(varcharColumn);
-        setLastVisited(varcharColumn);
     }
 
     @Override
     public void visit(final Boolean booleanColumn) {
-        appendSpace();
-        append(booleanColumn.getName());
-        setLastVisited(booleanColumn);
+        appendDataTypeWithoutParameters(booleanColumn);
     }
 
     @Override
     public void visit(final Date dateColumn) {
-        appendSpace();
-        append(dateColumn.getName());
-        setLastVisited(dateColumn);
+        appendDataTypeWithoutParameters(dateColumn);
     }
 
     @Override
@@ -83,7 +78,11 @@ public class CreateTableRenderer extends AbstractFragmentRenderer implements Cre
         append(",");
         append(decimalColumn.getScale());
         append(")");
-        setLastVisited(decimalColumn);
+    }
+
+    @Override
+    public void visit(final DoublePrecision doublePrecision) {
+        appendDataTypeWithoutParameters(doublePrecision);
     }
 
     @Override
@@ -95,6 +94,11 @@ public class CreateTableRenderer extends AbstractFragmentRenderer implements Cre
     public void visit(final Table table) {
         appendAutoQuoted(table.getName());
         setLastVisited(table);
+    }
+
+    private void appendDataTypeWithoutParameters(final DataType dataType) {
+        appendSpace();
+        append(dataType.getName());
     }
 
     private void appendStringDataType(final AbstractStringDataType stringDataType) {
