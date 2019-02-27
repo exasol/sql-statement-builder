@@ -96,15 +96,13 @@ public class IntervalYearToMonth extends AbstractInterval {
     public static IntervalYearToMonth parse(final String text) {
         final Matcher matcher = INTERVAL_PATTERN.matcher(text);
         if (matcher.matches()) {
-            final long parsedValue =
-                  MONTHS_PER_YEAR * parseMatchingGroupToLong(matcher, YEARS_MATCHING_GROUP) //
-                        + parseMatchingGroupToLong(matcher, MONTHS_MATCHING_GROUP);
+            final long parsedValue = MONTHS_PER_YEAR * parseMatchingGroupToLong(matcher, YEARS_MATCHING_GROUP) //
+                  + parseMatchingGroupToLong(matcher, MONTHS_MATCHING_GROUP);
             final boolean parsedPositive = !"-".equals(matcher.group(SIGN_MATCHING_GROUP));
             return new IntervalYearToMonth(parsedValue, parsedPositive);
         } else {
             throw new IllegalArgumentException(
-                  "Text \"" + text + "\" cannot be parsed to an INTERVAL. Must match \"" +
-                        INTERVAL_PATTERN + "\"");
+                  "Text \"" + text + "\" cannot be parsed to an INTERVAL. Must match \"" + INTERVAL_PATTERN + "\"");
         }
     }
 }

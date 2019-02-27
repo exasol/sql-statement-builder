@@ -33,13 +33,12 @@ public class IntervalDayToSecond extends AbstractInterval {
     private static final int MINUTES_MATCHING_GROUP = 4;
     private static final int SECONDS_MATCHING_GROUP = 5;
     private static final int MILLIS_MATCHING_GROUP = 6;
-    private static final Pattern INTERVAL_PATTERN =
-          Pattern.compile("([-+])?(?:(\\d{1,9})\\s+)?" // days
-                + "(\\d{1,2})" // hours
-                + ":(\\d{1,2})" // minutes
-                + "(?::(\\d{1,2})" // seconds
-                + "(?:\\.(\\d{1,3}))?)?" // milliseconds
-          );
+    private static final Pattern INTERVAL_PATTERN = Pattern.compile("([-+])?(?:(\\d{1,9})\\s+)?" // days
+          + "(\\d{1,2})" // hours
+          + ":(\\d{1,2})" // minutes
+          + "(?::(\\d{1,2})" // seconds
+          + "(?:\\.(\\d{1,3}))?)?" // milliseconds
+    );
 
     private IntervalDayToSecond(final long value) {
         super(value);
@@ -51,9 +50,8 @@ public class IntervalDayToSecond extends AbstractInterval {
 
     @Override
     public String toString() {
-        return String
-              .format("%s%d %d:%02d:%02d.%03d", getSign(), getDays(), getHours(), getMinutes(),
-                    getSeconds(), getMillis());
+        return String.format("%s%d %d:%02d:%02d.%03d", getSign(), getDays(), getHours(), getMinutes(), getSeconds(),
+              getMillis());
     }
 
     private long getDays() {
@@ -131,20 +129,18 @@ public class IntervalDayToSecond extends AbstractInterval {
             return createIntervalFromParsingResults(matcher);
         } else {
             throw new IllegalArgumentException(
-                  "Text \"" + text + "\" cannot be parsed to an INTERVAL. Must match \"" +
-                        INTERVAL_PATTERN + "\"");
+                  "Text \"" + text + "\" cannot be parsed to an INTERVAL. Must match \"" + INTERVAL_PATTERN + "\"");
         }
     }
 
     private static IntervalDayToSecond createIntervalFromParsingResults(final Matcher matcher) {
-        final long parsedValue =
-              MILLIS_PER_DAY * parseMatchingGroupToLong(matcher, DAYS_MATCHING_GROUP) //
-                    + MILLIS_PER_HOUR * parseMatchingGroupToLong(matcher, HOURS_MATCHING_GROUP) //
-                    + MILLIS_PER_MINUTE * parseMatchingGroupToLong(matcher, MINUTES_MATCHING_GROUP)
-                    //
-                    + MILLIS_PER_SECOND * parseMatchingGroupToLong(matcher, SECONDS_MATCHING_GROUP)
-                    //
-                    + parseMatchingGroupToLong(matcher, MILLIS_MATCHING_GROUP);
+        final long parsedValue = MILLIS_PER_DAY * parseMatchingGroupToLong(matcher, DAYS_MATCHING_GROUP) //
+              + MILLIS_PER_HOUR * parseMatchingGroupToLong(matcher, HOURS_MATCHING_GROUP) //
+              + MILLIS_PER_MINUTE * parseMatchingGroupToLong(matcher, MINUTES_MATCHING_GROUP)
+              //
+              + MILLIS_PER_SECOND * parseMatchingGroupToLong(matcher, SECONDS_MATCHING_GROUP)
+              //
+              + parseMatchingGroupToLong(matcher, MILLIS_MATCHING_GROUP);
         final boolean parsedPositive = !"-".equals(matcher.group(SIGN_MATCHING_GROUP));
         return new IntervalDayToSecond(parsedValue, parsedPositive);
     }

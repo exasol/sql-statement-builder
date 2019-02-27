@@ -17,8 +17,7 @@ public abstract class AbstractStringDataType<T extends AbstractStringDataType> i
 
     private void validateLength(final int length, final int maxLength) {
         if (length < 1 || length > maxLength) {
-            throw new IllegalArgumentException(
-                  self().getName() + " should have length between 1 and " + maxLength);
+            throw new IllegalArgumentException(self().getName() + " should have length between 1 and " + maxLength);
         }
     }
 

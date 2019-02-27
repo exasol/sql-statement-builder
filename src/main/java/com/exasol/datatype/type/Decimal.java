@@ -55,8 +55,7 @@ public class Decimal implements DataType {
 
     private void validateScale(final int precision, final int scale) {
         if (scale < 0 || scale > precision) {
-            throw new IllegalArgumentException(
-                  "Scale must be a number between 0 and precision - 1.");
+            throw new IllegalArgumentException("Scale must be a number between 0 and precision - 1.");
         }
     }
 }

@@ -48,6 +48,7 @@ public final class StatementFactory {
     /**
      * Create a {@link CreateTable} statement
      *
+     * @param tableName name of the table to create
      * @return a new instance of a {@link CreateTable} statement
      */
     public CreateTable createTable(final String tableName) {

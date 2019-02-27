@@ -13,7 +13,7 @@ public class IntervalDayToSecond implements DataType {
     /**
      * Create a new instance of an {@link IntervalDayToSecond} data type
      *
-     * @param yearPrecision year precision value
+     * @param yearPrecision        year precision value
      * @param millisecondPrecision millisecond precision value
      */
     public IntervalDayToSecond(final int yearPrecision, final int millisecondPrecision) {
@@ -25,8 +25,7 @@ public class IntervalDayToSecond implements DataType {
 
     private void validateMillisecondPrecision(final int millisecondPrecision) {
         if (millisecondPrecision < 0 || millisecondPrecision > 9) {
-            throw new IllegalArgumentException(
-                  "Millisecond precision must be a number between 0 and 9.");
+            throw new IllegalArgumentException("Millisecond precision must be a number between 0 and 9.");
         }
     }
 

@@ -39,11 +39,12 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * Add char column
      *
      * @param columnName name of the column to be added
+     * @param length     pre-defined length for stored strings
      * @return <code>this</code> for fluent Programming
      */
-    public synchronized CreateTable charColumn(final String columnName, final int size) {
+    public synchronized CreateTable charColumn(final String columnName, final int length) {
         checkIfCreateTableColumnsExists();
-        this.columnsDefinition.add(columnName, new Char(size));
+        this.columnsDefinition.add(columnName, new Char(length));
         return this;
     }
 
@@ -51,11 +52,12 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * Add varchar column
      *
      * @param columnName name of the column to be added
+     * @param length     pre-defined length for stored strings
      * @return <code>this</code> for fluent Programming
      */
-    public synchronized CreateTable varcharColumn(final String columnName, final int size) {
+    public synchronized CreateTable varcharColumn(final String columnName, final int length) {
         checkIfCreateTableColumnsExists();
-        this.columnsDefinition.add(columnName, new Varchar(size));
+        this.columnsDefinition.add(columnName, new Varchar(length));
         return this;
     }
 
@@ -75,10 +77,11 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * Add decimal column
      *
      * @param columnName name of the column to be added
+     * @param precision  precision for numeric value
+     * @param scale      scale for numeric value
      * @return <code>this</code> for fluent Programming
      */
-    public synchronized CreateTable decimalColumn(final String columnName, final int precision,
-          final int scale) {
+    public synchronized CreateTable decimalColumn(final String columnName, final int precision, final int scale) {
         checkIfCreateTableColumnsExists();
         this.columnsDefinition.add(columnName, new Decimal(precision, scale));
         return this;
@@ -123,25 +126,26 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
     /**
      * Add interval day to second column
      *
-     * @param columnName name of the column to be added
+     * @param columnName           name of the column to be added
+     * @param yearPrecision        year precision value
+     * @param millisecondPrecision millisecond precision value
      * @return <code>this</code> for fluent Programming
      */
-    public synchronized CreateTable intervalDayToSecondColumn(final String columnName,
-          final int yearPrecision, final int millisecondPrecision) {
+    public synchronized CreateTable intervalDayToSecondColumn(final String columnName, final int yearPrecision,
+          final int millisecondPrecision) {
         checkIfCreateTableColumnsExists();
-        this.columnsDefinition
-              .add(columnName, new IntervalDayToSecond(yearPrecision, millisecondPrecision));
+        this.columnsDefinition.add(columnName, new IntervalDayToSecond(yearPrecision, millisecondPrecision));
         return this;
     }
 
     /**
      * Add interval year to month column
      *
-     * @param columnName name of the column to be added
+     * @param columnName    name of the column to be added
+     * @param yearPrecision year precision value
      * @return <code>this</code> for fluent Programming
      */
-    public synchronized CreateTable intervalYearToMonthColumn(final String columnName,
-          final int yearPrecision) {
+    public synchronized CreateTable intervalYearToMonthColumn(final String columnName, final int yearPrecision) {
         checkIfCreateTableColumnsExists();
         this.columnsDefinition.add(columnName, new IntervalYearToMonth(yearPrecision));
         return this;
