@@ -193,6 +193,25 @@ Covers:
 
 Needs: dsn
 
+### Data Definition Language (DDL)
+
+#### CREATE Statements
+`req~create-statements~1`
+
+ESB supports the following create statement:
+
+    create-statement = "CREATE TABLE" table-reference table-element-list
+    
+    table-reference = table [AS table-alias]
+    
+    table-element-list = L-BRACKET table-element [*( COMMA table-element )] R-BRACKET
+
+Covers:
+
+* [feat~statement-definition~1](#statement-definition)
+
+Needs: dsn
+
 ### Data Manipulation Language (DML)
 
 #### INSERT Statements
@@ -267,6 +286,17 @@ Needs: dsn
 `req~rendering.sql.select~1`
 
 ESB renders abstract `SELECT` statements into SQL query strings.
+
+Covers:
+
+* [feat~sql-string-rendering~1](#sql-string-rendering)
+
+Needs: dsn
+
+#### CREATE Statement Rendering
+`req~rendering.sql.create~1`
+
+ESB renders abstract `CREATE` statements into SQL data definition language strings.
 
 Covers:
 

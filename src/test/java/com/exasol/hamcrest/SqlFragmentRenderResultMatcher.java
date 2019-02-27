@@ -1,5 +1,7 @@
 package com.exasol.hamcrest;
 
+import com.exasol.sql.ddl.CreateTableFragment;
+import com.exasol.sql.ddl.rendering.CreateTableRenderer;
 import org.hamcrest.Description;
 
 import com.exasol.sql.Fragment;
@@ -41,6 +43,10 @@ public class SqlFragmentRenderResultMatcher extends AbstractRenderResultMatcher<
         } else if (root instanceof InsertFragment) {
             final InsertRenderer renderer = new InsertRenderer(this.config);
             ((InsertFragment) root).accept(renderer);
+            this.renderedText = renderer.render();
+        } else if (root instanceof CreateTableFragment) {
+            final CreateTableRenderer renderer = new CreateTableRenderer(this.config);
+            ((CreateTableFragment) root).accept(renderer);
             this.renderedText = renderer.render();
         } else {
             throw new UnsupportedOperationException(
