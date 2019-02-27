@@ -1,4 +1,4 @@
-package com.exasol.datatype;
+package com.exasol.datatype.type;
 
 import com.exasol.sql.ddl.CreateTableVisitor;
 
@@ -10,6 +10,12 @@ public class Decimal implements DataType {
     private final int precision;
     private final int scale;
 
+    /**
+     * Create a new instance of an {@link Decimal} data type
+     *
+     * @param precision precision for numeric value
+     * @param scale     scale for numeric value
+     */
     public Decimal(final int precision, final int scale) {
         validatePrecision(precision);
         validateScale(precision, scale);
@@ -17,10 +23,16 @@ public class Decimal implements DataType {
         this.scale = scale;
     }
 
+    /**
+     * @return precision value
+     */
     public int getPrecision() {
         return this.precision;
     }
 
+    /**
+     * @return scale value
+     */
     public int getScale() {
         return this.scale;
     }
@@ -37,14 +49,14 @@ public class Decimal implements DataType {
 
     private void validatePrecision(final int precision) {
         if (precision < 1 || precision > 36) {
-            throw new IllegalArgumentException("Precision should belong interval [1, 36]");
+            throw new IllegalArgumentException("Precision must be a number between 1 and 36.");
         }
     }
 
     private void validateScale(final int precision, final int scale) {
         if (scale < 0 || scale > precision) {
             throw new IllegalArgumentException(
-                  "Scale should be more or equal to 0 and less than precision.");
+                  "Scale must be a number between 0 and precision - 1.");
         }
     }
 }

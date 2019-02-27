@@ -1,12 +1,12 @@
-package com.exasol.datatype;
+package com.exasol.datatype.type;
 
 import com.exasol.sql.ddl.CreateTableVisitor;
 
 /**
- * This class implements the Exasol-proprietary data type date
+ * This class implements the SQL data type boolean
  */
-public class Date implements DataType {
-    private static final String NAME = "DATE";
+public class Boolean implements DataType {
+    private static final String NAME = "BOOLEAN";
 
     @Override
     public String getName() {

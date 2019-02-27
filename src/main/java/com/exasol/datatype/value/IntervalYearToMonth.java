@@ -1,14 +1,12 @@
-package com.exasol.datatype.interval;
-
-import com.exasol.sql.ddl.CreateTableVisitor;
+package com.exasol.datatype.value;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.exasol.datatype.interval.IntervalConstants.MONTHS_PER_YEAR;
+import static com.exasol.datatype.value.IntervalConstants.MONTHS_PER_YEAR;
 
 /**
- * This class implements the Exasol-proprietary data type <code>INTERVAL YEAR(x) TO MONTH(y)
+ * This class implements the Exasol-proprietary data type value <code>INTERVAL YEAR(x) TO MONTH(y)
  * </code>. It supports
  * conversions to and from strings and from a number of months.
  *
@@ -23,27 +21,13 @@ import static com.exasol.datatype.interval.IntervalConstants.MONTHS_PER_YEAR;
  * Since months are the highest resolution, each interval can also be expressed as a total number
  * of months. This is
  * also the recommended way to represent the interval values in other systems which do not
- * natively support this data
- * type.
+ * natively support this data type.
  */
 public class IntervalYearToMonth extends AbstractInterval {
-    private static final String NAME = "INTERVAL YEAR(%s) TO MONTH";
-    private int yearPrecision;
     private static final int SIGN_MATCHING_GROUP = 1;
     private static final int YEARS_MATCHING_GROUP = 2;
     private static final int MONTHS_MATCHING_GROUP = 3;
     private static final Pattern INTERVAL_PATTERN = Pattern.compile("([-+])?(\\d{1,9})-(\\d{1,2})");
-
-    public IntervalYearToMonth(final int yearPrecision) {
-        validatePrecision(yearPrecision);
-        this.yearPrecision = yearPrecision;
-    }
-
-    private void validatePrecision(final int yearPrecision) {
-        if (yearPrecision < 1 || yearPrecision > 9) {
-            throw new IllegalArgumentException("Year precision should belong interval [1, 9]");
-        }
-    }
 
     private IntervalYearToMonth(final long value) {
         super(value);
@@ -122,19 +106,5 @@ public class IntervalYearToMonth extends AbstractInterval {
                   "Text \"" + text + "\" cannot be parsed to an INTERVAL. Must match \"" +
                         INTERVAL_PATTERN + "\"");
         }
-    }
-
-    @Override
-    public void accept(final CreateTableVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public String getName() {
-        return NAME;
-    }
-
-    public int getYearPrecision() {
-        return this.yearPrecision;
     }
 }

@@ -1,10 +1,8 @@
-package com.exasol.datatype.interval;
-
-import com.exasol.datatype.DataType;
+package com.exasol.datatype.value;
 
 import java.util.regex.Matcher;
 
-public abstract class AbstractInterval implements DataType {
+public abstract class AbstractInterval {
     protected long value;
     protected boolean positive;
 
@@ -21,9 +19,6 @@ public abstract class AbstractInterval implements DataType {
     public AbstractInterval(final long absoluteValue, final boolean positive) {
         this.value = absoluteValue;
         this.positive = positive;
-    }
-
-    protected AbstractInterval() {
     }
 
     protected static long parseMatchingGroupToLong(final Matcher matcher, final int groupNumber) {

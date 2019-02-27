@@ -1,6 +1,6 @@
 package com.exasol.sql.ddl;
 
-import com.exasol.datatype.DataType;
+import com.exasol.datatype.type.DataType;
 import com.exasol.sql.AbstractFragment;
 import com.exasol.sql.Column;
 import com.exasol.sql.SqlStatement;

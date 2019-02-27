@@ -1,12 +1,12 @@
-package com.exasol.datatype;
+package com.exasol.datatype.type;
 
 import com.exasol.sql.ddl.CreateTableVisitor;
 
 /**
- * This class implements the Exasol-proprietary data type precision
+ * This class implements the SQl data type timestamp
  */
-public class DoublePrecision implements DataType {
-    private static final String NAME = "DOUBLE PRECISION";
+public class Timestamp implements DataType {
+    private static final String NAME = "TIMESTAMP";
 
     @Override
     public String getName() {

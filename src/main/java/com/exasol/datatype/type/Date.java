@@ -1,12 +1,12 @@
-package com.exasol.datatype;
+package com.exasol.datatype.type;
 
 import com.exasol.sql.ddl.CreateTableVisitor;
 
 /**
- * This class implements the Exasol-proprietary data type timestamp
+ * This class implements the SQL data type date
  */
-public class Timestamp implements DataType {
-    private static final String NAME = "TIMESTAMP";
+public class Date implements DataType {
+    private static final String NAME = "DATE";
 
     @Override
     public String getName() {

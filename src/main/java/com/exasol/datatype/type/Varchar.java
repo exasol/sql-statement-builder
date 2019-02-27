@@ -1,21 +1,22 @@
-package com.exasol.datatype;
+package com.exasol.datatype.type;
 
 import com.exasol.sql.ddl.CreateTableVisitor;
 
 /**
  * This class implements the Exasol-proprietary data type varchar
  */
+@java.lang.SuppressWarnings("common-java:DuplicatedBlocks")
 public class Varchar extends AbstractStringDataType {
     private static final String NAME = "VARCHAR";
     private static final int MAX_LENGTH = 2000000;
 
+    /**
+     * Create a new instance of an {@link Varchar} data type
+     *
+     * @param length pre-defined length for stored strings
+     */
     public Varchar(final int length) {
-        super(length, MAX_LENGTH);
-    }
-
-    @Override
-    public String getName() {
-        return NAME;
+        super(length, MAX_LENGTH, NAME);
     }
 
     @Override

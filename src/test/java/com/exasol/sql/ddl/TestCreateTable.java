@@ -1,9 +1,7 @@
 package com.exasol.sql.ddl;
 
-import com.exasol.datatype.Boolean;
-import com.exasol.datatype.*;
-import com.exasol.datatype.interval.IntervalDayToSecond;
-import com.exasol.datatype.interval.IntervalYearToMonth;
+import com.exasol.datatype.type.Boolean;
+import com.exasol.datatype.type.*;
 import com.exasol.sql.Column;
 import com.exasol.sql.StatementFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.instanceOf;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 class TestCreateTable {
     private static final int LENGTH = 20;
@@ -45,8 +44,12 @@ class TestCreateTable {
     void testCreateTableWithBooleanColumn() {
         final Column column =
               this.createTable.booleanColumn(BOOLEAN_COLUMN_NAME).getColumns().getColumns().get(0);
-        assertThat(column.getColumnName(), equalTo(BOOLEAN_COLUMN_NAME));
-        assertThat(column.getDataType(), instanceOf(Boolean.class));
+        assertInstance(column, BOOLEAN_COLUMN_NAME, Boolean.class);
+    }
+
+    private void assertInstance(final Column column, final String name, final Class classToAssert) {
+        assertAll(() -> assertThat(column.getColumnName(), equalTo(name)),
+              () -> assertThat(column.getDataType(), instanceOf(classToAssert)));
     }
 
     @Test
@@ -54,16 +57,14 @@ class TestCreateTable {
         final Column column =
               this.createTable.charColumn(CHAR_COLUMN_NAME, LENGTH).getColumns().getColumns()
                     .get(0);
-        assertThat(column.getColumnName(), equalTo(CHAR_COLUMN_NAME));
-        assertThat(column.getDataType(), instanceOf(Char.class));
+        assertInstance(column, CHAR_COLUMN_NAME, Char.class);
     }
 
     @Test
     void testCreateTableWithDateColumn() {
         final Column column =
               this.createTable.dateColumn(DATE_COLUMN_NAME).getColumns().getColumns().get(0);
-        assertThat(column.getColumnName(), equalTo(DATE_COLUMN_NAME));
-        assertThat(column.getDataType(), instanceOf(Date.class));
+        assertInstance(column, DATE_COLUMN_NAME, Date.class);
     }
 
     @Test
@@ -71,8 +72,7 @@ class TestCreateTable {
         final Column column =
               this.createTable.varcharColumn(VARCHAR_COLUMN_NAME, LENGTH).getColumns().getColumns()
                     .get(0);
-        assertThat(column.getColumnName(), equalTo(VARCHAR_COLUMN_NAME));
-        assertThat(column.getDataType(), instanceOf(Varchar.class));
+        assertInstance(column, VARCHAR_COLUMN_NAME, Varchar.class);
     }
 
     @Test
@@ -80,8 +80,7 @@ class TestCreateTable {
         final Column column =
               this.createTable.decimalColumn(DECIMAL_COLUMN_NAME, PRECISION, SCALE).getColumns()
                     .getColumns().get(0);
-        assertThat(column.getColumnName(), equalTo(DECIMAL_COLUMN_NAME));
-        assertThat(column.getDataType(), instanceOf(Decimal.class));
+        assertInstance(column, DECIMAL_COLUMN_NAME, Decimal.class);
     }
 
     @Test
@@ -89,8 +88,7 @@ class TestCreateTable {
         final Column column =
               this.createTable.doublePrecisionColumn(DOUBLE_PRECISION_COLUMN_NAME).getColumns()
                     .getColumns().get(0);
-        assertThat(column.getColumnName(), equalTo(DOUBLE_PRECISION_COLUMN_NAME));
-        assertThat(column.getDataType(), instanceOf(DoublePrecision.class));
+        assertInstance(column, DOUBLE_PRECISION_COLUMN_NAME, DoublePrecision.class);
     }
 
     @Test
@@ -98,8 +96,7 @@ class TestCreateTable {
         final Column column =
               this.createTable.timestampColumn(TIMESTAMP_COLUMN_NAME).getColumns().getColumns()
                     .get(0);
-        assertThat(column.getColumnName(), equalTo(TIMESTAMP_COLUMN_NAME));
-        assertThat(column.getDataType(), instanceOf(Timestamp.class));
+        assertInstance(column, TIMESTAMP_COLUMN_NAME, Timestamp.class);
     }
 
     @Test
@@ -107,8 +104,8 @@ class TestCreateTable {
         final Column column = this.createTable
               .timestampWithLocalTimeZoneColumn(TIMESTAMP_WITH_LOCAL_TIMEZONE_COLUMN_NAME)
               .getColumns().getColumns().get(0);
-        assertThat(column.getColumnName(), equalTo(TIMESTAMP_WITH_LOCAL_TIMEZONE_COLUMN_NAME));
-        assertThat(column.getDataType(), instanceOf(TimestampWithLocalTimezone.class));
+        assertInstance(column, TIMESTAMP_WITH_LOCAL_TIMEZONE_COLUMN_NAME,
+              TimestampWithLocalTimezone.class);
     }
 
     @Test
@@ -116,8 +113,7 @@ class TestCreateTable {
         final Column column =
               this.createTable.intervalDayToSecondColumn(INTERVAL_DAY_TO_SECOND_COLUMN_NAME, 2, 2)
                     .getColumns().getColumns().get(0);
-        assertThat(column.getColumnName(), equalTo(INTERVAL_DAY_TO_SECOND_COLUMN_NAME));
-        assertThat(column.getDataType(), instanceOf(IntervalDayToSecond.class));
+        assertInstance(column, INTERVAL_DAY_TO_SECOND_COLUMN_NAME, IntervalDayToSecond.class);
     }
 
     @Test
@@ -125,7 +121,6 @@ class TestCreateTable {
         final Column column =
               this.createTable.intervalYearToMonthColumn(INTERVAL_YEAR_TO_MONTH_COLUMN_NAME, 2)
                     .getColumns().getColumns().get(0);
-        assertThat(column.getColumnName(), equalTo(INTERVAL_YEAR_TO_MONTH_COLUMN_NAME));
-        assertThat(column.getDataType(), instanceOf(IntervalYearToMonth.class));
+        assertInstance(column, INTERVAL_YEAR_TO_MONTH_COLUMN_NAME, IntervalYearToMonth.class);
     }
 }

@@ -1,6 +1,6 @@
 package com.exasol.sql;
 
-import com.exasol.datatype.DataType;
+import com.exasol.datatype.type.DataType;
 import com.exasol.sql.ddl.CreateTableFragment;
 import com.exasol.sql.ddl.CreateTableVisitor;
 

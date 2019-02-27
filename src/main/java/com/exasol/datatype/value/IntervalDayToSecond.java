@@ -1,14 +1,12 @@
-package com.exasol.datatype.interval;
-
-import com.exasol.sql.ddl.CreateTableVisitor;
+package com.exasol.datatype.value;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.exasol.datatype.interval.IntervalConstants.*;
+import static com.exasol.datatype.value.IntervalConstants.*;
 
 /**
- * This class implements the Exasol-proprietary data type <code>INTERVAL DAY(x) TO SECONDS(y)
+ * This class implements the Exasol-proprietary data type value <code>INTERVAL DAY(x) TO SECONDS(y)
  * </code>. It supports
  * conversions to and from strings and from milliseconds.
  *
@@ -26,13 +24,9 @@ import static com.exasol.datatype.interval.IntervalConstants.*;
  * Since milliseconds are the highest resolution, each interval can also be expressed as a total
  * number of milliseconds.
  * This is also the recommended way to represent the interval values in other systems which do
- * not natively support this
- * data type.
+ * not natively support this data type.
  */
 public class IntervalDayToSecond extends AbstractInterval {
-    private static final String NAME = "INTERVAL DAY(%s) TO SECOND(%s)";
-    private int yearPrecision;
-    private int millisecondPrecision;
     private static final int SIGN_MATCHING_GROUP = 1;
     private static final int DAYS_MATCHING_GROUP = 2;
     private static final int HOURS_MATCHING_GROUP = 3;
@@ -46,26 +40,6 @@ public class IntervalDayToSecond extends AbstractInterval {
                 + "(?::(\\d{1,2})" // seconds
                 + "(?:\\.(\\d{1,3}))?)?" // milliseconds
           );
-
-    public IntervalDayToSecond(final int yearPrecision, final int millisecondPrecision) {
-        validateYearPrecision(yearPrecision);
-        validateMillisecondPrecision(millisecondPrecision);
-        this.yearPrecision = yearPrecision;
-        this.millisecondPrecision = millisecondPrecision;
-    }
-
-    private void validateMillisecondPrecision(final int millisecondPrecision) {
-        if (millisecondPrecision < 0 || millisecondPrecision > 9) {
-            throw new IllegalArgumentException(
-                  "Millisecond precision should belong interval [0, 9]");
-        }
-    }
-
-    private void validateYearPrecision(final int yearPrecision) {
-        if (yearPrecision < 1 || yearPrecision > 9) {
-            throw new IllegalArgumentException("Year precision should belong interval [1, 9]");
-        }
-    }
 
     private IntervalDayToSecond(final long value) {
         super(value);
@@ -173,23 +147,5 @@ public class IntervalDayToSecond extends AbstractInterval {
                     + parseMatchingGroupToLong(matcher, MILLIS_MATCHING_GROUP);
         final boolean parsedPositive = !"-".equals(matcher.group(SIGN_MATCHING_GROUP));
         return new IntervalDayToSecond(parsedValue, parsedPositive);
-    }
-
-    @Override
-    public void accept(final CreateTableVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public String getName() {
-        return NAME;
-    }
-
-    public int getYearPrecision() {
-        return this.yearPrecision;
-    }
-
-    public int getMillisecondPrecision() {
-        return this.millisecondPrecision;
     }
 }

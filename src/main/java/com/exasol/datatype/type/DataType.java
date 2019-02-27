@@ -1,9 +1,9 @@
-package com.exasol.datatype;
+package com.exasol.datatype.type;
 
 import com.exasol.sql.ddl.CreateTableVisitor;
 
 /**
- * This class represents different data types in Exasol database
+ * This class represents different SQL data types
  */
 public interface DataType {
 

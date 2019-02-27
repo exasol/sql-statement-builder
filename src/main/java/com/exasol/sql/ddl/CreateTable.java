@@ -1,9 +1,7 @@
 package com.exasol.sql.ddl;
 
-import com.exasol.datatype.Boolean;
-import com.exasol.datatype.*;
-import com.exasol.datatype.interval.IntervalDayToSecond;
-import com.exasol.datatype.interval.IntervalYearToMonth;
+import com.exasol.datatype.type.Boolean;
+import com.exasol.datatype.type.*;
 import com.exasol.sql.AbstractFragment;
 import com.exasol.sql.SqlStatement;
 import com.exasol.sql.Table;
