@@ -1,30 +1,9 @@
-# Exasol SQL Statement Builder User Guide
+# CREATE TABLE
 
-You can follow this guide to learn more about how to use the SQL Statement
-Builder. It provides explanation of currently supported features with various
-code examples.
+The `CreateTable` class of the SQL Statement Builder provides an entry 
+point to defining a CREATE TABLE SQL statement.
 
-## Overview
-
-The Exasol SQL Statement Builder abstracts programmatic creation of SQL
-statements and is intended to replace ubiquitous string concatenation solutions
-which make the code hard to read and are prone to errors and security risks.
-
-SQL Statement Builder allows users to create a SQL statement classes using
-[fluent programming][fluent] that can render into a string.
-
-**Currently supported SQL statements:**
-
-- [CREATE TABLE](#create-table)
-- SELECT
-- INSERT INTO
-
-## CREATE TABLE
-
-The `CreateTable` class of the Sql Statement Builder implements SQL CREATE TABLE
-functionality.
-
-### Usage
+## Usage
 
 1. Create an instance of the `CreateTable` class through the `StatementFactory`
 
@@ -34,10 +13,9 @@ functionality.
 
 2. Create columns with desired data types using fluent programming
 
-  The column order in a final rendered string will be the same as a sequence of
-  the method calls.
+  Construct the columns in the order you want them to appear in the created table.
 
-  For example, create a table with three columns (decimal, char and boolean):
+  For example, create a table with three columns (`DECIMAL`, `CHAR` and `BOOLEAN`):
 
   ```java
   createTable.decimalColumn("col_decimal", 9, 0)
@@ -45,7 +23,7 @@ functionality.
              .booleanColumn("col_boolean");
   ```
 
-  Please keep in mind that the column name if required when creating a column.
+  Please keep in mind that the column name is required when creating a column.
   Additionally, some column types require extra parameters, for instance
   `VARCHAR`.
 
@@ -64,38 +42,12 @@ functionality.
   |``TIMESTAMP WITH LOCAL TIME ZONE``| ``false``          | `createTable.timestampWithLocalTimeZoneColumn("col_tswithzone")` |
   |``VARCHAR``                       | ``true``           | `createTable.varcharColumn("col_varchar", 100)`                  |
 
-  You can find more information about the column types in JavaDoc files.
+  You can find more information about the column types in the SQL Statement Builder's JavaDoc API description.
 
 3. Render the instance of `CreateTable` class
 
-  Create an instance of the `CreateTableRenderer` using the `create()` method of
-  the class. It can be created with the default configuration or with a custom
-  configuration.
+Please read about rendering [here](../rendering.md)
 
-  An example of creating a custom configuration:
-
-  ```java
-  StringRendererConfig config = StringRendererConfig.builder().lowerCase(true).build();
-  ```
-  If you add a custom configuration, pass an instance to the `create()` method. If
-  not, run the method without parameters:
-
-  ```java
-  CreateTableRenderer renderer = CreateTableRenderer.create();
-  ```
-
-  Then call accept method of the `CreateTable` instance and pass the renderer as
-  an argument:
-
-  ```java
-  createTable.accept(renderer);
-  ```
-
-  And finally render the SQl statement:
-
-  ```java
-  String renderedString = renderer.render();
-  ```
 
 - The whole example code
 
@@ -113,5 +65,3 @@ functionality.
 
   String renderedString = renderer.render();
   ```
-
-[fluent]: https://en.wikipedia.org/wiki/Fluent_interface
