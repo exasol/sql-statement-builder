@@ -12,7 +12,7 @@ which make the code hard to read and are prone to errors and security risks.
 
 SQL Statement Builder allows users to create an abstract representation of SQL statements using
 [fluent programming][fluent]. Once you have such an abstract statement, 
-you can for example use the SSB to render the statement into an SQL string."
+you can, for example, use the SSB to render the statement into an SQL string."
 
 **Currently supported SQL statements:**
 

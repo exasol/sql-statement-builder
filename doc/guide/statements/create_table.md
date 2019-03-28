@@ -11,7 +11,7 @@ point to defining a CREATE TABLE SQL statement.
   CreateTable createTable = StatementFactory.getInstance().createTable("tableName");
   ```
 
-2. Create columns with desired data types using fluent programming
+2. Create columns with desired data types using fluent programming.
 
   Construct the columns in the order you want them to appear in the created table.
 
@@ -27,7 +27,7 @@ point to defining a CREATE TABLE SQL statement.
   Additionally, some column types require extra parameters, for instance
   `VARCHAR`.
 
-  **Currently the following column types are supported:**
+  **Currently, the following column types are supported:**
 
   | Column Type                      | Parameter Required | Example                                                          |
   |:---------------------------------|:-------------------|:-----------------------------------------------------------------|
@@ -44,12 +44,10 @@ point to defining a CREATE TABLE SQL statement.
 
   You can find more information about the column types in the SQL Statement Builder's JavaDoc API description.
 
-3. Render the instance of `CreateTable` class
-
-Please read about rendering [here](../rendering.md)
+3. Render the instance of `CreateTable` class. Click [here](../rendering.md) for more information on Rendering SQLStatement.
 
 
-- The whole example code
+- The complete example code
 
   ```java
   CreateTable createTable = StatementFactory.getInstance().createTable("tableName");
