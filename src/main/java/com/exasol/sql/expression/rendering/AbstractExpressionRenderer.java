@@ -1,8 +1,10 @@
 package com.exasol.sql.expression.rendering;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 import com.exasol.sql.expression.BooleanExpression;
+import com.exasol.sql.expression.BooleanLiteral;
 import com.exasol.sql.rendering.StringRendererConfig;
 
 /**
@@ -11,7 +13,7 @@ import com.exasol.sql.rendering.StringRendererConfig;
 public class AbstractExpressionRenderer {
     protected final StringRendererConfig config;
     protected final StringBuilder builder = new StringBuilder();
-    protected final Stack<String> connectorStack = new Stack<>();
+    protected final Deque<String> connectorDeque = new ArrayDeque<>();
 
     public AbstractExpressionRenderer(final StringRendererConfig config) {
         this.config = config;
@@ -28,21 +30,29 @@ public class AbstractExpressionRenderer {
     }
 
     private void appendConnector() {
-        if (!this.connectorStack.isEmpty()) {
-            appendKeyword(this.connectorStack.peek());
+        if (!this.connectorDeque.isEmpty()) {
+            appendKeyword(this.connectorDeque.peek());
         }
     }
 
-    protected void appendLiteral(final String string) {
-        this.builder.append(string);
+    protected void appendStringLiteral(final String value) {
+        this.builder.append(value);
+    }
+
+    protected void appendBooleanLiteral(final BooleanLiteral literal) {
+        this.builder.append(this.config.useLowerCase() ? literal.toString().toLowerCase() : literal.toString());
     }
 
     protected void startParenthesis() {
         this.builder.append("(");
     }
 
-    protected void endParenthesis(final BooleanExpression expression) {
+    protected void endParenthesis() {
         this.builder.append(")");
+    }
+
+    protected void append(final String string) {
+        this.builder.append(string);
     }
 
     /**
@@ -52,9 +62,5 @@ public class AbstractExpressionRenderer {
      */
     public String render() {
         return this.builder.toString();
-    }
-
-    protected void append(final String string) {
-        this.builder.append(string);
     }
 }

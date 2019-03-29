@@ -1,9 +1,9 @@
-package com.exasol.datatype.interval;
+package com.exasol.datatype.value;
 
 import java.util.regex.Matcher;
 
 public abstract class AbstractInterval {
-    protected final long value;
+    protected long value;
     protected boolean positive;
 
     public AbstractInterval(final long value) {
@@ -22,7 +22,8 @@ public abstract class AbstractInterval {
     }
 
     protected static long parseMatchingGroupToLong(final Matcher matcher, final int groupNumber) {
-        return (matcher.group(groupNumber) == null) ? 0 : Long.parseLong(matcher.group(groupNumber));
+        return (matcher.group(groupNumber) == null) ? 0 :
+              Long.parseLong(matcher.group(groupNumber));
     }
 
     protected String getSign() {

@@ -1,8 +1,7 @@
 package com.exasol.sql.expression.rendering;
 
 import com.exasol.sql.UnnamedPlaceholder;
-import com.exasol.sql.expression.Value;
-import com.exasol.sql.expression.ValueExpressionVisitor;
+import com.exasol.sql.expression.*;
 import com.exasol.sql.rendering.StringRendererConfig;
 
 /**
@@ -14,15 +13,15 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
     }
 
     @Override
-    public void visit(final Value value) {
-        final Object object = value.get();
-        if (object instanceof String) {
-            append("'");
-            append((String) object);
-            append("'");
-        } else {
-            this.builder.append(value.get().toString());
-        }
+    public void visit(final StringLiteral literal) {
+        append("'");
+        append(literal.toString());
+        append("'");
+    }
+
+    @Override
+    public void visit(final IntegerLiteral literal) {
+        append(literal.toString());
     }
 
     @Override

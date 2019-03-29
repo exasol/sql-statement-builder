@@ -21,13 +21,13 @@ public class BooleanExpressionRenderer extends AbstractExpressionRenderer implem
 
     @Override
     public void leave(final Not not) {
-        endParenthesis(not);
+        endParenthesis();
     }
 
     @Override
     public void visit(final And and) {
         connect(and);
-        this.connectorStack.push(" AND ");
+        this.connectorDeque.push(" AND ");
         if (!and.isRoot()) {
             startParenthesis();
         }
@@ -36,15 +36,15 @@ public class BooleanExpressionRenderer extends AbstractExpressionRenderer implem
     @Override
     public void leave(final And and) {
         if (!and.isRoot()) {
-            endParenthesis(and);
+            endParenthesis();
         }
-        this.connectorStack.pop();
+        this.connectorDeque.pop();
     }
 
     @Override
     public void visit(final Or or) {
         connect(or);
-        this.connectorStack.push(" OR ");
+        this.connectorDeque.push(" OR ");
         if (!or.isRoot()) {
             startParenthesis();
         }
@@ -53,19 +53,19 @@ public class BooleanExpressionRenderer extends AbstractExpressionRenderer implem
     @Override
     public void leave(final Or or) {
         if (!or.isRoot()) {
-            endParenthesis(or);
+            endParenthesis();
         }
-        this.connectorStack.pop();
+        this.connectorDeque.pop();
     }
 
     @Override
-    public void visit(final Literal literal) {
+    public void visit(final BooleanLiteral literal) {
         connect(literal);
-        appendLiteral(literal.toString());
+        appendBooleanLiteral(literal);
     }
 
     @Override
-    public void leave(final Literal literal) {
+    public void leave(final BooleanLiteral literal) {
         // intentionally empty
     }
 
@@ -75,17 +75,23 @@ public class BooleanExpressionRenderer extends AbstractExpressionRenderer implem
         if (!comparison.isRoot()) {
             startParenthesis();
         }
-        comparison.getLeftOperand().accept(this);
+        appendOperand(comparison.getLeftOperand());
         this.builder.append(" ");
         this.builder.append(comparison.getOperator().toString());
         this.builder.append(" ");
-        comparison.getRightOperand().accept(this);
+        appendOperand(comparison.getRightOperand());
+    }
+
+    protected void appendOperand(final StringLiteral leftOperand) {
+        final ValueExpressionRenderer leftExpressionRenderer = new ValueExpressionRenderer(this.config);
+        leftOperand.accept(leftExpressionRenderer);
+        this.builder.append(leftExpressionRenderer.render());
     }
 
     @Override
     public void leave(final Comparison comparison) {
         if (!comparison.isRoot()) {
-            endParenthesis(comparison);
+            endParenthesis();
         }
     }
 }

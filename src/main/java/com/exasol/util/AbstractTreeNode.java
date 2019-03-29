@@ -12,8 +12,7 @@ public abstract class AbstractTreeNode implements TreeNode {
     private final List<TreeNode> children = new ArrayList<>();
 
     /**
-     * Create a new instance of a {@link AbstractTreeNode} that serves as root for a
-     * tree.
+     * Create a new instance of a {@link AbstractTreeNode} that serves as root for a tree.
      */
     public AbstractTreeNode() {
         this.root = this;
@@ -25,10 +24,9 @@ public abstract class AbstractTreeNode implements TreeNode {
      *
      * @param parent the parent to which this node will be linked as a child
      *
-     * @throws IllegalArgumentException if parent is <code>null</code> or parent and
-     * child are identical
+     * @throws IllegalArgumentException if parent is <code>null</code> or parent and child are identical
      */
-    public void setParent(final TreeNode parent) throws IllegalArgumentException {
+    public void setParent(final TreeNode parent) {
         if (parent == null) {
             throw new IllegalArgumentException("Parent tree node cannot be NULL.");
         } else if (parent == this) {

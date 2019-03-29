@@ -1,12 +1,13 @@
-package com.exasol.datatype.interval;
-
-import static com.exasol.datatype.interval.IntervalConstants.MONTHS_PER_YEAR;
+package com.exasol.datatype.value;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.exasol.datatype.value.IntervalConstants.MONTHS_PER_YEAR;
+
 /**
- * This class implements the Exasol-proprietary data type <code>INTERVAL YEAR(x) TO MONTH(y)</code>. It supports
+ * This class implements the Exasol-proprietary data type value <code>INTERVAL YEAR(x) TO MONTH(y)
+ * </code>. It supports
  * conversions to and from strings and from a number of months.
  *
  * <p>
@@ -16,10 +17,11 @@ import java.util.regex.Pattern;
  * <li>years</li>
  * <li>months</li>
  * </ul>
- *
- * Since months are the highest resolution, each interval can also be expressed as a total number of months. This is
- * also the recommended way to represent the interval values in other systems which do not natively support this data
- * type.
+ * <p>
+ * Since months are the highest resolution, each interval can also be expressed as a total number
+ * of months. This is
+ * also the recommended way to represent the interval values in other systems which do not
+ * natively support this data type.
  */
 public class IntervalYearToMonth extends AbstractInterval {
     private static final int SIGN_MATCHING_GROUP = 1;
@@ -95,12 +97,12 @@ public class IntervalYearToMonth extends AbstractInterval {
         final Matcher matcher = INTERVAL_PATTERN.matcher(text);
         if (matcher.matches()) {
             final long parsedValue = MONTHS_PER_YEAR * parseMatchingGroupToLong(matcher, YEARS_MATCHING_GROUP) //
-                    + parseMatchingGroupToLong(matcher, MONTHS_MATCHING_GROUP);
+                  + parseMatchingGroupToLong(matcher, MONTHS_MATCHING_GROUP);
             final boolean parsedPositive = !"-".equals(matcher.group(SIGN_MATCHING_GROUP));
             return new IntervalYearToMonth(parsedValue, parsedPositive);
         } else {
             throw new IllegalArgumentException(
-                    "Text \"" + text + "\" cannot be parsed to an INTERVAL. Must match \"" + INTERVAL_PATTERN + "\"");
+                  "Text \"" + text + "\" cannot be parsed to an INTERVAL. Must match \"" + INTERVAL_PATTERN + "\"");
         }
     }
 }

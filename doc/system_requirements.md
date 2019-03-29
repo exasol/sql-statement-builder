@@ -162,7 +162,57 @@ Covers:
 
 Needs: dsn
 
-### Data Manipulation Language
+#### Boolean Literals
+`req~boolean-literal`
+
+ESB can convert the following string literals into boolean values, independently of the case they are written in:
+
+* true: `true`, `t`, `yes`, `y`, `on`, `enabled`, `1`
+* false: `false`, `f`, `no`, `n`, `off`, `disabled`, `0`
+
+Covers:
+
+* [feat~statement-definition~1](#statement-definition)
+
+Needs: dsn
+
+### Data Query Language (DQL)
+
+#### Table Value
+`req~table_value~1`
+
+ESB supports the following way to construct tables from value matrixes:
+
+    value-table = VALUES value-row *( COMMA value-row )
+    
+    value-row = L-BRACKET expression *( COMMA expression ) R-BRACKET
+
+Covers:
+
+* [feat~statement-definition~1](#statement-definition)
+
+Needs: dsn
+
+### Data Definition Language (DDL)
+
+#### CREATE Statements
+`req~create-statements~1`
+
+ESB supports the following create statement:
+
+    create-statement = "CREATE TABLE" table-reference table-element-list
+    
+    table-reference = table [AS table-alias]
+    
+    table-element-list = L-BRACKET table-element [*( COMMA table-element )] R-BRACKET
+
+Covers:
+
+* [feat~statement-definition~1](#statement-definition)
+
+Needs: dsn
+
+### Data Manipulation Language (DML)
 
 #### INSERT Statements
 `req~insert-statements~1`
@@ -236,6 +286,17 @@ Needs: dsn
 `req~rendering.sql.select~1`
 
 ESB renders abstract `SELECT` statements into SQL query strings.
+
+Covers:
+
+* [feat~sql-string-rendering~1](#sql-string-rendering)
+
+Needs: dsn
+
+#### CREATE Statement Rendering
+`req~rendering.sql.create~1`
+
+ESB renders abstract `CREATE` statements into SQL data definition language strings.
 
 Covers:
 

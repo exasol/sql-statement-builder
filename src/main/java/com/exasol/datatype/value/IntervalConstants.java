@@ -1,4 +1,4 @@
-package com.exasol.datatype.interval;
+package com.exasol.datatype.value;
 
 final class IntervalConstants {
     private IntervalConstants() {

@@ -21,7 +21,6 @@ class TestWhereRendering {
 
     @Test
     void testWhere() {
-        assertThat(this.select.where(eq("firstname", "Jane")),
-                rendersTo("SELECT * FROM person WHERE firstname = Jane"));
+        assertThat(this.select.where(eq("foo", "bar")), rendersTo("SELECT * FROM person WHERE 'foo' = 'bar'"));
     }
 }
