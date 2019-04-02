@@ -23,7 +23,7 @@ The goals of the ESB are:
 
 ### Notation
 
-#### Augmented Backus–Naur Form (ABNF)
+#### Augmented Backus-Naur Form (ABNF)
 
 This document uses Augmented Backus–Naur Form (ABNF) for syntax definitions.
 
@@ -202,10 +202,25 @@ ESB supports the following create statement:
 
     create-statement = "CREATE TABLE" table-reference table-element-list
     
-    table-reference = table [AS table-alias]
+    table-reference = table
     
     table-element-list = L-BRACKET table-element [*( COMMA table-element )] R-BRACKET
 
+Covers:
+
+* [feat~statement-definition~1](#statement-definition)
+
+Needs: dsn
+
+#### DROP Statements
+`req~drop-statements~1`
+
+ESB supports the following drop statement:
+
+    drop-statement = "DROP TABLE" [IF EXISTS] table-reference [CASCADE CONSTRAINTS]
+    
+    table-reference = table
+    
 Covers:
 
 * [feat~statement-definition~1](#statement-definition)
@@ -297,6 +312,17 @@ Needs: dsn
 `req~rendering.sql.create~1`
 
 ESB renders abstract `CREATE` statements into SQL data definition language strings.
+
+Covers:
+
+* [feat~sql-string-rendering~1](#sql-string-rendering)
+
+Needs: dsn
+
+#### DROP Statement Rendering
+`req~rendering.sql.drop~1`
+
+ESB renders abstract `DROP` statements into SQL data definition language strings.
 
 Covers:
 
