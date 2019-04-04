@@ -1,9 +1,10 @@
-package com.exasol.sql.ddl;
+package com.exasol.sql.ddl.create;
 
 import com.exasol.datatype.type.Boolean;
 import com.exasol.datatype.type.*;
 import com.exasol.sql.Column;
 import com.exasol.sql.StatementFactory;
+import com.exasol.sql.ddl.create.CreateTable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

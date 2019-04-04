@@ -1,6 +1,6 @@
 package com.exasol.sql;
 
-import com.exasol.sql.ddl.CreateTable;
+import com.exasol.sql.ddl.create.CreateTable;
 import com.exasol.sql.dml.Insert;
 import com.exasol.sql.dql.Select;
 

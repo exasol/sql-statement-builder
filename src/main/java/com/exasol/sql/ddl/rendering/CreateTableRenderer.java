@@ -6,8 +6,8 @@ import com.exasol.sql.Column;
 import com.exasol.sql.Field;
 import com.exasol.sql.Table;
 import com.exasol.sql.ddl.ColumnsDefinition;
-import com.exasol.sql.ddl.CreateTable;
-import com.exasol.sql.ddl.CreateTableVisitor;
+import com.exasol.sql.ddl.create.CreateTable;
+import com.exasol.sql.ddl.create.CreateTableVisitor;
 import com.exasol.sql.rendering.AbstractFragmentRenderer;
 import com.exasol.sql.rendering.StringRendererConfig;
 

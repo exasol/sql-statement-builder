@@ -1,7 +1,7 @@
 package com.exasol.sql.ddl.rendering;
 
 import com.exasol.sql.StatementFactory;
-import com.exasol.sql.ddl.CreateTable;
+import com.exasol.sql.ddl.create.CreateTable;
 import com.exasol.sql.rendering.StringRendererConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,8 +1,8 @@
 package com.exasol.sql;
 
 import com.exasol.datatype.type.DataType;
-import com.exasol.sql.ddl.CreateTableFragment;
-import com.exasol.sql.ddl.CreateTableVisitor;
+import com.exasol.sql.ddl.create.CreateTableFragment;
+import com.exasol.sql.ddl.create.CreateTableVisitor;
 
 /**
  * This class represents a column in an SQL statement.

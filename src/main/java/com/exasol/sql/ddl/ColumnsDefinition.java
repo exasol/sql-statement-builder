@@ -4,6 +4,8 @@ import com.exasol.datatype.type.DataType;
 import com.exasol.sql.AbstractFragment;
 import com.exasol.sql.Column;
 import com.exasol.sql.SqlStatement;
+import com.exasol.sql.ddl.create.CreateTableFragment;
+import com.exasol.sql.ddl.create.CreateTableVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
