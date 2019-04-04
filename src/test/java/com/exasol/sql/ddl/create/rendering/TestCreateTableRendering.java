@@ -1,4 +1,4 @@
-package com.exasol.sql.ddl.rendering;
+package com.exasol.sql.ddl.create.rendering;
 
 import com.exasol.sql.StatementFactory;
 import com.exasol.sql.ddl.create.CreateTable;
@@ -11,7 +11,7 @@ import static com.exasol.hamcrest.SqlFragmentRenderResultMatcher.rendersWithConf
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class TestCreateTableRendering {
+class TestCreateTableRendering {
     private static final String TABLE_NAME = "testName";
 
     private CreateTable createTable;
@@ -29,14 +29,12 @@ public class TestCreateTableRendering {
     @Test
     void testCreateTableRendersToWithConfig() {
         assertThat(this.createTable,
-              rendersWithConfigTo(StringRendererConfig.builder().lowerCase(true).build(),
-                    "create table testName"));
+              rendersWithConfigTo(StringRendererConfig.builder().lowerCase(true).build(), "create table testName"));
     }
 
     @Test
     void testCreateTableWithBooleanColumn() {
-        assertThat(this.createTable.booleanColumn("a"),
-              rendersTo("CREATE TABLE testName (a BOOLEAN)"));
+        assertThat(this.createTable.booleanColumn("a"), rendersTo("CREATE TABLE testName (a BOOLEAN)"));
     }
 
     @Test
@@ -52,8 +50,7 @@ public class TestCreateTableRendering {
 
     @Test
     void testCreateTableWithTimestampColumn() {
-        assertThat(this.createTable.timestampColumn("a"),
-              rendersTo("CREATE TABLE testName (a TIMESTAMP)"));
+        assertThat(this.createTable.timestampColumn("a"), rendersTo("CREATE TABLE testName (a TIMESTAMP)"));
     }
 
     @Test
@@ -64,8 +61,7 @@ public class TestCreateTableRendering {
 
     @Test
     void testCreateTableWithCharColumn() {
-        assertThat(this.createTable.charColumn("a", 10),
-              rendersTo("CREATE TABLE testName (a CHAR(10))"));
+        assertThat(this.createTable.charColumn("a", 10), rendersTo("CREATE TABLE testName (a CHAR(10))"));
     }
 
     @Test
@@ -76,8 +72,7 @@ public class TestCreateTableRendering {
 
     @Test
     void testCreateTableWithVarcharColumn() {
-        assertThat(this.createTable.varcharColumn("a", 3000),
-              rendersTo("CREATE TABLE testName (a VARCHAR(3000))"));
+        assertThat(this.createTable.varcharColumn("a", 3000), rendersTo("CREATE TABLE testName (a VARCHAR(3000))"));
     }
 
     @Test
@@ -88,10 +83,8 @@ public class TestCreateTableRendering {
 
     @Test
     void testCreateTableWithInvalidIntervalYearToMonthColumn() {
-        assertThrows(IllegalArgumentException.class,
-              () -> this.createTable.intervalYearToMonthColumn("b", 37));
-        assertThrows(IllegalArgumentException.class,
-              () -> this.createTable.intervalYearToMonthColumn("b", 0));
+        assertThrows(IllegalArgumentException.class, () -> this.createTable.intervalYearToMonthColumn("b", 37));
+        assertThrows(IllegalArgumentException.class, () -> this.createTable.intervalYearToMonthColumn("b", 0));
     }
 
     @Test
@@ -102,45 +95,36 @@ public class TestCreateTableRendering {
 
     @Test
     void testCreateTableWithInvalidIntervalDayToSecodColumn() {
-        assertThrows(IllegalArgumentException.class,
-              () -> this.createTable.intervalDayToSecondColumn("b", 2, -1));
-        assertThrows(IllegalArgumentException.class,
-              () -> this.createTable.intervalDayToSecondColumn("b", 2, 10));
+        assertThrows(IllegalArgumentException.class, () -> this.createTable.intervalDayToSecondColumn("b", 2, -1));
+        assertThrows(IllegalArgumentException.class, () -> this.createTable.intervalDayToSecondColumn("b", 2, 10));
     }
 
     @Test
     void testCreateTableWithInvalidVarcharSizeColumn() {
-        assertThrows(IllegalArgumentException.class,
-              () -> this.createTable.varcharColumn("a", 2000001));
+        assertThrows(IllegalArgumentException.class, () -> this.createTable.varcharColumn("a", 2000001));
         assertThrows(IllegalArgumentException.class, () -> this.createTable.varcharColumn("a", -1));
     }
 
     @Test
     void testCreateTableWithDecimalColumn() {
-        assertThat(this.createTable.decimalColumn("a", 18, 0),
-              rendersTo("CREATE TABLE testName (a DECIMAL(18,0))"));
+        assertThat(this.createTable.decimalColumn("a", 18, 0), rendersTo("CREATE TABLE testName (a DECIMAL(18,0))"));
     }
 
     @Test
     void testCreateTableWithInvalidDecimalPrecisionColumn() {
-        assertThrows(IllegalArgumentException.class,
-              () -> this.createTable.decimalColumn("b", 37, 0));
-        assertThrows(IllegalArgumentException.class,
-              () -> this.createTable.decimalColumn("b", 0, 0));
+        assertThrows(IllegalArgumentException.class, () -> this.createTable.decimalColumn("b", 37, 0));
+        assertThrows(IllegalArgumentException.class, () -> this.createTable.decimalColumn("b", 0, 0));
     }
 
     @Test
     void testCreateTableWithInvalidDecimalScaleColumn() {
-        assertThrows(IllegalArgumentException.class,
-              () -> this.createTable.decimalColumn("b", 18, -1));
-        assertThrows(IllegalArgumentException.class,
-              () -> this.createTable.decimalColumn("b", 18, 19));
+        assertThrows(IllegalArgumentException.class, () -> this.createTable.decimalColumn("b", 18, -1));
+        assertThrows(IllegalArgumentException.class, () -> this.createTable.decimalColumn("b", 18, 19));
     }
 
     @Test
     void testCreateTableWithCharAFewColumns() {
-        assertThat(this.createTable.decimalColumn("dec_col", 9, 0).charColumn("char_col", 10)
-              .booleanColumn("bool_col"), rendersTo(
-              "CREATE TABLE testName (dec_col DECIMAL(9,0), char_col CHAR(10), bool_col BOOLEAN)"));
+        assertThat(this.createTable.decimalColumn("dec_col", 9, 0).charColumn("char_col", 10).booleanColumn("bool_col"),
+              rendersTo("CREATE TABLE testName (dec_col DECIMAL(9,0), char_col CHAR(10), bool_col BOOLEAN)"));
     }
 }

@@ -1,4 +1,4 @@
-package com.exasol.sql.ddl.rendering;
+package com.exasol.sql.ddl.create.rendering;
 
 import com.exasol.sql.StatementFactory;
 import com.exasol.sql.ddl.create.CreateTable;
@@ -9,7 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.startsWith;
 
-public class TestCreateTableRenderer {
+class TestCreateTableRenderer {
     @Test
     void testCreateWithDefaultConfig() {
         assertThat(CreateTableRenderer.create(), instanceOf(CreateTableRenderer.class));

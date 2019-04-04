@@ -33,7 +33,7 @@ public class ColumnsDefinition extends AbstractFragment implements CreateTableFr
     }
 
 
-    protected List<Column> getColumns() {
+    public List<Column> getColumns() {
         return this.columns;
     }
 

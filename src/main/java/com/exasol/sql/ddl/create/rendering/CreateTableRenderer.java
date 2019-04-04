@@ -1,4 +1,4 @@
-package com.exasol.sql.ddl.rendering;
+package com.exasol.sql.ddl.create.rendering;
 
 import com.exasol.datatype.type.Boolean;
 import com.exasol.datatype.type.*;

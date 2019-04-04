@@ -1,7 +1,7 @@
 package com.exasol.hamcrest;
 
 import com.exasol.sql.ddl.create.CreateTableFragment;
-import com.exasol.sql.ddl.rendering.CreateTableRenderer;
+import com.exasol.sql.ddl.create.rendering.CreateTableRenderer;
 import org.hamcrest.Description;
 
 import com.exasol.sql.Fragment;
