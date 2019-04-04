@@ -2,18 +2,67 @@ package com.exasol.sql.ddl.drop;
 
 import com.exasol.sql.*;
 
-public class DropTable extends AbstractFragment implements SqlStatement, DropTableFragment  {
+/**
+ * This class implements an SQL {@link DropTable} statement
+ */
+public class DropTable extends AbstractFragment implements SqlStatement, DropTableFragment {
+    private final Table table;
+    private boolean ifExists = false;
+    private CascadeConstraints cascadeConstraints = null;
+
     /**
-     * Create an instance of an SQL fragment
+     * Create a new instance of an {@link DropTable} statement
      *
-     * @param root root SQL statement this fragment belongs to.
+     * @param tableName name of the table to drop
      */
-    public DropTable(final Fragment root) {
-        super(root);
+    public DropTable(final String tableName) {
+        super(null);
+        this.table = new Table(this, tableName);
     }
 
     @Override
     public void accept(final DropTableVisitor visitor) {
+        visitor.visit(this);
+        this.table.accept(visitor);
+        if (this.cascadeConstraints != null) {
+            this.cascadeConstraints.accept(visitor);
+        }
+    }
 
+    /**
+     * Add "if exists" expression into a drop table statement
+     *
+     * @return <code>this</code> for fluent Programming
+     */
+    public synchronized DropTable ifExists() {
+        this.ifExists = true;
+        return this;
+    }
+
+    /**
+     * Add "cascade constraints" expression into a drop table statement
+     *
+     * @return <code>this</code> for fluent Programming
+     */
+    public DropTable cascadeConstraints() {
+        this.cascadeConstraints = new CascadeConstraints(this);
+        return this;
+    }
+
+    /**
+     * Get true when "if exists" expression presents
+     *
+     * @return if exists
+     */
+    public boolean getIfExists() {
+        return this.ifExists;
+    }
+
+    protected String getTableName() {
+        return this.table.getName();
+    }
+
+    protected CascadeConstraints getCascadeConstraints() {
+        return this.cascadeConstraints;
     }
 }

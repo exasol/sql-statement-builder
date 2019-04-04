@@ -5,7 +5,6 @@ import com.exasol.datatype.type.*;
 import com.exasol.sql.AbstractFragment;
 import com.exasol.sql.SqlStatement;
 import com.exasol.sql.Table;
-import com.exasol.sql.ddl.*;
 
 /**
  * This class implements an SQL {@link CreateTable} statement

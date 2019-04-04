@@ -3,7 +3,9 @@ package com.exasol.sql;
 import com.exasol.sql.dql.ValueTable;
 import com.exasol.sql.dql.ValueTableRow;
 
-public interface ValueTableVisitor extends FragmentVisitor {
+public interface TableValuesVisitor extends SqlStatementVisitor {
+    public void visit(Field field);
+
     public void visit(ValueTable valueTable);
 
     public void leave(ValueTable valueTable);

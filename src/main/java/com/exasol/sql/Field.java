@@ -3,7 +3,7 @@ package com.exasol.sql;
 /**
  * This class represents a table field in an SQL statement.
  */
-public class Field extends AbstractFragment implements GenericFragment {
+public class Field extends AbstractFragment {
     private final String name;
 
     /**
@@ -26,8 +26,7 @@ public class Field extends AbstractFragment implements GenericFragment {
         return this.name;
     }
 
-    @Override
-    public void accept(final FragmentVisitor visitor) {
+    public void accept(final TableValuesVisitor visitor) {
         visitor.visit(this);
     }
 }

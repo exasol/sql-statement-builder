@@ -3,7 +3,7 @@ package com.exasol.sql.dml;
 import com.exasol.sql.Fragment;
 
 /**
- * This is the common interface for all fragments of a SELECT statement.
+ * This is the common interface for all fragments of a INSERT statement.
  */
 public interface InsertFragment extends Fragment {
     /**

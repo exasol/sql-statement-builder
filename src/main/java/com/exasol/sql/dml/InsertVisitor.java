@@ -1,9 +1,8 @@
 package com.exasol.sql.dml;
 
-import com.exasol.sql.FragmentVisitor;
-import com.exasol.sql.ValueTableVisitor;
+import com.exasol.sql.TableValuesVisitor;
 
-public interface InsertVisitor extends FragmentVisitor, ValueTableVisitor {
+public interface InsertVisitor extends TableValuesVisitor {
     public void visit(Insert insert);
 
     public void visit(InsertFields insertFields);

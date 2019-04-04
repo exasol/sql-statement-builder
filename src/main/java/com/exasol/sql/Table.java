@@ -5,7 +5,7 @@ import java.util.Optional;
 /**
  * This class represents a {@link Table} in an SQL Statement
  */
-public class Table extends AbstractFragment implements TableReference, GenericFragment {
+public class Table extends AbstractFragment {
     private final String name;
     private final Optional<String> as;
 
@@ -52,8 +52,7 @@ public class Table extends AbstractFragment implements TableReference, GenericFr
         return this.as;
     }
 
-    @Override
-    public void accept(final FragmentVisitor visitor) {
+    public void accept(final SqlStatementVisitor visitor) {
         visitor.visit(this);
     }
 }
