@@ -26,7 +26,7 @@ import static com.exasol.datatype.value.IntervalConstants.*;
  * This is also the recommended way to represent the interval values in other systems which do
  * not natively support this data type.
  */
-public class IntervalDayToSecond extends AbstractInterval {
+public final class IntervalDayToSecond extends AbstractInterval {
     private static final int SIGN_MATCHING_GROUP = 1;
     private static final int DAYS_MATCHING_GROUP = 2;
     private static final int HOURS_MATCHING_GROUP = 3;

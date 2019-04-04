@@ -5,7 +5,6 @@ import com.exasol.datatype.type.*;
 import com.exasol.sql.Column;
 import com.exasol.sql.FragmentVisitor;
 import com.exasol.sql.ddl.ColumnsDefinition;
-import com.exasol.sql.ddl.create.CreateTable;
 
 public interface CreateTableVisitor extends FragmentVisitor {
     public void visit(final CreateTable createTable);

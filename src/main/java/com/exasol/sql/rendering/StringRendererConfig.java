@@ -5,7 +5,7 @@ import com.exasol.sql.StatementFactory;
 /**
  * This class implements a parameter object containing the configuration options for the {@link StatementFactory}.
  */
-public class StringRendererConfig {
+public final class StringRendererConfig {
     private final boolean lowerCase;
     private final boolean quote;
 
@@ -53,7 +53,7 @@ public class StringRendererConfig {
     /**
      * Builder for {@link StringRendererConfig}
      */
-    public static class Builder {
+    public static final class Builder {
         private boolean lowerCase = false;
         private boolean quote = false;
 

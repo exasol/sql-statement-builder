@@ -1,7 +1,6 @@
 package com.exasol.sql.dml;
 
 import com.exasol.sql.*;
-import com.exasol.sql.dql.Select;
 import com.exasol.sql.dql.ValueTable;
 
 /**
