@@ -53,7 +53,7 @@ public class ValueTableRow extends AbstractFragment {
         return this.expressions;
     }
 
-    public void accept(final ValueTableVisitor visitor) {
+    public void accept(final TableValuesVisitor visitor) {
         visitor.visit(this);
         visitor.leave(this);
     }

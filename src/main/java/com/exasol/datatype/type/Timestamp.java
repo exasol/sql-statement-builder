@@ -1,6 +1,6 @@
 package com.exasol.datatype.type;
 
-import com.exasol.sql.ddl.CreateTableVisitor;
+import com.exasol.sql.ddl.create.CreateTableVisitor;
 
 /**
  * This class implements the SQl data type timestamp

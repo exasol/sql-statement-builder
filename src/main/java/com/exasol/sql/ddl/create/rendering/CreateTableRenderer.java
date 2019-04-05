@@ -1,13 +1,9 @@
-package com.exasol.sql.ddl.rendering;
+package com.exasol.sql.ddl.create.rendering;
 
 import com.exasol.datatype.type.Boolean;
 import com.exasol.datatype.type.*;
-import com.exasol.sql.Column;
-import com.exasol.sql.Field;
 import com.exasol.sql.Table;
-import com.exasol.sql.ddl.ColumnsDefinition;
-import com.exasol.sql.ddl.CreateTable;
-import com.exasol.sql.ddl.CreateTableVisitor;
+import com.exasol.sql.ddl.create.*;
 import com.exasol.sql.rendering.AbstractFragmentRenderer;
 import com.exasol.sql.rendering.StringRendererConfig;
 
@@ -127,27 +123,18 @@ public class CreateTableRenderer extends AbstractFragmentRenderer implements Cre
     }
 
     @Override
-    public void visit(final Field field) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public void visit(final Table table) {
         appendAutoQuoted(table.getName());
         setLastVisited(table);
     }
 
-    private String getIntervalDayToSecondNameWithPrecision(
-          final IntervalDayToSecond intervalDayToSecondColumn) {
-        return String.format(intervalDayToSecondColumn.getName(),
-              intervalDayToSecondColumn.getYearPrecision(),
+    private String getIntervalDayToSecondNameWithPrecision(final IntervalDayToSecond intervalDayToSecondColumn) {
+        return String.format(intervalDayToSecondColumn.getName(), intervalDayToSecondColumn.getYearPrecision(),
               intervalDayToSecondColumn.getMillisecondPrecision());
     }
 
-    private String getIntervalYearToMonthNameWithPrecision(
-          final IntervalYearToMonth intervalYearToMonthColumn) {
-        return String.format(intervalYearToMonthColumn.getName(),
-              intervalYearToMonthColumn.getYearPrecision());
+    private String getIntervalYearToMonthNameWithPrecision(final IntervalYearToMonth intervalYearToMonthColumn) {
+        return String.format(intervalYearToMonthColumn.getName(), intervalYearToMonthColumn.getYearPrecision());
     }
 
     private void appendDataTypeWithoutParameters(final DataType dataType) {

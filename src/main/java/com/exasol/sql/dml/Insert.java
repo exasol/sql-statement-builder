@@ -1,11 +1,10 @@
 package com.exasol.sql.dml;
 
 import com.exasol.sql.*;
-import com.exasol.sql.dql.Select;
 import com.exasol.sql.dql.ValueTable;
 
 /**
- * This class implements an SQL {@link Select} statement
+ * This class implements an SQL {@link Insert} statement
  */
 // [impl->dsn~insert-statements~1]
 public class Insert extends AbstractFragment implements SqlStatement, InsertFragment {

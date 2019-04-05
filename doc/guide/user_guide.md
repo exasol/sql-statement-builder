@@ -16,8 +16,14 @@ you can, for example, use the SSB to render the statement into an SQL string."
 
 **Currently supported SQL statements:**
 
+DDL:
 - [CREATE TABLE](../guide/statements/create_table.md)
+- [DROP TABLE](../guide/statements/drop_table.md)
+
+DQL:
 - SELECT
+
+DML:
 - INSERT INTO
 
 [fluent]: https://en.wikipedia.org/wiki/Fluent_interface

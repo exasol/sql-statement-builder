@@ -1,9 +1,8 @@
 package com.exasol.sql.dql;
 
-import com.exasol.sql.FragmentVisitor;
-import com.exasol.sql.ValueTableVisitor;
+import com.exasol.sql.TableValuesVisitor;
 
-public interface SelectVisitor extends FragmentVisitor, ValueTableVisitor {
+public interface SelectVisitor extends TableValuesVisitor {
     public void visit(final Select select);
 
     public void visit(FromClause fromClause);

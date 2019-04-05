@@ -1,4 +1,4 @@
-package com.exasol.sql.ddl;
+package com.exasol.sql.ddl.create;
 
 import com.exasol.sql.Fragment;
 

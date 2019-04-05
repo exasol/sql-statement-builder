@@ -11,7 +11,7 @@ import com.exasol.sql.rendering.StringRendererConfig;
  * The {@link InsertRenderer} turns SQL statement structures in to SQL strings.
  */
 // [impl->dsn~rendering.sql.insert~1]
-public class InsertRenderer extends AbstractFragmentRenderer implements InsertVisitor, ValueTableVisitor {
+public class InsertRenderer extends AbstractFragmentRenderer implements InsertVisitor {
     /**
      * Create a new {@link InsertRenderer} with custom render settings.
      *

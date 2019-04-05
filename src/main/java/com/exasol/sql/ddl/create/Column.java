@@ -1,11 +1,11 @@
-package com.exasol.sql;
+package com.exasol.sql.ddl.create;
 
 import com.exasol.datatype.type.DataType;
-import com.exasol.sql.ddl.CreateTableFragment;
-import com.exasol.sql.ddl.CreateTableVisitor;
+import com.exasol.sql.AbstractFragment;
+import com.exasol.sql.Fragment;
 
 /**
- * This class represents a column in an SQL statement.
+ * This class represents a column in an SQL statement
  */
 public class Column extends AbstractFragment implements CreateTableFragment {
     private final String columnName;

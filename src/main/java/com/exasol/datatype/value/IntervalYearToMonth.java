@@ -23,7 +23,7 @@ import static com.exasol.datatype.value.IntervalConstants.MONTHS_PER_YEAR;
  * also the recommended way to represent the interval values in other systems which do not
  * natively support this data type.
  */
-public class IntervalYearToMonth extends AbstractInterval {
+public final class IntervalYearToMonth extends AbstractInterval {
     private static final int SIGN_MATCHING_GROUP = 1;
     private static final int YEARS_MATCHING_GROUP = 2;
     private static final int MONTHS_MATCHING_GROUP = 3;

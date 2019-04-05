@@ -1,13 +1,15 @@
-package com.exasol.sql.ddl;
+package com.exasol.sql.ddl.create;
 
 import com.exasol.datatype.type.DataType;
 import com.exasol.sql.AbstractFragment;
-import com.exasol.sql.Column;
 import com.exasol.sql.SqlStatement;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents a list of column definitions in an SQL statement
+ */
 public class ColumnsDefinition extends AbstractFragment implements CreateTableFragment {
     private final List<Column> columns = new ArrayList<>();
 
@@ -16,7 +18,7 @@ public class ColumnsDefinition extends AbstractFragment implements CreateTableFr
      *
      * @param root root statement
      */
-    public ColumnsDefinition(final SqlStatement root) {
+    protected ColumnsDefinition(final SqlStatement root) {
         super(root);
     }
 
@@ -29,7 +31,6 @@ public class ColumnsDefinition extends AbstractFragment implements CreateTableFr
     public void add(final String name, final DataType dataType) {
         this.columns.add(new Column(this, name, dataType));
     }
-
 
     protected List<Column> getColumns() {
         return this.columns;

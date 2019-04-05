@@ -1,6 +1,7 @@
 package com.exasol.sql;
 
-import com.exasol.sql.ddl.CreateTable;
+import com.exasol.sql.ddl.create.CreateTable;
+import com.exasol.sql.ddl.drop.DropTable;
 import com.exasol.sql.dml.Insert;
 import com.exasol.sql.dql.Select;
 
@@ -53,5 +54,15 @@ public final class StatementFactory {
      */
     public CreateTable createTable(final String tableName) {
         return new CreateTable(tableName);
+    }
+
+    /**
+     * Create a {@link DropTable} statement
+     *
+     * @param tableName name of the table to drop
+     * @return a new instance of a {@link DropTable} statement
+     */
+    public DropTable dropTable(final String tableName) {
+        return new DropTable(tableName);
     }
 }
