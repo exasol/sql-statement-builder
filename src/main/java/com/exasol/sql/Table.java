@@ -1,5 +1,8 @@
 package com.exasol.sql;
 
+import com.exasol.sql.ddl.create.CreateTableVisitor;
+import com.exasol.sql.ddl.drop.DropTableVisitor;
+
 import java.util.Optional;
 
 /**
@@ -26,7 +29,7 @@ public class Table extends AbstractFragment {
      *
      * @param root SQL statement this table belongs to
      * @param name table name
-     * @param as table alias
+     * @param as   table alias
      */
     public Table(final Fragment root, final String name, final String as) {
         super(root);
@@ -52,7 +55,15 @@ public class Table extends AbstractFragment {
         return this.as;
     }
 
-    public void accept(final SqlStatementVisitor visitor) {
+    public void accept(final TableValuesVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public void accept(final CreateTableVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public void accept(final DropTableVisitor visitor) {
         visitor.visit(this);
     }
 }

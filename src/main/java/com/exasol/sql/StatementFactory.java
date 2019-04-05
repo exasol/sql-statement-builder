@@ -1,5 +1,6 @@
 package com.exasol.sql;
 
+import com.exasol.sql.ddl.create.CreateSchema;
 import com.exasol.sql.ddl.create.CreateTable;
 import com.exasol.sql.ddl.drop.DropTable;
 import com.exasol.sql.dml.Insert;
@@ -54,6 +55,16 @@ public final class StatementFactory {
      */
     public CreateTable createTable(final String tableName) {
         return new CreateTable(tableName);
+    }
+
+    /**
+     * Create a {@link CreateSchema} statement
+     *
+     * @param schemaName name of the schema to create
+     * @return a new instance of a {@link CreateSchema} statement
+     */
+    public CreateSchema createSchema(String schemaName) {
+        return new CreateSchema(schemaName);
     }
 
     /**

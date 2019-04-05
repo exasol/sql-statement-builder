@@ -2,9 +2,7 @@ package com.exasol.sql.ddl.create;
 
 import com.exasol.datatype.type.Boolean;
 import com.exasol.datatype.type.*;
-import com.exasol.sql.AbstractFragment;
-import com.exasol.sql.SqlStatement;
-import com.exasol.sql.Table;
+import com.exasol.sql.*;
 
 /**
  * This class implements an SQL {@link CreateTable} statement
@@ -151,11 +149,21 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
         return this;
     }
 
-    protected String getTableName() {
+    /**
+     * Get a table name
+     *
+     * @return table name
+     */
+    public String getTableName() {
         return this.table.getName();
     }
 
-    protected ColumnsDefinition getColumns() {
+    /**
+     * Get columns of a table
+     *
+     * @return columns
+     */
+    public ColumnsDefinition getColumns() {
         return this.columnsDefinition;
     }
 
