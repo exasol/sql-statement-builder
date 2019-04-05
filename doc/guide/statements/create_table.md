@@ -44,7 +44,7 @@ point to defining a CREATE TABLE SQL statement.
 
   You can find more information about the column types in the SQL Statement Builder's JavaDoc API description.
 
-3. Render the instance of `CreateTable` class. Click [here](../rendering.md) for more information on Rendering SQLStatement.
+3. Render the instance of `CreateTable` class. Click [here](../rendering.md) for more information on Rendering SQL Statement.
 
 
 - The complete example code
