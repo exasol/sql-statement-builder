@@ -17,7 +17,7 @@ class TestCreateSchema {
     }
 
     @Test
-    void getTableName() {
+    void getSchemaName() {
         assertThat(this.createSchema.getSchemaName(), equalTo(TEST_SCHEMA_NAME));
     }
 }

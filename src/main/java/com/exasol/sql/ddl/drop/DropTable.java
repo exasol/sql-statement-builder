@@ -30,7 +30,7 @@ public class DropTable extends AbstractFragment implements SqlStatement, DropTab
     }
 
     /**
-     * Add "if exists" expression into a DROP TABLE statement
+     * Add IF EXISTS clause into a DROP TABLE statement
      *
      * @return <code>this</code> for fluent programming
      */
@@ -42,7 +42,7 @@ public class DropTable extends AbstractFragment implements SqlStatement, DropTab
     }
 
     /**
-     * Add "cascade constraints" expression into a DROP TABLE statement
+     * Add CASCADE CONSTRAINTS clause into a DROP TABLE statement
      *
      * @return <code>this</code> for fluent programming
      */
@@ -52,7 +52,7 @@ public class DropTable extends AbstractFragment implements SqlStatement, DropTab
     }
 
     /**
-     * Get true when "if exists" expression presents
+     * Get true when IF EXISTS clause presents
      *
      * @return if exists
      */

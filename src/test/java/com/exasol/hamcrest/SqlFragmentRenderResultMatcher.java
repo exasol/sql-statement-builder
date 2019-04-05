@@ -3,7 +3,9 @@ package com.exasol.hamcrest;
 import com.exasol.sql.ddl.create.*;
 import com.exasol.sql.ddl.create.rendering.CreateSchemaRenderer;
 import com.exasol.sql.ddl.create.rendering.CreateTableRenderer;
+import com.exasol.sql.ddl.drop.DropSchemaFragment;
 import com.exasol.sql.ddl.drop.DropTableFragment;
+import com.exasol.sql.ddl.drop.rendering.DropSchemaRenderer;
 import com.exasol.sql.ddl.drop.rendering.DropTableRenderer;
 import org.hamcrest.Description;
 
@@ -58,6 +60,10 @@ public class SqlFragmentRenderResultMatcher extends AbstractRenderResultMatcher<
         } else if (root instanceof CreateSchemaFragment) {
             final CreateSchemaRenderer renderer = new CreateSchemaRenderer(this.config);
             ((CreateSchemaFragment) root).accept(renderer);
+            this.renderedText = renderer.render();
+        } else if (root instanceof DropSchemaFragment) {
+            final DropSchemaRenderer renderer = new DropSchemaRenderer(this.config);
+            ((DropSchemaFragment) root).accept(renderer);
             this.renderedText = renderer.render();
         } else {
             throw new UnsupportedOperationException(

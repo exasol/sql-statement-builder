@@ -2,6 +2,7 @@ package com.exasol.sql;
 
 import com.exasol.sql.ddl.create.CreateSchema;
 import com.exasol.sql.ddl.create.CreateTable;
+import com.exasol.sql.ddl.drop.DropSchema;
 import com.exasol.sql.ddl.drop.DropTable;
 import com.exasol.sql.dml.Insert;
 import com.exasol.sql.dql.Select;
@@ -75,5 +76,15 @@ public final class StatementFactory {
      */
     public DropTable dropTable(final String tableName) {
         return new DropTable(tableName);
+    }
+
+    /**
+     * Create a {@link DropSchema} statement
+     *
+     * @param schemaName name of the schema to drop
+     * @return a new instance of a {@link DropSchema} statement
+     */
+    public DropSchema dropSchema(String schemaName) {
+        return new DropSchema(schemaName);
     }
 }

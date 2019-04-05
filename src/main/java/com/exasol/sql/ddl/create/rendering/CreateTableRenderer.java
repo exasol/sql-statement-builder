@@ -23,7 +23,7 @@ public class CreateTableRenderer extends AbstractFragmentRenderer implements Cre
     /**
      * Create an {@link CreateTableRenderer} using the default renderer configuration
      *
-     * @return insert renderer
+     * @return CREATE TABLE renderer
      */
     public static CreateTableRenderer create() {
         return new CreateTableRenderer(StringRendererConfig.createDefault());
@@ -33,7 +33,7 @@ public class CreateTableRenderer extends AbstractFragmentRenderer implements Cre
      * Create an {@link CreateTableRenderer}
      *
      * @param config renderer configuration
-     * @return create table renderer
+     * @return CREATE TABLE renderer
      */
     public static CreateTableRenderer create(final StringRendererConfig config) {
         return new CreateTableRenderer(config);

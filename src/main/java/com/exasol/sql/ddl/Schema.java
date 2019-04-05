@@ -3,6 +3,7 @@ package com.exasol.sql.ddl;
 import com.exasol.sql.AbstractFragment;
 import com.exasol.sql.Fragment;
 import com.exasol.sql.ddl.create.CreateSchemaVisitor;
+import com.exasol.sql.ddl.drop.DropSchemaVisitor;
 
 /**
  * This class represents a {@link Schema} in an SQL Statement
@@ -31,6 +32,10 @@ public class Schema extends AbstractFragment {
     }
 
     public void accept(CreateSchemaVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public void accept(DropSchemaVisitor visitor) {
         visitor.visit(this);
     }
 }

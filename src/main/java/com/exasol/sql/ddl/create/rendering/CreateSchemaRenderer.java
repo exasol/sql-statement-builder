@@ -22,7 +22,7 @@ public class CreateSchemaRenderer extends AbstractFragmentRenderer implements Cr
     /**
      * Create an {@link CreateSchemaRenderer} using the default renderer configuration
      *
-     * @return insert renderer
+     * @return CREATE SCHEMA renderer
      */
     public static CreateSchemaRenderer create() {
         return new CreateSchemaRenderer(StringRendererConfig.createDefault());
@@ -32,7 +32,7 @@ public class CreateSchemaRenderer extends AbstractFragmentRenderer implements Cr
      * Create an {@link CreateSchemaRenderer}
      *
      * @param config renderer configuration
-     * @return create schema renderer
+     * @return CREATE SCHEMA renderer
      */
     public static CreateSchemaRenderer create(final StringRendererConfig config) {
         return new CreateSchemaRenderer(config);

@@ -21,7 +21,7 @@ public class DropTableRenderer extends AbstractFragmentRenderer implements DropT
     /**
      * Create an {@link DropTableRenderer} using the default renderer configuration
      *
-     * @return insert renderer
+     * @return DROP TABLE renderer
      */
     public static DropTableRenderer create() {
         return new DropTableRenderer(StringRendererConfig.createDefault());
@@ -31,7 +31,7 @@ public class DropTableRenderer extends AbstractFragmentRenderer implements DropT
      * Create an {@link DropTableRenderer}
      *
      * @param config renderer configuration
-     * @return create table renderer
+     * @return DROP TABLE renderer
      */
     public static DropTableRenderer create(final StringRendererConfig config) {
         return new DropTableRenderer(config);
