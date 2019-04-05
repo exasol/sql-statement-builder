@@ -27,7 +27,7 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * Add boolean column
      *
      * @param columnName name of the column to be added
-     * @return <code>this</code> for fluent Programming
+     * @return <code>this</code> for fluent programming
      */
     public synchronized CreateTable booleanColumn(final String columnName) {
         checkIfCreateTableColumnsExists();
@@ -40,7 +40,7 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      *
      * @param columnName name of the column to be added
      * @param length     pre-defined length for stored strings
-     * @return <code>this</code> for fluent Programming
+     * @return <code>this</code> for fluent programming
      */
     public synchronized CreateTable charColumn(final String columnName, final int length) {
         checkIfCreateTableColumnsExists();
@@ -53,7 +53,7 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      *
      * @param columnName name of the column to be added
      * @param length     pre-defined length for stored strings
-     * @return <code>this</code> for fluent Programming
+     * @return <code>this</code> for fluent programming
      */
     public synchronized CreateTable varcharColumn(final String columnName, final int length) {
         checkIfCreateTableColumnsExists();
@@ -65,7 +65,7 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * Add date column
      *
      * @param columnName name of the column to be added
-     * @return <code>this</code> for fluent Programming
+     * @return <code>this</code> for fluent programming
      */
     public synchronized CreateTable dateColumn(final String columnName) {
         checkIfCreateTableColumnsExists();
@@ -79,7 +79,7 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * @param columnName name of the column to be added
      * @param precision  precision for numeric value
      * @param scale      scale for numeric value
-     * @return <code>this</code> for fluent Programming
+     * @return <code>this</code> for fluent programming
      */
     public synchronized CreateTable decimalColumn(final String columnName, final int precision, final int scale) {
         checkIfCreateTableColumnsExists();
@@ -91,7 +91,7 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * Add double precision column
      *
      * @param columnName name of the column to be added
-     * @return <code>this</code> for fluent Programming
+     * @return <code>this</code> for fluent programming
      */
     public synchronized CreateTable doublePrecisionColumn(final String columnName) {
         checkIfCreateTableColumnsExists();
@@ -103,7 +103,7 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * Add timestamp column
      *
      * @param columnName name of the column to be added
-     * @return <code>this</code> for fluent Programming
+     * @return <code>this</code> for fluent programming
      */
     public synchronized CreateTable timestampColumn(final String columnName) {
         checkIfCreateTableColumnsExists();
@@ -115,7 +115,7 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * Add timestamp with local time zone column
      *
      * @param columnName name of the column to be added
-     * @return <code>this</code> for fluent Programming
+     * @return <code>this</code> for fluent programming
      */
     public synchronized CreateTable timestampWithLocalTimeZoneColumn(final String columnName) {
         checkIfCreateTableColumnsExists();
@@ -129,7 +129,7 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * @param columnName           name of the column to be added
      * @param yearPrecision        year precision value
      * @param millisecondPrecision millisecond precision value
-     * @return <code>this</code> for fluent Programming
+     * @return <code>this</code> for fluent programming
      */
     public synchronized CreateTable intervalDayToSecondColumn(final String columnName, final int yearPrecision,
           final int millisecondPrecision) {
@@ -143,7 +143,7 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      *
      * @param columnName    name of the column to be added
      * @param yearPrecision year precision value
-     * @return <code>this</code> for fluent Programming
+     * @return <code>this</code> for fluent programming
      */
     public synchronized CreateTable intervalYearToMonthColumn(final String columnName, final int yearPrecision) {
         checkIfCreateTableColumnsExists();

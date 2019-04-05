@@ -30,19 +30,21 @@ public class DropTable extends AbstractFragment implements SqlStatement, DropTab
     }
 
     /**
-     * Add "if exists" expression into a drop table statement
+     * Add "if exists" expression into a DROP TABLE statement
      *
-     * @return <code>this</code> for fluent Programming
+     * @return <code>this</code> for fluent programming
      */
     public synchronized DropTable ifExists() {
-        this.ifExists = true;
+        if (!this.ifExists) {
+            this.ifExists = true;
+        }
         return this;
     }
 
     /**
-     * Add "cascade constraints" expression into a drop table statement
+     * Add "cascade constraints" expression into a DROP TABLE statement
      *
-     * @return <code>this</code> for fluent Programming
+     * @return <code>this</code> for fluent programming
      */
     public DropTable cascadeConstraints() {
         this.cascadeConstraints = new CascadeConstraints(this);

@@ -4,7 +4,7 @@ import com.exasol.sql.AbstractFragment;
 import com.exasol.sql.Fragment;
 
 /**
- * This class represents "cascade constraints" expression in drop table SQL statement
+ * This class represents "cascade constraints" expression in DROP TABLE SQL statement
  */
 public final class CascadeConstraints extends AbstractFragment implements DropTableFragment {
     /**
