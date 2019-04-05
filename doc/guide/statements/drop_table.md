@@ -7,37 +7,38 @@ point to defining a DROP TABLE SQL statement.
 
 1. Create an instance of the `DropTable` class through the `StatementFactory`
 
-  ```java
-  DropTable dropTable = StatementFactory.getInstance().dropTable("tableName");
-  ```
+   ```java
+   DropTable dropTable = StatementFactory.getInstance().dropTable("tableName");
+   ```
 
-2. Add available options if necessary. 
-The next options are currently supported:
-- `IF EXISTS`
-- `CASCADE CONSTRAINTS`
+2. Add available options if necessary.
 
-Example:
+    The following options are currently supported:
+    
+    - `IF EXISTS`
+    - `CASCADE CONSTRAINTS`
+    
+    Example:
 
-  ```java
-  dropTable.ifExists().cascadeConstraints();
-  ```
+    ```java
+    dropTable.ifExists().cascadeConstraints();
+    ```
 
 3. Render the instance of `DropTable` class. Click [here](../rendering.md) for more information on Rendering SQL Statement.
 
+   - The complete example code
 
-- The complete example code
+    ```java
+      DropTable dropTable = StatementFactory.getInstance().dropTable("tableName");
 
-  ```java
-  DropTable dropTable = StatementFactory.getInstance().dropTable("tableName");
-
-  //optional step: add additional clauses
-  dropTable.ifExists().cascadeConstraints();
+     //optional step: add additional clauses
+     dropTable.ifExists().cascadeConstraints();
    
-  //Rendering
-  //optional step: add config
-  StringRendererConfig config = StringRendererConfig.builder().lowerCase(true).build();
+     //Rendering
+     //optional step: add config
+     StringRendererConfig config = StringRendererConfig.builder().lowerCase(true).build();
   
-  DropTableRenderer renderer = DropTableRenderer.create(config);
-  dropTable.accept(renderer);
-  String renderedString = renderer.render();
-  ```
+     DropTableRenderer renderer = DropTableRenderer.create(config);
+     dropTable.accept(renderer);
+     String renderedString = renderer.render();
+     ```
