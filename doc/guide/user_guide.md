@@ -17,6 +17,8 @@ you can, for example, use the SSB to render the statement into an SQL string."
 **Currently supported SQL statements:**
 
 DDL:
+- [CREATE SCHEMA](../guide/statements/create_schema.md)
+- [DROP SCHEMA](../guide/statements/drop_schema.md)
 - [CREATE TABLE](../guide/statements/create_table.md)
 - [DROP TABLE](../guide/statements/drop_table.md)
 

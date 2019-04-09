@@ -28,17 +28,7 @@ Goals:
 
 ## Usage
 
-```java
-import com.exasol.sql.StatementFactory;
-import com.exasol.sql.SqlStatement;
-import com.exasol.sql.rendering.SelectRenderer;
-
-SqlStatement statement = StatementFactory.getInstance()
-  .select().field("firstname", "lastname")
-  .from().table("person");
-
-String statementText = SqlStatementRenderer.render(statement);
-```
+Please read our [User Guide](../sql-statement-builder/doc/guide/user_guide.md) to find information about usage of `sql-statement-builder`.
 
 ## Development
 

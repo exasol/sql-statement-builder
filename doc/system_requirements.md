@@ -198,7 +198,15 @@ Needs: dsn
 #### CREATE Statements
 `req~create-statements~1`
 
-ESB supports the following create statement:
+ESB supports the following create statements.
+
+Create schema:
+    
+    create-statement = "CREATE SCHEMA" schema-reference 
+    
+    schema-reference = schema
+
+Create table: 
 
     create-statement = "CREATE TABLE" table-reference table-element-list
     
@@ -215,7 +223,15 @@ Needs: dsn
 #### DROP Statements
 `req~drop-statements~1`
 
-ESB supports the following drop statement:
+ESB supports the following drop statement.
+
+Drop schema:
+
+    drop-statement = "DROP SCHEMA" [IF EXISTS] schema-reference [CASCADE / RESTRICT]
+    
+    schema-reference = schema
+
+Drop table:
 
     drop-statement = "DROP TABLE" [IF EXISTS] table-reference [CASCADE CONSTRAINTS]
     

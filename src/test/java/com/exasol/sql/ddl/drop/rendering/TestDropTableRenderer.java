@@ -21,6 +21,6 @@ class TestDropTableRenderer {
         final DropTableRenderer renderer = DropTableRenderer.create(config);
         final DropTable dropTable = StatementFactory.getInstance().dropTable("test name");
         dropTable.accept(renderer);
-        assertThat(renderer.render(), startsWith("drop"));
+        assertThat(renderer.render(), startsWith("drop table"));
     }
 }

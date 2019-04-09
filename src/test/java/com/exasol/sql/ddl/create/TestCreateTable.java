@@ -46,7 +46,7 @@ class TestCreateTable {
 
     private void assertInstance(final Column column, final String name, final Class classToAssert) {
         assertAll(() -> assertThat(column.getColumnName(), equalTo(name)),
-              () -> assertThat(column.getDataType(), instanceOf(classToAssert)));
+                () -> assertThat(column.getDataType(), instanceOf(classToAssert)));
     }
 
     @Test
@@ -63,22 +63,22 @@ class TestCreateTable {
 
     @Test
     void testCreateTableWithVarcharColumn() {
-        final Column column =
-              this.createTable.varcharColumn(VARCHAR_COLUMN_NAME, LENGTH).getColumns().getColumns().get(0);
+        final Column column = this.createTable.varcharColumn(VARCHAR_COLUMN_NAME, LENGTH).getColumns().getColumns()
+                .get(0);
         assertInstance(column, VARCHAR_COLUMN_NAME, Varchar.class);
     }
 
     @Test
     void testCreateTableWithDecimalColumn() {
-        final Column column =
-              this.createTable.decimalColumn(DECIMAL_COLUMN_NAME, PRECISION, SCALE).getColumns().getColumns().get(0);
+        final Column column = this.createTable.decimalColumn(DECIMAL_COLUMN_NAME, PRECISION, SCALE).getColumns()
+                .getColumns().get(0);
         assertInstance(column, DECIMAL_COLUMN_NAME, Decimal.class);
     }
 
     @Test
     void testCreateTableWithDoublePrecisionColumn() {
-        final Column column =
-              this.createTable.doublePrecisionColumn(DOUBLE_PRECISION_COLUMN_NAME).getColumns().getColumns().get(0);
+        final Column column = this.createTable.doublePrecisionColumn(DOUBLE_PRECISION_COLUMN_NAME).getColumns()
+                .getColumns().get(0);
         assertInstance(column, DOUBLE_PRECISION_COLUMN_NAME, DoublePrecision.class);
     }
 
@@ -90,25 +90,23 @@ class TestCreateTable {
 
     @Test
     void testCreateTableWithTimestampWithLocalTimeZoneColumn() {
-        final Column column =
-              this.createTable.timestampWithLocalTimeZoneColumn(TIMESTAMP_WITH_LOCAL_TIMEZONE_COLUMN_NAME).getColumns()
-                    .getColumns().get(0);
+        final Column column = this.createTable
+                .timestampWithLocalTimeZoneColumn(TIMESTAMP_WITH_LOCAL_TIMEZONE_COLUMN_NAME).getColumns().getColumns()
+                .get(0);
         assertInstance(column, TIMESTAMP_WITH_LOCAL_TIMEZONE_COLUMN_NAME, TimestampWithLocalTimezone.class);
     }
 
     @Test
     void testCreateTableWithIntervalDayToSecondColumn() {
-        final Column column =
-              this.createTable.intervalDayToSecondColumn(INTERVAL_DAY_TO_SECOND_COLUMN_NAME, 2, 2).getColumns()
-                    .getColumns().get(0);
+        final Column column = this.createTable.intervalDayToSecondColumn(INTERVAL_DAY_TO_SECOND_COLUMN_NAME, 2, 2)
+                .getColumns().getColumns().get(0);
         assertInstance(column, INTERVAL_DAY_TO_SECOND_COLUMN_NAME, IntervalDayToSecond.class);
     }
 
     @Test
     void testCreateTableWithIntervalYearToMonthColumn() {
-        final Column column =
-              this.createTable.intervalYearToMonthColumn(INTERVAL_YEAR_TO_MONTH_COLUMN_NAME, 2).getColumns()
-                    .getColumns().get(0);
+        final Column column = this.createTable.intervalYearToMonthColumn(INTERVAL_YEAR_TO_MONTH_COLUMN_NAME, 2)
+                .getColumns().getColumns().get(0);
         assertInstance(column, INTERVAL_YEAR_TO_MONTH_COLUMN_NAME, IntervalYearToMonth.class);
     }
 }

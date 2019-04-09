@@ -21,6 +21,6 @@ class TestCreateTableRenderer {
         final CreateTableRenderer renderer = CreateTableRenderer.create(config);
         final CreateTable createTable = StatementFactory.getInstance().createTable("test name");
         createTable.accept(renderer);
-        assertThat(renderer.render(), startsWith("create"));
+        assertThat(renderer.render(), startsWith("create table"));
     }
 }

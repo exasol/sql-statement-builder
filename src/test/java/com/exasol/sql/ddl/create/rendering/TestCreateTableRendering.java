@@ -29,7 +29,7 @@ class TestCreateTableRendering {
     @Test
     void testCreateTableRendersToWithConfig() {
         assertThat(this.createTable,
-              rendersWithConfigTo(StringRendererConfig.builder().lowerCase(true).build(), "create table testName"));
+                rendersWithConfigTo(StringRendererConfig.builder().lowerCase(true).build(), "create table testName"));
     }
 
     @Test
@@ -45,7 +45,7 @@ class TestCreateTableRendering {
     @Test
     void testCreateTableWithDoublePrecisionColumn() {
         assertThat(this.createTable.doublePrecisionColumn("a"),
-              rendersTo("CREATE TABLE testName (a DOUBLE PRECISION)"));
+                rendersTo("CREATE TABLE testName (a DOUBLE PRECISION)"));
     }
 
     @Test
@@ -56,7 +56,7 @@ class TestCreateTableRendering {
     @Test
     void testCreateTableWithTimestampWithLocalTimeZoneColumn() {
         assertThat(this.createTable.timestampWithLocalTimeZoneColumn("a"),
-              rendersTo("CREATE TABLE testName (a TIMESTAMP WITH LOCAL TIME ZONE)"));
+                rendersTo("CREATE TABLE testName (a TIMESTAMP WITH LOCAL TIME ZONE)"));
     }
 
     @Test
@@ -78,7 +78,7 @@ class TestCreateTableRendering {
     @Test
     void testCreateTableWithIntervalYearToMonthColumn() {
         assertThat(this.createTable.intervalYearToMonthColumn("a", 2),
-              rendersTo("CREATE TABLE testName (a INTERVAL YEAR(2) TO MONTH)"));
+                rendersTo("CREATE TABLE testName (a INTERVAL YEAR(2) TO MONTH)"));
     }
 
     @Test
@@ -90,7 +90,7 @@ class TestCreateTableRendering {
     @Test
     void testCreateTableWithIntervalDayToSecondColumn() {
         assertThat(this.createTable.intervalDayToSecondColumn("a", 2, 3),
-              rendersTo("CREATE TABLE testName (a INTERVAL DAY(2) TO SECOND(3))"));
+                rendersTo("CREATE TABLE testName (a INTERVAL DAY(2) TO SECOND(3))"));
     }
 
     @Test
@@ -125,6 +125,6 @@ class TestCreateTableRendering {
     @Test
     void testCreateTableWithCharAFewColumns() {
         assertThat(this.createTable.decimalColumn("dec_col", 9, 0).charColumn("char_col", 10).booleanColumn("bool_col"),
-              rendersTo("CREATE TABLE testName (dec_col DECIMAL(9,0), char_col CHAR(10), bool_col BOOLEAN)"));
+                rendersTo("CREATE TABLE testName (dec_col DECIMAL(9,0), char_col CHAR(10), bool_col BOOLEAN)"));
     }
 }

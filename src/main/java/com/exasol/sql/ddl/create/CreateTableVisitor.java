@@ -2,9 +2,11 @@ package com.exasol.sql.ddl.create;
 
 import com.exasol.datatype.type.Boolean;
 import com.exasol.datatype.type.*;
-import com.exasol.sql.SqlStatementVisitor;
+import com.exasol.sql.Table;
 
-public interface CreateTableVisitor extends SqlStatementVisitor {
+public interface CreateTableVisitor {
+    public void visit(final Table table);
+
     public void visit(final CreateTable createTable);
 
     public void visit(final Column column);

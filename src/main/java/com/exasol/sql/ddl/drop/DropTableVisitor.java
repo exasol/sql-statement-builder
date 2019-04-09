@@ -1,8 +1,10 @@
 package com.exasol.sql.ddl.drop;
 
-import com.exasol.sql.SqlStatementVisitor;
+import com.exasol.sql.Table;
 
-public interface DropTableVisitor extends SqlStatementVisitor {
+public interface DropTableVisitor {
+    public void visit(Table table);
+
     public void visit(DropTable dropTable);
 
     public void visit(CascadeConstraints cascadeConstraints);
