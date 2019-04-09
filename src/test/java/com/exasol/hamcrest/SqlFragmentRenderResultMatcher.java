@@ -58,11 +58,11 @@ public class SqlFragmentRenderResultMatcher extends AbstractRenderResultMatcher<
         final String rootClassName = root.getClass().getName();
         final String rendererClassPath = getRendererClassPath(rootClassName) + "Renderer";
         try {
-            final Class<?> rendererClass = Class.forName(rendererClassPath);
-            final Object rendererObject = rendererClass.getConstructor(StringRendererConfig.class).newInstance(config);
             final Class<?> fragmentClass = Class.forName(rootClassName + "Fragment");
             final Class<?> visitorClass = Class.forName(rootClassName + "Visitor");
             final Method acceptMethod = fragmentClass.getMethod("accept", visitorClass);
+            final Class<?> rendererClass = Class.forName(rendererClassPath);
+            final Object rendererObject = rendererClass.getConstructor(StringRendererConfig.class).newInstance(config);
             acceptMethod.invoke(root, rendererObject);
             final Method renderMethod = rendererClass.getMethod("render");
             this.renderedText = (String) renderMethod.invoke(rendererObject);
@@ -75,11 +75,11 @@ public class SqlFragmentRenderResultMatcher extends AbstractRenderResultMatcher<
     }
 
     private String getRendererClassPath(final String oldClassPath) {
-        final String[] split = oldClassPath.split("\\.");
-        final String[] result = new String[split.length + 1];
-        System.arraycopy(split, 0, result, 0, split.length);
-        result[split.length] = result[split.length - 1];
-        result[split.length - 1] = "rendering";
+        final String[] pathElements = oldClassPath.split("\\.");
+        final String[] result = new String[pathElements.length + 1];
+        System.arraycopy(pathElements, 0, result, 0, pathElements.length);
+        result[pathElements.length] = result[pathElements.length - 1];
+        result[pathElements.length - 1] = "rendering";
         final StringJoiner joiner = new StringJoiner(".");
         for (final String string : result) {
             joiner.add(string);
