@@ -23,17 +23,30 @@ class TestDropSchema {
     }
 
     @Test
-    void ifExists() {
+    void getIfExistsFalseByDefault() {
         assertFalse(this.dropSchema.getIfExists());
+    }
+
+    @Test
+    void getIfExists() {
         this.dropSchema.ifExists();
         assertTrue(this.dropSchema.getIfExists());
     }
 
     @Test
-    void setCascade() {
+    void getCascadeNullByDefault() {
         assertNull(this.dropSchema.getCascade());
+    }
+
+    @Test
+    void setCascade() {
         this.dropSchema.cascade();
         assertNotNull(this.dropSchema.getCascade());
+    }
+
+    @Test
+    void getRestrictNullByDefault() {
+        assertNull(this.dropSchema.getRestrict());
     }
 
     @Test

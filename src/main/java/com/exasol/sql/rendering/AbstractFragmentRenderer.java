@@ -1,7 +1,7 @@
 package com.exasol.sql.rendering;
 
 import com.exasol.sql.Fragment;
-import com.exasol.sql.dql.ValueTableRow;
+import com.exasol.sql.ValueTableRow;
 import com.exasol.sql.expression.BooleanExpression;
 import com.exasol.sql.expression.ValueExpression;
 import com.exasol.sql.expression.rendering.BooleanExpressionRenderer;
@@ -74,12 +74,12 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
             if (!first) {
                 append(".");
             }
-            quoteIdentiferPart(part);
+            quoteIdentifierPart(part);
             first = false;
         }
     }
 
-    private void quoteIdentiferPart(final String part) {
+    private void quoteIdentifierPart(final String part) {
         if ("*".equals(part)) {
             append("*");
         } else {

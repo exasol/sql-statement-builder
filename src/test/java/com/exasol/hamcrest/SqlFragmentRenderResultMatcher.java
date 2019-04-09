@@ -1,20 +1,12 @@
 package com.exasol.hamcrest;
 
-import com.exasol.sql.ddl.create.*;
-import com.exasol.sql.ddl.create.rendering.CreateSchemaRenderer;
-import com.exasol.sql.ddl.create.rendering.CreateTableRenderer;
-import com.exasol.sql.ddl.drop.DropSchemaFragment;
-import com.exasol.sql.ddl.drop.DropTableFragment;
-import com.exasol.sql.ddl.drop.rendering.DropSchemaRenderer;
-import com.exasol.sql.ddl.drop.rendering.DropTableRenderer;
+import com.exasol.sql.Fragment;
+import com.exasol.sql.dql.select.rendering.SelectRenderer;
+import com.exasol.sql.rendering.StringRendererConfig;
 import org.hamcrest.Description;
 
-import com.exasol.sql.Fragment;
-import com.exasol.sql.dml.InsertFragment;
-import com.exasol.sql.dml.rendering.InsertRenderer;
-import com.exasol.sql.dql.SelectFragment;
-import com.exasol.sql.dql.rendering.SelectRenderer;
-import com.exasol.sql.rendering.StringRendererConfig;
+import java.lang.reflect.*;
+import java.util.StringJoiner;
 
 /**
  * This class implements a matcher for the results of rendering SQL statements to text.
@@ -34,50 +26,6 @@ public class SqlFragmentRenderResultMatcher extends AbstractRenderResultMatcher<
     }
 
     /**
-     * Match the rendered result against original text.
-     *
-     * @param fragment fragment to be matched against the original text.
-     */
-    @Override
-    public boolean matchesSafely(final Fragment fragment) {
-        final Fragment root = fragment.getRoot();
-        if (root instanceof SelectFragment) {
-            final SelectRenderer renderer = new SelectRenderer(this.config);
-            ((SelectFragment) root).accept(renderer);
-            this.renderedText = renderer.render();
-        } else if (root instanceof InsertFragment) {
-            final InsertRenderer renderer = new InsertRenderer(this.config);
-            ((InsertFragment) root).accept(renderer);
-            this.renderedText = renderer.render();
-        } else if (root instanceof CreateTableFragment) {
-            final CreateTableRenderer renderer = new CreateTableRenderer(this.config);
-            ((CreateTableFragment) root).accept(renderer);
-            this.renderedText = renderer.render();
-        } else if (root instanceof DropTableFragment) {
-            final DropTableRenderer renderer = new DropTableRenderer(this.config);
-            ((DropTableFragment) root).accept(renderer);
-            this.renderedText = renderer.render();
-        } else if (root instanceof CreateSchemaFragment) {
-            final CreateSchemaRenderer renderer = new CreateSchemaRenderer(this.config);
-            ((CreateSchemaFragment) root).accept(renderer);
-            this.renderedText = renderer.render();
-        } else if (root instanceof DropSchemaFragment) {
-            final DropSchemaRenderer renderer = new DropSchemaRenderer(this.config);
-            ((DropSchemaFragment) root).accept(renderer);
-            this.renderedText = renderer.render();
-        } else {
-            throw new UnsupportedOperationException(
-                    "Don't know how to render fragment of type\"" + root.getClass().getName() + "\".");
-        }
-        return this.renderedText.equals(this.expectedText);
-    }
-
-    @Override
-    protected void describeMismatchSafely(final Fragment fragment, final Description mismatchDescription) {
-        mismatchDescription.appendText(this.renderedText);
-    }
-
-    /**
      * Factory method for {@link SqlFragmentRenderResultMatcher}
      *
      * @param expectedText text that represents the expected rendering result
@@ -90,12 +38,57 @@ public class SqlFragmentRenderResultMatcher extends AbstractRenderResultMatcher<
     /**
      * Factory method for {@link SqlFragmentRenderResultMatcher}
      *
-     * @param config configuration settings for the {@link SelectRenderer}
+     * @param config       configuration settings for the {@link SelectRenderer}
      * @param expectedText text that represents the expected rendering result
      * @return the matcher
      */
     public static SqlFragmentRenderResultMatcher rendersWithConfigTo(final StringRendererConfig config,
             final String expectedText) {
         return new SqlFragmentRenderResultMatcher(config, expectedText);
+    }
+
+    /**
+     * Match the rendered result against original text.
+     *
+     * @param fragment fragment to be matched against the original text.
+     */
+    @Override
+    public boolean matchesSafely(final Fragment fragment) {
+        final Fragment root = fragment.getRoot();
+        final String rootClassName = root.getClass().getName();
+        final String rendererClassPath = getRendererClassPath(rootClassName) + "Renderer";
+        try {
+            final Class<?> rendererClass = Class.forName(rendererClassPath);
+            final Object rendererObject = rendererClass.getConstructor(StringRendererConfig.class).newInstance(config);
+            final Class<?> fragmentClass = Class.forName(rootClassName + "Fragment");
+            final Class<?> visitorClass = Class.forName(rootClassName + "Visitor");
+            final Method acceptMethod = fragmentClass.getMethod("accept", visitorClass);
+            acceptMethod.invoke(root, rendererObject);
+            final Method renderMethod = rendererClass.getMethod("render");
+            this.renderedText = (String) renderMethod.invoke(rendererObject);
+        } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException
+                | InvocationTargetException cause) {
+            throw new UnsupportedOperationException(
+                    "Don't know how to render fragment of type\"" + rootClassName + "\".", cause);
+        }
+        return this.renderedText.equals(this.expectedText);
+    }
+
+    private String getRendererClassPath(final String oldClassPath) {
+        final String[] split = oldClassPath.split("\\.");
+        final String[] result = new String[split.length + 1];
+        System.arraycopy(split, 0, result, 0, split.length);
+        result[split.length] = result[split.length - 1];
+        result[split.length - 1] = "rendering";
+        final StringJoiner joiner = new StringJoiner(".");
+        for (final String string : result) {
+            joiner.add(string);
+        }
+        return joiner.toString();
+    }
+
+    @Override
+    protected void describeMismatchSafely(final Fragment fragment, final Description mismatchDescription) {
+        mismatchDescription.appendText(this.renderedText);
     }
 }

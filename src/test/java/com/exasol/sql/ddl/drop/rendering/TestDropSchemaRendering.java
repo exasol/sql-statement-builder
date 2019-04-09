@@ -30,18 +30,21 @@ class TestDropSchemaRendering {
 
     @Test
     void testDropSchemaCascade() {
-        assertThat(this.dropSchema.cascade(), rendersTo("DROP SCHEMA testName CASCADE"));
+        this.dropSchema.cascade();
+        assertThat(this.dropSchema, rendersTo("DROP SCHEMA testName CASCADE"));
     }
 
     @Test
     void testDropSchemaRestrict() {
-        assertThat(this.dropSchema.restrict(), rendersTo("DROP SCHEMA testName RESTRICT"));
+        this.dropSchema.restrict();
+        assertThat(this.dropSchema, rendersTo("DROP SCHEMA testName RESTRICT"));
     }
 
     @Test
     void testDropSchemaCascadeAndRestrictThrowsException() {
         final DropSchemaRenderer renderer = DropSchemaRenderer.create();
-        this.dropSchema.restrict().cascade();
+        this.dropSchema.restrict();
+        this.dropSchema.cascade();
         assertThrows(IllegalArgumentException.class, () -> dropSchema.accept(renderer));
     }
 }

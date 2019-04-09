@@ -4,8 +4,8 @@ import com.exasol.sql.ddl.create.CreateSchema;
 import com.exasol.sql.ddl.create.CreateTable;
 import com.exasol.sql.ddl.drop.DropSchema;
 import com.exasol.sql.ddl.drop.DropTable;
-import com.exasol.sql.dml.Insert;
-import com.exasol.sql.dql.Select;
+import com.exasol.sql.dml.insert.Insert;
+import com.exasol.sql.dql.select.Select;
 
 /**
  * The {@link StatementFactory} implements an factory for SQL statements.
@@ -64,7 +64,7 @@ public final class StatementFactory {
      * @param schemaName name of the schema to create
      * @return a new instance of a {@link CreateSchema} statement
      */
-    public CreateSchema createSchema(String schemaName) {
+    public CreateSchema createSchema(final String schemaName) {
         return new CreateSchema(schemaName);
     }
 
@@ -84,7 +84,7 @@ public final class StatementFactory {
      * @param schemaName name of the schema to drop
      * @return a new instance of a {@link DropSchema} statement
      */
-    public DropSchema dropSchema(String schemaName) {
+    public DropSchema dropSchema(final String schemaName) {
         return new DropSchema(schemaName);
     }
 }

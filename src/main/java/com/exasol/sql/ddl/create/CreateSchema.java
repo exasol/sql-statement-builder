@@ -8,7 +8,7 @@ import com.exasol.sql.ddl.Schema;
  * This class implements an SQL {@link CreateSchema} statement
  */
 public class CreateSchema extends AbstractFragment implements SqlStatement, CreateSchemaFragment {
-    private Schema schema;
+    private final Schema schema;
 
     /**
      * Create a new instance of an {@link CreateSchema} statement
@@ -21,7 +21,7 @@ public class CreateSchema extends AbstractFragment implements SqlStatement, Crea
     }
 
     /**
-     * Get a schema name
+     * Get the schema name
      *
      * @return schema name
      */
@@ -30,7 +30,7 @@ public class CreateSchema extends AbstractFragment implements SqlStatement, Crea
     }
 
     @Override
-    public void accept(CreateSchemaVisitor visitor) {
+    public void accept(final CreateSchemaVisitor visitor) {
         visitor.visit(this);
         this.schema.accept(visitor);
     }

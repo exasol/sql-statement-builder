@@ -8,7 +8,7 @@ import com.exasol.sql.ddl.Schema;
  * This class implements an SQL {@link DropSchema} statement
  */
 public class DropSchema extends AbstractFragment implements SqlStatement, DropSchemaFragment {
-    private Schema schema;
+    private final Schema schema;
     private Cascade cascade;
     private Restrict restrict;
     private boolean ifExists = false;
@@ -36,27 +36,21 @@ public class DropSchema extends AbstractFragment implements SqlStatement, DropSc
     }
 
     /**
-     * Add CASCADE clause into a DROP SCHEMA statement
-     *
-     * @return <code>this</code> for fluent programming
+     * Add CASCADE clause to a DROP SCHEMA statement
      */
-    public synchronized DropSchema cascade() {
+    public synchronized void cascade() {
         cascade = new Cascade(this);
-        return this;
     }
 
     /**
-     * Add RESTRICT clause into a DROP SCHEMA statement
-     *
-     * @return <code>this</code> for fluent programming
+     * Add RESTRICT clause to a DROP SCHEMA statement
      */
-    public synchronized DropSchema restrict() {
+    public synchronized void restrict() {
         restrict = new Restrict(this);
-        return this;
     }
 
     /**
-     * Get a schema name
+     * Get the schema name
      *
      * @return schema name
      */
@@ -64,16 +58,26 @@ public class DropSchema extends AbstractFragment implements SqlStatement, DropSc
         return schema.getName();
     }
 
+    /**
+     * Get the cascade
+     *
+     * @return {@link Cascade} object
+     */
     public Cascade getCascade() {
         return cascade;
     }
 
+    /**
+     * Get the restrict
+     *
+     * @return {@link Restrict} object
+     */
     public Restrict getRestrict() {
         return restrict;
     }
 
     @Override
-    public void accept(DropSchemaVisitor visitor) {
+    public void accept(final DropSchemaVisitor visitor) {
         validateCascadeAndRestrict();
         visitor.visit(this);
         this.schema.accept(visitor);
@@ -85,6 +89,14 @@ public class DropSchema extends AbstractFragment implements SqlStatement, DropSc
         }
     }
 
+    private void validateCascadeAndRestrict() {
+        if (cascade != null && restrict != null) {
+            throw new IllegalArgumentException(
+                    "DROP SCHEMA expression must not contain CASCADE and RESTRICT clauses at the came time. "
+                            + "Use only one of them.");
+        }
+    }
+
     /**
      * Get true when IF EXISTS clause presents
      *
@@ -92,13 +104,5 @@ public class DropSchema extends AbstractFragment implements SqlStatement, DropSc
      */
     public boolean getIfExists() {
         return ifExists;
-    }
-
-    private void validateCascadeAndRestrict() {
-        if (cascade != null && restrict != null) {
-            throw new IllegalArgumentException(
-                  "DROP SCHEMA expression must not contain CASCADE and RESTRICT clauses at the came time. "
-                        + "Use only one of them.");
-        }
     }
 }

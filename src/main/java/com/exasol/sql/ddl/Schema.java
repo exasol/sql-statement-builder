@@ -9,7 +9,7 @@ import com.exasol.sql.ddl.drop.DropSchemaVisitor;
  * This class represents a {@link Schema} in an SQL Statement
  */
 public class Schema extends AbstractFragment {
-    private String name;
+    private final String name;
 
     /**
      * Create a new {@link Schema}
@@ -17,13 +17,13 @@ public class Schema extends AbstractFragment {
      * @param root       SQL statement this schema belongs to
      * @param schemaName schema name
      */
-    public Schema(Fragment root, String schemaName) {
+    public Schema(final Fragment root, final String schemaName) {
         super(root);
         this.name = schemaName;
     }
 
     /**
-     * Get a schema name
+     * Get the schema name
      *
      * @return schema name
      */
@@ -31,11 +31,11 @@ public class Schema extends AbstractFragment {
         return name;
     }
 
-    public void accept(CreateSchemaVisitor visitor) {
+    public void accept(final CreateSchemaVisitor visitor) {
         visitor.visit(this);
     }
 
-    public void accept(DropSchemaVisitor visitor) {
+    public void accept(final DropSchemaVisitor visitor) {
         visitor.visit(this);
     }
 }

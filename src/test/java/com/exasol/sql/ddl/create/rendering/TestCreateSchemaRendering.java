@@ -17,7 +17,6 @@ class TestCreateSchemaRendering {
         this.createSchema = StatementFactory.getInstance().createSchema(SCHEMA_NAME);
     }
 
-
     @Test
     void testCreateSchema() {
         assertThat(this.createSchema, rendersTo("CREATE SCHEMA testName"));

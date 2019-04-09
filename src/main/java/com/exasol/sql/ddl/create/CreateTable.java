@@ -8,8 +8,8 @@ import com.exasol.sql.*;
  * This class implements an SQL {@link CreateTable} statement
  */
 public class CreateTable extends AbstractFragment implements SqlStatement, CreateTableFragment {
-    private ColumnsDefinition columnsDefinition;
     private final Table table;
+    private ColumnsDefinition columnsDefinition;
 
     /**
      * Create a new instance of an {@link CreateTable} statement
@@ -31,6 +31,12 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
         checkIfCreateTableColumnsExists();
         this.columnsDefinition.add(columnName, new Boolean());
         return this;
+    }
+
+    private void checkIfCreateTableColumnsExists() {
+        if (this.columnsDefinition == null) {
+            this.columnsDefinition = new ColumnsDefinition(this);
+        }
     }
 
     /**
@@ -130,7 +136,7 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * @return <code>this</code> for fluent programming
      */
     public synchronized CreateTable intervalDayToSecondColumn(final String columnName, final int yearPrecision,
-          final int millisecondPrecision) {
+            final int millisecondPrecision) {
         checkIfCreateTableColumnsExists();
         this.columnsDefinition.add(columnName, new IntervalDayToSecond(yearPrecision, millisecondPrecision));
         return this;
@@ -150,7 +156,7 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
     }
 
     /**
-     * Get a table name
+     * Get the table name
      *
      * @return table name
      */
@@ -159,7 +165,7 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
     }
 
     /**
-     * Get columns of a table
+     * Get columns of the table
      *
      * @return columns
      */
@@ -173,12 +179,6 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
         this.table.accept(visitor);
         if (this.columnsDefinition != null) {
             this.columnsDefinition.accept(visitor);
-        }
-    }
-
-    private void checkIfCreateTableColumnsExists() {
-        if (this.columnsDefinition == null) {
-            this.columnsDefinition = new ColumnsDefinition(this);
         }
     }
 }

@@ -35,6 +35,6 @@ class TestDropTableRendering {
     @Test
     void testDropTableIfExistCascadeConstraints() {
         assertThat(this.dropTable.ifExists().cascadeConstraints(),
-              rendersTo("DROP TABLE IF EXISTS testName CASCADE CONSTRAINTS"));
+                rendersTo("DROP TABLE IF EXISTS testName CASCADE CONSTRAINTS"));
     }
 }
