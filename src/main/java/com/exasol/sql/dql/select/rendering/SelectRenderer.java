@@ -2,10 +2,11 @@ package com.exasol.sql.dql.select.rendering;
 
 import com.exasol.sql.*;
 import com.exasol.sql.dql.select.*;
+import com.exasol.sql.expression.*;
 import com.exasol.sql.rendering.AbstractFragmentRenderer;
 import com.exasol.sql.rendering.StringRendererConfig;
 
-import java.util.Optional;
+import java.util.*;
 
 /**
  * The {@link SelectRenderer} turns SQL statement structures in to SQL strings.
@@ -71,6 +72,18 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
         appendKeyWord(" WHERE ");
         appendRenderedExpression(whereClause.getExpression());
         setLastVisited(whereClause);
+    }
+
+    @Override
+    public void visit(final GroupByClause groupByClause) {
+        appendKeyWord(" GROUP BY ");
+        appendStringList(groupByClause.getColumnName());
+        BooleanExpression booleanExpression = groupByClause.getBooleanExpression();
+        if (booleanExpression != null) {
+            appendKeyWord(" HAVING ");
+            appendRenderedExpression(booleanExpression);
+        }
+        setLastVisited(groupByClause);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.exasol.sql.dql.select;
 
 import com.exasol.sql.*;
-import com.exasol.sql.expression.BooleanExpression;
+import com.exasol.sql.expression.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +14,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
     private FromClause fromClause = null;
     private WhereClause whereClause = null;
     private LimitClause limitClause = null;
+    private GroupByClause groupByClause = null;
 
     /**
      * Create a new instance of a {@link Select}
@@ -62,7 +63,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      * Create a new full outer {@link LimitClause}
      *
      * @param count maximum number of rows to be included in query result
-     * @return new instance
+     * @return <code>this</code> for fluent programming
      * @throws IllegalStateException if a limit clause already exists
      */
     // [impl->dsn~select-statement.out-of-order-clauses~1]
@@ -97,7 +98,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      * Create a new {@link WhereClause}
      *
      * @param expression boolean expression that defines the filter criteria
-     * @return new instance
+     * @return <code>this</code> for fluent programming
      */
     // [impl->dsn~select-statement.out-of-order-clauses~1]
     public synchronized Select where(final BooleanExpression expression) {
@@ -105,6 +106,20 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
             this.whereClause = new WhereClause(this, expression);
         }
         return this;
+    }
+
+    /**
+     * Create a new {@link GroupByClause}
+     *
+     * @param columnNames column names
+     * @return <code>this</code> for fluent programming
+     */
+    // [impl->dsn~select-statement.out-of-order-clauses~1]
+    public synchronized GroupByClause groupBy(final String... columnNames) {
+        if (this.groupByClause == null) {
+            this.groupByClause = new GroupByClause(this, columnNames);
+        }
+        return this.groupByClause;
     }
 
     @Override
@@ -121,6 +136,9 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
         }
         if (this.limitClause != null) {
             this.limitClause.accept(visitor);
+        }
+        if (groupByClause != null) {
+            this.groupByClause.accept(visitor);
         }
     }
 }

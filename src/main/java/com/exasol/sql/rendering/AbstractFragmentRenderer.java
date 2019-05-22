@@ -7,6 +7,8 @@ import com.exasol.sql.expression.ValueExpression;
 import com.exasol.sql.expression.rendering.BooleanExpressionRenderer;
 import com.exasol.sql.expression.rendering.ValueExpressionRenderer;
 
+import java.util.*;
+
 /**
  * Abstract base class for SQL fragment renderers
  */
@@ -23,6 +25,14 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
     // [impl->dsn~rendering.sql.configurable-case~1]
     protected void appendKeyWord(final String keyword) {
         append(this.config.useLowerCase() ? keyword.toLowerCase() : keyword);
+    }
+
+    protected void appendStringList(final List<String> strings) {
+        for (int i = 0; i < strings.size() - 1; i++) {
+            append(strings.get(i));
+            append(", ");
+        }
+        append(strings.get(strings.size() - 1));
     }
 
     protected StringBuilder append(final String string) {
