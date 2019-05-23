@@ -1,13 +1,10 @@
 package com.exasol.sql.rendering;
 
-import com.exasol.sql.Fragment;
-import com.exasol.sql.ValueTableRow;
-import com.exasol.sql.expression.BooleanExpression;
-import com.exasol.sql.expression.ValueExpression;
-import com.exasol.sql.expression.rendering.BooleanExpressionRenderer;
-import com.exasol.sql.expression.rendering.ValueExpressionRenderer;
-
 import java.util.*;
+
+import com.exasol.sql.*;
+import com.exasol.sql.expression.*;
+import com.exasol.sql.expression.rendering.*;
 
 /**
  * Abstract base class for SQL fragment renderers
@@ -25,6 +22,24 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
     // [impl->dsn~rendering.sql.configurable-case~1]
     protected void appendKeyWord(final String keyword) {
         append(this.config.useLowerCase() ? keyword.toLowerCase() : keyword);
+    }
+
+    protected void appendListOfColumnReferences(final List<ColumnReference> columnReferences) {
+        if (columnReferences != null && !columnReferences.isEmpty()) {
+            for (int i = 0; i < columnReferences.size() - 1; i++) {
+                appendColumnReference(columnReferences.get(i), false);
+            }
+            appendColumnReference(columnReferences.get(columnReferences.size() - 1), true);
+        }
+    }
+
+    protected void appendColumnReference(final ColumnReference columnReference, final boolean last) {
+        final ValueExpressionRenderer valueExpressionRenderer = new ValueExpressionRenderer(config);
+        columnReference.accept(valueExpressionRenderer);
+        this.builder.append(valueExpressionRenderer.render());
+        if (!last) {
+            append(", ");
+        }
     }
 
     protected void appendStringList(final List<String> strings) {
@@ -53,7 +68,7 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
         }
     }
 
-    protected void appendRenderedExpression(final BooleanExpression expression) {
+    protected void appendRenderedBooleanExpression(final BooleanExpression expression) {
         final BooleanExpressionRenderer expressionRenderer = new BooleanExpressionRenderer();
         expression.accept(expressionRenderer);
         append(expressionRenderer.render());

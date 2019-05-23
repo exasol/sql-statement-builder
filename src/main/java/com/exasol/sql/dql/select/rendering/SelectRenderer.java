@@ -1,12 +1,11 @@
 package com.exasol.sql.dql.select.rendering;
 
+import java.util.*;
+
 import com.exasol.sql.*;
 import com.exasol.sql.dql.select.*;
 import com.exasol.sql.expression.*;
-import com.exasol.sql.rendering.AbstractFragmentRenderer;
-import com.exasol.sql.rendering.StringRendererConfig;
-
-import java.util.*;
+import com.exasol.sql.rendering.*;
 
 /**
  * The {@link SelectRenderer} turns SQL statement structures in to SQL strings.
@@ -70,20 +69,42 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
     @Override
     public void visit(final WhereClause whereClause) {
         appendKeyWord(" WHERE ");
-        appendRenderedExpression(whereClause.getExpression());
+        appendRenderedBooleanExpression(whereClause.getExpression());
         setLastVisited(whereClause);
     }
 
     @Override
     public void visit(final GroupByClause groupByClause) {
         appendKeyWord(" GROUP BY ");
-        appendStringList(groupByClause.getColumnName());
-        BooleanExpression booleanExpression = groupByClause.getBooleanExpression();
-        if (booleanExpression != null) {
+        appendListOfColumnReferences(groupByClause.getColumnReferences());
+        final BooleanExpression having = groupByClause.getHavingBooleanExpression();
+        if (having != null) {
             appendKeyWord(" HAVING ");
-            appendRenderedExpression(booleanExpression);
+            appendRenderedBooleanExpression(having);
         }
         setLastVisited(groupByClause);
+    }
+
+    @Override
+    public void visit(final OrderByClause orderByClause) {
+        appendKeyWord(" ORDER BY ");
+        appendListOfColumnReferences(orderByClause.getColumnReferences());
+        final Boolean desc = orderByClause.getDesc();
+        appendStringDependingOnBoolean(desc, " DESC", " ASC");
+        final Boolean nullsFirst = orderByClause.getNullsFirst();
+        appendStringDependingOnBoolean(nullsFirst, " NULLS FIRST", " NULLS LAST");
+        setLastVisited(orderByClause);
+    }
+
+    private void appendStringDependingOnBoolean(final Boolean booleanValue, final String string1,
+            final String string2) {
+        if (booleanValue != null) {
+            if (booleanValue) {
+                appendKeyWord(string1);
+            } else {
+                appendKeyWord(string2);
+            }
+        }
     }
 
     @Override

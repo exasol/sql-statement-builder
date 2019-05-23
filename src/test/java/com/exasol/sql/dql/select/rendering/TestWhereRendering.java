@@ -1,14 +1,14 @@
 package com.exasol.sql.dql.select.rendering;
 
-import static com.exasol.hamcrest.SqlFragmentRenderResultMatcher.rendersTo;
-import static com.exasol.sql.expression.BooleanTerm.eq;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static com.exasol.hamcrest.SqlFragmentRenderResultMatcher.*;
+import static com.exasol.sql.expression.BooleanTerm.*;
+import static org.hamcrest.MatcherAssert.*;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
-import com.exasol.sql.StatementFactory;
-import com.exasol.sql.dql.select.Select;
+import com.exasol.sql.*;
+import com.exasol.sql.dql.select.*;
+import com.exasol.sql.expression.*;
 
 class TestWhereRendering {
     private Select select;
@@ -21,6 +21,7 @@ class TestWhereRendering {
 
     @Test
     void testWhere() {
-        assertThat(this.select.where(eq("foo", "bar")), rendersTo("SELECT * FROM person WHERE 'foo' = 'bar'"));
+        assertThat(this.select.where(eq(ExpressionTerm.stringLiteral("foo"), ExpressionTerm.stringLiteral("bar"))),
+                rendersTo("SELECT * FROM person WHERE 'foo' = 'bar'"));
     }
 }

@@ -37,6 +37,7 @@ Covers:
 * `WHERE` clause
 * `LIMIT` clause
 * `GROUP BY` clause
+* `ORDER BY` clause
 
 Covers:
 

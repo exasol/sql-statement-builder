@@ -3,12 +3,12 @@ package com.exasol.sql.expression;
 //[impl->dsn~comparison-operations~1]
 public class Comparison extends AbstractBooleanExpression {
     private final ComparisonOperator operator;
-    private final StringLiteral leftOperand;
-    private final StringLiteral rightOperand;
+    private final ValueExpression leftOperand;
+    private final ValueExpression rightOperand;
 
     // [impl->dsn~boolean-operation.comparison.constructing-from-enum~1]
-    public Comparison(final ComparisonOperator equal, final StringLiteral leftOperand,
-            final StringLiteral rightOperand) {
+    public Comparison(final ComparisonOperator equal, final ValueExpression leftOperand,
+            final ValueExpression rightOperand) {
         this.operator = equal;
         this.leftOperand = leftOperand;
         this.rightOperand = rightOperand;
@@ -29,7 +29,7 @@ public class Comparison extends AbstractBooleanExpression {
      *
      * @return left operator
      */
-    public StringLiteral getLeftOperand() {
+    public ValueExpression getLeftOperand() {
         return this.leftOperand;
     }
 
@@ -38,7 +38,7 @@ public class Comparison extends AbstractBooleanExpression {
      *
      * @return right operator
      */
-    public StringLiteral getRightOperand() {
+    public ValueExpression getRightOperand() {
         return this.rightOperand;
     }
 

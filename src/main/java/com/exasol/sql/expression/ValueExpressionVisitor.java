@@ -11,4 +11,6 @@ public interface ValueExpressionVisitor {
     public void visit(StringLiteral literal);
 
     public void visit(IntegerLiteral literal);
+
+    public void visit(ColumnReference columnReference);
 }

@@ -14,4 +14,6 @@ public interface SelectVisitor extends TableValuesVisitor {
     public void visit(WhereClause whereClause);
 
     public void visit(GroupByClause groupByClause);
+
+    public void visit(OrderByClause orderByClause);
 }

@@ -6,23 +6,23 @@ import com.exasol.sql.*;
 import com.exasol.sql.expression.*;
 
 /**
- * This class represents the group class clause of an SQL statement.
+ * This class represents the GROUP BY clause of an SQL statement.
  */
 public class GroupByClause extends AbstractFragment implements SelectFragment {
     private final SqlStatement rootStatement;
-    private final List<String> columnName;
+    private final List<ColumnReference> columnReferences;
     private BooleanExpression booleanExpression;
 
     /**
      * Create a new instance of a {@link GroupByClause}
      *
-     * @param rootStatement       SQL statement this GROUP BY clause belongs to
-     * @param columnName boolean expression servicing as criteria for the WHERE clause
+     * @param rootStatement    SQL statement this GROUP BY clause belongs to
+     * @param columnReferences column references for the GROUP BY clause
      */
-    public GroupByClause(final SqlStatement rootStatement, final String... columnName) {
+    public GroupByClause(final SqlStatement rootStatement, final ColumnReference... columnReferences) {
         super(rootStatement);
         this.rootStatement = rootStatement;
-        this.columnName = Arrays.asList(columnName);
+        this.columnReferences = Arrays.asList(columnReferences);
     }
 
     @Override
@@ -31,14 +31,20 @@ public class GroupByClause extends AbstractFragment implements SelectFragment {
     }
 
     /**
-     * Get column name.
+     * Get list of column references.
      * 
      * @return column name
      */
-    public List<String> getColumnName() {
-        return columnName;
+    public List<ColumnReference> getColumnReferences() {
+        return columnReferences;
     }
 
+    /**
+     * Add having statement to the SQL query
+     * 
+     * @param booleanExpression oolean expression
+     * @return instance of{@link Select} for fluent programming
+     */
     public Select having(final BooleanExpression booleanExpression) {
         this.booleanExpression = booleanExpression;
         return (Select) rootStatement;
@@ -49,7 +55,7 @@ public class GroupByClause extends AbstractFragment implements SelectFragment {
      *
      * @return boolean expression
      */
-    public BooleanExpression getBooleanExpression() {
+    public BooleanExpression getHavingBooleanExpression() {
         return booleanExpression;
     }
 }

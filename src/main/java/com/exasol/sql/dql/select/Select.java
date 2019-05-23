@@ -15,6 +15,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
     private WhereClause whereClause = null;
     private LimitClause limitClause = null;
     private GroupByClause groupByClause = null;
+    private OrderByClause orderByClause = null;
 
     /**
      * Create a new instance of a {@link Select}
@@ -111,15 +112,29 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
     /**
      * Create a new {@link GroupByClause}
      *
-     * @param columnNames column names
-     * @return <code>this</code> for fluent programming
+     * @param columnReferences column references
+     * @return {@link GroupByClause} instance
      */
     // [impl->dsn~select-statement.out-of-order-clauses~1]
-    public synchronized GroupByClause groupBy(final String... columnNames) {
+    public synchronized GroupByClause groupBy(final ColumnReference... columnReferences) {
         if (this.groupByClause == null) {
-            this.groupByClause = new GroupByClause(this, columnNames);
+            this.groupByClause = new GroupByClause(this, columnReferences);
         }
         return this.groupByClause;
+    }
+
+    /**
+     * Create a new {@link OrderByClause}
+     *
+     * @param columnReferences column references
+     * @return {@link OrderByClause} instance
+     */
+    // [impl->dsn~select-statement.out-of-order-clauses~1]
+    public synchronized OrderByClause orderBy(final ColumnReference... columnReferences) {
+        if (this.orderByClause == null) {
+            this.orderByClause = new OrderByClause(this, columnReferences);
+        }
+        return this.orderByClause;
     }
 
     @Override
@@ -139,6 +154,9 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
         }
         if (groupByClause != null) {
             this.groupByClause.accept(visitor);
+        }
+        if (orderByClause != null) {
+            this.orderByClause.accept(visitor);
         }
     }
 }

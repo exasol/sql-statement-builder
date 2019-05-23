@@ -47,51 +47,51 @@ public abstract class BooleanTerm extends AbstractBooleanExpression {
     }
 
     // [impl->dsn~boolean-operation.comparison.constructing-from-strings~1]
-    public static BooleanExpression compare(final String left, final String operatorSymbol, final String right) {
-        return new Comparison(ComparisonOperator.ofSymbol(operatorSymbol), StringLiteral.of(left),
-                StringLiteral.of(right));
+    public static BooleanExpression compare(final ValueExpression left, final String operatorSymbol,
+            final ValueExpression right) {
+        return new Comparison(ComparisonOperator.ofSymbol(operatorSymbol), left, right);
     }
 
     // [impl->dsn~boolean-operation.comparison.constructing-from-enum~1]
-    public static BooleanExpression compare(final String left, final ComparisonOperator operator, final String right) {
-        return new Comparison(operator, StringLiteral.of(left), StringLiteral.of(right));
+    public static BooleanExpression compare(final ValueExpression left, final ComparisonOperator operator,
+            final ValueExpression right) {
+        return new Comparison(operator, left, right);
     }
 
     // [impl->dsn~comparison-operations~1]
-    public static BooleanExpression eq(final String left, final String right) {
-        return new Comparison(ComparisonOperator.EQUAL, StringLiteral.of(left), StringLiteral.of(right));
+    public static BooleanExpression eq(final ValueExpression left, final ValueExpression right) {
+        return new Comparison(ComparisonOperator.EQUAL, left, right);
     }
 
     // [impl->dsn~comparison-operations~1]
-    public static BooleanExpression ne(final String left, final String right) {
-        return new Comparison(ComparisonOperator.NOT_EQUAL, StringLiteral.of(left), StringLiteral.of(right));
+    public static BooleanExpression ne(final ValueExpression left, final ValueExpression right) {
+        return new Comparison(ComparisonOperator.NOT_EQUAL, left, right);
     }
 
     // [impl->dsn~comparison-operations~1]
-    public static BooleanExpression lt(final String left, final String right) {
-        return new Comparison(ComparisonOperator.LESS_THAN, StringLiteral.of(left), StringLiteral.of(right));
+    public static BooleanExpression lt(final ValueExpression left, final ValueExpression right) {
+        return new Comparison(ComparisonOperator.LESS_THAN, left, right);
     }
 
     // [impl->dsn~comparison-operations~1]
-    public static BooleanExpression gt(final String left, final String right) {
-        return new Comparison(ComparisonOperator.GREATER_THAN, StringLiteral.of(left), StringLiteral.of(right));
+    public static BooleanExpression gt(final ValueExpression left, final ValueExpression right) {
+        return new Comparison(ComparisonOperator.GREATER_THAN, left, right);
     }
 
     // [impl->dsn~comparison-operations~1]
-    public static BooleanExpression le(final String left, final String right) {
-        return new Comparison(ComparisonOperator.LESS_THAN_OR_EQUAL, StringLiteral.of(left), StringLiteral.of(right));
+    public static BooleanExpression le(final ValueExpression left, final ValueExpression right) {
+        return new Comparison(ComparisonOperator.LESS_THAN_OR_EQUAL, left, right);
     }
 
     // [impl->dsn~comparison-operations~1]
-    public static BooleanExpression ge(final String left, final String right) {
-        return new Comparison(ComparisonOperator.GREATER_THAN_OR_EQUAL, StringLiteral.of(left),
-                StringLiteral.of(right));
+    public static BooleanExpression ge(final ValueExpression left, final ValueExpression right) {
+        return new Comparison(ComparisonOperator.GREATER_THAN_OR_EQUAL, left, right);
     }
 
     /**
      * Create a logical operation from an operator name and a list of operands
      *
-     * @param operator name of the operator
+     * @param operator    name of the operator
      * @param expressions operands
      * @return instance of either {@link And}, {@link Or} or {@link Not}
      * @throws IllegalArgumentException if the operator is unknown or null
