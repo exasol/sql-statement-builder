@@ -28,7 +28,7 @@ Goals:
 
 ## Usage
 
-Please read our [User Guide](../sql-statement-builder/doc/guide/user_guide.md) to find information about usage of `sql-statement-builder`.
+Please read our [User Guide](/doc/guide/user_guide.md) to find information about usage of `sql-statement-builder`.
 
 ## Development
 
