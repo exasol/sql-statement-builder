@@ -19,7 +19,7 @@ public final class ColumnReference extends AbstractValueExpression {
      * @param tableName  table name
      * @return new {@link ColumnReference}
      */
-    public static ColumnReference of(final String columnName, final String tableName) {
+    public static ColumnReference column(final String columnName, final String tableName) {
         return new ColumnReference(columnName, tableName);
     }
 

@@ -1,7 +1,7 @@
 package com.exasol.sql.ddl.create;
 
-import com.exasol.datatype.type.Boolean;
 import com.exasol.datatype.type.*;
+import com.exasol.datatype.type.Boolean;
 import com.exasol.sql.*;
 
 /**
@@ -43,7 +43,7 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * Add char column
      *
      * @param columnName name of the column to be added
-     * @param length     pre-defined length for stored strings
+     * @param length pre-defined length for stored strings
      * @return <code>this</code> for fluent programming
      */
     public synchronized CreateTable charColumn(final String columnName, final int length) {
@@ -56,7 +56,7 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * Add varchar column
      *
      * @param columnName name of the column to be added
-     * @param length     pre-defined length for stored strings
+     * @param length pre-defined length for stored strings
      * @return <code>this</code> for fluent programming
      */
     public synchronized CreateTable varcharColumn(final String columnName, final int length) {
@@ -81,8 +81,8 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * Add decimal column
      *
      * @param columnName name of the column to be added
-     * @param precision  precision for numeric value
-     * @param scale      scale for numeric value
+     * @param precision precision for numeric value
+     * @param scale scale for numeric value
      * @return <code>this</code> for fluent programming
      */
     public synchronized CreateTable decimalColumn(final String columnName, final int precision, final int scale) {
@@ -130,8 +130,8 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
     /**
      * Add interval day to second column
      *
-     * @param columnName           name of the column to be added
-     * @param yearPrecision        year precision value
+     * @param columnName name of the column to be added
+     * @param yearPrecision year precision value
      * @param millisecondPrecision millisecond precision value
      * @return <code>this</code> for fluent programming
      */
@@ -145,7 +145,7 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
     /**
      * Add interval year to month column
      *
-     * @param columnName    name of the column to be added
+     * @param columnName name of the column to be added
      * @param yearPrecision year precision value
      * @return <code>this</code> for fluent programming
      */

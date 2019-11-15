@@ -1,13 +1,15 @@
 package com.exasol.sql.ddl.drop.rendering;
 
-import com.exasol.sql.StatementFactory;
-import com.exasol.sql.ddl.drop.DropTable;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import static com.exasol.hamcrest.SqlFragmentRenderResultMatcher.rendersTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import com.exasol.sql.StatementFactory;
+import com.exasol.sql.ddl.drop.DropTable;
+
+// [utest->dsn~rendering.sql.drop~1]
 class TestDropTableRendering {
     private static final String TABLE_NAME = "testName";
     private DropTable dropTable;

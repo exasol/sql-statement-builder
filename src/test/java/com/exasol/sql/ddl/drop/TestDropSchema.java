@@ -24,13 +24,13 @@ class TestDropSchema {
 
     @Test
     void getIfExistsFalseByDefault() {
-        assertFalse(this.dropSchema.getIfExists());
+        assertFalse(this.dropSchema.hasIfExistsModifier());
     }
 
     @Test
     void getIfExists() {
         this.dropSchema.ifExists();
-        assertTrue(this.dropSchema.getIfExists());
+        assertTrue(this.dropSchema.hasIfExistsModifier());
     }
 
     @Test

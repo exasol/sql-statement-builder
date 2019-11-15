@@ -24,9 +24,9 @@ class TestDropTable {
 
     @Test
     void ifExists() {
-        assertFalse(this.dropTable.getIfExists());
+        assertFalse(this.dropTable.hasIfExistsModifier());
         this.dropTable.ifExists();
-        assertTrue(this.dropTable.getIfExists());
+        assertTrue(this.dropTable.hasIfExistsModifier());
     }
 
     @Test

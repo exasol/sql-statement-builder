@@ -20,7 +20,7 @@ public class InsertRenderer extends AbstractFragmentRenderer implements InsertVi
     }
 
     @Override
-    public void visit(final Insert insert) {
+    public void visit(final SqlStatement insert) {
         appendKeyWord("INSERT INTO ");
         setLastVisited(insert);
     }

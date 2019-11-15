@@ -23,6 +23,7 @@ import com.exasol.sql.rendering.StringRendererConfig;
 /**
  * The {@link CreateTableRenderer} turns SQL statement structures in to SQL strings.
  */
+// [impl->dsn~rendering.sql.create~1]
 public class CreateTableRenderer extends AbstractFragmentRenderer implements CreateTableVisitor {
     /**
      * Create a new {@link CreateTableRenderer} with custom render settings.

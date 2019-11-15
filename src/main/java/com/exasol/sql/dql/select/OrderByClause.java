@@ -1,12 +1,14 @@
 package com.exasol.sql.dql.select;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
-import com.exasol.sql.*;
-import com.exasol.sql.expression.*;
+import com.exasol.sql.AbstractFragment;
+import com.exasol.sql.SqlStatement;
+import com.exasol.sql.expression.ColumnReference;
 
 /**
- * This class represents the ORDER BY clause of an SQL statement.
+ * This class represents the {@code ORDER BY} clause of an SQL statement.
  */
 public class OrderByClause extends AbstractFragment implements SelectFragment {
     private final List<ColumnReference> columnReferences;
@@ -14,10 +16,10 @@ public class OrderByClause extends AbstractFragment implements SelectFragment {
     private Boolean nullsFirst = null;
 
     /**
-     * Create a new instance of a {@link OrderByClause}
+     * Create a new instance of a {@link OrderByClause}.
      *
-     * @param rootStatement    SQL statement this ORDER BY clause belongs to
-     * @param columnReferences column references for the GROUP BY clause
+     * @param rootStatement SQL statement this {@code ORDER BY} clause belongs to
+     * @param columnReferences column references for the {@code ORDER BY} clause
      */
     public OrderByClause(final SqlStatement rootStatement, final ColumnReference... columnReferences) {
         super(rootStatement);
@@ -35,7 +37,7 @@ public class OrderByClause extends AbstractFragment implements SelectFragment {
      * @return column name
      */
     public List<ColumnReference> getColumnReferences() {
-        return columnReferences;
+        return this.columnReferences;
     }
 
     /**
@@ -44,7 +46,7 @@ public class OrderByClause extends AbstractFragment implements SelectFragment {
      * @return instance of{@link OrderByClause} for fluent programming
      */
     public OrderByClause desc() {
-        desc = Boolean.TRUE;
+        this.desc = Boolean.TRUE;
         return this;
     }
 
@@ -54,17 +56,17 @@ public class OrderByClause extends AbstractFragment implements SelectFragment {
      * @return instance of{@link OrderByClause} for fluent programming
      */
     public OrderByClause asc() {
-        desc = Boolean.FALSE;
+        this.desc = Boolean.FALSE;
         return this;
     }
 
     /**
      * Get descending.
-     * 
+     *
      * @return true if descending
      */
     public Boolean getDesc() {
-        return desc;
+        return this.desc;
     }
 
     /**
@@ -73,7 +75,7 @@ public class OrderByClause extends AbstractFragment implements SelectFragment {
      * @return instance of{@link OrderByClause} for fluent programming
      */
     public OrderByClause nullsFirst() {
-        nullsFirst = Boolean.TRUE;
+        this.nullsFirst = Boolean.TRUE;
         return this;
     }
 
@@ -83,7 +85,7 @@ public class OrderByClause extends AbstractFragment implements SelectFragment {
      * @return instance of{@link OrderByClause} for fluent programming
      */
     public OrderByClause nullsLast() {
-        nullsFirst = Boolean.FALSE;
+        this.nullsFirst = Boolean.FALSE;
         return this;
     }
 
@@ -93,6 +95,6 @@ public class OrderByClause extends AbstractFragment implements SelectFragment {
      * @return true if nulls first
      */
     public Boolean getNullsFirst() {
-        return nullsFirst;
+        return this.nullsFirst;
     }
 }

@@ -5,7 +5,7 @@ import com.exasol.sql.SqlStatement;
 import com.exasol.sql.ddl.Schema;
 
 /**
- * This class implements an SQL {@link DropSchema} statement
+ * This class implements an SQL {@link DropSchema} statement.
  */
 public class DropSchema extends AbstractFragment implements SqlStatement, DropSchemaFragment {
     private final Schema schema;
@@ -14,7 +14,7 @@ public class DropSchema extends AbstractFragment implements SqlStatement, DropSc
     private boolean ifExists = false;
 
     /**
-     * Create a new instance of an {@link DropSchema} statement
+     * Create a new instance of an {@link DropSchema} statement.
      *
      * @param schemaName name of the table to drop
      */
@@ -24,7 +24,7 @@ public class DropSchema extends AbstractFragment implements SqlStatement, DropSc
     }
 
     /**
-     * Add IF EXISTS clause into a DROP SCHEMA statement
+     * Add {@code IF EXISTS} clause into a {@code DROP SCHEMA} statement.
      *
      * @return <code>this</code> for fluent programming
      */
@@ -36,44 +36,53 @@ public class DropSchema extends AbstractFragment implements SqlStatement, DropSc
     }
 
     /**
-     * Add CASCADE clause to a DROP SCHEMA statement
+     * Add {@code CASCADE} clause to a {@code DROP SCHEMA} statement.
      */
     public synchronized void cascade() {
-        cascade = new Cascade(this);
+        this.cascade = new Cascade(this);
     }
 
     /**
-     * Add RESTRICT clause to a DROP SCHEMA statement
+     * Add {@code RESTRICT} clause to a {@code DROP SCHEMA} statement.
      */
     public synchronized void restrict() {
-        restrict = new Restrict(this);
+        this.restrict = new Restrict(this);
     }
 
     /**
-     * Get the schema name
+     * Get the schema name.
      *
      * @return schema name
      */
     public String getSchemaName() {
-        return schema.getName();
+        return this.schema.getName();
     }
 
     /**
-     * Get the cascade
+     * Get the cascade.
      *
      * @return {@link Cascade} object
      */
     public Cascade getCascade() {
-        return cascade;
+        return this.cascade;
     }
 
     /**
-     * Get the restrict
+     * Get the restriction.
      *
      * @return {@link Restrict} object
      */
     public Restrict getRestrict() {
-        return restrict;
+        return this.restrict;
+    }
+
+    /**
+     * Check whether the {@code IF EXISTS} clause is present.
+     *
+     * @return {@code true} if {@code IF EXISTS} clause is present
+     */
+    public boolean hasIfExistsModifier() {
+        return this.ifExists;
     }
 
     @Override
@@ -81,28 +90,19 @@ public class DropSchema extends AbstractFragment implements SqlStatement, DropSc
         validateCascadeAndRestrict();
         visitor.visit(this);
         this.schema.accept(visitor);
-        if (cascade != null) {
-            cascade.accept(visitor);
+        if (this.cascade != null) {
+            this.cascade.accept(visitor);
         }
-        if (restrict != null) {
-            restrict.accept(visitor);
+        if (this.restrict != null) {
+            this.restrict.accept(visitor);
         }
     }
 
     private void validateCascadeAndRestrict() {
-        if (cascade != null && restrict != null) {
+        if ((this.cascade != null) && (this.restrict != null)) {
             throw new IllegalArgumentException(
                     "DROP SCHEMA expression must not contain CASCADE and RESTRICT clauses at the came time. "
                             + "Use only one of them.");
         }
-    }
-
-    /**
-     * Get true when IF EXISTS clause presents
-     *
-     * @return if exists
-     */
-    public boolean getIfExists() {
-        return ifExists;
     }
 }

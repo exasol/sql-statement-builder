@@ -18,6 +18,6 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
     }
 
     public static ColumnReference columnReference(final String column, final String table) {
-        return ColumnReference.of(column, table);
+        return ColumnReference.column(column, table);
     }
 }

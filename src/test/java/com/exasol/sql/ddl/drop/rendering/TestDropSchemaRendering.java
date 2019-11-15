@@ -1,14 +1,16 @@
 package com.exasol.sql.ddl.drop.rendering;
 
-import com.exasol.sql.StatementFactory;
-import com.exasol.sql.ddl.drop.DropSchema;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import static com.exasol.hamcrest.SqlFragmentRenderResultMatcher.rendersTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import com.exasol.sql.StatementFactory;
+import com.exasol.sql.ddl.drop.DropSchema;
+
+// [utest->dsn~rendering.sql.drop~1]
 class TestDropSchemaRendering {
     private static final String SCHEMA_NAME = "testName";
     private DropSchema dropSchema;
@@ -45,6 +47,6 @@ class TestDropSchemaRendering {
         final DropSchemaRenderer renderer = DropSchemaRenderer.create();
         this.dropSchema.restrict();
         this.dropSchema.cascade();
-        assertThrows(IllegalArgumentException.class, () -> dropSchema.accept(renderer));
+        assertThrows(IllegalArgumentException.class, () -> this.dropSchema.accept(renderer));
     }
 }

@@ -3,6 +3,7 @@ package com.exasol.sql.expression;
 /**
  * This class represents boolean literals (read "true" and "false")
  */
+// [impl->dsn~boolean-literals~1]
 public final class BooleanLiteral extends AbstractBooleanExpression {
     private static final String FALSE = "FALSE";
     private static final String TRUE = "TRUE";

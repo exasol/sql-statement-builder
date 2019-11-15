@@ -5,13 +5,13 @@ import com.exasol.sql.SqlStatement;
 import com.exasol.sql.ddl.Schema;
 
 /**
- * This class implements an SQL {@link CreateSchema} statement
+ * This class implements an SQL {@link CreateSchema} statement.
  */
 public class CreateSchema extends AbstractFragment implements SqlStatement, CreateSchemaFragment {
     private final Schema schema;
 
     /**
-     * Create a new instance of an {@link CreateSchema} statement
+     * Create a new instance of an {@link CreateSchema} statement.
      *
      * @param schemaName name of the table to create
      */
@@ -21,12 +21,12 @@ public class CreateSchema extends AbstractFragment implements SqlStatement, Crea
     }
 
     /**
-     * Get the schema name
+     * Get the schema name.
      *
      * @return schema name
      */
     public String getSchemaName() {
-        return schema.getName();
+        return this.schema.getName();
     }
 
     @Override

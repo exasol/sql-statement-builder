@@ -1,13 +1,14 @@
 package com.exasol.sql.dql.select;
 
-import com.exasol.sql.*;
-import com.exasol.sql.expression.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import com.exasol.sql.*;
+import com.exasol.sql.expression.BooleanExpression;
+import com.exasol.sql.expression.ColumnReference;
+
 /**
- * This class implements an SQL {@link Select} statement
+ * This class implements an SQL {@link Select} statement.
  */
 public class Select extends AbstractFragment implements SqlStatement, SelectFragment {
     private final List<Field> fields = new ArrayList<>();
@@ -18,7 +19,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
     private OrderByClause orderByClause = null;
 
     /**
-     * Create a new instance of a {@link Select}
+     * Create a new instance of a {@link Select}.
      */
     public Select() {
         super(null);
@@ -48,7 +49,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
     }
 
     /**
-     * Get the {@link FromClause} of this select statement
+     * Get the {@link FromClause} of this select statement.
      *
      * @return from clause
      */
@@ -61,7 +62,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
     }
 
     /**
-     * Create a new full outer {@link LimitClause}
+     * Create a new full outer {@link LimitClause}.
      *
      * @param count maximum number of rows to be included in query result
      * @return <code>this</code> for fluent programming
@@ -78,10 +79,10 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
     }
 
     /**
-     * Create a new full outer {@link LimitClause}
+     * Create a new full outer {@link LimitClause}.
      *
      * @param offset index of the first row in the query result
-     * @param count  maximum number of rows to be included in query result
+     * @param count maximum number of rows to be included in query result
      * @return <code>this</code> for fluent programming
      * @throws IllegalStateException if a limit clause already exists
      */
@@ -96,7 +97,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
     }
 
     /**
-     * Create a new {@link WhereClause}
+     * Create a new {@link WhereClause}.
      *
      * @param expression boolean expression that defines the filter criteria
      * @return <code>this</code> for fluent programming
@@ -110,7 +111,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
     }
 
     /**
-     * Create a new {@link GroupByClause}
+     * Create a new {@link GroupByClause}.
      *
      * @param columnReferences column references
      * @return {@link GroupByClause} instance
@@ -124,7 +125,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
     }
 
     /**
-     * Create a new {@link OrderByClause}
+     * Create a new {@link OrderByClause}.
      *
      * @param columnReferences column references
      * @return {@link OrderByClause} instance
@@ -152,10 +153,10 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
         if (this.limitClause != null) {
             this.limitClause.accept(visitor);
         }
-        if (groupByClause != null) {
+        if (this.groupByClause != null) {
             this.groupByClause.accept(visitor);
         }
-        if (orderByClause != null) {
+        if (this.orderByClause != null) {
             this.orderByClause.accept(visitor);
         }
     }

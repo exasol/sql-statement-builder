@@ -1,16 +1,15 @@
 package com.exasol.sql.dml.insert;
 
-import com.exasol.sql.*;
-import com.exasol.sql.ValueTable;
+import com.exasol.sql.SqlStatement;
+import com.exasol.sql.Table;
 
 /**
  * This class implements an SQL {@link Insert} statement
  */
 // [impl->dsn~insert-statements~1]
-public class Insert extends AbstractFragment implements SqlStatement, InsertFragment {
+public class Insert extends AbstractInsertValueTable implements SqlStatement, InsertFragment {
     private final Table table;
     private InsertFields insertFields;
-    private ValueTable insertValueTable;
 
     /**
      * Create a new instance of an {@link Insert} statement
@@ -20,6 +19,11 @@ public class Insert extends AbstractFragment implements SqlStatement, InsertFrag
     public Insert(final String tableName) {
         super(null);
         this.table = new Table(this, tableName);
+    }
+
+    @Override
+    protected AbstractInsertValueTable self() {
+        return this;
     }
 
     /**
@@ -36,12 +40,6 @@ public class Insert extends AbstractFragment implements SqlStatement, InsertFrag
         return this;
     }
 
-    protected synchronized void createInsertValueInstanceIfItDoesNotExist() {
-        if (this.insertValueTable == null) {
-            this.insertValueTable = new ValueTable(this);
-        }
-    }
-
     /**
      * Get the name of the table into which data should be inserted
      *
@@ -49,73 +47,6 @@ public class Insert extends AbstractFragment implements SqlStatement, InsertFrag
      */
     public String getTableName() {
         return this.table.getName();
-    }
-
-    /**
-     * Insert a value table
-     *
-     * @param table value table to be inserted
-     * @return <code>this</code> for fluent programming
-     */
-    public synchronized Insert valueTable(final ValueTable table) {
-        if (this.insertValueTable != null) {
-            throw new IllegalStateException("Cannot add a value table to an INSERT command that already has one.");
-        }
-        this.insertValueTable = table;
-        return this;
-    }
-
-    /**
-     * Insert a list of string values
-     *
-     * @param values string values to be inserted
-     * @return <code>this</code> for fluent programming
-     */
-    // [impl->dsn~values-as-insert-source~1]
-    public synchronized Insert values(final String... values) {
-        createInsertValueInstanceIfItDoesNotExist();
-        this.insertValueTable.add(values);
-        return this;
-    }
-
-    /**
-     * Insert a list of integer values
-     *
-     * @param values integer values to be inserted
-     * @return <code>this</code> for fluent programming
-     */
-    // [impl->dsn~values-as-insert-source~1]
-    public Insert values(final int... values) {
-        createInsertValueInstanceIfItDoesNotExist();
-        this.insertValueTable.add(values);
-        return this;
-    }
-
-    /**
-     * Add an unnamed value placeholder to the value list (this is useful for prepared statements)
-     *
-     * @return <code>this</code> for fluent programming
-     */
-    // [impl->dsn~values-as-insert-source~1]
-    public synchronized Insert valuePlaceholder() {
-        createInsertValueInstanceIfItDoesNotExist();
-        this.insertValueTable.addPlaceholder();
-        return this;
-    }
-
-    /**
-     * Add a given number unnamed value placeholder to the value list (this is useful for prepared statements)
-     *
-     * @param amount number of placeholders to be added
-     * @return <code>this</code> for fluent programming
-     */
-    // [impl->dsn~values-as-insert-source~1]
-    public synchronized Insert valuePlaceholders(final int amount) {
-        createInsertValueInstanceIfItDoesNotExist();
-        for (int i = 0; i < amount; ++i) {
-            valuePlaceholder();
-        }
-        return this;
     }
 
     @Override

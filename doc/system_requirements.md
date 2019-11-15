@@ -163,7 +163,7 @@ Covers:
 Needs: dsn
 
 #### Boolean Literals
-`req~boolean-literal`
+`req~boolean-literals~1`
 
 ESB can convert the following string literals into boolean values, independently of the case they are written in:
 
@@ -178,10 +178,10 @@ Needs: dsn
 
 ### Data Query Language (DQL)
 
-#### Table Value
-`req~table_value~1`
+#### Value Table
+`req~value-table~1`
 
-ESB supports the following way to construct tables from value matrixes:
+ESB supports the following way to construct tables from a value table:
 
     value-table = VALUES value-row *( COMMA value-row )
     
@@ -195,10 +195,10 @@ Needs: dsn
 
 ### Data Definition Language (DDL)
 
-#### CREATE Statements
+#### `CREATE` Statements
 `req~create-statements~1`
 
-ESB supports the following create statements.
+ESB supports the following `CREATE` statements.
 
 Create schema:
     
@@ -220,10 +220,10 @@ Covers:
 
 Needs: dsn
 
-#### DROP Statements
+#### `DROP` Statements
 `req~drop-statements~1`
 
-ESB supports the following drop statement.
+ESB supports the following `DROP` statement.
 
 Drop schema:
 
@@ -245,10 +245,10 @@ Needs: dsn
 
 ### Data Manipulation Language (DML)
 
-#### INSERT Statements
+#### `INSERT` Statements
 `req~insert-statements~1`
 
-ESB supports the following insert statement:
+ESB supports the following `INSERT` statement:
 
     insert-statement = "INSERT INTO" table-reference [insert-columns]
         insert-source
@@ -263,13 +263,45 @@ Covers:
 
 Needs: dsn
 
-#### Values as INSERT SOURCE
+#### Values as `INSERT` Source
 `req~values-as-insert-source~1`
 
-ESB supports a list of explicit values as INSERT source:
+ESB supports a list of explicit values as `INSERT` source:
 
     insert-source =/ "VALUES" L-BRACKET ( value-expression /
         "DEFAULT" ) R-BRACKET
+
+Covers:
+
+* [feat~statement-definition~1](#statement-definition)
+
+Needs: dsn
+
+#### `MERGE` Statements
+`req~merge-statements~1`
+
+ESB supports the following `MERGE` statement:
+
+    merge-statement = "MERGE INTO" table-reference
+        "USING" table-reference
+        "ON" condition
+        [ "WHEN MATCHED THEN" ( merge-update-clause / merge-delete-clause ) ]
+        [ "WHEN NOT MATCHED THEN" merge-insert-clause ]
+    
+    table-reference = table [AS table-alias]
+    
+    merge-update-clause = "UPDATE SET" column "="
+        ( expression / "DEFAULT" ) * ( COMMA ( expression / "DEFAULT" ) ) [ where-clause ]
+        [ merge-delete-clause ]
+        
+    merge-delete-clause = "DELETE" where-clause
+    
+    merge-insert-clause = "INSERT" [ L-BRACKET column *( COMMA column ) R-BRACKET ]
+        merge-values
+
+    merge-values = "VALUES" L-BRACKET ( expression / "DEFAULT" )
+        *( COMMA ( expression / "DEFAULT" ) )  R_BRACKET
+        [ where-clause]
 
 Covers:
 
@@ -313,7 +345,7 @@ Covers:
 
 Needs: dsn
 
-#### SELECT Statement Rendering
+#### `SELECT` Statement Rendering
 `req~rendering.sql.select~1`
 
 ESB renders abstract `SELECT` statements into SQL query strings.
@@ -324,7 +356,7 @@ Covers:
 
 Needs: dsn
 
-#### CREATE Statement Rendering
+#### `CREATE` Statement Rendering
 `req~rendering.sql.create~1`
 
 ESB renders abstract `CREATE` statements into SQL data definition language strings.
@@ -335,7 +367,7 @@ Covers:
 
 Needs: dsn
 
-#### DROP Statement Rendering
+#### `DROP` Statement Rendering
 `req~rendering.sql.drop~1`
 
 ESB renders abstract `DROP` statements into SQL data definition language strings.
@@ -346,7 +378,7 @@ Covers:
 
 Needs: dsn
 
-#### INSERT Statement Rendering
+#### `INSERT` Statement Rendering
 `req~rendering.sql.insert~1`
 
 ESB renders abstract `INSERT` statements into SQL data manipulation language strings.
@@ -359,7 +391,7 @@ Needs: dsn
 
 ### Exasol Dialect Specific Requirements
 
-###### Integer - Interval Conversion
+#### Integer - Interval Conversion
 `req~integer-interval-conversion~1`
 
 ESB converts values of type `INTERVAL` to integer and vice-versa.

@@ -9,11 +9,11 @@ class ColumnReferenceTest {
 
     @Test
     void getColumnName() {
-        assertThat(ColumnReference.of("column", "table").getColumnName(), equalTo("column"));
+        assertThat(ColumnReference.column("column", "table").getColumnName(), equalTo("column"));
     }
 
     @Test
     void getTableName() {
-        assertThat(ColumnReference.of("column", "table").getTableName(), equalTo("table"));
+        assertThat(ColumnReference.column("column", "table").getTableName(), equalTo("table"));
     }
 }
