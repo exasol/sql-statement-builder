@@ -1,17 +1,17 @@
 package com.exasol.sql;
 
-import java.util.Optional;
-
 import com.exasol.sql.ddl.create.CreateTableVisitor;
 import com.exasol.sql.ddl.drop.DropTableVisitor;
+import com.exasol.sql.dml.insert.InsertVisitor;
 import com.exasol.sql.dml.merge.MergeVisitor;
+import com.exasol.sql.dql.select.SelectVisitor;
 
 /**
  * This class represents a {@link Table} in an SQL Statement
  */
 public class Table extends AbstractFragment {
     private final String name;
-    private final Optional<String> as;
+    private final String as;
 
     /**
      * Create a new {@link Table} with a name and an alias
@@ -22,7 +22,7 @@ public class Table extends AbstractFragment {
     public Table(final Fragment root, final String name) {
         super(root);
         this.name = name;
-        this.as = Optional.empty();
+        this.as = null;
     }
 
     /**
@@ -35,7 +35,7 @@ public class Table extends AbstractFragment {
     public Table(final Fragment root, final String name, final String as) {
         super(root);
         this.name = name;
-        this.as = Optional.of(as);
+        this.as = as;
     }
 
     /**
@@ -52,12 +52,17 @@ public class Table extends AbstractFragment {
      *
      * @return correlation name
      */
-    public Optional<String> getAs() {
+    public String getAs() {
         return this.as;
     }
 
-    public void accept(final TableValuesVisitor visitor) {
-        visitor.visit(this);
+    /**
+     * Check if a correlation name (i.a. an alias) is present.
+     *
+     * @return {@code true} if a correlation name is present
+     */
+    public boolean hasAs() {
+        return this.as != null;
     }
 
     public void accept(final CreateTableVisitor visitor) {
@@ -69,6 +74,14 @@ public class Table extends AbstractFragment {
     }
 
     public void accept(final MergeVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public void accept(final InsertVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public void accept(final SelectVisitor visitor) {
         visitor.visit(this);
     }
 }

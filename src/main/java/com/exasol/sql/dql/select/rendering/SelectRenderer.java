@@ -1,11 +1,10 @@
 package com.exasol.sql.dql.select.rendering;
 
-import java.util.*;
-
 import com.exasol.sql.*;
 import com.exasol.sql.dql.select.*;
-import com.exasol.sql.expression.*;
-import com.exasol.sql.rendering.*;
+import com.exasol.sql.expression.BooleanExpression;
+import com.exasol.sql.rendering.AbstractFragmentRenderer;
+import com.exasol.sql.rendering.StringRendererConfig;
 
 /**
  * The {@link SelectRenderer} turns SQL statement structures in to SQL strings.
@@ -44,10 +43,9 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
     public void visit(final Table table) {
         appendCommaWhenNeeded(table);
         appendAutoQuoted(table.getName());
-        final Optional<String> as = table.getAs();
-        if (as.isPresent()) {
+        if (table.hasAs()) {
             appendKeyWord(" AS ");
-            append(as.get());
+            append(table.getAs());
         }
         setLastVisited(table);
     }

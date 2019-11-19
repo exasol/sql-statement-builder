@@ -1,5 +1,9 @@
 package com.exasol.sql;
 
+import com.exasol.sql.dml.insert.InsertVisitor;
+import com.exasol.sql.dml.merge.MergeVisitor;
+import com.exasol.sql.dql.select.SelectVisitor;
+
 /**
  * This class represents a table field in an SQL statement.
  */
@@ -26,7 +30,15 @@ public class Field extends AbstractFragment {
         return this.name;
     }
 
-    public void accept(final TableValuesVisitor visitor) {
+    public void accept(final InsertVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public void accept(final MergeVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    public void accept(final SelectVisitor visitor) {
         visitor.visit(this);
     }
 }

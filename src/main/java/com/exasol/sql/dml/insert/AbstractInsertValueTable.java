@@ -4,6 +4,7 @@ import com.exasol.sql.*;
 
 public abstract class AbstractInsertValueTable<T extends AbstractInsertValueTable<T>> extends AbstractFragment {
     protected ValueTable insertValueTable;
+    protected InsertFields insertFields;
 
     public AbstractInsertValueTable(final Fragment root) {
         super(root);
@@ -15,6 +16,20 @@ public abstract class AbstractInsertValueTable<T extends AbstractInsertValueTabl
         if (this.insertValueTable == null) {
             this.insertValueTable = new ValueTable(this);
         }
+    }
+
+    /**
+     * Define fields into which should be inserted
+     *
+     * @param names field names
+     * @return <code>this</code> for fluent programming
+     */
+    public synchronized T field(final String... names) {
+        if (this.insertFields == null) {
+            this.insertFields = new InsertFields(this.getRoot());
+        }
+        this.insertFields.add(names);
+        return self();
     }
 
     /**

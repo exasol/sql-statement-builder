@@ -60,6 +60,17 @@ public final class StatementFactory {
     }
 
     /**
+     * Create a {@link Merge} statement.
+     *
+     * @param destinationTable table into which data is merged
+     * @param as table alias
+     * @return a new instance of a {@link Merge} statement
+     */
+    public Merge mergeInto(final String destinationTable, final String as) {
+        return new Merge(destinationTable, as);
+    }
+
+    /**
      * Create a {@link CreateTable} statement.
      *
      * @param tableName name of the table to create

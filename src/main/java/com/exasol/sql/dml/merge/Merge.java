@@ -14,6 +14,7 @@ public class Merge extends AbstractFragment implements SqlStatement, MergeFragme
     private OnClause on;
     private BooleanExpression condition;
     private MatchedClause matched;
+    private NotMatchedClause notMatched;
 
     /**
      * Create a new instance of a {@link Merge}.
@@ -26,6 +27,17 @@ public class Merge extends AbstractFragment implements SqlStatement, MergeFragme
     }
 
     /**
+     * Create a new instance of a {@link Merge}.
+     *
+     * @param destinationTable table into which the data should be merged
+     * @param as table alias
+     */
+    public Merge(final String destinationTable, final String as) {
+        super(null);
+        this.destinationTable = new Table(this, destinationTable, as);
+    }
+
+    /**
      * Define the data source.
      *
      * @param sourceTable table where the data to be merged originates
@@ -33,6 +45,18 @@ public class Merge extends AbstractFragment implements SqlStatement, MergeFragme
      */
     public Merge using(final String sourceTable) {
         this.using = new UsingClause(this, sourceTable);
+        return this;
+    }
+
+    /**
+     * Define the data source.
+     *
+     * @param sourceTable table where the data to be merged originates
+     * @param as table alias
+     * @return {@code this} for fluent programming
+     */
+    public Merge using(final String sourceTable, final String as) {
+        this.using = new UsingClause(this, sourceTable, as);
         return this;
     }
 
@@ -57,9 +81,14 @@ public class Merge extends AbstractFragment implements SqlStatement, MergeFragme
         return this.matched;
     }
 
-    public MergeInsertClause whenNotMatchedThenInsert() {
-        // TODO Auto-generated method stub
-        return null;
+    /**
+     * Define the merge strategy if the match criteria is not met.
+     *
+     * @return not matched strategy
+     */
+    public NotMatchedClause whenNotMatched() {
+        this.notMatched = new NotMatchedClause(this.root);
+        return this.notMatched;
     }
 
     /**
@@ -94,6 +123,9 @@ public class Merge extends AbstractFragment implements SqlStatement, MergeFragme
         }
         if (this.matched != null) {
             this.matched.accept(visitor);
+        }
+        if (this.notMatched != null) {
+            this.notMatched.accept(visitor);
         }
     }
 }

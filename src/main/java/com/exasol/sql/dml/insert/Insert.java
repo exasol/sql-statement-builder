@@ -7,9 +7,8 @@ import com.exasol.sql.Table;
  * This class implements an SQL {@link Insert} statement
  */
 // [impl->dsn~insert-statements~1]
-public class Insert extends AbstractInsertValueTable implements SqlStatement, InsertFragment {
+public class Insert extends AbstractInsertValueTable<Insert> implements SqlStatement, InsertFragment {
     private final Table table;
-    private InsertFields insertFields;
 
     /**
      * Create a new instance of an {@link Insert} statement
@@ -22,21 +21,7 @@ public class Insert extends AbstractInsertValueTable implements SqlStatement, In
     }
 
     @Override
-    protected AbstractInsertValueTable self() {
-        return this;
-    }
-
-    /**
-     * Define fields into which should be inserted
-     *
-     * @param names field names
-     * @return <code>this</code> for fluent programming
-     */
-    public synchronized Insert field(final String... names) {
-        if (this.insertFields == null) {
-            this.insertFields = new InsertFields(this);
-        }
-        this.insertFields.add(names);
+    protected Insert self() {
         return this;
     }
 

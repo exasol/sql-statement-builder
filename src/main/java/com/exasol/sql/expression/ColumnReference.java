@@ -14,12 +14,12 @@ public final class ColumnReference extends AbstractValueExpression {
 
     /**
      * Create a new {@link ColumnReference} from a column name and a table name.
-     * 
-     * @param columnName column name
      * @param tableName  table name
+     * @param columnName column name
+     * 
      * @return new {@link ColumnReference}
      */
-    public static ColumnReference column(final String columnName, final String tableName) {
+    public static ColumnReference column(final String tableName, final String columnName) {
         return new ColumnReference(columnName, tableName);
     }
 

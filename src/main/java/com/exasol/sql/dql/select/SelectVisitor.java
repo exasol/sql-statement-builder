@@ -1,6 +1,6 @@
 package com.exasol.sql.dql.select;
 
-import com.exasol.sql.TableValuesVisitor;
+import com.exasol.sql.*;
 
 public interface SelectVisitor extends TableValuesVisitor {
     public void visit(final Select select);
@@ -16,4 +16,8 @@ public interface SelectVisitor extends TableValuesVisitor {
     public void visit(GroupByClause groupByClause);
 
     public void visit(OrderByClause orderByClause);
+
+    public void visit(Field field);
+
+    void visit(Table table);
 }

@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.exasol.sql.*;
+import com.exasol.sql.dml.merge.MergeFragment;
+import com.exasol.sql.dml.merge.MergeVisitor;
 
-public class InsertFields extends AbstractFragment implements InsertFragment {
+public class InsertFields extends AbstractFragment implements InsertFragment, MergeFragment {
     private final List<Field> fields = new ArrayList<>();
 
     /**
@@ -13,7 +15,7 @@ public class InsertFields extends AbstractFragment implements InsertFragment {
      *
      * @param root root statement
      */
-    public InsertFields(final SqlStatement root) {
+    public InsertFields(final Fragment root) {
         super(root);
     }
 
@@ -30,6 +32,15 @@ public class InsertFields extends AbstractFragment implements InsertFragment {
 
     @Override
     public void accept(final InsertVisitor visitor) {
+        visitor.visit(this);
+        for (final Field field : this.fields) {
+            field.accept(visitor);
+        }
+        visitor.leave(this);
+    }
+
+    @Override
+    public void accept(final MergeVisitor visitor) {
         visitor.visit(this);
         for (final Field field : this.fields) {
             field.accept(visitor);

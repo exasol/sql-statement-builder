@@ -7,6 +7,7 @@ import com.exasol.sql.Fragment;
  * Representation of the {@code WHEN MATCHED} part of an SQL {@code MERGE statement}.
  * <p>
  * This class supports two different strategies, updating matching rows or deleting matching rows.
+ * </p>
  */
 public class MatchedClause extends AbstractFragment implements MergeFragment {
     private MergeUpdateClause mergeUpdateClause;

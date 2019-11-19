@@ -1,6 +1,7 @@
 package com.exasol.sql.dml.merge.rendering;
 
-import com.exasol.sql.Table;
+import com.exasol.sql.*;
+import com.exasol.sql.dml.insert.InsertFields;
 import com.exasol.sql.dml.insert.rendering.InsertRenderer;
 import com.exasol.sql.dml.merge.*;
 import com.exasol.sql.rendering.AbstractFragmentRenderer;
@@ -29,6 +30,10 @@ public class MergeRenderer extends AbstractFragmentRenderer implements MergeVisi
     @Override
     public void visit(final Table table) {
         appendAutoQuoted(table.getName());
+        if (table.hasAs()) {
+            appendKeyWord(" AS ");
+            append(table.getAs());
+        }
         setLastVisited(table);
     }
 
@@ -73,8 +78,14 @@ public class MergeRenderer extends AbstractFragmentRenderer implements MergeVisi
     }
 
     @Override
+    public void visit(final NotMatchedClause notMatchedClause) {
+        appendKeyWord(" WHEN NOT MATCHED ");
+        setLastVisited(notMatchedClause);
+    }
+
+    @Override
     public void visit(final MergeInsertClause mergeInsertClause) {
-        appendKeyWord(" WHEN NOT MATCHED THEN INSERT");
+        appendKeyWord("THEN INSERT");
         setLastVisited(mergeInsertClause);
     }
 
@@ -95,5 +106,48 @@ public class MergeRenderer extends AbstractFragmentRenderer implements MergeVisi
      */
     public static MergeRenderer create() {
         return create(StringRendererConfig.createDefault());
+    }
+
+    @Override
+    public void visit(final Field field) {
+        appendCommaWhenNeeded(field);
+        appendAutoQuoted(field.getName());
+        setLastVisited(field);
+    }
+
+    @Override
+    public void visit(final InsertFields insertFields) {
+        append(" (");
+        setLastVisited(insertFields);
+    }
+
+    @Override
+    public void leave(final InsertFields insertFields) {
+        append(")");
+    }
+
+    @Override
+    public void visit(final ValueTable valueTable) {
+        appendKeyWord(" VALUES ");
+        setLastVisited(valueTable);
+    }
+
+    @Override
+    public void leave(final ValueTable valueTable) {
+        setLastVisited(valueTable);
+    }
+
+    @Override
+    public void visit(final ValueTableRow valueTableRow) {
+        appendCommaWhenNeeded(valueTableRow);
+        append("(");
+        appendValueTableRow(valueTableRow);
+        setLastVisited(valueTableRow);
+    }
+
+    @Override
+    public void leave(final ValueTableRow valueTableRow) {
+        append(")");
+        setLastVisited(valueTableRow);
     }
 }

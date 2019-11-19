@@ -5,10 +5,7 @@ import java.util.List;
 
 import com.exasol.sql.AbstractFragment;
 import com.exasol.sql.Fragment;
-import com.exasol.sql.expression.DefaultValue;
-import com.exasol.sql.expression.IntegerLiteral;
-import com.exasol.sql.expression.StringLiteral;
-import com.exasol.sql.expression.ValueExpression;
+import com.exasol.sql.expression.*;
 
 /**
  * This class represents the {@code MERGE} strategy of updating matched rows.

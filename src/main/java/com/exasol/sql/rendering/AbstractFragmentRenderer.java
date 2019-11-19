@@ -1,10 +1,12 @@
 package com.exasol.sql.rendering;
 
-import java.util.*;
+import java.util.List;
 
-import com.exasol.sql.*;
+import com.exasol.sql.Fragment;
+import com.exasol.sql.ValueTableRow;
 import com.exasol.sql.expression.*;
-import com.exasol.sql.expression.rendering.*;
+import com.exasol.sql.expression.rendering.BooleanExpressionRenderer;
+import com.exasol.sql.expression.rendering.ValueExpressionRenderer;
 
 /**
  * Abstract base class for SQL fragment renderers
@@ -14,6 +16,11 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
     protected final StringRendererConfig config;
     private Fragment lastVisited;
 
+    /**
+     * Create a new instance of an {@link AbstractFragmentRenderer}-based class.
+     * 
+     * @param config renderer configuration
+     */
     public AbstractFragmentRenderer(final StringRendererConfig config) {
         this.config = config;
         this.lastVisited = null;
@@ -25,8 +32,8 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
     }
 
     protected void appendListOfColumnReferences(final List<ColumnReference> columnReferences) {
-        if (columnReferences != null && !columnReferences.isEmpty()) {
-            for (int i = 0; i < columnReferences.size() - 1; i++) {
+        if ((columnReferences != null) && !columnReferences.isEmpty()) {
+            for (int i = 0; i < (columnReferences.size() - 1); i++) {
                 appendColumnReference(columnReferences.get(i), false);
             }
             appendColumnReference(columnReferences.get(columnReferences.size() - 1), true);
@@ -34,7 +41,7 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
     }
 
     protected void appendColumnReference(final ColumnReference columnReference, final boolean last) {
-        final ValueExpressionRenderer valueExpressionRenderer = new ValueExpressionRenderer(config);
+        final ValueExpressionRenderer valueExpressionRenderer = new ValueExpressionRenderer(this.config);
         columnReference.accept(valueExpressionRenderer);
         this.builder.append(valueExpressionRenderer.render());
         if (!last) {
@@ -43,7 +50,7 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
     }
 
     protected void appendStringList(final List<String> strings) {
-        for (int i = 0; i < strings.size() - 1; i++) {
+        for (int i = 0; i < (strings.size() - 1); i++) {
             append(strings.get(i));
             append(", ");
         }
