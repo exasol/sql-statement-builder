@@ -1,14 +1,15 @@
 package com.exasol.sql.dql.select.rendering;
 
-import static com.exasol.hamcrest.SqlFragmentRenderResultMatcher.*;
+import static com.exasol.hamcrest.SqlFragmentRenderResultMatcher.rendersTo;
 import static com.exasol.sql.expression.BooleanTerm.*;
 import static com.exasol.sql.expression.ExpressionTerm.*;
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import com.exasol.sql.*;
-import com.exasol.sql.dql.select.*;
+import com.exasol.sql.StatementFactory;
+import com.exasol.sql.dql.select.Select;
 
 class TestGroupByRendering {
     private Select select;

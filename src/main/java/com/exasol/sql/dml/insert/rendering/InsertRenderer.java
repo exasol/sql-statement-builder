@@ -1,7 +1,8 @@
 package com.exasol.sql.dml.insert.rendering;
 
 import com.exasol.sql.*;
-import com.exasol.sql.dml.insert.*;
+import com.exasol.sql.dml.insert.InsertFields;
+import com.exasol.sql.dml.insert.InsertVisitor;
 import com.exasol.sql.rendering.AbstractFragmentRenderer;
 import com.exasol.sql.rendering.StringRendererConfig;
 

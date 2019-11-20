@@ -8,7 +8,7 @@ import com.exasol.sql.Fragment;
 import com.exasol.sql.expression.*;
 
 /**
- * This class represents the {@code MERGE} strategy of updating matched rows.
+ * Represents the {@code MERGE} strategy of updating matched rows.
  */
 public class MergeUpdateClause extends AbstractFragment implements MergeFragment {
     private final List<MergeColumnUpdate> columnUpdates = new ArrayList<>();

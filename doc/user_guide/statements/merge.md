@@ -20,7 +20,9 @@ final Merge merge = StatementFactory.getInstance()
 
 If you need more control over what happens in case of matching rows, you can add `whenMatched()`.
 
-In case of `whenMatched()` select one of the two strategies `thenInsert()` &hellip;
+In case of `whenMatched()` select one of the two strategies `thenUpdate()` or `thenDelete()`.
+
+Here is an example for `thenUpdate()`.
 
 ```java
 merge.whenMatched()
@@ -30,13 +32,13 @@ merge.whenMatched()
     .set("c4", 42);
 ```
 
-&hellip; or or `thenDelete()`.
+And another example for `thenDelete()`.
 
 ```java
 merge.thenDelete();
 ```
 
-Consequently you can use `whenNotMatched()` to control the strategy when row do not match.
+Consequently you can use `whenNotMatched()` to control the strategy when row do not match. In this case only `thenInsert()` is supported.
 
 ```java
 merge.whenNotMatched()

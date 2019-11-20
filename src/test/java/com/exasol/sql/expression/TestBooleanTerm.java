@@ -1,12 +1,12 @@
 package com.exasol.sql.expression;
 
 import static com.exasol.sql.expression.BooleanTerm.not;
-import static com.exasol.sql.expression.ExpressionTerm.*;
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static com.exasol.sql.expression.ExpressionTerm.stringLiteral;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
 
 class TestBooleanTerm {
     // [utest->dsn~boolean-operators~1]

@@ -30,11 +30,11 @@ public class Merge extends AbstractFragment implements SqlStatement, MergeFragme
      * Create a new instance of a {@link Merge}.
      *
      * @param destinationTable table into which the data should be merged
-     * @param as table alias
+     * @param alias table alias
      */
-    public Merge(final String destinationTable, final String as) {
+    public Merge(final String destinationTable, final String alias) {
         super(null);
-        this.destinationTable = new Table(this, destinationTable, as);
+        this.destinationTable = new Table(this, destinationTable, alias);
     }
 
     /**

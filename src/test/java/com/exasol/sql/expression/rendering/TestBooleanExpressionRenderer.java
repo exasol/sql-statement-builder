@@ -1,15 +1,17 @@
 package com.exasol.sql.expression.rendering;
 
-import static com.exasol.hamcrest.BooleanExpressionRenderResultMatcher.*;
+import static com.exasol.hamcrest.BooleanExpressionRenderResultMatcher.rendersTo;
+import static com.exasol.hamcrest.BooleanExpressionRenderResultMatcher.rendersWithConfigTo;
 import static com.exasol.sql.expression.BooleanTerm.*;
 import static com.exasol.sql.expression.ExpressionTerm.*;
-import static org.hamcrest.MatcherAssert.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
 
-import com.exasol.sql.expression.*;
-import com.exasol.sql.rendering.*;
+import com.exasol.sql.expression.BooleanExpression;
+import com.exasol.sql.expression.ComparisonOperator;
+import com.exasol.sql.rendering.StringRendererConfig;
 
 class TestBooleanExpressionRenderer {
     // [utest->dsn~boolean-operators~1]

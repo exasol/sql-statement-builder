@@ -1,9 +1,7 @@
 package com.exasol.sql.ddl.drop.rendering;
 
 import com.exasol.sql.Table;
-import com.exasol.sql.ddl.drop.CascadeConstraints;
-import com.exasol.sql.ddl.drop.DropTable;
-import com.exasol.sql.ddl.drop.DropTableVisitor;
+import com.exasol.sql.ddl.drop.*;
 import com.exasol.sql.rendering.AbstractFragmentRenderer;
 import com.exasol.sql.rendering.StringRendererConfig;
 

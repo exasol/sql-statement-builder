@@ -1,8 +1,8 @@
 package com.exasol.sql;
 
-import com.exasol.sql.expression.*;
-
 import java.util.*;
+
+import com.exasol.sql.expression.*;
 
 /**
  * This class represents a row in a {@link ValueTable}.
@@ -50,7 +50,7 @@ public class ValueTableRow extends AbstractFragment {
         return this.expressions;
     }
 
-    public void accept(final TableValuesVisitor visitor) {
+    public void accept(final ValueTableVisitor visitor) {
         visitor.visit(this);
         visitor.leave(this);
     }

@@ -1,7 +1,7 @@
 package com.exasol.sql.ddl.create;
 
-import com.exasol.datatype.type.Boolean;
 import com.exasol.datatype.type.*;
+import com.exasol.datatype.type.Boolean;
 import com.exasol.sql.Table;
 
 public interface CreateTableVisitor {

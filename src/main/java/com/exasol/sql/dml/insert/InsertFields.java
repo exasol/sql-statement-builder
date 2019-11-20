@@ -7,6 +7,9 @@ import com.exasol.sql.*;
 import com.exasol.sql.dml.merge.MergeFragment;
 import com.exasol.sql.dml.merge.MergeVisitor;
 
+/**
+ * Field list that defines the fields data is being inserted into.
+ */
 public class InsertFields extends AbstractFragment implements InsertFragment, MergeFragment {
     private final List<Field> fields = new ArrayList<>();
 

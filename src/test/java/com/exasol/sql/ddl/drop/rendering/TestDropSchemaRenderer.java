@@ -1,13 +1,14 @@
 package com.exasol.sql.ddl.drop.rendering;
 
-import com.exasol.sql.StatementFactory;
-import com.exasol.sql.ddl.drop.DropSchema;
-import com.exasol.sql.rendering.StringRendererConfig;
-import org.junit.jupiter.api.Test;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.core.StringStartsWith.startsWith;
+
+import org.junit.jupiter.api.Test;
+
+import com.exasol.sql.StatementFactory;
+import com.exasol.sql.ddl.drop.DropSchema;
+import com.exasol.sql.rendering.StringRendererConfig;
 
 class TestDropSchemaRenderer {
     @Test

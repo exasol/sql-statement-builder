@@ -1,6 +1,6 @@
 package com.exasol.sql;
 
-public interface TableValuesVisitor {
+public interface ValueTableVisitor {
     public void visit(ValueTable valueTable);
 
     public void leave(ValueTable valueTable);

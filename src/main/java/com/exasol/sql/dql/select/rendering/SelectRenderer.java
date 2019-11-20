@@ -43,9 +43,9 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
     public void visit(final Table table) {
         appendCommaWhenNeeded(table);
         appendAutoQuoted(table.getName());
-        if (table.hasAs()) {
+        if (table.hasAlias()) {
             appendKeyWord(" AS ");
-            append(table.getAs());
+            append(table.getAlias());
         }
         setLastVisited(table);
     }

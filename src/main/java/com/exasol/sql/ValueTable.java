@@ -95,7 +95,7 @@ public class ValueTable extends AbstractFragment {
         return this.rows.isEmpty();
     }
 
-    public void accept(final TableValuesVisitor visitor) {
+    public void accept(final ValueTableVisitor visitor) {
         visitor.visit(this);
         for (final ValueTableRow row : this.rows) {
             row.accept(visitor);

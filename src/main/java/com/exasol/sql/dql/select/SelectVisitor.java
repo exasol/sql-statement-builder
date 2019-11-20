@@ -2,7 +2,7 @@ package com.exasol.sql.dql.select;
 
 import com.exasol.sql.*;
 
-public interface SelectVisitor extends TableValuesVisitor {
+public interface SelectVisitor extends ValueTableVisitor {
     public void visit(final Select select);
 
     public void visit(FromClause fromClause);

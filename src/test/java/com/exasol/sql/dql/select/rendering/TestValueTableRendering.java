@@ -1,13 +1,14 @@
 package com.exasol.sql.dql.select.rendering;
 
-import com.exasol.sql.StatementFactory;
-import com.exasol.sql.ValueTable;
-import com.exasol.sql.dql.select.Select;
+import static com.exasol.hamcrest.SqlFragmentRenderResultMatcher.rendersTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static com.exasol.hamcrest.SqlFragmentRenderResultMatcher.rendersTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import com.exasol.sql.StatementFactory;
+import com.exasol.sql.ValueTable;
+import com.exasol.sql.dql.select.Select;
 
 class TestValueTableRendering {
     private Select select;

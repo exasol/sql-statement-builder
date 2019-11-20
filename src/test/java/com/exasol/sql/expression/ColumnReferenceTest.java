@@ -6,7 +6,6 @@ import static org.hamcrest.Matchers.equalTo;
 import org.junit.jupiter.api.Test;
 
 class ColumnReferenceTest {
-
     @Test
     void getColumnName() {
         assertThat(ColumnReference.column("table", "column").getColumnName(), equalTo("column"));

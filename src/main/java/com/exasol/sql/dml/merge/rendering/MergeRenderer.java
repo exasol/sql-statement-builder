@@ -30,9 +30,9 @@ public class MergeRenderer extends AbstractFragmentRenderer implements MergeVisi
     @Override
     public void visit(final Table table) {
         appendAutoQuoted(table.getName());
-        if (table.hasAs()) {
+        if (table.hasAlias()) {
             appendKeyWord(" AS ");
-            append(table.getAs());
+            append(table.getAlias());
         }
         setLastVisited(table);
     }

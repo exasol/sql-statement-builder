@@ -1,10 +1,7 @@
 package com.exasol.sql.ddl.drop.rendering;
 
 import com.exasol.sql.ddl.Schema;
-import com.exasol.sql.ddl.drop.Cascade;
-import com.exasol.sql.ddl.drop.DropSchema;
-import com.exasol.sql.ddl.drop.DropSchemaVisitor;
-import com.exasol.sql.ddl.drop.Restrict;
+import com.exasol.sql.ddl.drop.*;
 import com.exasol.sql.rendering.AbstractFragmentRenderer;
 import com.exasol.sql.rendering.StringRendererConfig;
 

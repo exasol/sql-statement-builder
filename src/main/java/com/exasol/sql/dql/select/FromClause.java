@@ -3,10 +3,7 @@ package com.exasol.sql.dql.select;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.exasol.sql.AbstractFragment;
-import com.exasol.sql.Fragment;
-import com.exasol.sql.Table;
-import com.exasol.sql.ValueTable;
+import com.exasol.sql.*;
 
 /**
  * This class represents the {@code FROM} clause of an SQL {@code SELECT} statement.

@@ -1,22 +1,9 @@
 package com.exasol.sql.ddl.create.rendering;
 
-import com.exasol.datatype.type.AbstractStringDataType;
+import com.exasol.datatype.type.*;
 import com.exasol.datatype.type.Boolean;
-import com.exasol.datatype.type.Char;
-import com.exasol.datatype.type.DataType;
-import com.exasol.datatype.type.Date;
-import com.exasol.datatype.type.Decimal;
-import com.exasol.datatype.type.DoublePrecision;
-import com.exasol.datatype.type.IntervalDayToSecond;
-import com.exasol.datatype.type.IntervalYearToMonth;
-import com.exasol.datatype.type.Timestamp;
-import com.exasol.datatype.type.TimestampWithLocalTimezone;
-import com.exasol.datatype.type.Varchar;
 import com.exasol.sql.Table;
-import com.exasol.sql.ddl.create.Column;
-import com.exasol.sql.ddl.create.ColumnsDefinition;
-import com.exasol.sql.ddl.create.CreateTable;
-import com.exasol.sql.ddl.create.CreateTableVisitor;
+import com.exasol.sql.ddl.create.*;
 import com.exasol.sql.rendering.AbstractFragmentRenderer;
 import com.exasol.sql.rendering.StringRendererConfig;
 

@@ -2,10 +2,20 @@ package com.exasol.sql.dml.insert;
 
 import com.exasol.sql.*;
 
+/**
+ * Abstract base class for SQL fragments that contain a insert value table (for example {@code INSERT}, {@code MERGE}).
+ *
+ * @param <T> self pointer
+ */
 public abstract class AbstractInsertValueTable<T extends AbstractInsertValueTable<T>> extends AbstractFragment {
     protected ValueTable insertValueTable;
     protected InsertFields insertFields;
 
+    /**
+     * Create the abstract base for a fragment containing a value table.
+     * 
+     * @param root root fragment
+     */
     public AbstractInsertValueTable(final Fragment root) {
         super(root);
     }

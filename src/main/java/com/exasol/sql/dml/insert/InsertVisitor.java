@@ -2,7 +2,7 @@ package com.exasol.sql.dml.insert;
 
 import com.exasol.sql.*;
 
-public interface InsertVisitor extends TableValuesVisitor {
+public interface InsertVisitor extends ValueTableVisitor {
     public void visit(SqlStatement insert);
 
     public void visit(Table table);
