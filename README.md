@@ -28,7 +28,7 @@ Goals:
 
 ## In a Nutshell
 
-The following example gives you an idea about what you can do with the SQL Statement Builder. Check our [user guide](../sql-statement-builder/doc/user_guide/user_guide.md) for more details.
+The following example gives you an idea about what you can do with the SQL Statement Builder. Check our [user guide](doc/user_guide/user_guide.md) for more details.
 
 ```java
 final Select select = StatementFactory.getInstance()
@@ -48,9 +48,14 @@ final String sql = renderer.render(select);
 
 "Users" from the perspective of the `sql-statement-builder` are developers integrating the module into their own software.
 
-* [User Guide](../sql-statement-builder/doc/user_guide/user_guide.md)
+* [User Guide](doc/user_guide/user_guide.md)
 * [API Documentation](https://javadoc.io/doc/com.exasol/sql-statement-builder)
 * [MIT License](LICENSE)
+
+### Information for Developers
+
+* [System Requirement Specification](doc/system_requirements.md)
+* [Design](doc/design.md)
 
 ## Dependencies
 
