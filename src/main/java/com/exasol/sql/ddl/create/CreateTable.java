@@ -40,7 +40,7 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
     }
 
     /**
-     * Add char column
+     * Add char column.
      *
      * @param columnName name of the column to be added
      * @param length pre-defined length for stored strings
