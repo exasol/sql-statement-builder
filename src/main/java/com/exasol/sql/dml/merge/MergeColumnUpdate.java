@@ -5,7 +5,7 @@ import com.exasol.sql.Fragment;
 import com.exasol.sql.expression.ValueExpression;
 
 /**
- * Update of a value in a column caused by a a {@code MERGE} command.
+ * Update of a value in a column caused by a {@code MERGE} command.
  */
 public class MergeColumnUpdate extends AbstractFragment implements MergeFragment {
     private final String column;

@@ -38,7 +38,7 @@ public class SqlFragmentRenderResultMatcher extends AbstractRenderResultMatcher<
     }
 
     /**
-     * Factory method for {@link SqlFragmentRenderResultMatcher}
+     * Factory method for {@link SqlFragmentRenderResultMatcher}.
      *
      * @param config configuration settings for the {@link SelectRenderer}
      * @param expectedText text that represents the expected rendering result
