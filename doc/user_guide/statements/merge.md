@@ -51,4 +51,4 @@ Check the JavaDoc of class `Merge` for a more information.
 
 Use the `MergeRenderer` to render `Merge` objects into SQL strings.
 
-For a more general introduction please refer to ["Rendering SQL Statements into Strings"](rendering.md).
+For a more general introduction please refer to ["Rendering SQL Statements into Strings"](../rendering.md).
