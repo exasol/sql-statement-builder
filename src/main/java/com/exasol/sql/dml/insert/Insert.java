@@ -4,7 +4,7 @@ import com.exasol.sql.SqlStatement;
 import com.exasol.sql.Table;
 
 /**
- * This class implements an SQL {@link Insert} statement
+ * This class implements an SQL {@link Insert} statement.
  */
 // [impl->dsn~insert-statements~1]
 public class Insert extends AbstractInsertValueTable<Insert> implements SqlStatement, InsertFragment {

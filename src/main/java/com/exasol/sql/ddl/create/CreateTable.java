@@ -53,7 +53,7 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
     }
 
     /**
-     * Add varchar column
+     * Add varchar column.
      *
      * @param columnName name of the column to be added
      * @param length pre-defined length for stored strings
@@ -78,7 +78,7 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
     }
 
     /**
-     * Add decimal column
+     * Add decimal column.
      *
      * @param columnName name of the column to be added
      * @param precision precision for numeric value
@@ -128,7 +128,7 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
     }
 
     /**
-     * Add interval day to second column
+     * Add interval day to second column.
      *
      * @param columnName name of the column to be added
      * @param yearPrecision year precision value
@@ -143,7 +143,7 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
     }
 
     /**
-     * Add interval year to month column
+     * Add interval year to month column.
      *
      * @param columnName name of the column to be added
      * @param yearPrecision year precision value

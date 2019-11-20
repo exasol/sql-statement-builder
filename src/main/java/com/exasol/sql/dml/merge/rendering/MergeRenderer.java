@@ -90,7 +90,7 @@ public class MergeRenderer extends AbstractFragmentRenderer implements MergeVisi
     }
 
     /**
-     * Create a {@link MergeRenderer}
+     * Create a {@link MergeRenderer}.
      *
      * @param config renderer configuration
      * @return {@code MERGE} renderer
@@ -100,7 +100,7 @@ public class MergeRenderer extends AbstractFragmentRenderer implements MergeVisi
     }
 
     /**
-     * Create a {@link MergeRenderer} using the default renderer configuration
+     * Create a {@link MergeRenderer} using the default renderer configuration.
      *
      * @return {@code MERGE} renderer
      */

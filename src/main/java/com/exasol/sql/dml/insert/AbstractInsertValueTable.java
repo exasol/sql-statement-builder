@@ -19,7 +19,7 @@ public abstract class AbstractInsertValueTable<T extends AbstractInsertValueTabl
     }
 
     /**
-     * Define fields into which should be inserted
+     * Define fields into which should be inserted.
      *
      * @param names field names
      * @return <code>this</code> for fluent programming
@@ -33,7 +33,7 @@ public abstract class AbstractInsertValueTable<T extends AbstractInsertValueTabl
     }
 
     /**
-     * Insert a value table
+     * Insert a value table.
      *
      * @param table value table to be inserted
      * @return <code>this</code> for fluent programming
@@ -47,7 +47,7 @@ public abstract class AbstractInsertValueTable<T extends AbstractInsertValueTabl
     }
 
     /**
-     * Insert a list of string values
+     * Insert a list of string values.
      *
      * @param values string values to be inserted
      * @return <code>this</code> for fluent programming
@@ -60,7 +60,7 @@ public abstract class AbstractInsertValueTable<T extends AbstractInsertValueTabl
     }
 
     /**
-     * Insert a list of integer values
+     * Insert a list of integer values.
      *
      * @param values integer values to be inserted
      * @return <code>this</code> for fluent programming
@@ -73,7 +73,7 @@ public abstract class AbstractInsertValueTable<T extends AbstractInsertValueTabl
     }
 
     /**
-     * Add an unnamed value placeholder to the value list (this is useful for prepared statements)
+     * Add an unnamed value placeholder to the value list (this is useful for prepared statements).
      *
      * @return <code>this</code> for fluent programming
      */
@@ -85,7 +85,7 @@ public abstract class AbstractInsertValueTable<T extends AbstractInsertValueTabl
     }
 
     /**
-     * Add a given number unnamed value placeholder to the value list (this is useful for prepared statements)
+     * Add a given number unnamed value placeholder to the value list (this is useful for prepared statements).
      *
      * @param amount number of placeholders to be added
      * @return <code>this</code> for fluent programming

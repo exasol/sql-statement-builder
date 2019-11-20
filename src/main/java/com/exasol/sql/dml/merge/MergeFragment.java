@@ -8,7 +8,7 @@ import com.exasol.sql.Fragment;
 public interface MergeFragment extends Fragment {
 
     /**
-     * Accept a visitor (e.g. a renderer or validator)
+     * Accept a visitor (e.g. a renderer or validator).
      *
      * @param visitor visitor to accept
      */
