@@ -1,6 +1,7 @@
 package com.exasol.sql.expression;
 
 import static com.exasol.sql.expression.BooleanTerm.not;
+import static com.exasol.sql.expression.ExpressionTerm.stringLiteral;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -79,12 +80,13 @@ class TestBooleanTerm {
     // [utest->dsn~boolean-operation.comparison.constructing-from-strings~1]
     @Test
     void testOperationFromComparisonOperatorString() {
-        assertThat(BooleanTerm.compare("a", "<>", "b"), instanceOf(Comparison.class));
+        assertThat(BooleanTerm.compare(stringLiteral("a"), "<>", stringLiteral("b")), instanceOf(Comparison.class));
     }
 
     // [utest->dsn~boolean-operation.comparison.constructing-from-enum~1]
     @Test
     void testOperationFromComparisonOperatorEnum() {
-        assertThat(BooleanTerm.compare("a", ComparisonOperator.NOT_EQUAL, "b"), instanceOf(Comparison.class));
+        assertThat(BooleanTerm.compare(stringLiteral("a"), ComparisonOperator.NOT_EQUAL, stringLiteral("b")),
+                instanceOf(Comparison.class));
     }
 }

@@ -1,7 +1,7 @@
 package com.exasol.sql.ddl.create.rendering;
 
-import com.exasol.datatype.type.Boolean;
 import com.exasol.datatype.type.*;
+import com.exasol.datatype.type.Boolean;
 import com.exasol.sql.Table;
 import com.exasol.sql.ddl.create.*;
 import com.exasol.sql.rendering.AbstractFragmentRenderer;
@@ -10,6 +10,7 @@ import com.exasol.sql.rendering.StringRendererConfig;
 /**
  * The {@link CreateTableRenderer} turns SQL statement structures in to SQL strings.
  */
+// [impl->dsn~rendering.sql.create~1]
 public class CreateTableRenderer extends AbstractFragmentRenderer implements CreateTableVisitor {
     /**
      * Create a new {@link CreateTableRenderer} with custom render settings.
@@ -130,7 +131,7 @@ public class CreateTableRenderer extends AbstractFragmentRenderer implements Cre
 
     private String getIntervalDayToSecondNameWithPrecision(final IntervalDayToSecond intervalDayToSecondColumn) {
         return String.format(intervalDayToSecondColumn.getName(), intervalDayToSecondColumn.getYearPrecision(),
-              intervalDayToSecondColumn.getMillisecondPrecision());
+                intervalDayToSecondColumn.getMillisecondPrecision());
     }
 
     private String getIntervalYearToMonthNameWithPrecision(final IntervalYearToMonth intervalYearToMonthColumn) {
@@ -142,7 +143,8 @@ public class CreateTableRenderer extends AbstractFragmentRenderer implements Cre
         append(dataType.getName());
     }
 
-    private void appendStringDataType(final AbstractStringDataType stringDataType) {
+    private void appendStringDataType(
+            final AbstractStringDataType<? extends AbstractStringDataType<?>> stringDataType) {
         appendSpace();
         append(stringDataType.getName());
         append("(");

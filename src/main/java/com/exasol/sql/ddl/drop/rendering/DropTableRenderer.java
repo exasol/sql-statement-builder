@@ -8,6 +8,7 @@ import com.exasol.sql.rendering.StringRendererConfig;
 /**
  * The {@link DropTableRenderer} turns SQL statement structures in to SQL strings.
  */
+// [impl->dsn~rendering.sql.drop~1]
 public class DropTableRenderer extends AbstractFragmentRenderer implements DropTableVisitor {
     /**
      * Create a new {@link DropTableRenderer} with custom render settings.
@@ -40,7 +41,7 @@ public class DropTableRenderer extends AbstractFragmentRenderer implements DropT
     @Override
     public void visit(final DropTable dropTable) {
         appendKeyWord("DROP TABLE ");
-        if (dropTable.getIfExists()) {
+        if (dropTable.hasIfExistsModifier()) {
             appendKeyWord("IF EXISTS ");
         }
         setLastVisited(dropTable);

@@ -82,7 +82,7 @@ public class BooleanExpressionRenderer extends AbstractExpressionRenderer implem
         appendOperand(comparison.getRightOperand());
     }
 
-    protected void appendOperand(final StringLiteral leftOperand) {
+    protected void appendOperand(final ValueExpression leftOperand) {
         final ValueExpressionRenderer leftExpressionRenderer = new ValueExpressionRenderer(this.config);
         leftOperand.accept(leftExpressionRenderer);
         this.builder.append(leftExpressionRenderer.render());

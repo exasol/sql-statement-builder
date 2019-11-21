@@ -11,5 +11,5 @@ public interface InsertFragment extends Fragment {
      *
      * @param visitor visitor to accept
      */
-    public void accept(InsertVisitor visitor);
+    public void accept(final InsertVisitor visitor);
 }

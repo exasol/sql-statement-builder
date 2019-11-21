@@ -1,11 +1,11 @@
 package com.exasol.sql.ddl.create;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.exasol.datatype.type.DataType;
 import com.exasol.sql.AbstractFragment;
 import com.exasol.sql.SqlStatement;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class represents a list of column definitions in an SQL statement

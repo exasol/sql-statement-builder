@@ -5,11 +5,11 @@ import static org.hamcrest.Matchers.emptyIterableOf;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-import com.exasol.sql.ValueTable;
-import com.exasol.sql.ValueTableRow;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.exasol.sql.ValueTable;
+import com.exasol.sql.ValueTableRow;
 import com.exasol.sql.expression.ValueExpression;
 
 class TestValueTable {

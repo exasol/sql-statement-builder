@@ -6,7 +6,7 @@ import com.exasol.sql.ddl.create.CreateTableVisitor;
  * This class implements the Exasol-proprietary data type varchar
  */
 @java.lang.SuppressWarnings("common-java:DuplicatedBlocks")
-public class Varchar extends AbstractStringDataType {
+public class Varchar extends AbstractStringDataType<Varchar> {
     private static final String NAME = "VARCHAR";
     private static final int MAX_LENGTH = 2000000;
 
@@ -25,7 +25,7 @@ public class Varchar extends AbstractStringDataType {
     }
 
     @Override
-    protected AbstractStringDataType self() {
+    protected Varchar self() {
         return this;
     }
 }

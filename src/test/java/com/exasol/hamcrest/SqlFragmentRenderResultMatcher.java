@@ -1,12 +1,14 @@
 package com.exasol.hamcrest;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.StringJoiner;
+
+import org.hamcrest.Description;
+
 import com.exasol.sql.Fragment;
 import com.exasol.sql.dql.select.rendering.SelectRenderer;
 import com.exasol.sql.rendering.StringRendererConfig;
-import org.hamcrest.Description;
-
-import java.lang.reflect.*;
-import java.util.StringJoiner;
 
 /**
  * This class implements a matcher for the results of rendering SQL statements to text.
@@ -36,9 +38,9 @@ public class SqlFragmentRenderResultMatcher extends AbstractRenderResultMatcher<
     }
 
     /**
-     * Factory method for {@link SqlFragmentRenderResultMatcher}
+     * Factory method for {@link SqlFragmentRenderResultMatcher}.
      *
-     * @param config       configuration settings for the {@link SelectRenderer}
+     * @param config configuration settings for the {@link SelectRenderer}
      * @param expectedText text that represents the expected rendering result
      * @return the matcher
      */
@@ -62,7 +64,8 @@ public class SqlFragmentRenderResultMatcher extends AbstractRenderResultMatcher<
             final Class<?> visitorClass = Class.forName(rootClassName + "Visitor");
             final Method acceptMethod = fragmentClass.getMethod("accept", visitorClass);
             final Class<?> rendererClass = Class.forName(rendererClassPath);
-            final Object rendererObject = rendererClass.getConstructor(StringRendererConfig.class).newInstance(config);
+            final Object rendererObject = rendererClass.getConstructor(StringRendererConfig.class)
+                    .newInstance(this.config);
             acceptMethod.invoke(root, rendererObject);
             final Method renderMethod = rendererClass.getMethod("render");
             this.renderedText = (String) renderMethod.invoke(rendererObject);

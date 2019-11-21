@@ -5,7 +5,7 @@ package com.exasol.datatype.type;
  *
  * @param <T> classes extended {@link AbstractStringDataType}
  */
-public abstract class AbstractStringDataType<T extends AbstractStringDataType> implements DataType {
+public abstract class AbstractStringDataType<T extends AbstractStringDataType<T>> implements DataType {
     private final String name;
     private final int length;
 
@@ -16,7 +16,7 @@ public abstract class AbstractStringDataType<T extends AbstractStringDataType> i
     }
 
     private void validateLength(final int length, final int maxLength) {
-        if (length < 1 || length > maxLength) {
+        if ((length < 1) || (length > maxLength)) {
             throw new IllegalArgumentException(self().getName() + " should have length between 1 and " + maxLength);
         }
     }

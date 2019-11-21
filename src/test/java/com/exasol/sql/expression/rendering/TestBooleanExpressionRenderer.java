@@ -3,6 +3,7 @@ package com.exasol.sql.expression.rendering;
 import static com.exasol.hamcrest.BooleanExpressionRenderResultMatcher.rendersTo;
 import static com.exasol.hamcrest.BooleanExpressionRenderResultMatcher.rendersWithConfigTo;
 import static com.exasol.sql.expression.BooleanTerm.*;
+import static com.exasol.sql.expression.ExpressionTerm.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -37,8 +38,9 @@ class TestBooleanExpressionRenderer {
     // [utest->dsn~boolean-operators~1]
     @Test
     void testAndNestedComparisons() {
-        final BooleanExpression expression = and(compare("a", ComparisonOperator.EQUAL, "b"),
-                compare("c", ComparisonOperator.NOT_EQUAL, "d"));
+        final BooleanExpression expression = and(
+                compare(stringLiteral("a"), ComparisonOperator.EQUAL, stringLiteral("b")),
+                compare(stringLiteral("c"), ComparisonOperator.NOT_EQUAL, stringLiteral("d")));
         assertThat(expression, rendersTo("('a' = 'b') AND ('c' <> 'd')"));
     }
 
@@ -102,20 +104,50 @@ class TestBooleanExpressionRenderer {
     // [utest->dsn~comparison-operations~1]
     @Test
     void testComparisonFromSymbol() {
-        final BooleanExpression expression = compare("a", ">=", "b");
+        final BooleanExpression expression = compare(stringLiteral("a"), ">=", stringLiteral("b"));
         assertThat(expression, rendersTo("'a' >= 'b'"));
     }
 
     // [utest->dsn~comparison-operations~1]
     @Test
-    void testComparisonOperators() {
+    void testComparisonOperatorsWithStringLiteral() {
         assertAll( //
-                () -> assertThat("equal", eq("a", "b"), rendersTo("'a' = 'b'")), //
-                () -> assertThat("not equal", ne("a", "b"), rendersTo("'a' <> 'b'")), //
-                () -> assertThat("not equal", lt("a", "b"), rendersTo("'a' < 'b'")), //
-                () -> assertThat("not equal", gt("a", "b"), rendersTo("'a' > 'b'")), //
-                () -> assertThat("not equal", le("a", "b"), rendersTo("'a' <= 'b'")), //
-                () -> assertThat("not equal", ge("a", "b"), rendersTo("'a' >= 'b'")) //
+                () -> assertThat("equal", eq(stringLiteral("a"), stringLiteral("b")), rendersTo("'a' = 'b'")), //
+                () -> assertThat("not equal", ne(stringLiteral("a"), stringLiteral("b")), rendersTo("'a' <> 'b'")), //
+                () -> assertThat("not equal", lt(stringLiteral("a"), stringLiteral("b")), rendersTo("'a' < 'b'")), //
+                () -> assertThat("not equal", gt(stringLiteral("a"), stringLiteral("b")), rendersTo("'a' > 'b'")), //
+                () -> assertThat("not equal", le(stringLiteral("a"), stringLiteral("b")), rendersTo("'a' <= 'b'")), //
+                () -> assertThat("not equal", ge(stringLiteral("a"), stringLiteral("b")), rendersTo("'a' >= 'b'")) //
+        );
+    }
+
+    // [utest->dsn~comparison-operations~1]
+    @Test
+    void testComparisonOperatorsWithIntegerLiteral() {
+        assertAll( //
+                () -> assertThat("equal", eq(integerLiteral(1), integerLiteral(1)), rendersTo("1 = 1")), //
+                () -> assertThat("not equal", ne(integerLiteral(1), integerLiteral(2)), rendersTo("1 <> 2")), //
+                () -> assertThat("not equal", lt(integerLiteral(1), integerLiteral(2)), rendersTo("1 < 2")), //
+                () -> assertThat("not equal", gt(integerLiteral(2), integerLiteral(1)), rendersTo("2 > 1")), //
+                () -> assertThat("not equal", le(integerLiteral(1), integerLiteral(2)), rendersTo("1 <= 2")), //
+                () -> assertThat("not equal", ge(integerLiteral(2), integerLiteral(1)), rendersTo("2 >= 1")) //
+        );
+    }
+
+    // [utest->dsn~comparison-operations~1]
+    @Test
+    void testComparisonOperatorsWithColumnReference() {
+        assertAll( //
+                () -> assertThat("equal", eq(columnReference("city"), integerLiteral(1)), rendersTo("city = 1")), //
+                () -> assertThat("not equal", ne(columnReference("city"), integerLiteral(2)), rendersTo("city <> 2")), //
+                () -> assertThat("not equal", lt(columnReference("city"), stringLiteral("Moscow")),
+                        rendersTo("city < 'Moscow'")), //
+                () -> assertThat("not equal", gt(columnReference("city", "t"), stringLiteral("Moscow")),
+                        rendersTo("t.city > 'Moscow'")), //
+                () -> assertThat("not equal", le(columnReference("city", "t"), columnReference("machi")),
+                        rendersTo("t.city <= machi")), //
+                () -> assertThat("not equal", ge(columnReference("city", "t"), columnReference("machi", "t")),
+                        rendersTo("t.city >= t.machi")) //
         );
     }
 }

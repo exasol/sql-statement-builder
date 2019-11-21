@@ -5,6 +5,7 @@ import com.exasol.sql.ddl.create.CreateTable;
 import com.exasol.sql.ddl.drop.DropSchema;
 import com.exasol.sql.ddl.drop.DropTable;
 import com.exasol.sql.dml.insert.Insert;
+import com.exasol.sql.dml.merge.Merge;
 import com.exasol.sql.dql.select.Select;
 
 /**
@@ -14,7 +15,7 @@ public final class StatementFactory {
     private static StatementFactory instance;
 
     /**
-     * Get an instance of a {@link StatementFactory}
+     * Get an instance of a {@link StatementFactory}.
      *
      * @return the existing instance otherwise creates one.
      */
@@ -30,7 +31,7 @@ public final class StatementFactory {
     }
 
     /**
-     * Create a {@link Select} statement
+     * Create a {@link Select} statement.
      *
      * @return a new instance of a {@link Select} statement
      */
@@ -39,7 +40,7 @@ public final class StatementFactory {
     }
 
     /**
-     * Create an {@link Insert} statement
+     * Create an {@link Insert} statement.
      *
      * @param tableName name of the table into which to insert the data
      * @return a new instance of a {@link Insert} statement
@@ -49,7 +50,28 @@ public final class StatementFactory {
     }
 
     /**
-     * Create a {@link CreateTable} statement
+     * Create a {@link Merge} statement.
+     *
+     * @param destinationTable table into which data is merged
+     * @return a new instance of a {@link Merge} statement
+     */
+    public Merge mergeInto(final String destinationTable) {
+        return new Merge(destinationTable);
+    }
+
+    /**
+     * Create a {@link Merge} statement.
+     *
+     * @param destinationTable table into which data is merged
+     * @param as table alias
+     * @return a new instance of a {@link Merge} statement
+     */
+    public Merge mergeInto(final String destinationTable, final String as) {
+        return new Merge(destinationTable, as);
+    }
+
+    /**
+     * Create a {@link CreateTable} statement.
      *
      * @param tableName name of the table to create
      * @return a new instance of a {@link CreateTable} statement
@@ -59,7 +81,7 @@ public final class StatementFactory {
     }
 
     /**
-     * Create a {@link CreateSchema} statement
+     * Create a {@link CreateSchema} statement.
      *
      * @param schemaName name of the schema to create
      * @return a new instance of a {@link CreateSchema} statement
@@ -69,7 +91,7 @@ public final class StatementFactory {
     }
 
     /**
-     * Create a {@link DropTable} statement
+     * Create a {@link DropTable} statement.
      *
      * @param tableName name of the table to drop
      * @return a new instance of a {@link DropTable} statement
@@ -79,7 +101,7 @@ public final class StatementFactory {
     }
 
     /**
-     * Create a {@link DropSchema} statement
+     * Create a {@link DropSchema} statement.
      *
      * @param schemaName name of the schema to drop
      * @return a new instance of a {@link DropSchema} statement

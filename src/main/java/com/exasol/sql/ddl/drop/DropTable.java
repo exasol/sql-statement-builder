@@ -3,7 +3,7 @@ package com.exasol.sql.ddl.drop;
 import com.exasol.sql.*;
 
 /**
- * This class implements an SQL {@link DropTable} statement
+ * This class implements an SQL {@link DropTable} statement.
  */
 public class DropTable extends AbstractFragment implements SqlStatement, DropTableFragment {
     private final Table table;
@@ -11,7 +11,7 @@ public class DropTable extends AbstractFragment implements SqlStatement, DropTab
     private CascadeConstraints cascadeConstraints = null;
 
     /**
-     * Create a new instance of an {@link DropTable} statement
+     * Create a new instance of an {@link DropTable} statement.
      *
      * @param tableName name of the table to drop
      */
@@ -20,17 +20,8 @@ public class DropTable extends AbstractFragment implements SqlStatement, DropTab
         this.table = new Table(this, tableName);
     }
 
-    @Override
-    public void accept(final DropTableVisitor visitor) {
-        visitor.visit(this);
-        this.table.accept(visitor);
-        if (this.cascadeConstraints != null) {
-            this.cascadeConstraints.accept(visitor);
-        }
-    }
-
     /**
-     * Add IF EXISTS clause into a DROP TABLE statement
+     * Add {@code IF EXISTS} clause into a {@code DROP TABLE} statement.
      *
      * @return <code>this</code> for fluent programming
      */
@@ -42,7 +33,7 @@ public class DropTable extends AbstractFragment implements SqlStatement, DropTab
     }
 
     /**
-     * Add CASCADE CONSTRAINTS clause into a DROP TABLE statement
+     * Add {@code CASCADE CONSTRAINTS} clause into a {@code DROP TABLE} statement.
      *
      * @return <code>this</code> for fluent programming
      */
@@ -51,20 +42,29 @@ public class DropTable extends AbstractFragment implements SqlStatement, DropTab
         return this;
     }
 
-    /**
-     * Get true when IF EXISTS clause presents
-     *
-     * @return if exists
-     */
-    public boolean getIfExists() {
-        return this.ifExists;
-    }
-
     protected String getTableName() {
         return this.table.getName();
     }
 
+    /**
+     * Check if the {@code IF EXISTS} clause is present.
+     *
+     * @return {@code true} if {@code IF EXISTS} clause is present
+     */
+    public boolean hasIfExistsModifier() {
+        return this.ifExists;
+    }
+
     protected CascadeConstraints getCascadeConstraints() {
         return this.cascadeConstraints;
+    }
+
+    @Override
+    public void accept(final DropTableVisitor visitor) {
+        visitor.visit(this);
+        this.table.accept(visitor);
+        if (this.cascadeConstraints != null) {
+            this.cascadeConstraints.accept(visitor);
+        }
     }
 }

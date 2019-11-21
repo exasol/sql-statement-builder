@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import com.exasol.sql.StatementFactory;
 import com.exasol.sql.dql.select.Select;
+import com.exasol.sql.expression.ExpressionTerm;
 
 class TestWhereRendering {
     private Select select;
@@ -21,6 +22,7 @@ class TestWhereRendering {
 
     @Test
     void testWhere() {
-        assertThat(this.select.where(eq("foo", "bar")), rendersTo("SELECT * FROM person WHERE 'foo' = 'bar'"));
+        assertThat(this.select.where(eq(ExpressionTerm.stringLiteral("foo"), ExpressionTerm.stringLiteral("bar"))),
+                rendersTo("SELECT * FROM person WHERE 'foo' = 'bar'"));
     }
 }

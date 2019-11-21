@@ -26,17 +26,42 @@ Goals:
 1. Don't repeat yourself (DRY)
 1. Allow extension for different SQL dialects
 
-## Usage
+## In a Nutshell
 
-Please read our [User Guide](/doc/guide/user_guide.md) to find information about usage of `sql-statement-builder`.
+The following example gives you an idea about what you can do with the SQL Statement Builder. Check our [user guide](doc/user_guide/user_guide.md) for more details.
 
-## Development
+```java
+final Select select = StatementFactory.getInstance()
+    .select()
+    .field("fieldA", "tableA.fieldB", "tableB.*")
+    .from()
+    .table("schemaA.tableA")
+    .limit(10);
+final StringRendererConfig config = StringRendererConfig.builder().useQuotes().build();
+final SelectRenderer renderer = new SelectRenderer(config);
+final String sql = renderer.render(select);
+```
 
-The following sub-sections provide information about building and extending the project.
+## Table of Contents
 
-### Build Time Dependencies
+### Information for Users
 
-The list below show all build time dependencies in alphabetical order. Note that except the Maven build tool all required modules are downloaded automatically by Maven.
+"Users" from the perspective of the `sql-statement-builder` are developers integrating the module into their own software.
+
+* [User Guide](doc/user_guide/user_guide.md)
+* [API Documentation](https://javadoc.io/doc/com.exasol/sql-statement-builder)
+* [MIT License](LICENSE)
+
+### Information for Developers
+
+* [System Requirement Specification](doc/system_requirements.md)
+* [Design](doc/design.md)
+
+## Dependencies
+
+### Build Dependencies
+
+The list below show all build dependencies in alphabetical order. Note that except the Maven build tool all required modules are downloaded automatically by Maven.
 
 | Dependency                                                                     | Purpose                                                | License                       |
 ---------------------------------------------------------------------------------|--------------------------------------------------------|--------------------------------

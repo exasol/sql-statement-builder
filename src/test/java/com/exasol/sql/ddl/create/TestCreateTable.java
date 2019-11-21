@@ -1,15 +1,16 @@
 package com.exasol.sql.ddl.create;
 
-import com.exasol.datatype.type.Boolean;
-import com.exasol.datatype.type.*;
-import com.exasol.sql.StatementFactory;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.junit.jupiter.api.Assertions.assertAll;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import com.exasol.datatype.type.*;
+import com.exasol.datatype.type.Boolean;
+import com.exasol.sql.StatementFactory;
 
 class TestCreateTable {
     private static final int LENGTH = 20;
@@ -44,7 +45,7 @@ class TestCreateTable {
         assertInstance(column, BOOLEAN_COLUMN_NAME, Boolean.class);
     }
 
-    private void assertInstance(final Column column, final String name, final Class classToAssert) {
+    private void assertInstance(final Column column, final String name, final Class<?> classToAssert) {
         assertAll(() -> assertThat(column.getColumnName(), equalTo(name)),
                 () -> assertThat(column.getDataType(), instanceOf(classToAssert)));
     }

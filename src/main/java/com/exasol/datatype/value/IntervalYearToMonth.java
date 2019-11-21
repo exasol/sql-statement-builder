@@ -1,9 +1,9 @@
 package com.exasol.datatype.value;
 
+import static com.exasol.datatype.value.IntervalConstants.MONTHS_PER_YEAR;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static com.exasol.datatype.value.IntervalConstants.MONTHS_PER_YEAR;
 
 /**
  * This class implements the Exasol-proprietary data type value <code>INTERVAL YEAR(x) TO MONTH(y)

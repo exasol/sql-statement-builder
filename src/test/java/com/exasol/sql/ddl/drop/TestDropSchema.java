@@ -1,12 +1,13 @@
 package com.exasol.sql.ddl.drop;
 
-import com.exasol.sql.StatementFactory;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import com.exasol.sql.StatementFactory;
 
 class TestDropSchema {
     private static final String TEST_SCHEMA_NAME = "test schema name";
@@ -24,13 +25,13 @@ class TestDropSchema {
 
     @Test
     void getIfExistsFalseByDefault() {
-        assertFalse(this.dropSchema.getIfExists());
+        assertFalse(this.dropSchema.hasIfExistsModifier());
     }
 
     @Test
     void getIfExists() {
         this.dropSchema.ifExists();
-        assertTrue(this.dropSchema.getIfExists());
+        assertTrue(this.dropSchema.hasIfExistsModifier());
     }
 
     @Test

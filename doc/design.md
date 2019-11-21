@@ -36,6 +36,8 @@ Covers:
 * `FROM` clause
 * `WHERE` clause
 * `LIMIT` clause
+* `GROUP BY` clause
+* `ORDER BY` clause
 
 Covers:
 
@@ -81,30 +83,36 @@ Covers:
 
 Needs: impl, utest
 
-### Building SELECT Statements
+### Building `SELECT` Statements
 
 #### Forwarded Requirements
 
 * `dsn --> impl, utest: req~value-table~1`
 
-### Building CREATE Statements
+### Building `CREATE` Statements
 
 #### Forwarded Requirements
 
 * `dsn --> impl, utest: req~create-statements~1`
 
-### Building DROP Statements
+### Building `DROP` Statements
 
 #### Forwarded Requirements
 
 * `dsn --> impl, utest: req~drop-statements~1`
 
-### Building INSERT Statements
+### Building `INSERT` Statements
 
 #### Forwarded Requirements
 
 * `dsn --> impl, utest: req~insert-statements~1`
 * `dsn --> impl, utest: req~values-as-insert-source~1`
+
+### Building `MERGE` Statements 
+
+#### Forwarded Requirements
+
+* `dsn --> impl, utest: req~merge-statements~1`
 
 ### Rendering Statements
 
@@ -137,7 +145,7 @@ Needs: impl, utest
 
 ### Exasol Dialect Specific
 
-#### Converting from 64 bit Integers to INTERVAL DAY TO SECOND
+#### Converting from 64 bit Integers to `INTERVAL DAY TO SECOND`
 `dsn~exasol.converting-int-to-interval-day-to-second~2`
 
 The data converter converts signed integers to `INTERVAL DAY TO SECOND`.
@@ -148,7 +156,7 @@ Covers:
 
 Needs: impl, utest
 
-#### Converting from INTERVAL DAY TO SECOND to 64 bit Integers 
+#### Converting from `INTERVAL DAY TO SECOND` to 64 bit Integers 
 `dsn~exasol.converting-interval-day-to-second-to-int~1`
 
 The data converter converts `INTERVAL DAY TO SECOND` to signed integers.
@@ -159,7 +167,7 @@ Covers:
 
 Needs: impl, utest
 
-#### Parsing INTERVAL DAY TO SECOND From Strings
+#### Parsing `INTERVAL DAY TO SECOND` From Strings
 `dsn~exasol.parsing-interval-day-to-second-from-strings~2`
 
 The data converter can parse `INTERVAL DAY TO SECOND` from strings in the following format:
@@ -184,7 +192,7 @@ Covers:
 
 Needs: impl, utest
 
-#### Converting from 64 bit Integers to INTERVAL YEAR TO MONTH
+#### Converting from 64 bit Integers to `INTERVAL YEAR TO MONTH`
 `dsn~exasol.converting-int-to-interval-year-to-month~2`
 
 The data converter converts signed integers to `INTERVAL YEAR TO MONTH`.
@@ -195,7 +203,7 @@ Covers:
 
 Needs: impl, utest
 
-#### Converting from INTERVAL YEAR TO MONTH to 64 bit Integers
+#### Converting from `INTERVAL YEAR TO MONTH` to 64 bit Integers
 `dsn~exasol.converting-interval-year-to-month-to-int~1`
 
 The data converter converts signed integers to `INTERVAL YEAR TO MONTH`.
@@ -206,7 +214,7 @@ Covers:
 
 Needs: impl, utest
 
-#### Parsing INTERVAL YEAR TO MONTH From Strings
+#### Parsing `INTERVAL YEAR TO MONTH` From Strings
 `dsn~exasol.parsing-interval-year-to-month-from-strings~2`
 
 The data converter can parse `INTERVAL YEAR TO MONTH` from strings in the following format:

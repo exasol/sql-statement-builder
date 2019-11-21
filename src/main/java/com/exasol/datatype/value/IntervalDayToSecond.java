@@ -1,9 +1,9 @@
 package com.exasol.datatype.value;
 
+import static com.exasol.datatype.value.IntervalConstants.*;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static com.exasol.datatype.value.IntervalConstants.*;
 
 /**
  * This class implements the Exasol-proprietary data type value <code>INTERVAL DAY(x) TO SECONDS(y)

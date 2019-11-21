@@ -2,10 +2,9 @@ package com.exasol.sql.dql.select.rendering;
 
 import com.exasol.sql.*;
 import com.exasol.sql.dql.select.*;
+import com.exasol.sql.expression.BooleanExpression;
 import com.exasol.sql.rendering.AbstractFragmentRenderer;
 import com.exasol.sql.rendering.StringRendererConfig;
-
-import java.util.Optional;
 
 /**
  * The {@link SelectRenderer} turns SQL statement structures in to SQL strings.
@@ -44,10 +43,9 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
     public void visit(final Table table) {
         appendCommaWhenNeeded(table);
         appendAutoQuoted(table.getName());
-        final Optional<String> as = table.getAs();
-        if (as.isPresent()) {
+        if (table.hasAlias()) {
             appendKeyWord(" AS ");
-            append(as.get());
+            append(table.getAlias());
         }
         setLastVisited(table);
     }
@@ -69,8 +67,42 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
     @Override
     public void visit(final WhereClause whereClause) {
         appendKeyWord(" WHERE ");
-        appendRenderedExpression(whereClause.getExpression());
+        appendRenderedBooleanExpression(whereClause.getExpression());
         setLastVisited(whereClause);
+    }
+
+    @Override
+    public void visit(final GroupByClause groupByClause) {
+        appendKeyWord(" GROUP BY ");
+        appendListOfColumnReferences(groupByClause.getColumnReferences());
+        final BooleanExpression having = groupByClause.getHavingBooleanExpression();
+        if (having != null) {
+            appendKeyWord(" HAVING ");
+            appendRenderedBooleanExpression(having);
+        }
+        setLastVisited(groupByClause);
+    }
+
+    @Override
+    public void visit(final OrderByClause orderByClause) {
+        appendKeyWord(" ORDER BY ");
+        appendListOfColumnReferences(orderByClause.getColumnReferences());
+        final Boolean desc = orderByClause.getDesc();
+        appendStringDependingOnBoolean(desc, " DESC", " ASC");
+        final Boolean nullsFirst = orderByClause.getNullsFirst();
+        appendStringDependingOnBoolean(nullsFirst, " NULLS FIRST", " NULLS LAST");
+        setLastVisited(orderByClause);
+    }
+
+    private void appendStringDependingOnBoolean(final Boolean booleanValue, final String string1,
+            final String string2) {
+        if (booleanValue != null) {
+            if (booleanValue) {
+                appendKeyWord(string1);
+            } else {
+                appendKeyWord(string2);
+            }
+        }
     }
 
     @Override

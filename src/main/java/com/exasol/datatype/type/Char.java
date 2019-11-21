@@ -6,7 +6,7 @@ import com.exasol.sql.ddl.create.CreateTableVisitor;
  * This class implements the SQL data type char
  */
 @java.lang.SuppressWarnings("common-java:DuplicatedBlocks")
-public class Char extends AbstractStringDataType {
+public class Char extends AbstractStringDataType<Char> {
     private static final String NAME = "CHAR";
     private static final int MAX_LENGTH = 2000;
 
@@ -25,7 +25,7 @@ public class Char extends AbstractStringDataType {
     }
 
     @Override
-    protected AbstractStringDataType self() {
+    protected Char self() {
         return this;
     }
 }

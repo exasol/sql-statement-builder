@@ -8,6 +8,7 @@ import com.exasol.sql.rendering.StringRendererConfig;
 /**
  * The {@link DropSchemaRenderer} turns SQL statement structures in to SQL strings.
  */
+// [impl->dsn~rendering.sql.drop~1]
 public class DropSchemaRenderer extends AbstractFragmentRenderer implements DropSchemaVisitor {
     /**
      * Create a new {@link DropSchemaRenderer} with custom render settings.
@@ -38,28 +39,28 @@ public class DropSchemaRenderer extends AbstractFragmentRenderer implements Drop
     }
 
     @Override
-    public void visit(DropSchema dropSchema) {
+    public void visit(final DropSchema dropSchema) {
         appendKeyWord("DROP SCHEMA ");
-        if (dropSchema.getIfExists()) {
+        if (dropSchema.hasIfExistsModifier()) {
             appendKeyWord("IF EXISTS ");
         }
         setLastVisited(dropSchema);
     }
 
     @Override
-    public void visit(Schema schema) {
+    public void visit(final Schema schema) {
         appendAutoQuoted(schema.getName());
         setLastVisited(schema);
     }
 
     @Override
-    public void visit(Cascade cascade) {
+    public void visit(final Cascade cascade) {
         appendKeyWord(" CASCADE");
         setLastVisited(cascade);
     }
 
     @Override
-    public void visit(Restrict restrict) {
+    public void visit(final Restrict restrict) {
         appendKeyWord(" RESTRICT");
         setLastVisited(restrict);
     }

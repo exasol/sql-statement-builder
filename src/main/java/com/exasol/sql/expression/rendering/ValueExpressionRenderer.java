@@ -25,7 +25,22 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
     }
 
     @Override
+    public void visit(final ColumnReference columnReference) {
+        final String tableName = columnReference.getTableName();
+        if ((tableName != null) && !tableName.isEmpty()) {
+            append(tableName);
+            append(".");
+        }
+        append(columnReference.getColumnName());
+    }
+
+    @Override
     public void visit(final UnnamedPlaceholder unnamedPlaceholder) {
         append("?");
+    }
+
+    @Override
+    public void visit(final DefaultValue defaultValue) {
+        appendKeyword("DEFAULT");
     }
 }

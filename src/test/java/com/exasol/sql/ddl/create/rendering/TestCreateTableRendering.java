@@ -1,16 +1,18 @@
 package com.exasol.sql.ddl.create.rendering;
 
-import com.exasol.sql.StatementFactory;
-import com.exasol.sql.ddl.create.CreateTable;
-import com.exasol.sql.rendering.StringRendererConfig;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import static com.exasol.hamcrest.SqlFragmentRenderResultMatcher.rendersTo;
 import static com.exasol.hamcrest.SqlFragmentRenderResultMatcher.rendersWithConfigTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import com.exasol.sql.StatementFactory;
+import com.exasol.sql.ddl.create.CreateTable;
+import com.exasol.sql.rendering.StringRendererConfig;
+
+// [utest->dsn~rendering.sql.create~1]
 class TestCreateTableRendering {
     private static final String TABLE_NAME = "testName";
 

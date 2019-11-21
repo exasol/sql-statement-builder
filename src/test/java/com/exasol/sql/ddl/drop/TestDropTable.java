@@ -1,12 +1,13 @@
 package com.exasol.sql.ddl.drop;
 
-import com.exasol.sql.StatementFactory;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import com.exasol.sql.StatementFactory;
 
 class TestDropTable {
     private static final String TEST_TABLE_NAME = "test table name";
@@ -24,9 +25,9 @@ class TestDropTable {
 
     @Test
     void ifExists() {
-        assertFalse(this.dropTable.getIfExists());
+        assertFalse(this.dropTable.hasIfExistsModifier());
         this.dropTable.ifExists();
-        assertTrue(this.dropTable.getIfExists());
+        assertTrue(this.dropTable.hasIfExistsModifier());
     }
 
     @Test
