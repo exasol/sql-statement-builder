@@ -2,8 +2,6 @@ package com.exasol.sql.dml.merge.rendering;
 
 import static com.exasol.hamcrest.SqlFragmentRenderResultMatcher.rendersTo;
 import static com.exasol.sql.expression.BooleanTerm.eq;
-import static com.exasol.sql.expression.BooleanTerm.gt;
-import static com.exasol.sql.expression.ColumnReference.column;
 import static com.exasol.sql.expression.ExpressionTerm.integerLiteral;
 import static org.hamcrest.MatcherAssert.assertThat;
 

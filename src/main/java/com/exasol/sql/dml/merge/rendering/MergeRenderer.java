@@ -59,7 +59,7 @@ public class MergeRenderer extends AbstractFragmentRenderer implements MergeVisi
     }
 
     @Override
-    public void visit(final MergeMethodDefinition mergeUpdateClause) {
+    public void visit(final MergeUpdateClause mergeUpdateClause) {
         appendKeyWord("THEN UPDATE SET ");
         setLastVisited(mergeUpdateClause);
     }
@@ -86,7 +86,8 @@ public class MergeRenderer extends AbstractFragmentRenderer implements MergeVisi
     }
 
     @Override
-    public void visit(final AbstractInsertValueTable<MergeInsertClause> mergeInsertClause) {
+
+    public void visit(final MergeInsertClause mergeInsertClause) {
         appendKeyWord("THEN INSERT");
         setLastVisited(mergeInsertClause);
     }

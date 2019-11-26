@@ -49,7 +49,7 @@ public interface MergeVisitor extends ValueTableVisitor {
      *
      * @param mergeUpdateClause update definition.
      */
-    public void visit(final MergeMethodDefinition mergeUpdateClause);
+    public void visit(final MergeUpdateClause mergeUpdateClause);
 
     /**
      * Visit the update of a single column inside a {@code MERGE} statement.
@@ -77,7 +77,7 @@ public interface MergeVisitor extends ValueTableVisitor {
      *
      * @param mergeInsertClause insert definition
      */
-    public void visit(final AbstractInsertValueTable<MergeInsertClause> mergeInsertClause);
+    public void visit(final MergeInsertClause mergeInsertClause);
 
     /**
      * Visit the insert field list.

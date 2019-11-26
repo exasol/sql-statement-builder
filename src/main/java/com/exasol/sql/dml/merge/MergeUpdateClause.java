@@ -12,6 +12,7 @@ import com.exasol.sql.expression.*;
  */
 public class MergeUpdateClause extends MergeMethodDefinition implements MergeFragment {
     private final List<MergeColumnUpdate> columnUpdates = new ArrayList<>();
+
     /**
      * Create a new instance of a {@link MergeUpdateClause}.
      *
