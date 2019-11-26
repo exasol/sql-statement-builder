@@ -21,7 +21,7 @@ public abstract class MergeMethodDefinition extends AbstractFragment {
     }
 
     /**
-     * Add a {@code WHERE} clause {@cod MERGE} definition.
+     * Add a {@code WHERE} clause {@code MERGE} definition.
      *
      * @param expression filter expression
      * @return parent {@code MERGE} statement
