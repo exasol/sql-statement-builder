@@ -102,7 +102,7 @@ public interface MergeVisitor extends ValueTableVisitor {
     /**
      * Visit a {@code WHERE} clause.
      *
-     * @param whereClause the {@code WHERE clause to be visited}
+     * @param whereClause the {@code WHERE} clause to be visited
      */
     public void visit(WhereClause whereClause);
 }

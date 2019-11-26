@@ -85,7 +85,6 @@ public class MergeRenderer extends AbstractFragmentRenderer implements MergeVisi
     }
 
     @Override
-
     public void visit(final MergeInsertClause mergeInsertClause) {
         appendKeyWord("THEN INSERT");
         setLastVisited(mergeInsertClause);

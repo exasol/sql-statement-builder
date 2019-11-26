@@ -33,7 +33,7 @@ public abstract class MergeMethodDefinition extends AbstractFragment {
     }
 
     /**
-     * Get the {@code WHERE} clause of the update definition.
+     * Get the {@code WHERE} clause of the merge method definition.
      *
      * @return {@code WHERE} clause
      */

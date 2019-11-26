@@ -12,7 +12,6 @@ public class Merge extends AbstractFragment implements SqlStatement, MergeFragme
     private final Table destinationTable;
     private UsingClause using;
     private OnClause on;
-    private BooleanExpression condition;
     private MatchedClause matched;
     private NotMatchedClause notMatched;
 
@@ -90,12 +89,12 @@ public class Merge extends AbstractFragment implements SqlStatement, MergeFragme
     }
 
     /**
-     * Get the merge condition.
+     * Get the merge criteria (i.e. the `ON` clause).
      *
      * @return criteria that must be met for the rows in source and destination to be considered a match.
      */
-    public BooleanExpression getCondition() {
-        return this.condition;
+    public OnClause getOn() {
+        return this.on;
     }
 
     /**
@@ -103,7 +102,7 @@ public class Merge extends AbstractFragment implements SqlStatement, MergeFragme
      *
      * @return {@code true} if the {@code ON} clause exists.
      */
-    protected boolean hasCondition() {
+    protected boolean hasOn() {
         return this.on != null;
     }
 
@@ -154,7 +153,7 @@ public class Merge extends AbstractFragment implements SqlStatement, MergeFragme
         if (hasUsing()) {
             this.using.accept(visitor);
         }
-        if (hasCondition()) {
+        if (hasOn()) {
             this.on.accept(visitor);
         }
         if (hasMatched()) {
