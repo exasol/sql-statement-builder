@@ -61,6 +61,24 @@ public class Merge extends AbstractFragment implements SqlStatement, MergeFragme
     }
 
     /**
+     * Get the {@code USING} clause of the {@code MERGE} statement.
+     *
+     * @return destination table
+     */
+    public UsingClause getUsing() {
+        return this.using;
+    }
+
+    /**
+     * Check if the {@code USING} clause exists.
+     *
+     * @return {@code true} if the {@code USING} clause exists.
+     */
+    protected boolean hasUsing() {
+        return this.using != null;
+    }
+
+    /**
      * Define the merge criteria.
      *
      * @param condition criteria that must be met for the rows in source and destination to be considered a match.
@@ -72,35 +90,6 @@ public class Merge extends AbstractFragment implements SqlStatement, MergeFragme
     }
 
     /**
-     * Define the merge strategy if the match criteria is met.
-     *
-     * @return match strategy
-     */
-    public MatchedClause whenMatched() {
-        this.matched = new MatchedClause(this.root);
-        return this.matched;
-    }
-
-    /**
-     * Define the merge strategy if the match criteria is not met.
-     *
-     * @return not matched strategy
-     */
-    public NotMatchedClause whenNotMatched() {
-        this.notMatched = new NotMatchedClause(this.root);
-        return this.notMatched;
-    }
-
-    /**
-     * Get the {@code USING} clause of the {@code MERGE} statement.
-     *
-     * @return destination table
-     */
-    public UsingClause getUsing() {
-        return this.using;
-    }
-
-    /**
      * Get the merge condition.
      *
      * @return criteria that must be met for the rows in source and destination to be considered a match.
@@ -109,22 +98,69 @@ public class Merge extends AbstractFragment implements SqlStatement, MergeFragme
         return this.condition;
     }
 
+    /**
+     * Check if the {@code ON} clause exists.
+     *
+     * @return {@code true} if the {@code ON} clause exists.
+     */
+    protected boolean hasCondition() {
+        return this.on != null;
+    }
+
+    /**
+     * Define the merge strategy if the match criteria is met.
+     *
+     * @return match strategy
+     */
+    public MatchedClause whenMatched() {
+        this.matched = new MatchedClause(this);
+        return this.matched;
+    }
+
+    /**
+     * Check if the {@code WHEN MATCHED} clause exists.
+     *
+     * @return {@code true} if the {@code WHEN MATCHED} clause exists
+     */
+    protected boolean hasMatched() {
+        return this.matched != null;
+    }
+
+    /**
+     * Define the merge strategy if the match criteria is not met.
+     *
+     * @return not matched strategy
+     */
+    public NotMatchedClause whenNotMatched() {
+        this.notMatched = new NotMatchedClause(this);
+        return this.notMatched;
+    }
+
+    /**
+     * Check if the {@code WHEN NOT MATCHED} clause exists.
+     * 
+     * @return true if the {@code WHEN NOT MATCHED} clause exists
+     */
+    protected boolean hasNotMatched() {
+        return this.notMatched != null;
+    }
+
     @Override
     public void accept(final MergeVisitor visitor) {
         visitor.visit(this);
         if (this.destinationTable != null) {
             this.destinationTable.accept(visitor);
         }
-        if (this.using != null) {
+        if (hasUsing()) {
             this.using.accept(visitor);
         }
-        if (this.on != null) {
+        if (hasCondition()) {
             this.on.accept(visitor);
         }
-        if (this.matched != null) {
+        if (hasMatched()) {
             this.matched.accept(visitor);
         }
-        if (this.notMatched != null) {
+        if (hasNotMatched()) {
             this.notMatched.accept(visitor);
         }
     }

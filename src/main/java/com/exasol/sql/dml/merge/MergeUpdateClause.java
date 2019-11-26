@@ -3,16 +3,15 @@ package com.exasol.sql.dml.merge;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.exasol.sql.AbstractFragment;
 import com.exasol.sql.Fragment;
+import com.exasol.sql.dql.select.WhereClause;
 import com.exasol.sql.expression.*;
 
 /**
  * Represents the {@code MERGE} strategy of updating matched rows.
  */
-public class MergeUpdateClause extends AbstractFragment implements MergeFragment {
+public class MergeUpdateClause extends MergeMethodDefinition implements MergeFragment {
     private final List<MergeColumnUpdate> columnUpdates = new ArrayList<>();
-
     /**
      * Create a new instance of a {@link MergeUpdateClause}.
      *
@@ -61,11 +60,26 @@ public class MergeUpdateClause extends AbstractFragment implements MergeFragment
         return this;
     }
 
+    /**
+     * Add a {@code WHERE} clause to the update definition.
+     *
+     * @param expression filter expression
+     * @return parent {@code MERGE} statement
+     */
+    public Merge where(final BooleanExpression expression) {
+        final Merge merge = (Merge) this.getRoot();
+        this.where = new WhereClause(merge, expression);
+        return merge;
+    }
+
     @Override
     public void accept(final MergeVisitor visitor) {
         visitor.visit(this);
         for (final MergeColumnUpdate columnUpdate : this.columnUpdates) {
             columnUpdate.accept(visitor);
+        }
+        if (hasWhere()) {
+            this.where.accept(visitor);
         }
     }
 }

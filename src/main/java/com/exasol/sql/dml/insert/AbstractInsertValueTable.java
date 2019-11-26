@@ -13,7 +13,7 @@ public abstract class AbstractInsertValueTable<T extends AbstractInsertValueTabl
 
     /**
      * Create the abstract base for a fragment containing a value table.
-     * 
+     *
      * @param root root fragment
      */
     public AbstractInsertValueTable(final Fragment root) {
@@ -23,7 +23,7 @@ public abstract class AbstractInsertValueTable<T extends AbstractInsertValueTabl
     protected abstract T self();
 
     protected synchronized void createInsertValueInstanceIfItDoesNotExist() {
-        if (this.insertValueTable == null) {
+        if (!hasValues()) {
             this.insertValueTable = new ValueTable(this);
         }
     }
@@ -35,7 +35,7 @@ public abstract class AbstractInsertValueTable<T extends AbstractInsertValueTabl
      * @return <code>this</code> for fluent programming
      */
     public synchronized T field(final String... names) {
-        if (this.insertFields == null) {
+        if (!hasFields()) {
             this.insertFields = new InsertFields(this.getRoot());
         }
         this.insertFields.add(names);
@@ -49,7 +49,7 @@ public abstract class AbstractInsertValueTable<T extends AbstractInsertValueTabl
      * @return <code>this</code> for fluent programming
      */
     public synchronized T valueTable(final ValueTable table) {
-        if (this.insertValueTable != null) {
+        if (hasValues()) {
             throw new IllegalStateException("Cannot add a value table to an INSERT command that already has one.");
         }
         this.insertValueTable = table;
@@ -107,5 +107,23 @@ public abstract class AbstractInsertValueTable<T extends AbstractInsertValueTabl
             valuePlaceholder();
         }
         return self();
+    }
+
+    /**
+     * Check if a value table is present.
+     *
+     * @return {@code true} if a value table exists
+     */
+    public boolean hasValues() {
+        return this.insertValueTable != null;
+    }
+
+    /**
+     * Check if a insert fields are defined.
+     *
+     * @return {@code true} if insert fields are defined
+     */
+    public boolean hasFields() {
+        return this.insertFields != null;
     }
 }

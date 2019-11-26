@@ -47,6 +47,20 @@ merge.whenNotMatched()
 
 Check the JavaDoc of class `Merge` for a more information.
 
+### Using a Filter on a `MERGE` Strategy
+
+All three merge strategies can be narrowed down with a `WHERE` clause, to limit the dataset they work on.
+
+Here is an example for a `MERGE` statement with a `DELETE` strategy.
+
+```java
+merge.using("src") //
+    .on(eq(column("src", "c1"), column("dst", "c1"))) //
+    .whenMatched() //
+    .thenDelete() //
+    .where(gt(column("src", "c5"), integerLiteral(1000)));
+```
+
 ### Rendering `MERGE` Statements
 
 Use the `MergeRenderer` to render `Merge` objects into SQL strings.

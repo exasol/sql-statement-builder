@@ -1,7 +1,9 @@
 package com.exasol.sql.dml.merge;
 
 import com.exasol.sql.*;
+import com.exasol.sql.dml.insert.AbstractInsertValueTable;
 import com.exasol.sql.dml.insert.InsertFields;
+import com.exasol.sql.dql.select.WhereClause;
 
 /**
  * Visitor for value tables.
@@ -47,7 +49,7 @@ public interface MergeVisitor extends ValueTableVisitor {
      *
      * @param mergeUpdateClause update definition.
      */
-    public void visit(final MergeUpdateClause mergeUpdateClause);
+    public void visit(final MergeMethodDefinition mergeUpdateClause);
 
     /**
      * Visit the update of a single column inside a {@code MERGE} statement.
@@ -75,7 +77,7 @@ public interface MergeVisitor extends ValueTableVisitor {
      *
      * @param mergeInsertClause insert definition
      */
-    public void visit(final MergeInsertClause mergeInsertClause);
+    public void visit(final AbstractInsertValueTable<MergeInsertClause> mergeInsertClause);
 
     /**
      * Visit the insert field list.
@@ -93,8 +95,15 @@ public interface MergeVisitor extends ValueTableVisitor {
 
     /**
      * Visit a field reference.
-     * 
+     *
      * @param field field reference
      */
     public void visit(final Field field);
+
+    /**
+     * Visit a {@code WHERE} clause.
+     *
+     * @param whereClause the {@code WHERE clause to be visited}
+     */
+    public void visit(WhereClause whereClause);
 }

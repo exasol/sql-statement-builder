@@ -1,9 +1,11 @@
 package com.exasol.sql.dml.merge.rendering;
 
 import com.exasol.sql.*;
+import com.exasol.sql.dml.insert.AbstractInsertValueTable;
 import com.exasol.sql.dml.insert.InsertFields;
 import com.exasol.sql.dml.insert.rendering.InsertRenderer;
 import com.exasol.sql.dml.merge.*;
+import com.exasol.sql.dql.select.WhereClause;
 import com.exasol.sql.rendering.AbstractFragmentRenderer;
 import com.exasol.sql.rendering.StringRendererConfig;
 
@@ -57,7 +59,7 @@ public class MergeRenderer extends AbstractFragmentRenderer implements MergeVisi
     }
 
     @Override
-    public void visit(final MergeUpdateClause mergeUpdateClause) {
+    public void visit(final MergeMethodDefinition mergeUpdateClause) {
         appendKeyWord("THEN UPDATE SET ");
         setLastVisited(mergeUpdateClause);
     }
@@ -84,7 +86,7 @@ public class MergeRenderer extends AbstractFragmentRenderer implements MergeVisi
     }
 
     @Override
-    public void visit(final MergeInsertClause mergeInsertClause) {
+    public void visit(final AbstractInsertValueTable<MergeInsertClause> mergeInsertClause) {
         appendKeyWord("THEN INSERT");
         setLastVisited(mergeInsertClause);
     }
@@ -149,5 +151,12 @@ public class MergeRenderer extends AbstractFragmentRenderer implements MergeVisi
     public void leave(final ValueTableRow valueTableRow) {
         append(")");
         setLastVisited(valueTableRow);
+    }
+
+    @Override
+    public void visit(final WhereClause whereClause) {
+        appendKeyWord(" WHERE ");
+        appendRenderedBooleanExpression(whereClause.getExpression());
+        setLastVisited(whereClause);
     }
 }
