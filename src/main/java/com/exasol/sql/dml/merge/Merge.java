@@ -113,7 +113,7 @@ public class Merge extends AbstractFragment implements SqlStatement, MergeFragme
      * @return match strategy
      */
     public MatchedClause whenMatched() {
-        this.matched = new MatchedClause(this.root);
+        this.matched = new MatchedClause(this);
         return this.matched;
     }
 
@@ -138,7 +138,7 @@ public class Merge extends AbstractFragment implements SqlStatement, MergeFragme
 
     /**
      * Check if the {@code WHEN NOT MATCHED} clause exists.
-     * 
+     *
      * @return true if the {@code WHEN NOT MATCHED} clause exists
      */
     protected boolean hasNotMatched() {

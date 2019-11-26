@@ -1,7 +1,6 @@
 package com.exasol.sql.dml.merge;
 
 import com.exasol.sql.*;
-import com.exasol.sql.dml.insert.AbstractInsertValueTable;
 import com.exasol.sql.dml.insert.InsertFields;
 import com.exasol.sql.dql.select.WhereClause;
 

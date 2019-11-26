@@ -1,8 +1,6 @@
 package com.exasol.sql.dml.merge;
 
 import com.exasol.sql.Fragment;
-import com.exasol.sql.dql.select.WhereClause;
-import com.exasol.sql.expression.BooleanExpression;
 
 /**
  * This class represents the {@code MERGE} strategy of deleting matched rows.
@@ -15,18 +13,6 @@ public class MergeDeleteClause extends MergeMethodDefinition implements MergeFra
      */
     public MergeDeleteClause(final Fragment root) {
         super(root);
-    }
-
-    /**
-     * Add a {@code WHERE} clause to the deletion definition.
-     *
-     * @param expression filter expression
-     * @return parent {@code MERGE} statement
-     */
-    public Merge where(final BooleanExpression expression) {
-        final Merge merge = (Merge) this.getRoot();
-        this.where = new WhereClause(merge, expression);
-        return merge;
     }
 
     @Override

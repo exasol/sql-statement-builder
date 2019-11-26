@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.exasol.sql.Fragment;
-import com.exasol.sql.dql.select.WhereClause;
 import com.exasol.sql.expression.*;
 
 /**
@@ -59,18 +58,6 @@ public class MergeUpdateClause extends MergeMethodDefinition implements MergeFra
     public MergeUpdateClause setToDefault(final String column) {
         this.columnUpdates.add(new MergeColumnUpdate(this.root, column, DefaultValue.defaultValue()));
         return this;
-    }
-
-    /**
-     * Add a {@code WHERE} clause to the update definition.
-     *
-     * @param expression filter expression
-     * @return parent {@code MERGE} statement
-     */
-    public Merge where(final BooleanExpression expression) {
-        final Merge merge = (Merge) this.getRoot();
-        this.where = new WhereClause(merge, expression);
-        return merge;
     }
 
     @Override

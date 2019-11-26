@@ -1,7 +1,6 @@
 package com.exasol.sql.dml.merge.rendering;
 
 import com.exasol.sql.*;
-import com.exasol.sql.dml.insert.AbstractInsertValueTable;
 import com.exasol.sql.dml.insert.InsertFields;
 import com.exasol.sql.dml.insert.rendering.InsertRenderer;
 import com.exasol.sql.dml.merge.*;
