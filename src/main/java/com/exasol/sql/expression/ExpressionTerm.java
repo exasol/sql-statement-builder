@@ -34,18 +34,18 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
      * @param column column name
      * @return column reference
      */
-    public static ColumnReference columnReference(final String column) {
+    public static ColumnReference column(final String column) {
         return ColumnReference.of(column);
     }
 
     /**
      * Create a reference to a column in a specific table.
-     * 
+     *
      * @param column column name
      * @param table table name
      * @return column reference
      */
-    public static ColumnReference columnReference(final String column, final String table) {
+    public static ColumnReference column(final String column, final String table) {
         return ColumnReference.column(table, column);
     }
 }

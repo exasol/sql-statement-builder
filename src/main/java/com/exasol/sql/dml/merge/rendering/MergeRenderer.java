@@ -4,6 +4,7 @@ import com.exasol.sql.*;
 import com.exasol.sql.dml.insert.InsertFields;
 import com.exasol.sql.dml.insert.rendering.InsertRenderer;
 import com.exasol.sql.dml.merge.*;
+import com.exasol.sql.dql.select.WhereClause;
 import com.exasol.sql.rendering.AbstractFragmentRenderer;
 import com.exasol.sql.rendering.StringRendererConfig;
 
@@ -149,5 +150,12 @@ public class MergeRenderer extends AbstractFragmentRenderer implements MergeVisi
     public void leave(final ValueTableRow valueTableRow) {
         append(")");
         setLastVisited(valueTableRow);
+    }
+
+    @Override
+    public void visit(final WhereClause whereClause) {
+        appendKeyWord(" WHERE ");
+        appendRenderedBooleanExpression(whereClause.getExpression());
+        setLastVisited(whereClause);
     }
 }

@@ -3,14 +3,13 @@ package com.exasol.sql.dml.merge;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.exasol.sql.AbstractFragment;
 import com.exasol.sql.Fragment;
 import com.exasol.sql.expression.*;
 
 /**
  * Represents the {@code MERGE} strategy of updating matched rows.
  */
-public class MergeUpdateClause extends AbstractFragment implements MergeFragment {
+public class MergeUpdateClause extends MergeMethodDefinition implements MergeFragment {
     private final List<MergeColumnUpdate> columnUpdates = new ArrayList<>();
 
     /**
@@ -66,6 +65,9 @@ public class MergeUpdateClause extends AbstractFragment implements MergeFragment
         visitor.visit(this);
         for (final MergeColumnUpdate columnUpdate : this.columnUpdates) {
             columnUpdate.accept(visitor);
+        }
+        if (hasWhere()) {
+            this.where.accept(visitor);
         }
     }
 }

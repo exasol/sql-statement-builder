@@ -12,7 +12,6 @@ public class Merge extends AbstractFragment implements SqlStatement, MergeFragme
     private final Table destinationTable;
     private UsingClause using;
     private OnClause on;
-    private BooleanExpression condition;
     private MatchedClause matched;
     private NotMatchedClause notMatched;
 
@@ -61,6 +60,24 @@ public class Merge extends AbstractFragment implements SqlStatement, MergeFragme
     }
 
     /**
+     * Get the {@code USING} clause of the {@code MERGE} statement.
+     *
+     * @return destination table
+     */
+    public UsingClause getUsing() {
+        return this.using;
+    }
+
+    /**
+     * Check if the {@code USING} clause exists.
+     *
+     * @return {@code true} if the {@code USING} clause exists.
+     */
+    protected boolean hasUsing() {
+        return this.using != null;
+    }
+
+    /**
      * Define the merge criteria.
      *
      * @param condition criteria that must be met for the rows in source and destination to be considered a match.
@@ -72,13 +89,40 @@ public class Merge extends AbstractFragment implements SqlStatement, MergeFragme
     }
 
     /**
+     * Get the merge criteria (i.e. the `ON` clause).
+     *
+     * @return criteria that must be met for the rows in source and destination to be considered a match.
+     */
+    public OnClause getOn() {
+        return this.on;
+    }
+
+    /**
+     * Check if the {@code ON} clause exists.
+     *
+     * @return {@code true} if the {@code ON} clause exists.
+     */
+    protected boolean hasOn() {
+        return this.on != null;
+    }
+
+    /**
      * Define the merge strategy if the match criteria is met.
      *
      * @return match strategy
      */
     public MatchedClause whenMatched() {
-        this.matched = new MatchedClause(this.root);
+        this.matched = new MatchedClause(this);
         return this.matched;
+    }
+
+    /**
+     * Check if the {@code WHEN MATCHED} clause exists.
+     *
+     * @return {@code true} if the {@code WHEN MATCHED} clause exists
+     */
+    protected boolean hasMatched() {
+        return this.matched != null;
     }
 
     /**
@@ -87,26 +131,17 @@ public class Merge extends AbstractFragment implements SqlStatement, MergeFragme
      * @return not matched strategy
      */
     public NotMatchedClause whenNotMatched() {
-        this.notMatched = new NotMatchedClause(this.root);
+        this.notMatched = new NotMatchedClause(this);
         return this.notMatched;
     }
 
     /**
-     * Get the {@code USING} clause of the {@code MERGE} statement.
+     * Check if the {@code WHEN NOT MATCHED} clause exists.
      *
-     * @return destination table
+     * @return true if the {@code WHEN NOT MATCHED} clause exists
      */
-    public UsingClause getUsing() {
-        return this.using;
-    }
-
-    /**
-     * Get the merge condition.
-     *
-     * @return criteria that must be met for the rows in source and destination to be considered a match.
-     */
-    public BooleanExpression getCondition() {
-        return this.condition;
+    protected boolean hasNotMatched() {
+        return this.notMatched != null;
     }
 
     @Override
@@ -115,16 +150,16 @@ public class Merge extends AbstractFragment implements SqlStatement, MergeFragme
         if (this.destinationTable != null) {
             this.destinationTable.accept(visitor);
         }
-        if (this.using != null) {
+        if (hasUsing()) {
             this.using.accept(visitor);
         }
-        if (this.on != null) {
+        if (hasOn()) {
             this.on.accept(visitor);
         }
-        if (this.matched != null) {
+        if (hasMatched()) {
             this.matched.accept(visitor);
         }
-        if (this.notMatched != null) {
+        if (hasNotMatched()) {
             this.notMatched.accept(visitor);
         }
     }

@@ -1,9 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.exasol</groupId>
   <artifactId>sql-statement-builder</artifactId>
-  <version>2.0.0</version>
+  <version>3.0.0</version>
   <name>Exasol SQL Statement Builder</name>
   <description>This module provides a Builder for SQL statements that helps creating the correct structure and validates variable parts of the statements.</description>
   <url>https://github.com/exasol/sql-statement-builder</url>
@@ -101,6 +102,17 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>2.24.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-junit-jupiter</artifactId>
+      <version>2.23.4</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>nl.jqno.equalsverifier</groupId>
       <artifactId>equalsverifier</artifactId>
       <version>3.1.4</version>
@@ -169,7 +181,7 @@
         </executions>
         <configuration>
           <charset>UTF-8</charset>
-          <doclint/>
+          <doclint />
           <serialwarn>true</serialwarn>
           <failOnError>true</failOnError>
           <failOnWarnings>true</failOnWarnings>

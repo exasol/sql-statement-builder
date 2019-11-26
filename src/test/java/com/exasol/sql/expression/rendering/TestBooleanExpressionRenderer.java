@@ -138,15 +138,14 @@ class TestBooleanExpressionRenderer {
     @Test
     void testComparisonOperatorsWithColumnReference() {
         assertAll( //
-                () -> assertThat("equal", eq(columnReference("city"), integerLiteral(1)), rendersTo("city = 1")), //
-                () -> assertThat("not equal", ne(columnReference("city"), integerLiteral(2)), rendersTo("city <> 2")), //
-                () -> assertThat("not equal", lt(columnReference("city"), stringLiteral("Moscow")),
+                () -> assertThat("equal", eq(column("city"), integerLiteral(1)), rendersTo("city = 1")), //
+                () -> assertThat("not equal", ne(column("city"), integerLiteral(2)), rendersTo("city <> 2")), //
+                () -> assertThat("not equal", lt(column("city"), stringLiteral("Moscow")),
                         rendersTo("city < 'Moscow'")), //
-                () -> assertThat("not equal", gt(columnReference("city", "t"), stringLiteral("Moscow")),
+                () -> assertThat("not equal", gt(column("city", "t"), stringLiteral("Moscow")),
                         rendersTo("t.city > 'Moscow'")), //
-                () -> assertThat("not equal", le(columnReference("city", "t"), columnReference("machi")),
-                        rendersTo("t.city <= machi")), //
-                () -> assertThat("not equal", ge(columnReference("city", "t"), columnReference("machi", "t")),
+                () -> assertThat("not equal", le(column("city", "t"), column("machi")), rendersTo("t.city <= machi")), //
+                () -> assertThat("not equal", ge(column("city", "t"), column("machi", "t")),
                         rendersTo("t.city >= t.machi")) //
         );
     }

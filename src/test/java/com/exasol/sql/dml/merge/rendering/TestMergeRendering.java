@@ -2,7 +2,9 @@ package com.exasol.sql.dml.merge.rendering;
 
 import static com.exasol.hamcrest.SqlFragmentRenderResultMatcher.rendersTo;
 import static com.exasol.sql.expression.BooleanTerm.eq;
-import static com.exasol.sql.expression.ColumnReference.column;
+import static com.exasol.sql.expression.BooleanTerm.gt;
+import static com.exasol.sql.expression.ExpressionTerm.column;
+import static com.exasol.sql.expression.ExpressionTerm.integerLiteral;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -29,7 +31,7 @@ class TestMergeRendering {
     void testMergeIntoUsingOn() {
         assertThat(this.merge //
                 .using("src") //
-                .on(eq(column("src", "c1"), column("dst", "c1"))),
+                .on(eq(column("c1", "src"), column("c1", "dst"))),
                 rendersTo("MERGE INTO dst USING src ON src.c1 = dst.c1"));
     }
 
@@ -37,7 +39,7 @@ class TestMergeRendering {
     void testMergeWhenMatchedUpdate() {
         this.merge //
                 .using("src") //
-                .on(eq(column("src", "c1"), column("dst", "c1"))) //
+                .on(eq(column("c1", "src"), column("c1", "dst"))) //
                 .whenMatched() //
                 .thenUpdate() //
                 .setToDefault("c2") //
@@ -49,14 +51,42 @@ class TestMergeRendering {
     }
 
     @Test
+    void testMergeWhenMatchedUpdateWhere() {
+        this.merge //
+                .using("src") //
+                .on(eq(column("c1", "src"), column("c1", "dst"))) //
+                .whenMatched() //
+                .thenUpdate() //
+                .setToDefault("c2") //
+                .set("c3", "foo") //
+                .set("c4", 42).where(gt(column("c5", "src"), integerLiteral(1000)));
+        assertThat(this.merge, rendersTo("MERGE INTO dst USING src ON src.c1 = dst.c1" //
+                + " WHEN MATCHED THEN UPDATE SET c2 = DEFAULT, c3 = 'foo', c4 = 42" //
+                + " WHERE src.c5 > 1000"));
+    }
+
+    @Test
     void testMergeWhenMatchedDelete() {
         this.merge //
                 .using("src") //
-                .on(eq(column("src", "c1"), column("dst", "c1"))) //
+                .on(eq(column("c1", "src"), column("c1", "dst"))) //
                 .whenMatched() //
-                .thenDelete(); //
+                .thenDelete();
         assertThat(this.merge, rendersTo("MERGE INTO dst USING src ON src.c1 = dst.c1" //
                 + " WHEN MATCHED THEN DELETE"));
+
+    }
+
+    @Test
+    void testMergeWhenMatchedDeleteWhere() {
+        this.merge //
+                .using("src") //
+                .on(eq(column("c1", "src"), column("c1", "dst"))) //
+                .whenMatched() //
+                .thenDelete() //
+                .where(gt(column("c5", "src"), integerLiteral(1000)));
+        assertThat(this.merge, rendersTo("MERGE INTO dst USING src ON src.c1 = dst.c1" //
+                + " WHEN MATCHED THEN DELETE WHERE src.c5 > 1000"));
 
     }
 
@@ -64,7 +94,7 @@ class TestMergeRendering {
     void testMergeWhenNotMatchedInsertValues() {
         this.merge //
                 .using("src") //
-                .on(eq(column("src", "c1"), column("dst", "c1"))) //
+                .on(eq(column("c1", "src"), column("c1", "dst"))) //
                 .whenNotMatched() //
                 .thenInsert() //
                 .values("foo", "bar");
@@ -73,10 +103,23 @@ class TestMergeRendering {
     }
 
     @Test
+    void testMergeWhenNotMatchedInsertValuesWhere() {
+        this.merge //
+                .using("src") //
+                .on(eq(column("c1", "src"), column("c1", "dst"))) //
+                .whenNotMatched() //
+                .thenInsert() //
+                .values("foo", "bar") //
+                .where(gt(column("c5", "src"), integerLiteral(1000)));
+        assertThat(this.merge, rendersTo("MERGE INTO dst USING src ON src.c1 = dst.c1" //
+                + " WHEN NOT MATCHED THEN INSERT VALUES ('foo', 'bar') WHERE src.c5 > 1000"));
+    }
+
+    @Test
     void testMergeWhenNotMatchedInsertFieldValues() {
         this.merge //
                 .using("src") //
-                .on(eq(column("src", "c1"), column("dst", "c1"))) //
+                .on(eq(column("c1", "src"), column("c1", "dst"))) //
                 .whenNotMatched() //
                 .thenInsert() //
                 .field("c3", "c4") //
@@ -88,7 +131,7 @@ class TestMergeRendering {
     @Test
     void testComplexMerge() {
         final Merge complexMerge = StatementFactory.getInstance().mergeInto("dst", "t1").using("src", "t2") //
-                .on(eq(column("t1", "c1"), column("t2", "c1")));
+                .on(eq(column("c1", "t1"), column("c1", "t2")));
         complexMerge.whenMatched() //
                 .thenUpdate() //
                 .setToDefault("c2") //

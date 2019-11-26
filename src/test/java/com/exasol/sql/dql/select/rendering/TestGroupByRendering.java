@@ -22,45 +22,42 @@ class TestGroupByRendering {
 
     @Test
     void testGroupByClause() {
-        assertThat(this.select.groupBy(columnReference("city")), rendersTo("SELECT * FROM t GROUP BY city"));
+        assertThat(this.select.groupBy(column("city")), rendersTo("SELECT * FROM t GROUP BY city"));
     }
 
     @Test
     void testGroupByClause2() {
-        assertThat(this.select.groupBy(columnReference("city", "t")), rendersTo("SELECT * FROM t GROUP BY t.city"));
+        assertThat(this.select.groupBy(column("city", "t")), rendersTo("SELECT * FROM t GROUP BY t.city"));
     }
 
     @Test
     void testGroupByClauseMultipleColumns() {
-        assertThat(this.select.groupBy(columnReference("city", "t"), columnReference("order", "t"),
-                columnReference("price", "t")), rendersTo("SELECT * FROM t GROUP BY t.city, t.order, t.price"));
+        assertThat(this.select.groupBy(column("city", "t"), column("order", "t"), column("price", "t")),
+                rendersTo("SELECT * FROM t GROUP BY t.city, t.order, t.price"));
     }
 
     @Test
     void testGroupByClauseMultipleColumnsWithHaving() {
         assertThat(
-                this.select
-                        .groupBy(columnReference("city", "t"), columnReference("order", "t"),
-                                columnReference("price", "t"))
-                        .having(lt(columnReference("price", "t"), integerLiteral(10))),
+                this.select.groupBy(column("city", "t"), column("order", "t"), column("price", "t"))
+                        .having(lt(column("price", "t"), integerLiteral(10))),
                 rendersTo("SELECT * FROM t GROUP BY t.city, t.order, t.price HAVING t.price < 10"));
     }
 
     @Test
     void testGroupByClauseMultipleColumnsWithMultipleHaving() {
         assertThat(
-                this.select.groupBy(columnReference("city"), columnReference("order"), columnReference("price"))
-                        .having(and(le(columnReference("price", "t"), integerLiteral(10)),
-                                ne(columnReference("price", "t"), integerLiteral(5)))),
+                this.select.groupBy(column("city"), column("order"), column("price")).having(
+                        and(le(column("price", "t"), integerLiteral(10)), ne(column("price", "t"), integerLiteral(5)))),
                 rendersTo("SELECT * FROM t GROUP BY city, order, price HAVING (t.price <= 10) AND (t.price <> 5)"));
     }
 
     @Test
     void testGroupByClauseMultipleColumnsWithMultipleHaving2() {
         assertThat(
-                this.select.groupBy(columnReference("city"), columnReference("order"), columnReference("price"))
-                        .having(or(eq(columnReference("city", "t"), stringLiteral("NEW YORK")),
-                                eq(columnReference("city", "t"), stringLiteral("MOSCOW")))),
+                this.select.groupBy(column("city"), column("order"), column("price"))
+                        .having(or(eq(column("city", "t"), stringLiteral("NEW YORK")),
+                                eq(column("city", "t"), stringLiteral("MOSCOW")))),
                 rendersTo(
                         "SELECT * FROM t GROUP BY city, order, price HAVING (t.city = 'NEW YORK') OR (t.city = 'MOSCOW')"));
     }
