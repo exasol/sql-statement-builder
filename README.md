@@ -1,5 +1,7 @@
 # sql-statement-builder
 
+![exasol-testcontainers logo](doc/images/sql-statement-builder_128x128.png)
+
 [![Build Status](https://travis-ci.com/exasol/sql-statement-builder.svg?branch=develop)](https://travis-ci.com/exasol/sql-statement-builder)
 [![Maven Central](https://img.shields.io/maven-central/v/com.exasol/sql-statement-builder)](https://search.maven.org/artifact/com.exasol/sql-statement-builder)
 
