@@ -142,10 +142,10 @@ class TestBooleanExpressionRenderer {
                 () -> assertThat("not equal", ne(column("city"), integerLiteral(2)), rendersTo("city <> 2")), //
                 () -> assertThat("not equal", lt(column("city"), stringLiteral("Moscow")),
                         rendersTo("city < 'Moscow'")), //
-                () -> assertThat("not equal", gt(column("city", "t"), stringLiteral("Moscow")),
+                () -> assertThat("not equal", gt(column("t", "city"), stringLiteral("Moscow")),
                         rendersTo("t.city > 'Moscow'")), //
-                () -> assertThat("not equal", le(column("city", "t"), column("machi")), rendersTo("t.city <= machi")), //
-                () -> assertThat("not equal", ge(column("city", "t"), column("machi", "t")),
+                () -> assertThat("not equal", le(column("t", "city"), column("machi")), rendersTo("t.city <= machi")), //
+                () -> assertThat("not equal", ge(column("t", "city"), column("t", "machi")),
                         rendersTo("t.city >= t.machi")) //
         );
     }

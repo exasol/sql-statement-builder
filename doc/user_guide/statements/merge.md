@@ -5,9 +5,11 @@ You can construct [`MERGE`](https://docs.exasol.com/sql/merge.htm) SQL statement
 `Merge` supports a combination of `INSERT`, `UPDATE` and `DELETE` where source data is merged into a destination table. The merge strategy is configurable and depends on whether or not a row in source and destination are considered a match.
 Of course the criteria for that match is configurable too.
 
+Note that while the individual merge strategies are optional parts of the `MERGE` statement, you need to pick *at least one* to get a valid statement.
+
 ## Creating `MERGE` Commands
 
-You can create a minimalistic `MERGE` like this:
+You can create a basic `MERGE` like this:
 
 ```java
 final Merge merge = StatementFactory.getInstance()
@@ -16,7 +18,9 @@ final Merge merge = StatementFactory.getInstance()
     .on(eq(column("source", "id"), column("destination", "id");
 ```
 
-### Fine Tuning the `MERGE` Strategies
+As mentioned before, this statement is not complete without selecting at least one [merge strategy](#merge-strategies).
+
+### `MERGE` Strategies
 
 If you need more control over what happens in case of matching rows, you can add `whenMatched()`.
 
@@ -29,8 +33,11 @@ merge.whenMatched()
     .thenUpdate() //
     .setToDefault("c2") //
     .set("c3", "foo") //
-    .set("c4", 42);
+    .set("c4", 42) //
+    .set("c5", integerLiteral(9000));
 ```
+
+The basic `set()` method expects a column and a value expression. For added convenience the set methods are overloaded to allow using literals directly.
 
 And another example for `thenDelete()`.
 

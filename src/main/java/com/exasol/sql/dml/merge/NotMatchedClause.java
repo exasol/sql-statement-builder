@@ -28,10 +28,28 @@ public class NotMatchedClause extends AbstractFragment implements MergeFragment 
         return this.mergeInsertClause;
     }
 
+    /**
+     * Check if the {@code THEN INSERT} clause is present.
+     *
+     * @return {@code true} if the {@code THEN INSERT} clause is present
+     */
+    public boolean hasInsert() {
+        return this.mergeInsertClause != null;
+    }
+
+    /**
+     * Get the {@code THEN INSERT} clause.
+     * 
+     * @return {@code THEN INSERT} clause
+     */
+    public MergeInsertClause getInsert() {
+        return this.mergeInsertClause;
+    }
+
     @Override
     public void accept(final MergeVisitor visitor) {
         visitor.visit(this);
-        if (this.mergeInsertClause != null) {
+        if (hasInsert()) {
             this.mergeInsertClause.accept(visitor);
         }
     }

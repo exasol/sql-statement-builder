@@ -22,6 +22,18 @@ public class MergeUpdateClause extends MergeMethodDefinition implements MergeFra
     }
 
     /**
+     * Update a column with a value expression.
+     *
+     * @param column column to be updated
+     * @param expression value expression
+     * @return {@code this} for fluent programming
+     */
+    public MergeUpdateClause set(final String column, final ValueExpression expression) {
+        this.columnUpdates.add(new MergeColumnUpdate(this.root, column, expression));
+        return this;
+    }
+
+    /**
      * Update a column with a string value.
      *
      * @param column column to be updated
@@ -29,12 +41,7 @@ public class MergeUpdateClause extends MergeMethodDefinition implements MergeFra
      * @return {@code this} for fluent programming
      */
     public MergeUpdateClause set(final String column, final String literal) {
-        addColumnUpdate(column, StringLiteral.of(literal));
-        return this;
-    }
-
-    protected void addColumnUpdate(final String column, final ValueExpression expression) {
-        this.columnUpdates.add(new MergeColumnUpdate(this.root, column, expression));
+        return set(column, StringLiteral.of(literal));
     }
 
     /**
@@ -45,8 +52,7 @@ public class MergeUpdateClause extends MergeMethodDefinition implements MergeFra
      * @return {@code this} for fluent programming
      */
     public MergeUpdateClause set(final String column, final int literal) {
-        addColumnUpdate(column, IntegerLiteral.of(literal));
-        return this;
+        return set(column, IntegerLiteral.of(literal));
     }
 
     /**
