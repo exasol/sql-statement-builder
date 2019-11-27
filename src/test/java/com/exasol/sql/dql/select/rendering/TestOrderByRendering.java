@@ -21,49 +21,49 @@ class TestOrderByRendering {
 
     @Test
     void testOrderByClause() {
-        assertThat(this.select.orderBy(column("city", "t"), column("price", "t")),
+        assertThat(this.select.orderBy(column("t", "city"), column("t", "price")),
                 rendersTo("SELECT * FROM t ORDER BY t.city, t.price"));
     }
 
     @Test
     void testOrderByClauseDesc() {
-        assertThat(this.select.orderBy(column("city", "t"), column("price", "t")).desc(),
+        assertThat(this.select.orderBy(column("t", "city"), column("t", "price")).desc(),
                 rendersTo("SELECT * FROM t ORDER BY t.city, t.price DESC"));
     }
 
     @Test
     void testOrderByClauseAsc() {
-        assertThat(this.select.orderBy(column("city", "t"), column("price", "t")).asc(),
+        assertThat(this.select.orderBy(column("t", "city"), column("t", "price")).asc(),
                 rendersTo("SELECT * FROM t ORDER BY t.city, t.price ASC"));
     }
 
     @Test
     void testOrderByClauseAscAndDesc() {
-        assertThat(this.select.orderBy(column("city", "t"), column("price", "t")).asc().desc(),
+        assertThat(this.select.orderBy(column("t", "city"), column("t", "price")).asc().desc(),
                 rendersTo("SELECT * FROM t ORDER BY t.city, t.price DESC"));
     }
 
     @Test
     void testOrderByClauseDescAndAsc() {
-        assertThat(this.select.orderBy(column("city", "t"), column("price", "t")).desc().asc(),
+        assertThat(this.select.orderBy(column("t", "city"), column("t", "price")).desc().asc(),
                 rendersTo("SELECT * FROM t ORDER BY t.city, t.price ASC"));
     }
 
     @Test
     void testOrderByClauseNullsFirst() {
-        assertThat(this.select.orderBy(column("city", "t"), column("price", "t")).nullsFirst(),
+        assertThat(this.select.orderBy(column("t", "city"), column("t", "price")).nullsFirst(),
                 rendersTo("SELECT * FROM t ORDER BY t.city, t.price NULLS FIRST"));
     }
 
     @Test
     void testOrderByClauseNullsLast() {
-        assertThat(this.select.orderBy(column("city", "t"), column("price", "t")).nullsLast(),
+        assertThat(this.select.orderBy(column("t", "city"), column("t", "price")).nullsLast(),
                 rendersTo("SELECT * FROM t ORDER BY t.city, t.price NULLS LAST"));
     }
 
     @Test
     void testOrderByClauseNullsFirstAndLast() {
-        assertThat(this.select.orderBy(column("city", "t"), column("price", "t")).nullsFirst().nullsLast(),
+        assertThat(this.select.orderBy(column("t", "city"), column("t", "price")).nullsFirst().nullsLast(),
                 rendersTo("SELECT * FROM t ORDER BY t.city, t.price NULLS LAST"));
     }
 }
