@@ -70,7 +70,7 @@ merge.using("src") //
 
 ### Using Value Tables in `MERGE` Insert Clauses
 
-in the insert clause of a merge statement you can use `VALUES` to insert [value tables](common_constructs/value_tables.md).
+In the insert clause of a merge statement, you can use `VALUES` to insert [value tables](../common_constructs/value_tables.md).
 
 ### Rendering `MERGE` Statements
 

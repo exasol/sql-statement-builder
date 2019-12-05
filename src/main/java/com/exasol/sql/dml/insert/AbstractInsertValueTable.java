@@ -86,7 +86,7 @@ public abstract class AbstractInsertValueTable<T extends AbstractInsertValueTabl
     /**
      * Insert a list of value expressions.
      *
-     * @param expressions integer values to be inserted
+     * @param expressions value expressions to be inserted
      * @return <code>this</code> for fluent programming
      */
     // [impl->dsn~values-as-insert-source~1]
