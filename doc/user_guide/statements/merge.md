@@ -68,6 +68,10 @@ merge.using("src") //
     .where(gt(column("src", "c5"), integerLiteral(1000)));
 ```
 
+### Using Value Tables in `MERGE` Insert Clauses
+
+In the insert clause of a merge statement, you can use `VALUES` to insert [value tables](../common_constructs/value_tables.md).
+
 ### Rendering `MERGE` Statements
 
 Use the `MergeRenderer` to render `Merge` objects into SQL strings.

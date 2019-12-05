@@ -157,4 +157,17 @@ class MergeRenderingTest {
                 + " WHEN MATCHED THEN UPDATE SET c2 = DEFAULT, c3 = 'foo', c4 = 42" //
                 + " WHEN NOT MATCHED THEN INSERT (c3, c5) VALUES ('foo', 'bar')"));
     }
+
+    @Test
+    void testColumnReferenceInInsertValueList() {
+        this.merge //
+                .using("src") //
+                .on(eq(column("src", "c1"), column("dst", "c1"))) //
+                .whenNotMatched() //
+                .thenInsert() //
+                .field("c2") //
+                .values(column("src", "c2"));
+        assertThat(this.merge, rendersTo("MERGE INTO dst USING src ON src.c1 = dst.c1" //
+                + " WHEN NOT MATCHED THEN INSERT (c2) VALUES (src.c2)"));
+    }
 }

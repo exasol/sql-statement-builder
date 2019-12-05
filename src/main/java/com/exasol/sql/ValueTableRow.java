@@ -12,9 +12,9 @@ public class ValueTableRow extends AbstractFragment {
     private final List<ValueExpression> expressions;
 
     /**
-     * Create a value table row from a list of expressions
+     * Create a value table row from a list of expressions.
      *
-     * @param root        root node of the SQL statement
+     * @param root root node of the SQL statement
      * @param expressions value expressions
      */
     public ValueTableRow(final Fragment root, final ValueExpression... expressions) {
@@ -23,9 +23,9 @@ public class ValueTableRow extends AbstractFragment {
     }
 
     /**
-     * Create a value table row from a list of string literals
+     * Create a value table row from a list of string literals.
      *
-     * @param root   root node of the SQL statement
+     * @param root root node of the SQL statement
      * @param values sting literals
      */
     public ValueTableRow(final Fragment root, final String... values) {
@@ -42,7 +42,7 @@ public class ValueTableRow extends AbstractFragment {
     }
 
     /**
-     * Get the list of expressions the row consists of
+     * Get the list of expressions the row consists of.
      *
      * @return list of expressions
      */
@@ -50,13 +50,18 @@ public class ValueTableRow extends AbstractFragment {
         return this.expressions;
     }
 
+    /**
+     * Accept a visitor.
+     * 
+     * @param visitor to accept.
+     */
     public void accept(final ValueTableVisitor visitor) {
         visitor.visit(this);
         visitor.leave(this);
     }
 
     /**
-     * Get a {@link Builder} for a {@link ValueTableRow}
+     * Get a {@link Builder} for a {@link ValueTableRow}.
      *
      * @param root root fragment of the SQL statement
      *
@@ -78,7 +83,7 @@ public class ValueTableRow extends AbstractFragment {
         }
 
         /**
-         * Add one or more string literals to the row
+         * Add one or more string literals to the row.
          *
          * @param values strings to be added
          * @return <code>this</code> for fluent programming
@@ -91,7 +96,7 @@ public class ValueTableRow extends AbstractFragment {
         }
 
         /**
-         * Add one or more integer literals to the row
+         * Add one or more integer literals to the row.
          *
          * @param values integers to be added
          * @return <code>this</code> for fluent programming
@@ -114,7 +119,7 @@ public class ValueTableRow extends AbstractFragment {
         }
 
         /**
-         * Add a list of expressions to the {@link ValueTableRow}
+         * Add a list of expressions to the {@link ValueTableRow}.
          *
          * @param expressions expressions to be added
          * @return <code>this</code> for fluent programming
@@ -125,7 +130,7 @@ public class ValueTableRow extends AbstractFragment {
         }
 
         /**
-         * Build a new {@link ValueTableRow}
+         * Build a new {@link ValueTableRow}.
          *
          * @return new {@link ValueTableRow}
          */

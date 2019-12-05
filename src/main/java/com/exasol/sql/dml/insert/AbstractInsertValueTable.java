@@ -1,6 +1,7 @@
 package com.exasol.sql.dml.insert;
 
 import com.exasol.sql.*;
+import com.exasol.sql.expression.ValueExpression;
 
 /**
  * Abstract base class for SQL fragments that contain a insert value table (for example {@code INSERT}, {@code MERGE}).
@@ -79,6 +80,19 @@ public abstract class AbstractInsertValueTable<T extends AbstractInsertValueTabl
     public T values(final int... values) {
         createInsertValueInstanceIfItDoesNotExist();
         this.insertValueTable.add(values);
+        return self();
+    }
+
+    /**
+     * Insert a list of value expressions.
+     *
+     * @param expressions value expressions to be inserted
+     * @return <code>this</code> for fluent programming
+     */
+    // [impl->dsn~values-as-insert-source~1]
+    public T values(final ValueExpression... expressions) {
+        createInsertValueInstanceIfItDoesNotExist();
+        this.insertValueTable.add(expressions);
         return self();
     }
 
