@@ -12,6 +12,8 @@ public interface ValueExpressionVisitor {
 
     public void visit(IntegerLiteral literal);
 
+    public void visit(DoubleLiteral literal);
+
     public void visit(ColumnReference columnReference);
 
     public void visit(DefaultValue defaultValue);

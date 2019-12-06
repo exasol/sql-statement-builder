@@ -90,6 +90,15 @@ public class ValueTable extends AbstractFragment {
     }
 
     /**
+     * Add double values to the last row of the value table.
+     *
+     * @param values values to be added
+     */
+    public void add(final double... values) {
+        amendLastRow(createLastRowBuilder().add(values).build());
+    }
+
+    /**
      * Add an unnamed placeholder to the value table.
      * <p>
      * Unnamed placeholders are the "?" in a prepared statement which are replaced by the actual variable values.

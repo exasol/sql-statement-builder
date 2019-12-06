@@ -56,6 +56,17 @@ public class MergeUpdateClause extends MergeMethodDefinition implements MergeFra
     }
 
     /**
+     * Update a column with a double value.
+     *
+     * @param column column to be updated
+     * @param literal double literal
+     * @return {@code this} for fluent programming
+     */
+    public MergeUpdateClause set(final String column, final double literal) {
+        return set(column, DoubleLiteral.of(literal));
+    }
+
+    /**
      * Update a column with the default value defined for that column.
      *
      * @param column column to be updated

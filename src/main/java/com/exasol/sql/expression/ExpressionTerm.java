@@ -29,6 +29,16 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
     }
 
     /**
+     * Create a double literal.
+     *
+     * @param value literal value
+     * @return double literal
+     */
+    public static DoubleLiteral doubleLiteral(final double value) {
+        return DoubleLiteral.of(value);
+    }
+
+    /**
      * Create a reference to a table column.
      *
      * @param column column name
@@ -40,6 +50,7 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
 
     /**
      * Create a reference to a column in a specific table.
+     * 
      * @param table table name
      * @param column column name
      *

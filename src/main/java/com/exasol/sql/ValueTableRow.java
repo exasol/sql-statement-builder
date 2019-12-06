@@ -1,8 +1,15 @@
 package com.exasol.sql;
 
-import java.util.*;
+import static java.util.Arrays.asList;
+import static java.util.Arrays.stream;
 
-import com.exasol.sql.expression.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.exasol.sql.expression.DoubleLiteral;
+import com.exasol.sql.expression.IntegerLiteral;
+import com.exasol.sql.expression.StringLiteral;
+import com.exasol.sql.expression.ValueExpression;
 
 /**
  * This class represents a row in a {@link ValueTable}.
@@ -19,7 +26,7 @@ public class ValueTableRow extends AbstractFragment {
      */
     public ValueTableRow(final Fragment root, final ValueExpression... expressions) {
         super(root);
-        this.expressions = Arrays.asList(expressions);
+        this.expressions = asList(expressions);
     }
 
     /**
@@ -105,6 +112,17 @@ public class ValueTableRow extends AbstractFragment {
             for (final int value : values) {
                 this.expressions.add(IntegerLiteral.of(value));
             }
+            return this;
+        }
+
+        /**
+         * Add one or more double literals to the row.
+         *
+         * @param values doubles to be added
+         * @return <code>this</code> for fluent programming
+         */
+        public Builder add(final double... values) {
+            stream(values).mapToObj(DoubleLiteral::of).forEach(this.expressions::add);
             return this;
         }
 

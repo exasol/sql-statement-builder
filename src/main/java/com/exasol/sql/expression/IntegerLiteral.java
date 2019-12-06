@@ -1,7 +1,7 @@
 package com.exasol.sql.expression;
 
 /**
- * This class represents integer literals (or character literals in SQL terms).
+ * This class represents integer literals.
  */
 public final class IntegerLiteral extends AbstractValueExpression {
     private final int value;
@@ -11,7 +11,7 @@ public final class IntegerLiteral extends AbstractValueExpression {
     }
 
     /**
-     * Create a new {@link IntegerLiteral} from an integer
+     * Create a new {@link IntegerLiteral} from an integer.
      *
      * @param value content
      * @return new {@link IntegerLiteral}
@@ -21,7 +21,7 @@ public final class IntegerLiteral extends AbstractValueExpression {
     }
 
     /**
-     * Get the value of the {@link IntegerLiteral}
+     * Get the value of the {@link IntegerLiteral}.
      *
      * @return integer value
      */

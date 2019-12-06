@@ -44,9 +44,10 @@ class MergeRenderingTest {
                 .thenUpdate() //
                 .setToDefault("c2") //
                 .set("c3", "foo") //
-                .set("c4", 42);
+                .set("c4", 42) //
+                .set("c5", 23.54);
         assertThat(this.merge, rendersTo("MERGE INTO dst USING src ON src.c1 = dst.c1" //
-                + " WHEN MATCHED THEN UPDATE SET c2 = DEFAULT, c3 = 'foo', c4 = 42"));
+                + " WHEN MATCHED THEN UPDATE SET c2 = DEFAULT, c3 = 'foo', c4 = 42, c5 = 23.54"));
 
     }
 
@@ -59,9 +60,11 @@ class MergeRenderingTest {
                 .thenUpdate() //
                 .setToDefault("c2") //
                 .set("c3", "foo") //
-                .set("c4", 42).where(gt(column("src", "c5"), integerLiteral(1000)));
+                .set("c4", 42) //
+                .set("c5", 14.45) //
+                .where(gt(column("src", "c5"), integerLiteral(1000)));
         assertThat(this.merge, rendersTo("MERGE INTO dst USING src ON src.c1 = dst.c1" //
-                + " WHEN MATCHED THEN UPDATE SET c2 = DEFAULT, c3 = 'foo', c4 = 42" //
+                + " WHEN MATCHED THEN UPDATE SET c2 = DEFAULT, c3 = 'foo', c4 = 42, c5 = 14.45" //
                 + " WHERE src.c5 > 1000"));
     }
 
