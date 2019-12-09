@@ -149,6 +149,19 @@ class TestBooleanExpressionRenderer {
 
     // [utest->dsn~comparison-operations~1]
     @Test
+    void testComparisonOperatorsWithDoubleLiteralCreatedFromFloat() {
+        assertAll( //
+                () -> assertThat("equal", eq(floatLiteral(1.1f), floatLiteral(1.1f)), rendersTo("1.1 = 1.1")), //
+                () -> assertThat("not equal", ne(floatLiteral(1.1f), floatLiteral(1.2f)), rendersTo("1.1 <> 1.2")), //
+                () -> assertThat("not equal", lt(floatLiteral(1.1f), floatLiteral(1.2f)), rendersTo("1.1 < 1.2")), //
+                () -> assertThat("not equal", gt(floatLiteral(1.2f), floatLiteral(1.1f)), rendersTo("1.2 > 1.1")), //
+                () -> assertThat("not equal", le(floatLiteral(1.1f), floatLiteral(1.2f)), rendersTo("1.1 <= 1.2")), //
+                () -> assertThat("not equal", ge(floatLiteral(1.2f), floatLiteral(1.1f)), rendersTo("1.2 >= 1.1")) //
+        );
+    }
+
+    // [utest->dsn~comparison-operations~1]
+    @Test
     void testComparisonOperatorsWithBooleanLiteral() {
         assertAll( //
                 () -> assertThat("equal", eq(booleanLiteral(true), booleanLiteral(true)), rendersTo("TRUE = TRUE")), //

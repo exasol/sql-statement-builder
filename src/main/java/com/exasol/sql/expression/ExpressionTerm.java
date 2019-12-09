@@ -39,6 +39,16 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
     }
 
     /**
+     * Create a float literal.
+     *
+     * @param value literal value
+     * @return float literal
+     */
+    public static FloatLiteral floatLiteral(final float value) {
+        return FloatLiteral.of(value);
+    }
+
+    /**
      * Create a boolean literal.
      *
      * @param value literal value

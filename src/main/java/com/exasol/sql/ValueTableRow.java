@@ -125,6 +125,19 @@ public class ValueTableRow extends AbstractFragment {
         }
 
         /**
+         * Add one or more float literals to the row.
+         *
+         * @param values floats to be added
+         * @return <code>this</code> for fluent programming
+         */
+        public Builder add(final float... values) {
+            for (final double value : values) {
+                this.expressions.add(DoubleLiteral.of(value));
+            }
+            return this;
+        }
+
+        /**
          * Add one or more boolean literals to the row.
          *
          * @param values booleans to be added

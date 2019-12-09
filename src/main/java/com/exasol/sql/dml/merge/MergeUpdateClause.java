@@ -67,6 +67,17 @@ public class MergeUpdateClause extends MergeMethodDefinition implements MergeFra
     }
 
     /**
+     * Update a column with a float value.
+     *
+     * @param column column to be updated
+     * @param literal float literal
+     * @return {@code this} for fluent programming
+     */
+    public MergeUpdateClause set(final String column, final float literal) {
+        return set(column, FloatLiteral.of(literal));
+    }
+
+    /**
      * Update a column with the default value defined for that column.
      *
      * @param column column to be updated

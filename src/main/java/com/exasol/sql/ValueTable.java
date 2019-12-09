@@ -99,6 +99,15 @@ public class ValueTable extends AbstractFragment {
     }
 
     /**
+     * Add float values to the last row of the value table.
+     *
+     * @param values values to be added
+     */
+    public void add(final float... values) {
+        amendLastRow(createLastRowBuilder().add(values).build());
+    }
+
+    /**
      * Add boolean values to the last row of the value table.
      *
      * @param values values to be added
