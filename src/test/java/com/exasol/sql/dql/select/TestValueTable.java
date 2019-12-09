@@ -87,6 +87,15 @@ class TestValueTable {
 
     // [utest->dsn~value-table~1]
     @Test
+    void testAddLongsToLastRow() {
+        this.valueTable.add(42L, -42L);
+        assertAll(() -> assertRowCount(1), //
+                () -> assertRowContent(0, 0, 42L), //
+                () -> assertRowContent(0, 1, -42L));
+    }
+
+    // [utest->dsn~value-table~1]
+    @Test
     void testAddDoublesToLastRow() {
         this.valueTable.add(42.45, -42.45);
         assertAll(() -> assertRowCount(1), //

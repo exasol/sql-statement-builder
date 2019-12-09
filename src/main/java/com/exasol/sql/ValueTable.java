@@ -1,6 +1,8 @@
 package com.exasol.sql;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import com.exasol.sql.expression.ValueExpression;
 
@@ -86,6 +88,15 @@ public class ValueTable extends AbstractFragment {
      * @param values values to be added
      */
     public void add(final int... values) {
+        amendLastRow(createLastRowBuilder().add(values).build());
+    }
+
+    /**
+     * Add long values to the last row of the value table.
+     *
+     * @param values values to be added
+     */
+    public void add(final long... values) {
         amendLastRow(createLastRowBuilder().add(values).build());
     }
 

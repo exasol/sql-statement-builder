@@ -46,10 +46,12 @@ class MergeRenderingTest {
                 .set("c3", "foo") //
                 .set("c4", 42) //
                 .set("c5", 23.54) //
-                .set("c6", 2.67f);
+                .set("c6", 2.67f) //
+                .set("c7", 90L) //
+                .set("c8", true);
         assertThat(this.merge, rendersTo("MERGE INTO dst USING src ON src.c1 = dst.c1" //
-                + " WHEN MATCHED THEN UPDATE SET c2 = DEFAULT, c3 = 'foo', c4 = 42, c5 = 23.54, c6 = 2.67"));
-
+                + " WHEN MATCHED THEN UPDATE SET c2 = DEFAULT,"
+                + " c3 = 'foo', c4 = 42, c5 = 23.54, c6 = 2.67, c7 = 90, c8 = TRUE"));
     }
 
     @Test
@@ -64,10 +66,12 @@ class MergeRenderingTest {
                 .set("c4", 42) //
                 .set("c5", 14.45) //
                 .set("c6", 2.67f) //
+                .set("c7", 90L) //
+                .set("c8", true) //
                 .where(gt(column("src", "c5"), integerLiteral(1000)));
         assertThat(this.merge, rendersTo("MERGE INTO dst USING src ON src.c1 = dst.c1" //
-                + " WHEN MATCHED THEN UPDATE SET c2 = DEFAULT, c3 = 'foo', c4 = 42, c5 = 14.45, c6 = 2.67" //
-                + " WHERE src.c5 > 1000"));
+                + " WHEN MATCHED THEN UPDATE SET c2 = DEFAULT, c3 = 'foo', c4 = 42, c5 = 14.45, c6 = 2.67, c7 = 90," //
+                + " c8 = TRUE WHERE src.c5 > 1000"));
     }
 
     @Test

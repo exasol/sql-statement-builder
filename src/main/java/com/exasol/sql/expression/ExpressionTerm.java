@@ -29,6 +29,16 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
     }
 
     /**
+     * Create an long literal.
+     *
+     * @param value literal value
+     * @return long literal
+     */
+    public static LongLiteral longLiteral(final long value) {
+        return LongLiteral.of(value);
+    }
+
+    /**
      * Create a double literal.
      *
      * @param value literal value

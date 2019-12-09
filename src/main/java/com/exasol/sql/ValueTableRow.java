@@ -112,6 +112,19 @@ public class ValueTableRow extends AbstractFragment {
         }
 
         /**
+         * Add one or more long literals to the row.
+         *
+         * @param values longs to be added
+         * @return <code>this</code> for fluent programming
+         */
+        public Builder add(final long... values) {
+            for (final long value : values) {
+                this.expressions.add(LongLiteral.of(value));
+            }
+            return this;
+        }
+
+        /**
          * Add one or more double literals to the row.
          *
          * @param values doubles to be added

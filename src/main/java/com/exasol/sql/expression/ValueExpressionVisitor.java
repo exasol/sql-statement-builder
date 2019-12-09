@@ -12,6 +12,8 @@ public interface ValueExpressionVisitor {
 
     public void visit(IntegerLiteral literal);
 
+    public void visit(LongLiteral literal);
+
     public void visit(DoubleLiteral literal);
 
     public void visit(FloatLiteral literal);

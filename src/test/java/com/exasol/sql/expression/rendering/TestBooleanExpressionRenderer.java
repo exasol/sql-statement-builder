@@ -136,6 +136,19 @@ class TestBooleanExpressionRenderer {
 
     // [utest->dsn~comparison-operations~1]
     @Test
+    void testComparisonOperatorsWithLongLiteral() {
+        assertAll( //
+                () -> assertThat("equal", eq(longLiteral(1L), longLiteral(1L)), rendersTo("1 = 1")), //
+                () -> assertThat("not equal", ne(longLiteral(1L), longLiteral(2L)), rendersTo("1 <> 2")), //
+                () -> assertThat("not equal", lt(longLiteral(1L), longLiteral(2L)), rendersTo("1 < 2")), //
+                () -> assertThat("not equal", gt(longLiteral(2L), longLiteral(1L)), rendersTo("2 > 1")), //
+                () -> assertThat("not equal", le(longLiteral(1L), longLiteral(2L)), rendersTo("1 <= 2")), //
+                () -> assertThat("not equal", ge(longLiteral(2L), longLiteral(1L)), rendersTo("2 >= 1")) //
+        );
+    }
+
+    // [utest->dsn~comparison-operations~1]
+    @Test
     void testComparisonOperatorsWithDoubleLiteral() {
         assertAll( //
                 () -> assertThat("equal", eq(doubleLiteral(1.1), doubleLiteral(1.1)), rendersTo("1.1 = 1.1")), //

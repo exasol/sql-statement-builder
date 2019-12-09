@@ -56,6 +56,17 @@ public class MergeUpdateClause extends MergeMethodDefinition implements MergeFra
     }
 
     /**
+     * Update a column with a long value.
+     *
+     * @param column column to be updated
+     * @param literal long literal
+     * @return {@code this} for fluent programming
+     */
+    public MergeUpdateClause set(final String column, final long literal) {
+        return set(column, LongLiteral.of(literal));
+    }
+
+    /**
      * Update a column with a double value.
      *
      * @param column column to be updated
@@ -75,6 +86,17 @@ public class MergeUpdateClause extends MergeMethodDefinition implements MergeFra
      */
     public MergeUpdateClause set(final String column, final float literal) {
         return set(column, FloatLiteral.of(literal));
+    }
+
+    /**
+     * Update a column with a boolean value.
+     *
+     * @param column column to be updated
+     * @param literal boolean literal
+     * @return {@code this} for fluent programming
+     */
+    public MergeUpdateClause set(final String column, final boolean literal) {
+        return set(column, BooleanLiteral.of(literal));
     }
 
     /**
