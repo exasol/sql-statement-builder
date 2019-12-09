@@ -44,6 +44,11 @@ class TestValueTable {
         assertThat(namePosition(row, column), getExpressionAtPosition(row, column).toString(), equalTo(expected));
     }
 
+    protected void assertRowContent(final int row, final int column, final char expected) {
+        assertThat(namePosition(row, column), (getExpressionAtPosition(row, column).toString().charAt(0)),
+                equalTo(expected));
+    }
+
     protected ValueExpression getExpressionAtPosition(final int row, final int column) {
         return this.valueTable.getRows().get(row).getExpressions().get(column);
     }
@@ -54,6 +59,11 @@ class TestValueTable {
 
     protected void assertRowContent(final int row, final int column, final int expected) {
         assertThat(namePosition(row, column), Integer.parseInt(getExpressionAtPosition(row, column).toString()),
+                equalTo(expected));
+    }
+
+    protected void assertRowContent(final int row, final int column, final long expected) {
+        assertThat(namePosition(row, column), Long.parseLong(getExpressionAtPosition(row, column).toString()),
                 equalTo(expected));
     }
 
@@ -74,6 +84,15 @@ class TestValueTable {
         assertAll(() -> assertRowCount(1), //
                 () -> assertRowContent(0, 0, "a"), //
                 () -> assertRowContent(0, 1, "b"));
+    }
+
+    // [utest->dsn~value-table~1]
+    @Test
+    void testAddCharsToLastRow() {
+        this.valueTable.add('a', 'b');
+        assertAll(() -> assertRowCount(1), //
+                () -> assertRowContent(0, 0, 'a'), //
+                () -> assertRowContent(0, 1, 'b'));
     }
 
     // [utest->dsn~value-table~1]

@@ -11,13 +11,23 @@ public final class StringLiteral extends AbstractValueExpression {
     }
 
     /**
-     * Create a new {@link StringLiteral} from a string
+     * Create a new {@link StringLiteral} from a string.
      *
      * @param literal content
      * @return new {@link StringLiteral}
      */
     public static StringLiteral of(final String literal) {
         return new StringLiteral(literal);
+    }
+
+    /**
+     * Create a new {@link StringLiteral} from a char.
+     *
+     * @param literal content
+     * @return new {@link StringLiteral}
+     */
+    public static StringLiteral of(final char literal) {
+        return new StringLiteral(String.valueOf(literal));
     }
 
     @Override

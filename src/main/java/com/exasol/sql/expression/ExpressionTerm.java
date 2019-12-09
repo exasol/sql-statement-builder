@@ -19,6 +19,16 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
     }
 
     /**
+     * Create a string literal from char.
+     *
+     * @param value char value
+     * @return string literal
+     */
+    public static StringLiteral stringLiteral(final char value) {
+        return StringLiteral.of(value);
+    }
+
+    /**
      * Create an integer literal.
      *
      * @param value literal value

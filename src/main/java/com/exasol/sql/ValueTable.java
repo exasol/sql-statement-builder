@@ -65,6 +65,15 @@ public class ValueTable extends AbstractFragment {
         amendLastRow(createLastRowBuilder().add(values).build());
     }
 
+    /**
+     * Add char values to the last row of the value table.
+     *
+     * @param values values to be added
+     */
+    public void add(final char... values) {
+        amendLastRow(createLastRowBuilder().add(values).build());
+    }
+
     private synchronized void amendLastRow(final ValueTableRow row) {
         if (isEmpty()) {
             this.rows.add(row);

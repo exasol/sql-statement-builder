@@ -123,6 +123,19 @@ class TestBooleanExpressionRenderer {
 
     // [utest->dsn~comparison-operations~1]
     @Test
+    void testComparisonOperatorsWithStringLiteralFromChar() {
+        assertAll( //
+                () -> assertThat("equal", eq(stringLiteral('a'), stringLiteral('b')), rendersTo("'a' = 'b'")), //
+                () -> assertThat("not equal", ne(stringLiteral('a'), stringLiteral('b')), rendersTo("'a' <> 'b'")), //
+                () -> assertThat("not equal", lt(stringLiteral('a'), stringLiteral('b')), rendersTo("'a' < 'b'")), //
+                () -> assertThat("not equal", gt(stringLiteral('a'), stringLiteral('b')), rendersTo("'a' > 'b'")), //
+                () -> assertThat("not equal", le(stringLiteral('a'), stringLiteral('b')), rendersTo("'a' <= 'b'")), //
+                () -> assertThat("not equal", ge(stringLiteral('a'), stringLiteral('b')), rendersTo("'a' >= 'b'")) //
+        );
+    }
+
+    // [utest->dsn~comparison-operations~1]
+    @Test
     void testComparisonOperatorsWithIntegerLiteral() {
         assertAll( //
                 () -> assertThat("equal", eq(integerLiteral(1), integerLiteral(1)), rendersTo("1 = 1")), //

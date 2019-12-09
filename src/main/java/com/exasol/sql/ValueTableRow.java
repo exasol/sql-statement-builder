@@ -99,6 +99,19 @@ public class ValueTableRow extends AbstractFragment {
         }
 
         /**
+         * Add one or more char literals to the row.
+         *
+         * @param values chars to be added
+         * @return <code>this</code> for fluent programming
+         */
+        public Builder add(final char... values) {
+            for (final char value : values) {
+                this.expressions.add(StringLiteral.of(value));
+            }
+            return this;
+        }
+
+        /**
          * Add one or more integer literals to the row.
          *
          * @param values integers to be added

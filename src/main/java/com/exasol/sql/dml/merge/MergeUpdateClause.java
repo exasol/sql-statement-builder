@@ -45,6 +45,17 @@ public class MergeUpdateClause extends MergeMethodDefinition implements MergeFra
     }
 
     /**
+     * Update a column with a char value.
+     *
+     * @param column column to be updated
+     * @param literal char literal
+     * @return {@code this} for fluent programming
+     */
+    public MergeUpdateClause set(final String column, final char literal) {
+        return set(column, StringLiteral.of(literal));
+    }
+
+    /**
      * Update a column with an integer value.
      *
      * @param column column to be updated
