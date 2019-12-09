@@ -39,6 +39,16 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
     }
 
     /**
+     * Create a boolean literal.
+     *
+     * @param value literal value
+     * @return double literal
+     */
+    public static BooleanLiteral booleanLiteral(final boolean value) {
+        return BooleanLiteral.of(value);
+    }
+
+    /**
      * Create a reference to a table column.
      *
      * @param column column name

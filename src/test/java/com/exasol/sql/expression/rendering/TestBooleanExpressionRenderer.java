@@ -149,6 +149,15 @@ class TestBooleanExpressionRenderer {
 
     // [utest->dsn~comparison-operations~1]
     @Test
+    void testComparisonOperatorsWithBooleanLiteral() {
+        assertAll( //
+                () -> assertThat("equal", eq(booleanLiteral(true), booleanLiteral(true)), rendersTo("TRUE = TRUE")), //
+                () -> assertThat("not equal", ne(booleanLiteral(true), booleanLiteral(false)),
+                        rendersTo("TRUE <> FALSE")));
+    }
+
+    // [utest->dsn~comparison-operations~1]
+    @Test
     void testComparisonOperatorsWithColumnReference() {
         assertAll( //
                 () -> assertThat("equal", eq(column("city"), integerLiteral(1)), rendersTo("city = 1")), //

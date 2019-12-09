@@ -4,7 +4,7 @@ package com.exasol.sql.expression;
  * This class represents boolean literals (read "true" and "false")
  */
 // [impl->dsn~boolean-literals~1]
-public final class BooleanLiteral extends AbstractBooleanExpression {
+public final class BooleanLiteral extends AbstractBooleanExpression implements ValueExpression {
     private static final String FALSE = "FALSE";
     private static final String TRUE = "TRUE";
     private final boolean value;
@@ -13,12 +13,12 @@ public final class BooleanLiteral extends AbstractBooleanExpression {
         this.value = value;
     }
 
-    public static BooleanExpression of(final boolean value) {
+    public static BooleanLiteral of(final boolean value) {
         return new BooleanLiteral(value);
     }
 
     /**
-     * Create a new {@link BooleanLiteral} instance from a String
+     * Create a new {@link BooleanLiteral} instance from a String.
      *
      * @param value the string to be turned into a literal
      * @return new {@link BooleanLiteral} instance
@@ -91,5 +91,10 @@ public final class BooleanLiteral extends AbstractBooleanExpression {
             literals[i] = BooleanLiteral.of(values[i]);
         }
         return literals;
+    }
+
+    @Override
+    public void accept(final ValueExpressionVisitor visitor) {
+        visitor.visit(this);
     }
 }

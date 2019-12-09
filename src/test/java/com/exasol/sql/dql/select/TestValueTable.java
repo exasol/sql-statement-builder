@@ -62,6 +62,11 @@ class TestValueTable {
                 equalTo(expected));
     }
 
+    protected void assertRowContent(final int row, final int column, final boolean expected) {
+        assertThat(namePosition(row, column), Boolean.parseBoolean(getExpressionAtPosition(row, column).toString()),
+                equalTo(expected));
+    }
+
     // [utest->dsn~value-table~1]
     @Test
     void testAddStringsToLastRow() {
@@ -87,6 +92,15 @@ class TestValueTable {
         assertAll(() -> assertRowCount(1), //
                 () -> assertRowContent(0, 0, 42.45), //
                 () -> assertRowContent(0, 1, -42.45));
+    }
+
+    // [utest->dsn~value-table~1]
+    @Test
+    void testAddBooleansToLastRow() {
+        this.valueTable.add(true, false);
+        assertAll(() -> assertRowCount(1), //
+                () -> assertRowContent(0, 0, true), //
+                () -> assertRowContent(0, 1, false));
     }
 
     // [utest->dsn~value-table~1]
