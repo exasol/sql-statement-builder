@@ -96,6 +96,19 @@ public class ValueTableRow extends AbstractFragment {
         }
 
         /**
+         * Add one or more char literals to the row.
+         *
+         * @param values chars to be added
+         * @return <code>this</code> for fluent programming
+         */
+        public Builder add(final char... values) {
+            for (final char value : values) {
+                this.expressions.add(StringLiteral.of(value));
+            }
+            return this;
+        }
+
+        /**
          * Add one or more integer literals to the row.
          *
          * @param values integers to be added
@@ -104,6 +117,58 @@ public class ValueTableRow extends AbstractFragment {
         public Builder add(final int... values) {
             for (final int value : values) {
                 this.expressions.add(IntegerLiteral.of(value));
+            }
+            return this;
+        }
+
+        /**
+         * Add one or more long literals to the row.
+         *
+         * @param values longs to be added
+         * @return <code>this</code> for fluent programming
+         */
+        public Builder add(final long... values) {
+            for (final long value : values) {
+                this.expressions.add(LongLiteral.of(value));
+            }
+            return this;
+        }
+
+        /**
+         * Add one or more double literals to the row.
+         *
+         * @param values doubles to be added
+         * @return <code>this</code> for fluent programming
+         */
+        public Builder add(final double... values) {
+            for (final double value : values) {
+                this.expressions.add(DoubleLiteral.of(value));
+            }
+            return this;
+        }
+
+        /**
+         * Add one or more float literals to the row.
+         *
+         * @param values floats to be added
+         * @return <code>this</code> for fluent programming
+         */
+        public Builder add(final float... values) {
+            for (final float value : values) {
+                this.expressions.add(FloatLiteral.of(value));
+            }
+            return this;
+        }
+
+        /**
+         * Add one or more boolean literals to the row.
+         *
+         * @param values booleans to be added
+         * @return <code>this</code> for fluent programming
+         */
+        public Builder add(final boolean... values) {
+            for (final boolean value : values) {
+                this.expressions.add(BooleanLiteral.of(value));
             }
             return this;
         }

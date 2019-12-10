@@ -123,6 +123,19 @@ class TestBooleanExpressionRenderer {
 
     // [utest->dsn~comparison-operations~1]
     @Test
+    void testComparisonOperatorsWithStringLiteralFromChar() {
+        assertAll( //
+                () -> assertThat("equal", eq(stringLiteral('a'), stringLiteral('b')), rendersTo("'a' = 'b'")), //
+                () -> assertThat("not equal", ne(stringLiteral('a'), stringLiteral('b')), rendersTo("'a' <> 'b'")), //
+                () -> assertThat("not equal", lt(stringLiteral('a'), stringLiteral('b')), rendersTo("'a' < 'b'")), //
+                () -> assertThat("not equal", gt(stringLiteral('a'), stringLiteral('b')), rendersTo("'a' > 'b'")), //
+                () -> assertThat("not equal", le(stringLiteral('a'), stringLiteral('b')), rendersTo("'a' <= 'b'")), //
+                () -> assertThat("not equal", ge(stringLiteral('a'), stringLiteral('b')), rendersTo("'a' >= 'b'")) //
+        );
+    }
+
+    // [utest->dsn~comparison-operations~1]
+    @Test
     void testComparisonOperatorsWithIntegerLiteral() {
         assertAll( //
                 () -> assertThat("equal", eq(integerLiteral(1), integerLiteral(1)), rendersTo("1 = 1")), //
@@ -132,6 +145,54 @@ class TestBooleanExpressionRenderer {
                 () -> assertThat("not equal", le(integerLiteral(1), integerLiteral(2)), rendersTo("1 <= 2")), //
                 () -> assertThat("not equal", ge(integerLiteral(2), integerLiteral(1)), rendersTo("2 >= 1")) //
         );
+    }
+
+    // [utest->dsn~comparison-operations~1]
+    @Test
+    void testComparisonOperatorsWithLongLiteral() {
+        assertAll( //
+                () -> assertThat("equal", eq(longLiteral(1L), longLiteral(1L)), rendersTo("1 = 1")), //
+                () -> assertThat("not equal", ne(longLiteral(1L), longLiteral(2L)), rendersTo("1 <> 2")), //
+                () -> assertThat("not equal", lt(longLiteral(1L), longLiteral(2L)), rendersTo("1 < 2")), //
+                () -> assertThat("not equal", gt(longLiteral(2L), longLiteral(1L)), rendersTo("2 > 1")), //
+                () -> assertThat("not equal", le(longLiteral(1L), longLiteral(2L)), rendersTo("1 <= 2")), //
+                () -> assertThat("not equal", ge(longLiteral(2L), longLiteral(1L)), rendersTo("2 >= 1")) //
+        );
+    }
+
+    // [utest->dsn~comparison-operations~1]
+    @Test
+    void testComparisonOperatorsWithDoubleLiteral() {
+        assertAll( //
+                () -> assertThat("equal", eq(doubleLiteral(1.1), doubleLiteral(1.1)), rendersTo("1.1 = 1.1")), //
+                () -> assertThat("not equal", ne(doubleLiteral(1.1), doubleLiteral(1.2)), rendersTo("1.1 <> 1.2")), //
+                () -> assertThat("not equal", lt(doubleLiteral(1.1), doubleLiteral(1.2)), rendersTo("1.1 < 1.2")), //
+                () -> assertThat("not equal", gt(doubleLiteral(1.2), doubleLiteral(1.1)), rendersTo("1.2 > 1.1")), //
+                () -> assertThat("not equal", le(doubleLiteral(1.1), doubleLiteral(1.2)), rendersTo("1.1 <= 1.2")), //
+                () -> assertThat("not equal", ge(doubleLiteral(1.2), doubleLiteral(1.1)), rendersTo("1.2 >= 1.1")) //
+        );
+    }
+
+    // [utest->dsn~comparison-operations~1]
+    @Test
+    void testComparisonOperatorsWithDoubleLiteralCreatedFromFloat() {
+        assertAll( //
+                () -> assertThat("equal", eq(floatLiteral(1.1f), floatLiteral(1.1f)), rendersTo("1.1 = 1.1")), //
+                () -> assertThat("not equal", ne(floatLiteral(1.1f), floatLiteral(1.2f)), rendersTo("1.1 <> 1.2")), //
+                () -> assertThat("not equal", lt(floatLiteral(1.1f), floatLiteral(1.2f)), rendersTo("1.1 < 1.2")), //
+                () -> assertThat("not equal", gt(floatLiteral(1.2f), floatLiteral(1.1f)), rendersTo("1.2 > 1.1")), //
+                () -> assertThat("not equal", le(floatLiteral(1.1f), floatLiteral(1.2f)), rendersTo("1.1 <= 1.2")), //
+                () -> assertThat("not equal", ge(floatLiteral(1.2f), floatLiteral(1.1f)), rendersTo("1.2 >= 1.1")) //
+        );
+    }
+
+    // [utest->dsn~comparison-operations~1]
+    @Test
+    void testComparisonOperatorsWithBooleanLiteral() {
+        assertAll( //
+                () -> assertThat("equal", eq(booleanLiteral(true), booleanLiteral(true)), rendersTo("TRUE = TRUE")), //
+                () -> assertThat("not equal", ne(booleanLiteral(true), booleanLiteral(false)),
+                        rendersTo("TRUE <> FALSE")));
     }
 
     // [utest->dsn~comparison-operations~1]

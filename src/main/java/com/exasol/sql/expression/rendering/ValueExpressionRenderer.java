@@ -25,6 +25,26 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
     }
 
     @Override
+    public void visit(final LongLiteral literal) {
+        append(literal.toString());
+    }
+
+    @Override
+    public void visit(final DoubleLiteral literal) {
+        append(literal.toString());
+    }
+
+    @Override
+    public void visit(final FloatLiteral literal) {
+        append(literal.toString());
+    }
+
+    @Override
+    public void visit(final BooleanLiteral literal) {
+        append(literal.toString());
+    }
+
+    @Override
     public void visit(final ColumnReference columnReference) {
         final String tableName = columnReference.getTableName();
         if ((tableName != null) && !tableName.isEmpty()) {

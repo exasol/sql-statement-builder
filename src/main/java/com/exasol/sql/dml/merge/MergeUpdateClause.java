@@ -45,6 +45,17 @@ public class MergeUpdateClause extends MergeMethodDefinition implements MergeFra
     }
 
     /**
+     * Update a column with a char value.
+     *
+     * @param column column to be updated
+     * @param literal char literal
+     * @return {@code this} for fluent programming
+     */
+    public MergeUpdateClause set(final String column, final char literal) {
+        return set(column, StringLiteral.of(literal));
+    }
+
+    /**
      * Update a column with an integer value.
      *
      * @param column column to be updated
@@ -53,6 +64,50 @@ public class MergeUpdateClause extends MergeMethodDefinition implements MergeFra
      */
     public MergeUpdateClause set(final String column, final int literal) {
         return set(column, IntegerLiteral.of(literal));
+    }
+
+    /**
+     * Update a column with a long value.
+     *
+     * @param column column to be updated
+     * @param literal long literal
+     * @return {@code this} for fluent programming
+     */
+    public MergeUpdateClause set(final String column, final long literal) {
+        return set(column, LongLiteral.of(literal));
+    }
+
+    /**
+     * Update a column with a double value.
+     *
+     * @param column column to be updated
+     * @param literal double literal
+     * @return {@code this} for fluent programming
+     */
+    public MergeUpdateClause set(final String column, final double literal) {
+        return set(column, DoubleLiteral.of(literal));
+    }
+
+    /**
+     * Update a column with a float value.
+     *
+     * @param column column to be updated
+     * @param literal float literal
+     * @return {@code this} for fluent programming
+     */
+    public MergeUpdateClause set(final String column, final float literal) {
+        return set(column, FloatLiteral.of(literal));
+    }
+
+    /**
+     * Update a column with a boolean value.
+     *
+     * @param column column to be updated
+     * @param literal boolean literal
+     * @return {@code this} for fluent programming
+     */
+    public MergeUpdateClause set(final String column, final boolean literal) {
+        return set(column, BooleanLiteral.of(literal));
     }
 
     /**

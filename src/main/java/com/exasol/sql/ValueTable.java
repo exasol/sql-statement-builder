@@ -63,6 +63,15 @@ public class ValueTable extends AbstractFragment {
         amendLastRow(createLastRowBuilder().add(values).build());
     }
 
+    /**
+     * Add character values to the last row of the value table.
+     *
+     * @param values values to be added
+     */
+    public void add(final char... values) {
+        amendLastRow(createLastRowBuilder().add(values).build());
+    }
+
     private synchronized void amendLastRow(final ValueTableRow row) {
         if (isEmpty()) {
             this.rows.add(row);
@@ -86,6 +95,42 @@ public class ValueTable extends AbstractFragment {
      * @param values values to be added
      */
     public void add(final int... values) {
+        amendLastRow(createLastRowBuilder().add(values).build());
+    }
+
+    /**
+     * Add long values to the last row of the value table.
+     *
+     * @param values values to be added
+     */
+    public void add(final long... values) {
+        amendLastRow(createLastRowBuilder().add(values).build());
+    }
+
+    /**
+     * Add double values to the last row of the value table.
+     *
+     * @param values values to be added
+     */
+    public void add(final double... values) {
+        amendLastRow(createLastRowBuilder().add(values).build());
+    }
+
+    /**
+     * Add float values to the last row of the value table.
+     *
+     * @param values values to be added
+     */
+    public void add(final float... values) {
+        amendLastRow(createLastRowBuilder().add(values).build());
+    }
+
+    /**
+     * Add boolean values to the last row of the value table.
+     *
+     * @param values values to be added
+     */
+    public void add(final boolean... values) {
         amendLastRow(createLastRowBuilder().add(values).build());
     }
 
