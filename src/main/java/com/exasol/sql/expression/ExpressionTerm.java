@@ -19,9 +19,9 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
     }
 
     /**
-     * Create a string literal from char.
+     * Create a string literal from a character.
      *
-     * @param value char value
+     * @param value character value
      * @return string literal
      */
     public static StringLiteral stringLiteral(final char value) {
@@ -72,7 +72,7 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
      * Create a boolean literal.
      *
      * @param value literal value
-     * @return double literal
+     * @return boolean literal
      */
     public static BooleanLiteral booleanLiteral(final boolean value) {
         return BooleanLiteral.of(value);

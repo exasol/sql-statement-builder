@@ -158,7 +158,7 @@ public class ValueTableRow extends AbstractFragment {
          */
         public Builder add(final float... values) {
             for (final double value : values) {
-                this.expressions.add(DoubleLiteral.of(value));
+                this.expressions.add(FloatLiteral.of(value));
             }
             return this;
         }

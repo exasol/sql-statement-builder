@@ -21,7 +21,7 @@ public final class StringLiteral extends AbstractValueExpression {
     }
 
     /**
-     * Create a new {@link StringLiteral} from a char.
+     * Create a new {@link StringLiteral} from a character.
      *
      * @param literal content
      * @return new {@link StringLiteral}

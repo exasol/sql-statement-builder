@@ -66,7 +66,7 @@ public class ValueTable extends AbstractFragment {
     }
 
     /**
-     * Add char values to the last row of the value table.
+     * Add character values to the last row of the value table.
      *
      * @param values values to be added
      */
