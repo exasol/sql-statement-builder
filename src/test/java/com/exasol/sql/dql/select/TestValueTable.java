@@ -72,6 +72,11 @@ class TestValueTable {
                 equalTo(expected));
     }
 
+    protected void assertRowContent(final int row, final int column, final float expected) {
+        assertThat(namePosition(row, column), Float.parseFloat(getExpressionAtPosition(row, column).toString()),
+                equalTo(expected));
+    }
+
     protected void assertRowContent(final int row, final int column, final boolean expected) {
         assertThat(namePosition(row, column), Boolean.parseBoolean(getExpressionAtPosition(row, column).toString()),
                 equalTo(expected));

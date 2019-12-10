@@ -1,9 +1,6 @@
 package com.exasol.sql;
 
-import static java.util.Arrays.asList;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import com.exasol.sql.expression.*;
 
@@ -22,7 +19,7 @@ public class ValueTableRow extends AbstractFragment {
      */
     public ValueTableRow(final Fragment root, final ValueExpression... expressions) {
         super(root);
-        this.expressions = asList(expressions);
+        this.expressions = Arrays.asList(expressions);
     }
 
     /**
@@ -157,7 +154,7 @@ public class ValueTableRow extends AbstractFragment {
          * @return <code>this</code> for fluent programming
          */
         public Builder add(final float... values) {
-            for (final double value : values) {
+            for (final float value : values) {
                 this.expressions.add(FloatLiteral.of(value));
             }
             return this;
