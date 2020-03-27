@@ -35,14 +35,15 @@ The following example gives you an idea about what you can do with the SQL State
 
 ```java
 final Select select = StatementFactory.getInstance()
-    .select()
-    .field("fieldA", "tableA.fieldB", "tableB.*")
-    .from()
-    .table("schemaA.tableA")
-    .limit(10);
-final StringRendererConfig config = StringRendererConfig.builder().useQuotes().build();
+        .select();
+select.field("fieldA", "tableA.fieldB", "tableB.*")
+        .from()
+        .table("schemaA.tableA");
+select.limit(10);
+final StringRendererConfig config = StringRendererConfig.builder().quoteIdentifiers(true).build();
 final SelectRenderer renderer = new SelectRenderer(config);
-final String sql = renderer.render(select);
+select.accept(renderer);
+final String sql = renderer.render();
 ```
 
 ## Table of Contents
