@@ -11,7 +11,7 @@ import com.exasol.sql.dml.merge.MergeVisitor;
  * Field list that defines the fields data is being inserted into.
  */
 public class InsertFields extends AbstractFragment implements InsertFragment, MergeFragment {
-    private final List<Field> fields = new ArrayList<>();
+    private final List<DerivedColumn> derivedColumns = new ArrayList<>();
 
     /**
      * Create an new instance of {@link InsertFields}
@@ -29,15 +29,16 @@ public class InsertFields extends AbstractFragment implements InsertFragment, Me
      */
     void add(final String... names) {
         for (final String name : names) {
-            this.fields.add(new Field(getRoot(), name));
+            final DerivedColumn derivedColumn = new DerivedColumn(getRoot(), new Field(name));
+            this.derivedColumns.add(derivedColumn);
         }
     }
 
     @Override
     public void accept(final InsertVisitor visitor) {
         visitor.visit(this);
-        for (final Field field : this.fields) {
-            field.accept(visitor);
+        for (final DerivedColumn derivedColumn : this.derivedColumns) {
+            derivedColumn.accept(visitor);
         }
         visitor.leave(this);
     }
@@ -45,8 +46,8 @@ public class InsertFields extends AbstractFragment implements InsertFragment, Me
     @Override
     public void accept(final MergeVisitor visitor) {
         visitor.visit(this);
-        for (final Field field : this.fields) {
-            field.accept(visitor);
+        for (final DerivedColumn derivedColumn : this.derivedColumns) {
+            derivedColumn.accept(visitor);
         }
         visitor.leave(this);
     }

@@ -51,6 +51,16 @@ public final class ColumnReference extends AbstractValueExpression {
         return tableName;
     }
 
+    public String toString() {
+        final StringBuilder stringBuilder = new StringBuilder();
+        if ((tableName != null) && !tableName.isEmpty()) {
+            stringBuilder.append(tableName);
+            stringBuilder.append(".");
+        }
+        stringBuilder.append(columnName);
+        return stringBuilder.toString();
+    }
+
     @Override
     public void accept(final ValueExpressionVisitor visitor) {
         visitor.visit(this);

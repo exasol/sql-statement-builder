@@ -11,5 +11,5 @@ public interface InsertVisitor extends ValueTableVisitor {
 
     public void leave(InsertFields insertFields);
 
-    public void visit(Field field);
+    public void visit(DerivedColumn derivedColumn);
 }

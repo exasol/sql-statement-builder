@@ -27,10 +27,10 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
     }
 
     @Override
-    public void visit(final Field field) {
-        appendCommaWhenNeeded(field);
-        appendAutoQuoted(field.getName());
-        setLastVisited(field);
+    public void visit(final DerivedColumn derivedColumn) {
+        appendCommaWhenNeeded(derivedColumn);
+        appendRenderedValueExpression(derivedColumn.getValueExpression());
+        setLastVisited(derivedColumn);
     }
 
     @Override

@@ -1,28 +1,25 @@
 package com.exasol.sql;
 
-import com.exasol.sql.dml.insert.InsertVisitor;
-import com.exasol.sql.dml.merge.MergeVisitor;
-import com.exasol.sql.dql.select.SelectVisitor;
+import com.exasol.sql.expression.AbstractValueExpression;
+import com.exasol.sql.expression.ValueExpressionVisitor;
 
 /**
  * This class represents a table field in an SQL statement.
  */
-public class Field extends AbstractFragment {
+public class Field extends AbstractValueExpression {
     private final String name;
 
     /**
-     * Create a new instance of a {@link Field}
+     * Create a new instance of a {@link Field}.
      *
-     * @param root root SQL statement
      * @param name field name
      */
-    public Field(final Fragment root, final String name) {
-        super(root);
+    public Field(final String name) {
         this.name = name;
     }
 
     /**
-     * Get the field name
+     * Get the field name.
      *
      * @return field name
      */
@@ -30,15 +27,13 @@ public class Field extends AbstractFragment {
         return this.name;
     }
 
-    public void accept(final InsertVisitor visitor) {
+    @Override
+    public void accept(final ValueExpressionVisitor visitor) {
         visitor.visit(this);
     }
 
-    public void accept(final MergeVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    public void accept(final SelectVisitor visitor) {
-        visitor.visit(this);
+    @Override
+    public String toString() {
+        return getName();
     }
 }

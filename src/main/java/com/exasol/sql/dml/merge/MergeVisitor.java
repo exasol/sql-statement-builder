@@ -93,11 +93,11 @@ public interface MergeVisitor extends ValueTableVisitor {
     public void leave(final InsertFields insertFields);
 
     /**
-     * Visit a field reference.
+     * Visit a derived column reference.
      *
-     * @param field field reference
+     * @param derivedColumn derived column reference
      */
-    public void visit(final Field field);
+    public void visit(DerivedColumn derivedColumn);
 
     /**
      * Visit a {@code WHERE} clause.

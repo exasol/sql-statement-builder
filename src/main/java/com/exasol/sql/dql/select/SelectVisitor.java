@@ -17,7 +17,7 @@ public interface SelectVisitor extends ValueTableVisitor {
 
     public void visit(OrderByClause orderByClause);
 
-    public void visit(Field field);
+    public void visit(DerivedColumn derivedColumn);
 
-    void visit(Table table);
+    public void visit(Table table);
 }

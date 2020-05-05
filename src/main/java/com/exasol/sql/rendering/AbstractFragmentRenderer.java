@@ -7,14 +7,16 @@ import com.exasol.sql.ValueTableRow;
 import com.exasol.sql.expression.*;
 import com.exasol.sql.expression.rendering.BooleanExpressionRenderer;
 import com.exasol.sql.expression.rendering.ValueExpressionRenderer;
+import com.exasol.util.QuotesApplier;
 
 /**
- * Abstract base class for SQL fragment renderers
+ * Abstract base class for SQL fragment renderers.
  */
 public abstract class AbstractFragmentRenderer implements FragmentRenderer {
     private final StringBuilder builder = new StringBuilder();
     protected final StringRendererConfig config;
     private Fragment lastVisited;
+    private final QuotesApplier quotesApplier;
 
     /**
      * Create a new instance of an {@link AbstractFragmentRenderer}-based class.
@@ -24,6 +26,7 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
     public AbstractFragmentRenderer(final StringRendererConfig config) {
         this.config = config;
         this.lastVisited = null;
+        this.quotesApplier = new QuotesApplier(config);
     }
 
     // [impl->dsn~rendering.sql.configurable-case~1]
@@ -91,38 +94,9 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
         append(renderer.render());
     }
 
-    // [impl->dsn~rendering.add-double-quotes-for-schema-table-and-column-identifiers~1]
     protected void appendAutoQuoted(final String identifier) {
-        if (this.config.useQuotes()) {
-            appendQuoted(identifier);
-        } else {
-            append(identifier);
-        }
-    }
-
-    private void appendQuoted(final String identifier) {
-        boolean first = true;
-        for (final String part : identifier.split("\\.")) {
-            if (!first) {
-                append(".");
-            }
-            quoteIdentifierPart(part);
-            first = false;
-        }
-    }
-
-    private void quoteIdentifierPart(final String part) {
-        if ("*".equals(part)) {
-            append("*");
-        } else {
-            if (!part.startsWith("\"")) {
-                append("\"");
-            }
-            append(part);
-            if (!part.endsWith("\"")) {
-                append("\"");
-            }
-        }
+        final String autoQuotedIdentifier = this.quotesApplier.getAutoQuoted(identifier);
+        append(autoQuotedIdentifier);
     }
 
     protected void appendValueTableRow(final ValueTableRow valueTableRow) {
