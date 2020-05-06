@@ -1,6 +1,5 @@
 package com.exasol.sql.expression;
 
-import com.exasol.sql.Field;
 import com.exasol.sql.UnnamedPlaceholder;
 import com.exasol.sql.expression.function.Function;
 
@@ -25,8 +24,6 @@ public interface ValueExpressionVisitor {
     public void visit(ColumnReference columnReference);
 
     public void visit(DefaultValue defaultValue);
-
-    public void visit(Field field);
 
     public void visit(Function function);
 

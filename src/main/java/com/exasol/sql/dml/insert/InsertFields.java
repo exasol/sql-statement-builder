@@ -6,6 +6,7 @@ import java.util.List;
 import com.exasol.sql.*;
 import com.exasol.sql.dml.merge.MergeFragment;
 import com.exasol.sql.dml.merge.MergeVisitor;
+import com.exasol.sql.expression.ColumnReference;
 
 /**
  * Field list that defines the fields data is being inserted into.
@@ -29,7 +30,7 @@ public class InsertFields extends AbstractFragment implements InsertFragment, Me
      */
     void add(final String... names) {
         for (final String name : names) {
-            final DerivedColumn derivedColumn = new DerivedColumn(getRoot(), new Field(name));
+            final DerivedColumn derivedColumn = new DerivedColumn(getRoot(), ColumnReference.of(name));
             this.derivedColumns.add(derivedColumn);
         }
     }

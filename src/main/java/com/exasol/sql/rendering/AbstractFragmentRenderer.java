@@ -4,7 +4,8 @@ import java.util.List;
 
 import com.exasol.sql.Fragment;
 import com.exasol.sql.ValueTableRow;
-import com.exasol.sql.expression.*;
+import com.exasol.sql.expression.BooleanExpression;
+import com.exasol.sql.expression.ValueExpression;
 import com.exasol.sql.expression.rendering.BooleanExpressionRenderer;
 import com.exasol.sql.expression.rendering.ValueExpressionRenderer;
 import com.exasol.util.QuotesApplier;
@@ -34,30 +35,14 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
         append(this.config.useLowerCase() ? keyword.toLowerCase() : keyword);
     }
 
-    protected void appendListOfColumnReferences(final List<ColumnReference> columnReferences) {
-        if ((columnReferences != null) && !columnReferences.isEmpty()) {
-            for (int i = 0; i < (columnReferences.size() - 1); i++) {
-                appendColumnReference(columnReferences.get(i), false);
+    protected void appendListOfValueExpressions(final List<? extends ValueExpression> valueExpressions) {
+        if ((valueExpressions != null) && !valueExpressions.isEmpty()) {
+            final ValueExpressionRenderer valueExpressionRenderer = new ValueExpressionRenderer(this.config);
+            for (ValueExpression valueExpression : valueExpressions) {
+                valueExpression.accept(valueExpressionRenderer);
             }
-            appendColumnReference(columnReferences.get(columnReferences.size() - 1), true);
+            this.builder.append(valueExpressionRenderer.render());
         }
-    }
-
-    protected void appendColumnReference(final ColumnReference columnReference, final boolean last) {
-        final ValueExpressionRenderer valueExpressionRenderer = new ValueExpressionRenderer(this.config);
-        columnReference.accept(valueExpressionRenderer);
-        this.builder.append(valueExpressionRenderer.render());
-        if (!last) {
-            append(", ");
-        }
-    }
-
-    protected void appendStringList(final List<String> strings) {
-        for (int i = 0; i < (strings.size() - 1); i++) {
-            append(strings.get(i));
-            append(", ");
-        }
-        append(strings.get(strings.size() - 1));
     }
 
     protected StringBuilder append(final String string) {

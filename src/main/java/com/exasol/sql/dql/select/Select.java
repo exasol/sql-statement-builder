@@ -33,7 +33,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      * @return <code>this</code> instance for fluent programming
      */
     public Select all() {
-        final DerivedColumn derivedColumn = new DerivedColumn(this, new Field("*"));
+        final DerivedColumn derivedColumn = new DerivedColumn(this, ColumnReference.of("*"));
         this.derivedColumns.add(derivedColumn);
         return this;
     }
@@ -46,7 +46,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      */
     public Select field(final String... names) {
         for (final String name : names) {
-            final DerivedColumn derivedColumn = new DerivedColumn(this, new Field(name));
+            final DerivedColumn derivedColumn = new DerivedColumn(this, ColumnReference.of(name));
             this.derivedColumns.add(derivedColumn);
         }
         return this;
@@ -74,7 +74,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
     public Select function(final FunctionName functionName, final String derivedColumnName,
             final ValueExpression... valueExpressions) {
         final Function function = ExasolFunction.builder().functionName(functionName).valueExpression(valueExpressions)
-                                                .derivedColumnName(derivedColumnName).build();
+                .derivedColumnName(derivedColumnName).build();
         final DerivedColumn derivedColumn = new DerivedColumn(this, function);
         this.derivedColumns.add(derivedColumn);
         return this;

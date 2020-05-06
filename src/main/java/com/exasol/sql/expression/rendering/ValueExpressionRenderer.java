@@ -1,6 +1,5 @@
 package com.exasol.sql.expression.rendering;
 
-import com.exasol.sql.Field;
 import com.exasol.sql.UnnamedPlaceholder;
 import com.exasol.sql.expression.*;
 import com.exasol.sql.expression.function.Function;
@@ -61,7 +60,7 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
     @Override
     public void visit(final ColumnReference columnReference) {
         appendCommaWhenNeeded(columnReference);
-        append(columnReference.toString());
+        appendAutoQuoted(columnReference.toString());
         setLastVisited(columnReference);
     }
 
@@ -78,13 +77,6 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
     }
 
     @Override
-    public void visit(final Field field) {
-        appendCommaWhenNeeded(field);
-        appendAutoQuoted(field.toString());
-        setLastVisited(field);
-    }
-
-    @Override
     public void visit(final Function function) {
         appendCommaWhenNeeded(function);
         appendKeyword(function.getFunctionName());
@@ -93,7 +85,7 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
     }
 
     @Override
-    public void leave(Function function) {
+    public void leave(final Function function) {
         endParenthesis();
         if (function.hasDerivedColumnName()) {
             append(" ");
