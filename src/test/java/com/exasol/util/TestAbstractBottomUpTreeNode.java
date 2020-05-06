@@ -125,5 +125,14 @@ class TestAbstractBottomUpTreeNode {
         public boolean isFirstSibling() {
             return false;
         }
+
+        @Override
+        public boolean isSibling(final TreeNode node) {
+            return false;
+        }
+
+        @Override
+        public void setParent(final TreeNode parent) {
+        }
     }
 }

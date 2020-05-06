@@ -100,6 +100,16 @@ public abstract class AbstractBottomUpTreeNode implements TreeNode {
     }
 
     @Override
+    public boolean isSibling(final TreeNode node) {
+        return (this.parent != null) && (this.getParent().getChildren().contains(node));
+    }
+
+    @Override
+    public void setParent(final TreeNode parent) {
+        this.parent = parent;
+    }
+
+    @Override
     public boolean isFirstSibling() {
         return (this.parent != null) && (this.getParent().getChild(0) == this);
     }

@@ -7,7 +7,6 @@ import com.exasol.sql.*;
 import com.exasol.sql.expression.*;
 import com.exasol.sql.expression.function.Function;
 import com.exasol.sql.expression.function.FunctionName;
-import com.exasol.sql.expression.function.exasol.ExasolFunction;
 
 /**
  * This class implements an SQL {@link Select} statement.
@@ -73,8 +72,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      */
     public Select function(final FunctionName functionName, final String derivedColumnName,
             final ValueExpression... valueExpressions) {
-        final Function function = ExasolFunction.builder().functionName(functionName).valueExpression(valueExpressions)
-                .derivedColumnName(derivedColumnName).build();
+        final Function function = ExpressionTerm.exasolFunction(functionName, derivedColumnName, valueExpressions);
         final DerivedColumn derivedColumn = new DerivedColumn(this, function);
         this.derivedColumns.add(derivedColumn);
         return this;

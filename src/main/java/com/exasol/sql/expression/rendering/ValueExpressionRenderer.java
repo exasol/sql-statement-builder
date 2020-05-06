@@ -93,4 +93,14 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
         }
         setLastVisited(function);
     }
+
+    @Override
+    public void visit(final BinaryArithmeticExpression expression) {
+        this.connectorDeque.push(expression.getArithmeticOperator().getStringOperatorRepresentation());
+    }
+
+    @Override
+    public void leave(final BinaryArithmeticExpression expression) {
+        appendKeyword(this.connectorDeque.pop());
+    }
 }

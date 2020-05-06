@@ -67,4 +67,19 @@ public interface TreeNode {
      * @return <code>true</code> if the child is the first in the list of siblings
      */
     public boolean isFirstSibling();
+
+    /**
+     * Check whether this node is a sibling of the second node.
+     * 
+     * @param node second node
+     * @return true if two nodes are siblings
+     */
+    public boolean isSibling(TreeNode node);
+
+    /**
+     * Set a parent for this node.
+     * 
+     * @param parent a node to set as a parent
+     */
+    public void setParent(TreeNode parent);
 }

@@ -28,4 +28,8 @@ public interface ValueExpressionVisitor {
     public void visit(Function function);
 
     public void leave(Function function);
+
+    public void visit(BinaryArithmeticExpression expression);
+
+    public void leave(BinaryArithmeticExpression expression);
 }

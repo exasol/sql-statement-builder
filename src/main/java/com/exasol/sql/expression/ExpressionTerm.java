@@ -1,5 +1,10 @@
 package com.exasol.sql.expression;
 
+import static com.exasol.sql.expression.BinaryArithmeticExpression.BinaryArithmeticOperator;
+
+import com.exasol.sql.expression.function.FunctionName;
+import com.exasol.sql.expression.function.exasol.ExasolFunction;
+
 /**
  * Static factory methods for SQL expressions.
  */
@@ -98,5 +103,44 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
      */
     public static ColumnReference column(final String table, final String column) {
         return ColumnReference.column(table, column);
+    }
+
+    /**
+     * Create a binary arithmetic expression.
+     * 
+     * @param operator arithmetic operator
+     * @param left left member or the expression
+     * @param right right member of the expression
+     * @return binary arithmetic expression
+     */
+    public static BinaryArithmeticExpression arithmeticExpression(final BinaryArithmeticOperator operator,
+            ValueExpression left, ValueExpression right) {
+        return BinaryArithmeticExpression.of(operator, left, right);
+    }
+
+    /**
+     * Create an Exasol function.
+     *
+     * @param functionName a name of function
+     * @param valueExpressions one or more value expression
+     * @return <code>this</code> instance for fluent programming
+     */
+    public static ExasolFunction exasolFunction(final FunctionName functionName,
+            final ValueExpression... valueExpressions) {
+        return exasolFunction(functionName, "", valueExpressions);
+    }
+
+    /**
+     * Add a function.
+     *
+     * @param functionName a name of function
+     * @param valueExpressions one or more value expression
+     * @param derivedColumnName a name of a derived column
+     * @return <code>this</code> instance for fluent programming
+     */
+    public static ExasolFunction exasolFunction(final FunctionName functionName, final String derivedColumnName,
+            final ValueExpression... valueExpressions) {
+        return ExasolFunction.builder().functionName(functionName).valueExpression(valueExpressions)
+                .derivedColumnName(derivedColumnName).build();
     }
 }

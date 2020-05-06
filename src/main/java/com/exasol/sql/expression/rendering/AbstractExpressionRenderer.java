@@ -6,6 +6,7 @@ import java.util.Deque;
 import com.exasol.sql.expression.*;
 import com.exasol.sql.rendering.StringRendererConfig;
 import com.exasol.util.QuotesApplier;
+import com.exasol.util.TreeNode;
 
 /**
  * Common base class for expression renderers.
@@ -27,7 +28,7 @@ public abstract class AbstractExpressionRenderer {
         this.builder.append(this.config.useLowerCase() ? keyword.toLowerCase() : keyword);
     }
 
-    protected void connect(final BooleanExpression expression) {
+    protected void connect(final TreeNode expression) {
         if (expression.isChild() && !expression.isFirstSibling()) {
             appendConnector();
         }
@@ -37,10 +38,6 @@ public abstract class AbstractExpressionRenderer {
         if (!this.connectorDeque.isEmpty()) {
             appendKeyword(this.connectorDeque.peek());
         }
-    }
-
-    protected void appendStringLiteral(final String value) {
-        this.builder.append(value);
     }
 
     protected void appendBooleanLiteral(final BooleanLiteral literal) {
@@ -65,8 +62,11 @@ public abstract class AbstractExpressionRenderer {
     }
 
     protected void appendCommaWhenNeeded(final ValueExpression valueExpression) {
-        if (this.lastVisited != null && this.lastVisited.getClass().equals(valueExpression.getClass())) {
-            append(", ");
+        if (this.lastVisited != null && !(valueExpression.getParent() instanceof BinaryArithmeticExpression)) {
+            if (this.lastVisited.isSibling(valueExpression) || (valueExpression.getParent() != this.lastVisited
+                    && this.lastVisited.getClass().equals(valueExpression.getClass()))) {
+                append(", ");
+            }
         }
     }
 

@@ -7,5 +7,8 @@ import com.exasol.sql.expression.function.FunctionName;
  */
 public enum ExasolScalarFunction implements FunctionName {
     // Numeric functions
-    ABS, ACOS, ASIN, ATAN, ATAN2, LENGTH, SIN
+    ABS, ACOS, ASIN, ATAN, ATAN2, CEIL, COS, COSH, COT, DEGREES, DIV, EXP, FLOOR, LN, LOG, LOG10, LOG2, MOD, PI, POWER,
+    RADIANS, RANDOM, ROUND, SIGN, SIN, SINH, SQRT, TAN, TANH, TO_CHAR, TO_NUMBER, TRUNC,
+    // String functions
+    LENGTH
 }

@@ -2,11 +2,13 @@ package com.exasol.sql.expression.function.exasol;
 
 import java.util.*;
 
-import com.exasol.sql.expression.*;
+import com.exasol.sql.expression.ValueExpression;
+import com.exasol.sql.expression.ValueExpressionVisitor;
 import com.exasol.sql.expression.function.Function;
 import com.exasol.sql.expression.function.FunctionName;
+import com.exasol.util.AbstractTreeNode;
 
-public class ExasolFunction extends AbstractValueExpression implements Function {
+public class ExasolFunction extends AbstractTreeNode implements Function {
     private final FunctionName functionName;
     private final List<ValueExpression> valueExpressions;
     private final String derivedColumnName;
@@ -15,16 +17,17 @@ public class ExasolFunction extends AbstractValueExpression implements Function 
         this.functionName = builder.functionName;
         this.valueExpressions = builder.valueExpressions;
         this.derivedColumnName = builder.derivedColumnName;
+        if (!builder.valueExpressions.isEmpty()) {
+            for (ValueExpression valueExpression : valueExpressions) {
+                addChild(valueExpression);
+                valueExpression.setParent(this);
+            }
+        }
     }
 
     @Override
     public String getFunctionName() {
         return this.functionName.name();
-    }
-
-    @Override
-    public List<ValueExpression> getValueExpressions() {
-        return this.valueExpressions;
     }
 
     @Override
@@ -110,9 +113,8 @@ public class ExasolFunction extends AbstractValueExpression implements Function 
         }
 
         private void validateParameters() {
-            if (this.functionName == null || this.valueExpressions.isEmpty()) {
-                throw new IllegalArgumentException(
-                        "Please add functionName and valueExpression parameters to a Function's builder.");
+            if (this.functionName == null) {
+                throw new IllegalArgumentException("Please add \"functionName\" parameter to a Function's builder.");
             }
         }
     }

@@ -14,7 +14,8 @@ public final class ColumnReference extends AbstractValueExpression {
 
     /**
      * Create a new {@link ColumnReference} from a column name and a table name.
-     * @param tableName  table name
+     * 
+     * @param tableName table name
      * @param columnName column name
      * 
      * @return new {@link ColumnReference}
