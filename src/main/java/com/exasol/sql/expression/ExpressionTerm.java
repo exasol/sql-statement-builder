@@ -1,7 +1,6 @@
 package com.exasol.sql.expression;
 
-import static com.exasol.sql.expression.BinaryArithmeticExpression.BinaryArithmeticOperator;
-
+import com.exasol.sql.expression.function.Function;
 import com.exasol.sql.expression.function.FunctionName;
 import com.exasol.sql.expression.function.exasol.ExasolFunction;
 
@@ -106,16 +105,47 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
     }
 
     /**
-     * Create a binary arithmetic expression.
+     * Create a binary arithmetic expression with ADD operator.
      * 
-     * @param operator arithmetic operator
      * @param left left operand
      * @param right right operand
      * @return binary arithmetic expression
      */
-    public static BinaryArithmeticExpression arithmeticExpression(final BinaryArithmeticOperator operator,
-            ValueExpression left, ValueExpression right) {
-        return BinaryArithmeticExpression.of(operator, left, right);
+    public static BinaryArithmeticExpression plus(final ValueExpression left, final ValueExpression right) {
+        return BinaryArithmeticExpression.of(BinaryArithmeticExpression.BinaryArithmeticOperator.ADD, left, right);
+    }
+
+    /**
+     * Create a binary arithmetic expression with SUBTRACT operator.
+     *
+     * @param left left operand
+     * @param right right operand
+     * @return binary arithmetic expression
+     */
+    public static BinaryArithmeticExpression minus(final ValueExpression left, final ValueExpression right) {
+        return BinaryArithmeticExpression.of(BinaryArithmeticExpression.BinaryArithmeticOperator.SUBTRACT, left, right);
+    }
+
+    /**
+     * Create a binary arithmetic expression with DIVIDE operator.
+     *
+     * @param left left operand
+     * @param right right operand
+     * @return binary arithmetic expression
+     */
+    public static BinaryArithmeticExpression multiply(final ValueExpression left, final ValueExpression right) {
+        return BinaryArithmeticExpression.of(BinaryArithmeticExpression.BinaryArithmeticOperator.MULTIPLY, left, right);
+    }
+
+    /**
+     * Create a binary arithmetic expression with DIVIDE operator.
+     *
+     * @param left left operand
+     * @param right right operand
+     * @return binary arithmetic expression
+     */
+    public static BinaryArithmeticExpression divide(final ValueExpression left, final ValueExpression right) {
+        return BinaryArithmeticExpression.of(BinaryArithmeticExpression.BinaryArithmeticOperator.DIVIDE, left, right);
     }
 
     /**
@@ -125,22 +155,31 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
      * @param valueExpressions zero or more value expressions
      * @return <code>this</code> instance for fluent programming
      */
-    public static ExasolFunction exasolFunction(final FunctionName functionName,
-            final ValueExpression... valueExpressions) {
-        return exasolFunction(functionName, "", valueExpressions);
+    public static Function function(final FunctionName functionName, final ValueExpression... valueExpressions) {
+        return function(functionName, "", valueExpressions);
     }
 
     /**
-     * Add a function.
+     * Create an Exasol function.
      *
      * @param functionName a name of function
      * @param valueExpressions zero or more value expressions
      * @param derivedColumnName a name of a derived column
      * @return <code>this</code> instance for fluent programming
      */
-    public static ExasolFunction exasolFunction(final FunctionName functionName, final String derivedColumnName,
+    public static Function function(final FunctionName functionName, final String derivedColumnName,
             final ValueExpression... valueExpressions) {
-        return ExasolFunction.builder().functionName(functionName).valueExpression(valueExpressions)
+        return ExasolFunction.builder(functionName).valueExpression(valueExpressions)
                 .derivedColumnName(derivedColumnName).build();
+    }
+
+    /**
+     * Create a key word.
+     *
+     * @param value key word value
+     * @return key word
+     */
+    public static KeyWord keyWord(final String value) {
+        return KeyWord.of(value);
     }
 }

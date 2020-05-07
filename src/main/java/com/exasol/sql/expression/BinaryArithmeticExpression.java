@@ -10,23 +10,25 @@ import com.exasol.util.AbstractTreeNode;
  */
 public class BinaryArithmeticExpression extends AbstractTreeNode implements ValueExpression {
     private final BinaryArithmeticOperator arithmeticOperator;
-    private final ValueExpression right;
     private final ValueExpression left;
+    private final ValueExpression right;
 
-    private BinaryArithmeticExpression(final BinaryArithmeticOperator arithmeticOperator, final ValueExpression right,
-            final ValueExpression left) {
+    private BinaryArithmeticExpression(final BinaryArithmeticOperator arithmeticOperator, final ValueExpression left,
+            final ValueExpression right) {
         this.arithmeticOperator = arithmeticOperator;
-        this.right = right;
         this.left = left;
-        addChild(right);
+        this.right = right;
         addChild(left);
+        addChild(right);
     }
 
     /**
-     * @param operator
-     * @param left
-     * @param right
-     * @return
+     * Create a new {@link BinaryArithmeticExpression} instance.
+     * 
+     * @param operator arithmetic operator represented by {@link BinaryArithmeticOperator}
+     * @param left left part of the expression
+     * @param right right part of the expression
+     * @return new {@link BinaryArithmeticExpression} instance
      */
     public static BinaryArithmeticExpression of(final BinaryArithmeticOperator operator, final ValueExpression left,
             final ValueExpression right) {
@@ -40,11 +42,14 @@ public class BinaryArithmeticExpression extends AbstractTreeNode implements Valu
     @Override
     public void accept(final ValueExpressionVisitor visitor) {
         visitor.visit(this);
-        this.right.accept(visitor);
-        visitor.leave(this);
         this.left.accept(visitor);
+        visitor.leave(this);
+        this.right.accept(visitor);
     }
 
+    /**
+     * This enum represents arithmetic operators in an SQL statement.
+     */
     public enum BinaryArithmeticOperator {
         ADD("+"), SUBTRACT("-"), MULTIPLY("*"), DIVIDE("/");
 
@@ -54,6 +59,11 @@ public class BinaryArithmeticExpression extends AbstractTreeNode implements Valu
             this.stringOperatorRepresentation = stringOperatorRepresentation;
         }
 
+        /**
+         * Get a string representation of a member of this enum class. For example, + represents an ADD operator.
+         * 
+         * @return string representation of an arithmetic operator
+         */
         public String getStringOperatorRepresentation() {
             return this.stringOperatorRepresentation;
         }

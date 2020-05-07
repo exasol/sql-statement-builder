@@ -102,5 +102,14 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
     @Override
     public void leave(final BinaryArithmeticExpression expression) {
         appendKeyword(this.connectorDeque.pop());
+        setLastVisited(expression);
+    }
+
+    @Override
+    public void visit(final KeyWord keyWord) {
+        append(" ");
+        appendKeyword(keyWord.toString());
+        append(" ");
+        setLastVisited(keyWord);
     }
 }

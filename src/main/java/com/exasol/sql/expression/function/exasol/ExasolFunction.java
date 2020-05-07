@@ -17,11 +17,9 @@ public class ExasolFunction extends AbstractTreeNode implements Function {
         this.functionName = builder.functionName;
         this.valueExpressions = builder.valueExpressions;
         this.derivedColumnName = builder.derivedColumnName;
-        if (!builder.valueExpressions.isEmpty()) {
-            for (ValueExpression valueExpression : valueExpressions) {
-                addChild(valueExpression);
-                valueExpression.setParent(this);
-            }
+        for (final ValueExpression valueExpression : this.valueExpressions) {
+            addChild(valueExpression);
+            valueExpression.setParent(this);
         }
     }
 
@@ -54,30 +52,20 @@ public class ExasolFunction extends AbstractTreeNode implements Function {
      *
      * @return builder
      */
-    public static Builder builder() {
-        return new Builder();
+    public static Builder builder(final FunctionName functionName) {
+        return new Builder(functionName);
     }
 
     /**
      * Builder for {@link ExasolFunction}.
      */
     public static final class Builder {
-        private FunctionName functionName;
+        private final FunctionName functionName;
         private final List<ValueExpression> valueExpressions = new ArrayList<>();
         private String derivedColumnName;
 
-        private Builder() {
-        }
-
-        /**
-         * Add a function name.
-         *
-         * @param functionName name of a function
-         * @return this instance for fluent programming
-         */
-        public Builder functionName(final FunctionName functionName) {
+        private Builder(final FunctionName functionName) {
             this.functionName = functionName;
-            return this;
         }
 
         /**
@@ -108,14 +96,7 @@ public class ExasolFunction extends AbstractTreeNode implements Function {
          * @return new {@link ExasolFunction}
          */
         public ExasolFunction build() {
-            validateParameters();
             return new ExasolFunction(this);
-        }
-
-        private void validateParameters() {
-            if (this.functionName == null) {
-                throw new IllegalArgumentException("Please add \"functionName\" parameter to a Function's builder.");
-            }
         }
     }
 }

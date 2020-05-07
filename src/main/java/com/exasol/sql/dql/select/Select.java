@@ -72,7 +72,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      */
     public Select function(final FunctionName functionName, final String derivedColumnName,
             final ValueExpression... valueExpressions) {
-        final Function function = ExpressionTerm.exasolFunction(functionName, derivedColumnName, valueExpressions);
+        final Function function = ExpressionTerm.function(functionName, derivedColumnName, valueExpressions);
         final DerivedColumn derivedColumn = new DerivedColumn(this, function);
         this.derivedColumns.add(derivedColumn);
         return this;
