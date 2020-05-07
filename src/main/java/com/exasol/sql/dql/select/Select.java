@@ -65,9 +65,9 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
     /**
      * Add a function.
      *
-     * @param functionName a name of function
+     * @param functionName name of the function
      * @param valueExpressions one or more value expression
-     * @param derivedColumnName a name of a derived column
+     * @param derivedColumnName name under which you can refer to the derived column
      * @return <code>this</code> instance for fluent programming
      */
     public Select function(final FunctionName functionName, final String derivedColumnName,

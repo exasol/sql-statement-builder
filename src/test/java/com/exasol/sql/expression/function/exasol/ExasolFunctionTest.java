@@ -36,8 +36,8 @@ class ExasolFunctionTest {
     })
     void scalarFunctionWithDoubleArgumentAndColumnName(final String functionName, final String columnName,
             final double doubleLiteral, final String expected) {
-        final Select select = StatementFactory.getInstance().select();
-        select.function(ExasolScalarFunction.valueOf(functionName), columnName, doubleLiteral(doubleLiteral));
+        final Select select = StatementFactory.getInstance().select() //
+                .function(ExasolScalarFunction.valueOf(functionName), columnName, doubleLiteral(doubleLiteral));
         assertThat(select, rendersTo(expected));
     }
 

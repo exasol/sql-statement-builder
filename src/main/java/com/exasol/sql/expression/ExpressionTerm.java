@@ -109,8 +109,8 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
      * Create a binary arithmetic expression.
      * 
      * @param operator arithmetic operator
-     * @param left left member or the expression
-     * @param right right member of the expression
+     * @param left left operand
+     * @param right right operand
      * @return binary arithmetic expression
      */
     public static BinaryArithmeticExpression arithmeticExpression(final BinaryArithmeticOperator operator,
@@ -122,7 +122,7 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
      * Create an Exasol function.
      *
      * @param functionName a name of function
-     * @param valueExpressions one or more value expression
+     * @param valueExpressions zero or more value expressions
      * @return <code>this</code> instance for fluent programming
      */
     public static ExasolFunction exasolFunction(final FunctionName functionName,
@@ -134,7 +134,7 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
      * Add a function.
      *
      * @param functionName a name of function
-     * @param valueExpressions one or more value expression
+     * @param valueExpressions zero or more value expressions
      * @param derivedColumnName a name of a derived column
      * @return <code>this</code> instance for fluent programming
      */

@@ -4,6 +4,9 @@ import com.exasol.util.AbstractTreeNode;
 
 /**
  * This class represents a binary arithmetic expression.
+ * <p>
+ * Examples: +, -, *, /
+ * </p>
  */
 public class BinaryArithmeticExpression extends AbstractTreeNode implements ValueExpression {
     private final BinaryArithmeticOperator arithmeticOperator;
