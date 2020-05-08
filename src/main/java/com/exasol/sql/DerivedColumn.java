@@ -13,6 +13,7 @@ import com.exasol.sql.expression.ValueExpression;
  */
 public class DerivedColumn extends AbstractFragment implements SelectFragment, MergeFragment, InsertFragment {
     private final ValueExpression valueExpression;
+    private String derivedColumnName;
 
     /**
      * Create a new instance of a {@link DerivedColumn}.
@@ -26,12 +27,43 @@ public class DerivedColumn extends AbstractFragment implements SelectFragment, M
     }
 
     /**
+     * Create a new instance of a {@link DerivedColumn}.
+     *
+     * @param root root SQL statement this fragment belongs to
+     * @param valueExpression derived column's content
+     * @param derivedColumnName name of a derived column
+     */
+    public DerivedColumn(final Fragment root, final ValueExpression valueExpression, final String derivedColumnName) {
+        super(root);
+        this.valueExpression = valueExpression;
+        this.derivedColumnName = derivedColumnName;
+    }
+
+    /**
      * Get a value expression that belongs to this derived column.
      * 
-     * @return a value expression
+     * @return value expression
      */
     public ValueExpression getValueExpression() {
-        return valueExpression;
+        return this.valueExpression;
+    }
+
+    /**
+     * Get a derived column name.
+     *
+     * @return derived column name as a String
+     */
+    public String getDerivedColumnName() {
+        return this.derivedColumnName;
+    }
+
+    /**
+     * Check if this function has a derived column name.
+     *
+     * @return true if this function has a derived column name
+     */
+    public boolean hasDerivedColumnName() {
+        return this.derivedColumnName != null && !this.derivedColumnName.isEmpty();
     }
 
     @Override

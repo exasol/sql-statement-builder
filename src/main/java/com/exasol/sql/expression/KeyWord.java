@@ -1,7 +1,7 @@
 package com.exasol.sql.expression;
 
 /**
- * This class represents a ket word inside a value expression.
+ * This class represents a key word without quotation inside a value expression.
  */
 public class KeyWord extends AbstractValueExpression {
     private final String value;
@@ -27,6 +27,6 @@ public class KeyWord extends AbstractValueExpression {
 
     @Override
     public String toString() {
-        return value;
+        return this.value;
     }
 }

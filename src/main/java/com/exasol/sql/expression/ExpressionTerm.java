@@ -152,11 +152,10 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
      * Create an Exasol function.
      *
      * @param functionName a name of function
-     * @param valueExpressions zero or more value expressions
      * @return <code>this</code> instance for fluent programming
      */
-    public static Function function(final FunctionName functionName, final ValueExpression... valueExpressions) {
-        return function(functionName, "", valueExpressions);
+    public static Function function(final FunctionName functionName) {
+        return ExasolFunction.of(functionName);
     }
 
     /**
@@ -164,13 +163,10 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
      *
      * @param functionName a name of function
      * @param valueExpressions zero or more value expressions
-     * @param derivedColumnName a name of a derived column
      * @return <code>this</code> instance for fluent programming
      */
-    public static Function function(final FunctionName functionName, final String derivedColumnName,
-            final ValueExpression... valueExpressions) {
-        return ExasolFunction.builder(functionName).valueExpression(valueExpressions)
-                .derivedColumnName(derivedColumnName).build();
+    public static Function function(final FunctionName functionName, final ValueExpression... valueExpressions) {
+        return ExasolFunction.of(functionName, valueExpressions);
     }
 
     /**
@@ -181,5 +177,14 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
      */
     public static KeyWord keyWord(final String value) {
         return KeyWord.of(value);
+    }
+
+    /**
+     * Create a NULL literal.
+     *
+     * @return NULL literal
+     */
+    public static NullLiteral nullLiteral() {
+        return NullLiteral.nullLiteral();
     }
 }

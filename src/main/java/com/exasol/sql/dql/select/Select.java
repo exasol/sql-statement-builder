@@ -72,8 +72,34 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      */
     public Select function(final FunctionName functionName, final String derivedColumnName,
             final ValueExpression... valueExpressions) {
-        final Function function = ExpressionTerm.function(functionName, derivedColumnName, valueExpressions);
-        final DerivedColumn derivedColumn = new DerivedColumn(this, function);
+        final Function function = ExpressionTerm.function(functionName, valueExpressions);
+        final DerivedColumn derivedColumn = new DerivedColumn(this, function, derivedColumnName);
+        this.derivedColumns.add(derivedColumn);
+        return this;
+    }
+
+    /**
+     * Add an arithmetic expression.
+     *
+     * @param arithmeticExpression arithmetic expression
+     * @return <code>this</code> instance for fluent programming
+     */
+    public Select arithmeticExpression(final BinaryArithmeticExpression arithmeticExpression) {
+        final DerivedColumn derivedColumn = new DerivedColumn(this, arithmeticExpression);
+        this.derivedColumns.add(derivedColumn);
+        return this;
+    }
+
+    /**
+     * Add an arithmetic expression.
+     * 
+     * @param arithmeticExpression arithmetic expression
+     * @param derivedColumnName name under which you can refer to the derived column
+     * @return <code>this</code> instance for fluent programming
+     */
+    public Select arithmeticExpression(final BinaryArithmeticExpression arithmeticExpression,
+            final String derivedColumnName) {
+        final DerivedColumn derivedColumn = new DerivedColumn(this, arithmeticExpression, derivedColumnName);
         this.derivedColumns.add(derivedColumn);
         return this;
     }

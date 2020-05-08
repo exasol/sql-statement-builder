@@ -35,16 +35,22 @@ public class BinaryArithmeticExpression extends AbstractTreeNode implements Valu
         return new BinaryArithmeticExpression(operator, left, right);
     }
 
-    public BinaryArithmeticOperator getArithmeticOperator() {
-        return this.arithmeticOperator;
+    /**
+     * Get a string representation of a member of this enum class. For example, + represents an ADD operator.
+     *
+     * @return string representation of an arithmetic operator
+     */
+    public String getStringOperatorRepresentation() {
+        return this.arithmeticOperator.getStringOperatorRepresentation();
     }
 
     @Override
     public void accept(final ValueExpressionVisitor visitor) {
         visitor.visit(this);
         this.left.accept(visitor);
-        visitor.leave(this);
+        visitor.addOperator(this);
         this.right.accept(visitor);
+        visitor.leave(this);
     }
 
     /**
@@ -59,12 +65,7 @@ public class BinaryArithmeticExpression extends AbstractTreeNode implements Valu
             this.stringOperatorRepresentation = stringOperatorRepresentation;
         }
 
-        /**
-         * Get a string representation of a member of this enum class. For example, + represents an ADD operator.
-         * 
-         * @return string representation of an arithmetic operator
-         */
-        public String getStringOperatorRepresentation() {
+        private String getStringOperatorRepresentation() {
             return this.stringOperatorRepresentation;
         }
     }

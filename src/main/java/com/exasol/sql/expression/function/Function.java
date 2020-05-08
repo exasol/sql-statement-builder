@@ -14,16 +14,9 @@ public interface Function extends ValueExpression {
     public String getFunctionName();
 
     /**
-     * Check if this function has a derived column name.
+     * Check if function needs parenthesis.
      * 
-     * @return true if this function has a derived column name
+     * @return true if function has parenthesis with parameters
      */
-    public boolean hasDerivedColumnName();
-
-    /**
-     * Get a derived column name.
-     * 
-     * @return derived column name as a String
-     */
-    public String getDerivedColumnName();
+    boolean hasParenthesis();
 }

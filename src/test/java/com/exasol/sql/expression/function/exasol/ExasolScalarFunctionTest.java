@@ -22,7 +22,7 @@ class ExasolScalarFunctionTest {
             "SINH, SINH_COL, 0, SELECT SINH(0) SINH_COL", //
             "TANH, TANH_COL, 0, SELECT TANH(0) TANH_COL", //
             "CHAR, CHAR, 88, SELECT CHAR(88) CHAR", //
-            "UNICODECHR, UNICODECHR, 252, SELECT UNICODECHR(252) UNICODECHR", //
+            "UNICODECHR, UNICODECHR, 252, SELECT UNICODECHR(252) UNICODECHR" //
     })
 
     void testScalarFunctionWithIntegerAndColumnName(final String functionName, final String columnName,
@@ -80,8 +80,8 @@ class ExasolScalarFunctionTest {
     }
 
     @ParameterizedTest
-    @CsvSource({ "COS, 3, SELECT COS(PI()/3)", //
-            "TAN, 4, SELECT TAN(PI()/4)" //
+    @CsvSource({ "COS, 3, SELECT COS((PI()/3))", //
+            "TAN, 4, SELECT TAN((PI()/4))" //
     })
     void testScalarFunctionWithBinaryArithmetic(final String functionName, final int integerLiteral,
             final String expected) {
@@ -152,7 +152,7 @@ class ExasolScalarFunctionTest {
             "SOUNDEX, , smythe, SELECT SOUNDEX('smythe')", //
             "UCASE, UCASE, AbCdEf, SELECT UCASE('AbCdEf') UCASE", //
             "UNICODE, UNICODE, ä, SELECT UNICODE('ä') UNICODE", //
-            "UPPER, UPPER, AbCdEf, SELECT UPPER('AbCdEf') UPPER", //
+            "UPPER, UPPER, AbCdEf, SELECT UPPER('AbCdEf') UPPER" //
     })
     void testScalarFunctionWithString(final String functionName, final String columnName, final String literalString,
             final String expected) {
@@ -171,7 +171,7 @@ class ExasolScalarFunctionTest {
             "REGEXP_INSTR; Phone: +497003927877678; \\+?\\d+; SELECT REGEXP_INSTR('Phone: +497003927877678', '\\+?\\d+')", //
             "REGEXP_REPLACE; my_mail@yahoo.com; [a-z0-9._%+-]; SELECT REGEXP_REPLACE('my_mail@yahoo.com', '[a-z0-9._%+-]')", //
             "REGEXP_SUBSTR; my_mail@yahoo.com; [a-z0-9._%+-]; SELECT REGEXP_SUBSTR('my_mail@yahoo.com', '[a-z0-9._%+-]')", //
-            "RTRIM; abcdef; afe; SELECT RTRIM('abcdef', 'afe')", //
+            "RTRIM; abcdef; afe; SELECT RTRIM('abcdef', 'afe')" //
     }, delimiter = ';')
     void testScalarFunctionWithTwoStrings(final String functionName, final String first, final String second,
             final String expected) {
@@ -215,7 +215,7 @@ class ExasolScalarFunctionTest {
     @ParameterizedTest
     @CsvSource(value = { //
             "LPAD; abc; 5; X; SELECT LPAD('abc', 5, 'X')", //
-            "RPAD; abc; 5; X; SELECT RPAD('abc', 5, 'X')", //
+            "RPAD; abc; 5; X; SELECT RPAD('abc', 5, 'X')" //
     }, delimiter = ';')
     void testScalarFunctionPad(final String functionName, final String stringfirstLiteral, final int integerLiteral,
             final String stringSecondLiteral, final String expected) {
@@ -244,7 +244,7 @@ class ExasolScalarFunctionTest {
     @ParameterizedTest
     @CsvSource(value = { //
             "REPLACE; Apple juice is great; Apple; Orange; SELECT REPLACE('Apple juice is great', 'Apple', 'Orange')", //
-            "TRANSLATE; abcd; abc; xy; SELECT TRANSLATE('abcd', 'abc', 'xy')", //
+            "TRANSLATE; abcd; abc; xy; SELECT TRANSLATE('abcd', 'abc', 'xy')" //
     }, delimiter = ';')
     void testScalarFunctionThreeStrings(final String functionName, final String first, final String second,
             final String third, final String expected) {
@@ -277,5 +277,31 @@ class ExasolScalarFunctionTest {
                 .function(ExasolScalarFunction.TRIM, keyWord("LEADING"), stringLiteral("1"), keyWord("FROM"),
                         stringLiteral("1234567891"));
         assertThat(select, rendersTo("SELECT TRIM( LEADING '1' FROM '1234567891')"));
+    }
+
+    @Test
+    void testScalarFunctionAddYears() {
+        final Select select = StatementFactory.getInstance().select() //
+                .function(ExasolScalarFunction.ADD_YEARS, "AY1", keyWord("DATE"), stringLiteral("2000-02-29"),
+                        integerLiteral(1)) //
+                .function(ExasolScalarFunction.ADD_YEARS, "AY2", keyWord("TIMESTAMP"),
+                        stringLiteral("2005-01-31 12:00:00"), integerLiteral(-1));
+        assertThat(select, rendersTo(
+                "SELECT ADD_YEARS( DATE '2000-02-29', 1) AY1, ADD_YEARS( TIMESTAMP '2005-01-31 12:00:00', -1) AY2"));
+    }
+
+    @Test
+    void testScalarFunctionWithoutBrackets() {
+        final Select select = StatementFactory.getInstance().select() //
+                .function(ExasolScalarFunction.SYSDATE);
+        assertThat(select, rendersTo("SELECT SYSDATE"));
+    }
+
+    @Test
+    void testScalarFunctionCoalesce() {
+        final Select select = StatementFactory.getInstance().select() //
+                .function(ExasolScalarFunction.COALESCE, "COALES", nullLiteral(), stringLiteral("abc"), nullLiteral(),
+                        stringLiteral("xyz"));
+        assertThat(select, rendersTo("SELECT COALESCE(NULL, 'abc', NULL, 'xyz') COALES"));
     }
 }

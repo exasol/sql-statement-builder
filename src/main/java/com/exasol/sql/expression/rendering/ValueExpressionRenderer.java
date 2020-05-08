@@ -80,28 +80,34 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
     public void visit(final Function function) {
         appendCommaWhenNeeded(function);
         appendKeyword(function.getFunctionName());
-        startParenthesis();
+        if (function.hasParenthesis()) {
+            startParenthesis();
+        }
         setLastVisited(function);
     }
 
     @Override
     public void leave(final Function function) {
-        endParenthesis();
-        if (function.hasDerivedColumnName()) {
-            append(" ");
-            append(function.getDerivedColumnName());
+        if (function.hasParenthesis()) {
+            endParenthesis();
         }
         setLastVisited(function);
     }
 
     @Override
     public void visit(final BinaryArithmeticExpression expression) {
-        this.connectorDeque.push(expression.getArithmeticOperator().getStringOperatorRepresentation());
+        this.connectorDeque.push(expression.getStringOperatorRepresentation());
+        startParenthesis();
+    }
+
+    @Override
+    public void addOperator(final BinaryArithmeticExpression expression) {
+        appendKeyword(this.connectorDeque.pop());
     }
 
     @Override
     public void leave(final BinaryArithmeticExpression expression) {
-        appendKeyword(this.connectorDeque.pop());
+        endParenthesis();
         setLastVisited(expression);
     }
 
@@ -111,5 +117,12 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
         appendKeyword(keyWord.toString());
         append(" ");
         setLastVisited(keyWord);
+    }
+
+    @Override
+    public void visit(final NullLiteral nullLiteral) {
+        appendCommaWhenNeeded(nullLiteral);
+        appendKeyword("NULL");
+        setLastVisited(nullLiteral);
     }
 }
