@@ -105,9 +105,9 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
     }
 
     protected void appendOperand(final ValueExpression operand) {
-        final ValueExpressionRenderer leftExpressionRenderer = new ValueExpressionRenderer(this.config);
-        operand.accept(leftExpressionRenderer);
-        this.builder.append(leftExpressionRenderer.render());
+        final ValueExpressionRenderer expressionRenderer = new ValueExpressionRenderer(this.config);
+        operand.accept(expressionRenderer);
+        this.builder.append(expressionRenderer.render());
     }
 
     @Override
