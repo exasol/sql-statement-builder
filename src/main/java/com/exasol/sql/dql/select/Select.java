@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.exasol.sql.*;
-import com.exasol.sql.expression.BooleanExpression;
-import com.exasol.sql.expression.ColumnReference;
+import com.exasol.sql.expression.*;
+import com.exasol.sql.expression.function.Function;
+import com.exasol.sql.expression.function.FunctionName;
 
 /**
  * This class implements an SQL {@link Select} statement.
  */
 public class Select extends AbstractFragment implements SqlStatement, SelectFragment {
-    private final List<Field> fields = new ArrayList<>();
+    private final List<DerivedColumn> derivedColumns = new ArrayList<>();
     private FromClause fromClause = null;
     private WhereClause whereClause = null;
     private LimitClause limitClause = null;
@@ -31,7 +32,8 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      * @return <code>this</code> instance for fluent programming
      */
     public Select all() {
-        this.fields.add(new Field(this, "*"));
+        final DerivedColumn derivedColumn = new DerivedColumn(this, ColumnReference.of("*"));
+        this.derivedColumns.add(derivedColumn);
         return this;
     }
 
@@ -43,8 +45,62 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      */
     public Select field(final String... names) {
         for (final String name : names) {
-            this.fields.add(new Field(this, name));
+            final DerivedColumn derivedColumn = new DerivedColumn(this, ColumnReference.of(name));
+            this.derivedColumns.add(derivedColumn);
         }
+        return this;
+    }
+
+    /**
+     * Add a function.
+     * 
+     * @param functionName a name of function
+     * @param valueExpressions one or more value expression
+     * @return <code>this</code> instance for fluent programming
+     */
+    public Select function(final FunctionName functionName, final ValueExpression... valueExpressions) {
+        return function(functionName, "", valueExpressions);
+    }
+
+    /**
+     * Add a function.
+     *
+     * @param functionName name of the function
+     * @param valueExpressions one or more value expression
+     * @param derivedColumnName name under which you can refer to the derived column
+     * @return <code>this</code> instance for fluent programming
+     */
+    public Select function(final FunctionName functionName, final String derivedColumnName,
+            final ValueExpression... valueExpressions) {
+        final Function function = ExpressionTerm.function(functionName, valueExpressions);
+        final DerivedColumn derivedColumn = new DerivedColumn(this, function, derivedColumnName);
+        this.derivedColumns.add(derivedColumn);
+        return this;
+    }
+
+    /**
+     * Add an arithmetic expression.
+     *
+     * @param arithmeticExpression arithmetic expression
+     * @return <code>this</code> instance for fluent programming
+     */
+    public Select arithmeticExpression(final BinaryArithmeticExpression arithmeticExpression) {
+        final DerivedColumn derivedColumn = new DerivedColumn(this, arithmeticExpression);
+        this.derivedColumns.add(derivedColumn);
+        return this;
+    }
+
+    /**
+     * Add an arithmetic expression.
+     * 
+     * @param arithmeticExpression arithmetic expression
+     * @param derivedColumnName name under which you can refer to the derived column
+     * @return <code>this</code> instance for fluent programming
+     */
+    public Select arithmeticExpression(final BinaryArithmeticExpression arithmeticExpression,
+            final String derivedColumnName) {
+        final DerivedColumn derivedColumn = new DerivedColumn(this, arithmeticExpression, derivedColumnName);
+        this.derivedColumns.add(derivedColumn);
         return this;
     }
 
@@ -141,8 +197,8 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
     @Override
     public void accept(final SelectVisitor visitor) {
         visitor.visit(this);
-        for (final Field field : this.fields) {
-            field.accept(visitor);
+        for (final DerivedColumn derivedColumn : this.derivedColumns) {
+            derivedColumn.accept(visitor);
         }
         if (this.fromClause != null) {
             this.fromClause.accept(visitor);

@@ -1,5 +1,9 @@
 package com.exasol.sql.expression;
 
+import com.exasol.sql.expression.function.Function;
+import com.exasol.sql.expression.function.FunctionName;
+import com.exasol.sql.expression.function.exasol.ExasolFunction;
+
 /**
  * Static factory methods for SQL expressions.
  */
@@ -98,5 +102,89 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
      */
     public static ColumnReference column(final String table, final String column) {
         return ColumnReference.column(table, column);
+    }
+
+    /**
+     * Create a binary arithmetic expression with ADD operator.
+     * 
+     * @param left left operand
+     * @param right right operand
+     * @return binary arithmetic expression
+     */
+    public static BinaryArithmeticExpression plus(final ValueExpression left, final ValueExpression right) {
+        return BinaryArithmeticExpression.of(BinaryArithmeticExpression.BinaryArithmeticOperator.ADD, left, right);
+    }
+
+    /**
+     * Create a binary arithmetic expression with SUBTRACT operator.
+     *
+     * @param left left operand
+     * @param right right operand
+     * @return binary arithmetic expression
+     */
+    public static BinaryArithmeticExpression minus(final ValueExpression left, final ValueExpression right) {
+        return BinaryArithmeticExpression.of(BinaryArithmeticExpression.BinaryArithmeticOperator.SUBTRACT, left, right);
+    }
+
+    /**
+     * Create a binary arithmetic expression with DIVIDE operator.
+     *
+     * @param left left operand
+     * @param right right operand
+     * @return binary arithmetic expression
+     */
+    public static BinaryArithmeticExpression multiply(final ValueExpression left, final ValueExpression right) {
+        return BinaryArithmeticExpression.of(BinaryArithmeticExpression.BinaryArithmeticOperator.MULTIPLY, left, right);
+    }
+
+    /**
+     * Create a binary arithmetic expression with DIVIDE operator.
+     *
+     * @param left left operand
+     * @param right right operand
+     * @return binary arithmetic expression
+     */
+    public static BinaryArithmeticExpression divide(final ValueExpression left, final ValueExpression right) {
+        return BinaryArithmeticExpression.of(BinaryArithmeticExpression.BinaryArithmeticOperator.DIVIDE, left, right);
+    }
+
+    /**
+     * Create an Exasol function.
+     *
+     * @param functionName a name of function
+     * @return <code>this</code> instance for fluent programming
+     */
+    public static Function function(final FunctionName functionName) {
+        return ExasolFunction.of(functionName);
+    }
+
+    /**
+     * Create an Exasol function.
+     *
+     * @param functionName a name of function
+     * @param valueExpressions zero or more value expressions
+     * @return <code>this</code> instance for fluent programming
+     */
+    public static Function function(final FunctionName functionName, final ValueExpression... valueExpressions) {
+        return ExasolFunction.of(functionName, valueExpressions);
+    }
+
+    /**
+     * Create a key word.
+     *
+     * @param value key word value
+     * @return key word
+     */
+    public static KeyWord keyWord(final String value) {
+        return KeyWord.of(value);
+    }
+
+    /**
+     * Create a NULL literal.
+     *
+     * @return NULL literal
+     */
+    public static NullLiteral nullLiteral() {
+        return NullLiteral.nullLiteral();
     }
 }

@@ -26,6 +26,7 @@ public abstract class AbstractTreeNode implements TreeNode {
      *
      * @throws IllegalArgumentException if parent is <code>null</code> or parent and child are identical
      */
+    @Override
     public void setParent(final TreeNode parent) {
         if (parent == null) {
             throw new IllegalArgumentException("Parent tree node cannot be NULL.");
@@ -50,7 +51,7 @@ public abstract class AbstractTreeNode implements TreeNode {
     @Override
     public void addChild(final TreeNode child) {
         this.children.add(child);
-        ((AbstractTreeNode) child).setParent(this);
+        child.setParent(this);
     }
 
     @Override
@@ -76,5 +77,10 @@ public abstract class AbstractTreeNode implements TreeNode {
     @Override
     public boolean isFirstSibling() {
         return (this.parent != null) && (this.getParent().getChild(0) == this);
+    }
+
+    @Override
+    public boolean isSibling(final TreeNode node) {
+        return (this.parent != null) && (this.getParent().getChildren().contains(node));
     }
 }

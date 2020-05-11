@@ -14,7 +14,8 @@ public final class ColumnReference extends AbstractValueExpression {
 
     /**
      * Create a new {@link ColumnReference} from a column name and a table name.
-     * @param tableName  table name
+     * 
+     * @param tableName table name
      * @param columnName column name
      * 
      * @return new {@link ColumnReference}
@@ -49,6 +50,16 @@ public final class ColumnReference extends AbstractValueExpression {
      */
     public String getTableName() {
         return tableName;
+    }
+
+    public String toString() {
+        final StringBuilder stringBuilder = new StringBuilder();
+        if ((tableName != null) && !tableName.isEmpty()) {
+            stringBuilder.append(tableName);
+            stringBuilder.append(".");
+        }
+        stringBuilder.append(columnName);
+        return stringBuilder.toString();
     }
 
     @Override

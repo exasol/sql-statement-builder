@@ -27,10 +27,14 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
     }
 
     @Override
-    public void visit(final Field field) {
-        appendCommaWhenNeeded(field);
-        appendAutoQuoted(field.getName());
-        setLastVisited(field);
+    public void visit(final DerivedColumn derivedColumn) {
+        appendCommaWhenNeeded(derivedColumn);
+        appendRenderedValueExpression(derivedColumn.getValueExpression());
+        if (derivedColumn.hasDerivedColumnName()) {
+            appendSpace();
+            append(derivedColumn.getDerivedColumnName());
+        }
+        setLastVisited(derivedColumn);
     }
 
     @Override
@@ -74,7 +78,7 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
     @Override
     public void visit(final GroupByClause groupByClause) {
         appendKeyWord(" GROUP BY ");
-        appendListOfColumnReferences(groupByClause.getColumnReferences());
+        appendListOfValueExpressions(groupByClause.getColumnReferences());
         final BooleanExpression having = groupByClause.getHavingBooleanExpression();
         if (having != null) {
             appendKeyWord(" HAVING ");
@@ -86,7 +90,7 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
     @Override
     public void visit(final OrderByClause orderByClause) {
         appendKeyWord(" ORDER BY ");
-        appendListOfColumnReferences(orderByClause.getColumnReferences());
+        appendListOfValueExpressions(orderByClause.getColumnReferences());
         final Boolean desc = orderByClause.getDesc();
         appendStringDependingOnBoolean(desc, " DESC", " ASC");
         final Boolean nullsFirst = orderByClause.getNullsFirst();

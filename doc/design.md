@@ -18,7 +18,7 @@ All statement builders use the "fluent programming" model, where the return type
 
 Comment:
 
-This is a design principle that cuts across the whole project. Therefore locating it in a single test or implementation part makes no sense.
+This is a design principle that cuts across the whole project. Therefore, locating it in a single test or implementation part makes no sense.
 
 Covers:
 
@@ -46,6 +46,23 @@ Covers:
 Needs: impl, utest
 
 Tags: Select Statement Builder
+
+### Building Arithmetic Expressions
+
+#### Forwarded Requirements
+
+* `dsn --> impl, utest: req~arithmetic-operators~1`
+
+#### Constructing Arithmetic Operations From Operator Enumeration
+`dsn~arithmetic-operation-from-enum~1`
+
+The `ArithmeticExpression` class allows creating expression objects from an enumeration.  
+
+Covers:
+
+* `req~boolean-operators~1`
+
+Needs: impl, utest
 
 ### Building Boolean Expressions
 
