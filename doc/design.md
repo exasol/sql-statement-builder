@@ -56,7 +56,7 @@ Tags: Select Statement Builder
 #### Constructing Arithmetic Operations From Operator Enumeration
 `dsn~arithmetic-operation-from-enum~1`
 
-The Arithmetic Expression class allows creating expression objects from an enumeration.  
+The `ArithmeticExpression` class allows creating expression objects from an enumeration.  
 
 Covers:
 

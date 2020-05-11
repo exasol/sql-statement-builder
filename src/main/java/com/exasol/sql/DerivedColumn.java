@@ -63,7 +63,7 @@ public class DerivedColumn extends AbstractFragment implements SelectFragment, M
      * @return true if this function has a derived column name
      */
     public boolean hasDerivedColumnName() {
-        return this.derivedColumnName != null && !this.derivedColumnName.isEmpty();
+        return (this.derivedColumnName != null) && !this.derivedColumnName.isEmpty();
     }
 
     @Override
