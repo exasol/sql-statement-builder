@@ -131,6 +131,17 @@ Needs: dsn
 
 ### General SQL Construction
 
+#### Arithmetic Operators
+`req~arithmetic-operators~1`
+
+ESB supports the following arithmetic operators: `+`, `-`, `*`, `/`.
+
+Covers:
+
+* [feat~statement-definition~1](#statement-definition)
+
+Needs: dsn
+
 #### Comparison Operations
 `req~comparison-operations~1`
 
@@ -169,6 +180,17 @@ ESB can convert the following string literals into boolean values, independently
 
 * true: `true`, `t`, `yes`, `y`, `on`, `enabled`, `1`
 * false: `false`, `f`, `no`, `n`, `off`, `disabled`, `0`
+
+Covers:
+
+* [feat~statement-definition~1](#statement-definition)
+
+Needs: dsn
+
+#### Literal Values
+`req~literal-values~1`
+
+ESB supports the following literal values: `default`, `double`, `float`, `integer`, `long`, `null`, `string`.
 
 Covers:
 
@@ -303,6 +325,43 @@ ESB supports the following `MERGE` statement:
         *( COMMA ( expression / "DEFAULT" ) )  R_BRACKET
         [ where-clause]
 
+Covers:
+
+* [feat~statement-definition~1](#statement-definition)
+
+Needs: dsn
+
+### Data Query Language (DQL)
+
+#### `Select` Statements
+`req~select-statements~1`
+
+ESB supports the following `SELECT` statement:
+
+    select-statement = "SELECT" select-list [table-expression]
+    
+    select-list = asterisk / derived-column *( COMMA derived-column )
+    
+    asterisk = *
+    
+    derived-column = expression [as-clause]
+    
+    expression = arithmetic-expression / column-reference / function  
+    
+    table-expression = from-clause [where-clause] [limit-clause] [group-by-clause] [order-by-clause]
+    
+    from-clause =  "FROM" table-reference 
+    
+    where-clause =  "WHERE" boolean-term
+    
+    limit-clause = "LIMIT" integer-literal ""
+    
+    group-by-clause =  "GROUP BY" column-reference *( COMMA column-reference ) [having-clause]
+    
+    having-clause = "HAVING" boolean-term
+   
+    order-by-clause = "ORDER BY" column-reference *( COMMA column-reference ) [ "ASC" /  "DESC" ]
+    
 Covers:
 
 * [feat~statement-definition~1](#statement-definition)

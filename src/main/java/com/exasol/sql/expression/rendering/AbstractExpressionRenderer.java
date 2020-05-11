@@ -28,7 +28,7 @@ public abstract class AbstractExpressionRenderer {
         this.builder.append(this.config.useLowerCase() ? keyword.toLowerCase() : keyword);
     }
 
-    protected void connect(final TreeNode expression) {
+    protected void connect(final BooleanExpression expression) {
         if (expression.isChild() && !expression.isFirstSibling()) {
             appendConnector();
         }
