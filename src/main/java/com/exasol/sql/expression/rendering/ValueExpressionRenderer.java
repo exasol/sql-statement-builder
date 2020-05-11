@@ -96,19 +96,18 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
 
     @Override
     public void visit(final BinaryArithmeticExpression expression) {
-        this.connectorDeque.push(expression.getStringOperatorRepresentation());
         startParenthesis();
-    }
-
-    @Override
-    public void addOperator(final BinaryArithmeticExpression expression) {
-        appendKeyword(this.connectorDeque.pop());
-    }
-
-    @Override
-    public void leave(final BinaryArithmeticExpression expression) {
+        appendOperand(expression.getLeft());
+        append(expression.getStringOperatorRepresentation());
+        appendOperand(expression.getRight());
         endParenthesis();
         setLastVisited(expression);
+    }
+
+    protected void appendOperand(final ValueExpression operand) {
+        final ValueExpressionRenderer leftExpressionRenderer = new ValueExpressionRenderer(this.config);
+        operand.accept(leftExpressionRenderer);
+        this.builder.append(leftExpressionRenderer.render());
     }
 
     @Override

@@ -47,10 +47,24 @@ public class BinaryArithmeticExpression extends AbstractTreeNode implements Valu
     @Override
     public void accept(final ValueExpressionVisitor visitor) {
         visitor.visit(this);
-        this.left.accept(visitor);
-        visitor.addOperator(this);
-        this.right.accept(visitor);
-        visitor.leave(this);
+    }
+
+    /**
+     * Get a left operand of the arithmetic expression.
+     * 
+     * @return left operand
+     */
+    public ValueExpression getLeft() {
+        return left;
+    }
+
+    /**
+     * Get a right operand of the arithmetic expression.
+     *
+     * @return right operand
+     */
+    public ValueExpression getRight() {
+        return right;
     }
 
     /**
@@ -61,7 +75,7 @@ public class BinaryArithmeticExpression extends AbstractTreeNode implements Valu
 
         private final String stringOperatorRepresentation;
 
-        BinaryArithmeticOperator(final String stringOperatorRepresentation) {
+        private BinaryArithmeticOperator(final String stringOperatorRepresentation) {
             this.stringOperatorRepresentation = stringOperatorRepresentation;
         }
 

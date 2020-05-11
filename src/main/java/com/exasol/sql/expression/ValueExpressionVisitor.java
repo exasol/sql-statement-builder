@@ -31,10 +31,6 @@ public interface ValueExpressionVisitor {
 
     public void visit(BinaryArithmeticExpression expression);
 
-    public void addOperator(BinaryArithmeticExpression expression);
-
-    public void leave(BinaryArithmeticExpression expression);
-
     public void visit(KeyWord keyWord);
 
     public void visit(NullLiteral nullLiteral);
