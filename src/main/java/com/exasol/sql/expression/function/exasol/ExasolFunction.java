@@ -1,7 +1,5 @@
 package com.exasol.sql.expression.function.exasol;
 
-import static com.exasol.sql.expression.function.exasol.ExasolScalarFunction.*;
-
 import java.util.*;
 
 import com.exasol.sql.expression.ValueExpression;
@@ -14,8 +12,8 @@ import com.exasol.util.AbstractTreeNode;
  * This class represents a function in the Exasol database.
  */
 public class ExasolFunction extends AbstractTreeNode implements Function {
-    private static final List<FunctionName> functionsWithoutParenthesis = Arrays.asList(SYSDATE, CURRENT_SCHEMA,
-            CURRENT_SESSION, CURRENT_STATEMENT, CURRENT_USER, ROWNUM, ROWID, SCOPE_USER, USER);
+    private static final List<String> functionsWithoutParenthesis = Arrays.asList("SYSDATE", "CURRENT_SCHEMA",
+            "CURRENT_SESSION", "CURRENT_STATEMENT", "CURRENT_USER", "ROWNUM", "ROWID", "SCOPE_USER", "USER");
     private final FunctionName functionName;
     private final List<ValueExpression> valueExpressions;
 
@@ -56,7 +54,7 @@ public class ExasolFunction extends AbstractTreeNode implements Function {
 
     @Override
     public boolean hasParenthesis() {
-        return !functionsWithoutParenthesis.contains(ExasolScalarFunction.valueOf(this.functionName.name()));
+        return !functionsWithoutParenthesis.contains(this.functionName.name());
     }
 
     @Override

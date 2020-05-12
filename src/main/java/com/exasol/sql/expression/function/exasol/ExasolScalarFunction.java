@@ -3,7 +3,7 @@ package com.exasol.sql.expression.function.exasol;
 import com.exasol.sql.expression.function.FunctionName;
 
 /**
- * This class is a list of Scalar Function that Exasol database supports.
+ * This class is a list of Scalar Functions that Exasol database supports.
  * 
  * Currently unsupported functions: CASE, SPACE, Functions for Hierarchical Queries.
  */

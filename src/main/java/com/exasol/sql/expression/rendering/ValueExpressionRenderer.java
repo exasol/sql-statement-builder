@@ -113,7 +113,7 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
     @Override
     public void visit(final KeyWord keyWord) {
         append(" ");
-        appendKeyword(keyWord.toString());
+        appendKeyword(keyWord.toString().trim());
         append(" ");
         setLastVisited(keyWord);
     }
@@ -123,5 +123,12 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
         appendCommaWhenNeeded(nullLiteral);
         appendKeyword("NULL");
         setLastVisited(nullLiteral);
+    }
+
+    @Override
+    public void visit(final BooleanExpression booleanExpression) {
+        final BooleanExpressionRenderer expressionRenderer = new BooleanExpressionRenderer(this.config);
+        booleanExpression.accept(expressionRenderer);
+        append(expressionRenderer.render());
     }
 }

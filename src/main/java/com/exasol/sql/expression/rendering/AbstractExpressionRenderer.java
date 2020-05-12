@@ -6,7 +6,6 @@ import java.util.Deque;
 import com.exasol.sql.expression.*;
 import com.exasol.sql.rendering.StringRendererConfig;
 import com.exasol.util.QuotesApplier;
-import com.exasol.util.TreeNode;
 
 /**
  * Common base class for expression renderers.

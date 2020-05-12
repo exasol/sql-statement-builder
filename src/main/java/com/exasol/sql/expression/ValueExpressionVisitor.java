@@ -34,4 +34,6 @@ public interface ValueExpressionVisitor {
     public void visit(KeyWord keyWord);
 
     public void visit(NullLiteral nullLiteral);
+
+    public void visit(BooleanExpression booleanExpression);
 }

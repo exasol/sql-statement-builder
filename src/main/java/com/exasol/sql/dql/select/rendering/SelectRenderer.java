@@ -32,7 +32,7 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
         appendRenderedValueExpression(derivedColumn.getValueExpression());
         if (derivedColumn.hasDerivedColumnName()) {
             appendSpace();
-            append(derivedColumn.getDerivedColumnName());
+            append(derivedColumn.getDerivedColumnName().trim());
         }
         setLastVisited(derivedColumn);
     }

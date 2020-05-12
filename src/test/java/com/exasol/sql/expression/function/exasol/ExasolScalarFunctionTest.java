@@ -24,7 +24,6 @@ class ExasolScalarFunctionTest {
             "CHAR, CHAR, 88, SELECT CHAR(88) CHAR", //
             "UNICODECHR, UNICODECHR, 252, SELECT UNICODECHR(252) UNICODECHR" //
     })
-
     void testScalarFunctionWithIntegerAndColumnName(final String functionName, final String columnName,
             final int integerLiteral, final String expected) {
         final Select select = StatementFactory.getInstance().select() //
