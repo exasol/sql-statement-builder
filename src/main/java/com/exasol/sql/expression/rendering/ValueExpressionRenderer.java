@@ -96,6 +96,7 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
 
     @Override
     public void visit(final BinaryArithmeticExpression expression) {
+        appendCommaWhenNeeded(expression);
         startParenthesis();
         appendOperand(expression.getLeft());
         append(expression.getStringOperatorRepresentation());
