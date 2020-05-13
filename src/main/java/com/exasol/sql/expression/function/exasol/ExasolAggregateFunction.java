@@ -3,10 +3,12 @@ package com.exasol.sql.expression.function.exasol;
 import com.exasol.sql.expression.function.FunctionName;
 
 /**
- * This class is a list of Aggregate Functions that Exasol database supports.
+ * This class is a list of Aggregate Functions that the Exasol database supports.
  *
+ * <p>
  * Currently unsupported functions: GROUPING, PERCENTILE_CONT, PERCENTILE_DISC, OVER clause for all aggregate functions,
  * functions' prefixes that goes after parenthesis.
+ * </p>
  */
 public enum ExasolAggregateFunction implements FunctionName {
     APPROXIMATE_COUNT_DISTINCT, AVG, CORR, COUNT, COVAR_POP, COVAR_SAMP, FIRST_VALUE, GROUP_CONCAT, LAST_VALUE, MAX,
