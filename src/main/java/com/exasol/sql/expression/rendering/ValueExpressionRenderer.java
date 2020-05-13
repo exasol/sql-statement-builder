@@ -111,14 +111,6 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
     }
 
     @Override
-    public void visit(final KeyWord keyWord) {
-        append(" ");
-        appendKeyword(keyWord.toString().trim());
-        append(" ");
-        setLastVisited(keyWord);
-    }
-
-    @Override
     public void visit(final NullLiteral nullLiteral) {
         appendCommaWhenNeeded(nullLiteral);
         appendKeyword("NULL");

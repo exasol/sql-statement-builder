@@ -61,8 +61,7 @@ public abstract class AbstractExpressionRenderer {
     }
 
     protected void appendCommaWhenNeeded(final ValueExpression valueExpression) {
-        if (this.lastVisited != null && !(this.lastVisited instanceof KeyWord)
-                && !(valueExpression.getParent() instanceof BinaryArithmeticExpression)) {
+        if (this.lastVisited != null && !(valueExpression.getParent() instanceof BinaryArithmeticExpression)) {
             if (this.lastVisited.isSibling(valueExpression) || (valueExpression.getParent() != this.lastVisited
                     && this.lastVisited.getClass().equals(valueExpression.getClass()))) {
                 append(", ");
