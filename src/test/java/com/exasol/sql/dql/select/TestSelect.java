@@ -6,8 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.exasol.sql.StatementFactory;
-import com.exasol.sql.dql.select.rendering.SelectRenderer;
-import com.exasol.sql.rendering.StringRendererConfig;
 
 class TestSelect {
     private Select select;

@@ -2,7 +2,7 @@
 
 You can construct [`SELECT`](https://docs.exasol.com/sql/select.htm) SQL statements using the `Select` class.
 
-## Creating `SELECT` Commands
+## Creating `SELECT` Statements
 
 You can create a basic `SELECT` like this:
 
@@ -13,16 +13,20 @@ select.from().table("schemaA.tableA");
 select.limit(10);
 ```
 
-### `SELECT` components
+### `SELECT` Components
 
 Here you can find a list of supported `SELECT` statement's components:
 
-- derived column (field, function, arithmetic expression, etc)
-- `FROM` clause
+- [Derived column](#derived-column) (field, function, arithmetic expression, etc)
+- [`FROM` clause](#from-clause)
+- [`WHERE` clause](#where-clause)
+- [`LIMIT` clause](#limit-clause)
+- [`GROUP BY` clause](#group-by-clause)
+- [`ORDER BY` clause](#order-by-clause)
 
 #### Derived Column
 
-A `SELECT` statement can contain one or more derived columns. Here we describe all supported types of a derived column.
+A `SELECT` statement can contain one or more derived columns. Here we describe all supported types of derived columns.
 
 - `field` represents a column in a table. You can create one or more fields using a method `field( ... )` of the `Select` class.
 
@@ -42,8 +46,9 @@ final Select selectWithOneField = StatementFactory.getInstance().select() //
 ```
 
 - `function` is a pre-defined function executing against a database. Create functions using a `function( ... )` method.
-To create a function you need a name of a function which is included into the list of supported functions of the SSB.
-You can also add a name for a derived field that contains a function. 
+You can only create functions that the SSB supports. Check [the list of supported functions](../list_of_supported_exasol_functions.md).
+
+You can also set a name for a derived field that contains a function. 
 A function takes any number of [`ValueExpression`](../../../src/main/java/com/exasol/sql/expression/ValueExpression.java) 
 and renders them in the order they were added. 
 
@@ -57,7 +62,7 @@ final Select select = StatementFactory.getInstance().select() //
 
 - `arithmetic expression` is a binary arithmetic expression with one of the following arithmetic operator: +, -, *, /.
 Add an arithmetic expression using an `arithmeticExpression( ... )` method.
-You can also add a name for a derived field that contains an arithmetic expression. 
+You can also set a name for a derived field that contains an arithmetic expression. 
 
 ```java
 final Select select = StatementFactory.getInstance().select() //
@@ -134,9 +139,25 @@ select.limit(1);
 A `SELECT` statement can contain one `GROUP BY` clause.
 To start a `GROUP BY` clause, use a method `groupBy()` of the `Select` class. 
 
+The `GROUP BY` clause supports a `HAVING` clause. To add it use a `having( ... )` method.
+
 ```java
 Select select = StatementFactory.getInstance().select();
 select.all().from().table("t");
 select.groupBy(column("t", "city"), column("t", "order"), column("t", "price"))
                         .having(lt(column("t", "price"), integerLiteral(10)));
+```
+
+#### `ORDER BY` clause
+
+A `SELECT` statement can contain one `ORDER BY` clause.
+
+To start a `ORDER BY` clause, use a method `orderBy()` of the `Select` class.
+TYou can also use `nullsFirst()`/`nullsLast()` and `asc()`/`desc()` methods within this clause.
+
+
+```java
+Select select = StatementFactory.getInstance().select();
+select.all().from().table("t");
+select.select.orderBy(column("t", "city"), column("t", "price")).nullsFirst().asc();
 ```
