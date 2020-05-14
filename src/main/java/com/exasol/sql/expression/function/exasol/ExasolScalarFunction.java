@@ -3,11 +3,11 @@ package com.exasol.sql.expression.function.exasol;
 import com.exasol.sql.expression.function.FunctionName;
 
 /**
- * This class is a list of Scalar Functions that Exasol database supports.
+ * This class is a list of Scalar Functions that the Exasol database supports.
  * 
  * Currently unsupported functions: POSITION, DATE_TRUNC, EXTRACT, CAST, CONVERT, CASE, SPACE, Functions for
  * Hierarchical Queries. Keywords inside function's body are also not supported. See
- * {@link <a href="https://github.com/exasol/sql-statement-builder/issues/68"> a github issue</a>}
+ * {@link <a href="https://github.com/exasol/sql-statement-builder/issues/68"> github issue # 68</a>}
  */
 public enum ExasolScalarFunction implements FunctionName {
     // Numeric Functions

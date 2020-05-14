@@ -6,8 +6,8 @@ import com.exasol.sql.expression.function.FunctionName;
  * This class is a list of Aggregate Functions that the Exasol database supports.
  *
  * <p>
- * Currently unsupported functions: GROUPING, PERCENTILE_CONT, PERCENTILE_DISC, OVER clause for all aggregate functions,
- * functions' prefixes that goes after parenthesis.
+ * Currently unsupported functions: GROUPING, PERCENTILE_CONT, PERCENTILE_DISC, OVER clause for all aggregate functions
+ * and keywords. See {@link <a href="https://github.com/exasol/sql-statement-builder/issues/72"> github issue # 72</a>}
  * </p>
  */
 public enum ExasolAggregateFunction implements FunctionName {
