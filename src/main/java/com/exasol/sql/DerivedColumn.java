@@ -54,7 +54,7 @@ public class DerivedColumn extends AbstractFragment implements SelectFragment, M
      * @return derived column name as a String
      */
     public String getDerivedColumnName() {
-        return this.derivedColumnName;
+        return this.derivedColumnName.trim();
     }
 
     /**

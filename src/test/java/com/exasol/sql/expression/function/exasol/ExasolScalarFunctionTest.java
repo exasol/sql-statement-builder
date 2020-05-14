@@ -24,7 +24,6 @@ class ExasolScalarFunctionTest {
             "CHAR, CHAR, 88, SELECT CHAR(88) CHAR", //
             "UNICODECHR, UNICODECHR, 252, SELECT UNICODECHR(252) UNICODECHR" //
     })
-
     void testScalarFunctionWithIntegerAndColumnName(final String functionName, final String columnName,
             final int integerLiteral, final String expected) {
         final Select select = StatementFactory.getInstance().select() //
@@ -233,14 +232,6 @@ class ExasolScalarFunctionTest {
         assertThat(select, rendersTo("SELECT MID('abcdef', 2, 3) MID"));
     }
 
-    @Test
-    void testScalarFunctionPosition() {
-        final Select select = StatementFactory.getInstance().select() //
-                .function(ExasolScalarFunction.POSITION, "POS", stringLiteral("cab"), keyWord("IN"),
-                        stringLiteral("abcabcabc"));
-        assertThat(select, rendersTo("SELECT POSITION('cab' IN 'abcabcabc') POS"));
-    }
-
     @ParameterizedTest
     @CsvSource(value = { //
             "REPLACE; Apple juice is great; Apple; Orange; SELECT REPLACE('Apple juice is great', 'Apple', 'Orange')", //
@@ -258,36 +249,32 @@ class ExasolScalarFunctionTest {
     void testScalarFunctionSubstr() {
         final Select select = StatementFactory.getInstance().select() //
                 .function(ExasolScalarFunction.SUBSTR, "S1", stringLiteral("abcdef"), integerLiteral(2),
-                        integerLiteral(3))//
-                .function(ExasolScalarFunction.SUBSTR, "S2", stringLiteral("abcdef"), keyWord("FROM"),
-                        integerLiteral(4), keyWord("FOR"), integerLiteral(2));
-        assertThat(select, rendersTo("SELECT SUBSTR('abcdef', 2, 3) S1, SUBSTR('abcdef' FROM 4 FOR 2) S2"));
+                        integerLiteral(3));
+        assertThat(select, rendersTo("SELECT SUBSTR('abcdef', 2, 3) S1"));
     }
 
     @Test
     void testScalarFunctionDateToChar() {
         final Select select = StatementFactory.getInstance().select() //
-                .function(ExasolScalarFunction.TO_CHAR, "TO_CHAR", keyWord("DATE"), stringLiteral("1999-12-31"));
-        assertThat(select, rendersTo("SELECT TO_CHAR( DATE '1999-12-31') TO_CHAR"));
+                .function(ExasolScalarFunction.TO_CHAR, "TO_CHAR", stringLiteral("1999-12-31"));
+        assertThat(select, rendersTo("SELECT TO_CHAR('1999-12-31') TO_CHAR"));
     }
 
     @Test
     void testScalarFunctionTrim() {
         final Select select = StatementFactory.getInstance().select() //
-                .function(ExasolScalarFunction.TRIM, keyWord("LEADING"), stringLiteral("1"), keyWord("FROM"),
-                        stringLiteral("1234567891"));
-        assertThat(select, rendersTo("SELECT TRIM( LEADING '1' FROM '1234567891')"));
+                .function(ExasolScalarFunction.TRIM, stringLiteral("abcdef"), stringLiteral("acf"));
+        assertThat(select, rendersTo("SELECT TRIM('abcdef', 'acf')"));
     }
 
     @Test
     void testScalarFunctionAddYears() {
         final Select select = StatementFactory.getInstance().select() //
-                .function(ExasolScalarFunction.ADD_YEARS, "AY1", keyWord("DATE"), stringLiteral("2000-02-29"),
-                        integerLiteral(1)) //
-                .function(ExasolScalarFunction.ADD_YEARS, "AY2", keyWord("TIMESTAMP"),
-                        stringLiteral("2005-01-31 12:00:00"), integerLiteral(-1));
-        assertThat(select, rendersTo(
-                "SELECT ADD_YEARS( DATE '2000-02-29', 1) AY1, ADD_YEARS( TIMESTAMP '2005-01-31 12:00:00', -1) AY2"));
+                .function(ExasolScalarFunction.ADD_YEARS, "AY1", stringLiteral("2000-02-29"), integerLiteral(1)) //
+                .function(ExasolScalarFunction.ADD_YEARS, "AY2", stringLiteral("2005-01-31 12:00:00"),
+                        integerLiteral(-1));
+        assertThat(select,
+                rendersTo("SELECT ADD_YEARS('2000-02-29', 1) AY1, ADD_YEARS('2005-01-31 12:00:00', -1) AY2"));
     }
 
     @Test

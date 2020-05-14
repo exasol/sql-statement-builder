@@ -170,16 +170,6 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
     }
 
     /**
-     * Create a key word.
-     *
-     * @param value key word value
-     * @return key word
-     */
-    public static KeyWord keyWord(final String value) {
-        return KeyWord.of(value);
-    }
-
-    /**
      * Create a NULL literal.
      *
      * @return NULL literal
