@@ -7,7 +7,7 @@ import com.exasol.sql.expression.function.FunctionName;
  *
  * <p>
  * Currently unsupported functions: GROUPING, PERCENTILE_CONT, PERCENTILE_DISC, OVER clause for all aggregate functions
- * and keywords. See {@link <a href="https://github.com/exasol/sql-statement-builder/issues/72"> github issue # 72</a>}
+ * and keywords. See <a href="https://github.com/exasol/sql-statement-builder/issues/72"> github issue # 72</a>.
  * </p>
  */
 public enum ExasolAggregateFunction implements FunctionName {
