@@ -4,7 +4,7 @@ Here you can find a list of supported(or partly supported) functions for the Exa
 
 - [Scalar Functions](#scalar-functions)
 - [Aggregate Functions](#aggregate-functions)
-- 
+- [Analytic Functions](#analytic-functions)
 
 ## Scalar Functions
      
