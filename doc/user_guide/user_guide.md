@@ -19,7 +19,7 @@ Data Definition Language (DDL)
 
 Data Query Language (DQL)
 
-- SELECT
+- [SELECT](statements/select.md)
 
 Data Modification Language (DML)
 
