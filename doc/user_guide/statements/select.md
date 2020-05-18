@@ -38,21 +38,20 @@ final Select selectWithMultipleFileds = StatementFactory.getInstance().select() 
         .field("fieldA", "tableA.fieldB", "tableB.*");
 ```
 
-- `star / *` is  a wildcard field for all involved fields. Create a star using an `all()` method.
+The `asterisk / *` is  a wildcard representing all fields. Create an asterisk using the `all()` method.
 
 ```java
-final Select selectWithOneField = StatementFactory.getInstance().select() //
-        .all();
+final Select selectWithOneField = factory.select() .all();
 ```
 
-- `function` is a pre-defined function executing against a database. Create functions using a `function( ... )` method.
+The factory method `function(...)` adds a pre-defined function to a statement that evaluates to a value expression.
 You can only create functions that the SSB supports. Check [the list of supported functions](../list_of_supported_exasol_functions.md).
 
 You can also set a name for a derived field that contains a function. 
-A function takes any number of [`ValueExpression`](../../../src/main/java/com/exasol/sql/expression/ValueExpression.java) 
+A function takes any number of [`ValueExpression`](../../../src/main/java/com/exasol/sql/expression/ValueExpression.java)s 
 and renders them in the order they were added. 
 
-A function doesn't check if a user adds correct and allowed by database arguments.
+A the `function(...)` factory method does not validate the function arguments.
 
 ```java
 final Select select = StatementFactory.getInstance().select() //
@@ -60,39 +59,34 @@ final Select select = StatementFactory.getInstance().select() //
     .function(ExasolScalarFunction.RANDOM, "RANDOM_2", ExpressionTerm.integerLiteral(5), ExpressionTerm.integerLiteral(20));
 ```
 
-- `arithmetic expression` is a binary arithmetic expression with one of the following arithmetic operator: +, -, *, /.
+An `arithmetic expression` is a binary value expression using one of the following arithmetic operators: `+`, `-`, `*`, `/`.
 Add an arithmetic expression using an `arithmeticExpression( ... )` method.
 You can also set a name for a derived field that contains an arithmetic expression. 
 
 ```java
-final Select select = StatementFactory.getInstance().select() //
+final Select select = factory.select() //
     .arithmeticExpression(ExpressionTerm.plus(ExpressionTerm.integerLiteral(1000), ExpressionTerm.integerLiteral(234)), "ADD");
 ```
 
 #### `FROM` clause
 
-A `SELECT` statement can contain one `FROM` clause.
-To start a `FROM` clause, use a method `from()` of the `Select` class. `
-FROM` clause appends one or more of following structures:
+A `SELECT` statement can contain a single `FROM` clause.
+To start a `FROM` clause, use a method `from()` of the `Select` class.
 
-- `table` is a name of the table. You can append it with `table( ... )` method.
+You can append references to database tables with the `table( ... )` method.
 
-- `table with AS clause`is a name of table with an alias. You can append it with `tableAs( ... )` method.
+If you want to refer to such a table by an alias,  append it with `tableAs( ... )` method.
 
-- `value table` is a mocked table which you define inside the `SELECT` statement. To use this structure you need to create a `ValueTable` first.
-Then you can use `valueTable( ... )` method of the `Select`.
+You can also add value tables, containing a user-constructed set or rows and columns. Unlike a real table, the contents are pre-defined in the query. To use this structure, create a `ValueTable` object first. Then reference that object using the  `valueTable( ... )` method of the `Select`.
 
 ```java
-final Select selectFromTable = StatementFactory.getInstance().select().all();
-select.from().table("table1");
+final Select selectFromTable = factory.select().all().from().table("table1");
 
-final Select selectFromTableAs = StatementFactory.getInstance().select().all();
-select.from().tableAs("table", "t");
+final Select selectFromTableAs = factory.select().all().from().tableAs("table", "t");
 
 final ValueTable values = new ValueTable(this.select);
 values.appendRow("r1c1", "r1c2").appendRow("r2c1", "r2c2");
-final Select selectFromValueTable = StatementFactory.getInstance().select().all();
-select.from().valueTable(values);
+final Select selectFromValueTable = factory.select().all().from().valueTable(values);
 ```
 
 The `FROM` clause also supports different types of `JOIN`:
@@ -109,55 +103,52 @@ The `FROM` clause also supports different types of `JOIN`:
 To add a `JOIN` clause you need to add a left table and then use one of the join methods. For example, `innerJoin( ... )`; 
 
 ```java
-final Select selectFromTable = StatementFactory.getInstance().select().all();
-select.from().table("left_table").innerJoin("right_table", "left_table.foo_id = right_table.foo_id");  
+final Select selectFromTable = factory.select().all().from().table("left_table")
+        .innerJoin("right_table", "left_table.foo_id = right_table.foo_id");  
 ```
 #### `WHERE` clause
 
-A `SELECT` statement can contain one `WHERE` clause with a boolean expression.
+A `SELECT` statement can contain one `WHERE` clause with a boolean expression as filter criteria.
 To add a `WHERE` clause, use a method `where( ... )` of the `Select` class. 
 
 ```java
-Select select = StatementFactory.getInstance().select();
-select.all().from().table("person");
-select.where(eq(ExpressionTerm.stringLiteral("foo"), ExpressionTerm.stringLiteral("bar")));
+Select select = factory.select.all().from().table("person")
+        .where(eq(ExpressionTerm.stringLiteral("foo"), ExpressionTerm.stringLiteral("bar")));
 ```
 
 #### `LIMIT` clause
 
-A `SELECT` statement can contain one `LIMIT` clause with offset and count.
+A `SELECT` statement can contain one `LIMIT` clause with count and an optional offset.
 To add a `LIMIT` clause, use a method `limit( ... )` of the `Select` class. 
 
 ```java
-Select select = StatementFactory.getInstance().select();
-select.all().from().table("t");
-select.limit(1);
+Select select = factory.select().all().from().table("t")
+        .limit(1);
 ```
 
 #### `GROUP BY` clause
 
 A `SELECT` statement can contain one `GROUP BY` clause.
-To start a `GROUP BY` clause, use a method `groupBy()` of the `Select` class. 
+To start a `GROUP BY` clause, use the `groupBy()` method of the `Select` class. 
 
 The `GROUP BY` clause supports a `HAVING` clause. To add it use a `having( ... )` method.
 
 ```java
-Select select = StatementFactory.getInstance().select();
-select.all().from().table("t");
-select.groupBy(column("t", "city"), column("t", "order"), column("t", "price"))
-                        .having(lt(column("t", "price"), integerLiteral(10)));
+Select select = factory.select().all().from().table("t")
+        .groupBy(column("t", "city"), column("t", "order"), column("t", "price"))
+        .having(lt(column("t", "price"), integerLiteral(10)));
 ```
 
 #### `ORDER BY` clause
 
 A `SELECT` statement can contain one `ORDER BY` clause.
 
-To start a `ORDER BY` clause, use a method `orderBy()` of the `Select` class.
-TYou can also use `nullsFirst()`/`nullsLast()` and `asc()`/`desc()` methods within this clause.
+To start a `ORDER BY` clause, use the `orderBy()` method of the `Select` class.
+You can also use `nullsFirst()`/`nullsLast()` and `asc()`/`desc()` methods within this clause.
 
 
 ```java
-Select select = StatementFactory.getInstance().select();
-select.all().from().table("t");
-select.select.orderBy(column("t", "city"), column("t", "price")).nullsFirst().asc();
+Select select = factory.select().all().from().table("t")
+        .orderBy(column("t", "city"), column("t", "price"))
+        .nullsFirst().asc();
 ```
