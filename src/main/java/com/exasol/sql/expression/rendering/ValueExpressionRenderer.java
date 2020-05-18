@@ -1,12 +1,15 @@
 package com.exasol.sql.expression.rendering;
 
+import com.exasol.sql.ColumnsDefinition;
 import com.exasol.sql.UnnamedPlaceholder;
 import com.exasol.sql.expression.*;
 import com.exasol.sql.expression.function.Function;
+import com.exasol.sql.expression.function.exasol.ExasolUdfFunction;
+import com.exasol.sql.rendering.ColumnsDefinitionRenderer;
 import com.exasol.sql.rendering.StringRendererConfig;
 
 /**
- * Renderer for common value expressions
+ * Renderer for common value expressions.
  */
 public class ValueExpressionRenderer extends AbstractExpressionRenderer implements ValueExpressionVisitor {
     public ValueExpressionRenderer(final StringRendererConfig config) {
@@ -83,7 +86,6 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
         if (function.hasParenthesis()) {
             startParenthesis();
         }
-        setLastVisited(function);
     }
 
     @Override
@@ -91,7 +93,19 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
         if (function.hasParenthesis()) {
             endParenthesis();
         }
+        appendEmitsWhenNecessary(function);
         setLastVisited(function);
+    }
+
+    private void appendEmitsWhenNecessary(final Function function) {
+        if (function instanceof ExasolUdfFunction && ((ExasolUdfFunction) function).hasEmitsColumnsDefinition()) {
+            appendKeyword(" EMITS");
+            final ColumnsDefinition columnsDefinition = ((ExasolUdfFunction) function).getEmitsColumnsDefinition()
+                    .get();
+            final ColumnsDefinitionRenderer columnsDefinitionRenderer = new ColumnsDefinitionRenderer(this.config);
+            columnsDefinition.accept(columnsDefinitionRenderer);
+            this.builder.append(columnsDefinitionRenderer.render());
+        }
     }
 
     @Override

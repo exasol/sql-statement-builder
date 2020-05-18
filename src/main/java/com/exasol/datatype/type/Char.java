@@ -1,6 +1,6 @@
 package com.exasol.datatype.type;
 
-import com.exasol.sql.ddl.create.CreateTableVisitor;
+import com.exasol.sql.ColumnDefinitionVisitor;
 
 /**
  * This class implements the SQL data type char
@@ -20,7 +20,7 @@ public class Char extends AbstractStringDataType<Char> {
     }
 
     @Override
-    public void accept(final CreateTableVisitor visitor) {
+    public void accept(final ColumnDefinitionVisitor visitor) {
         visitor.visit(this);
     }
 

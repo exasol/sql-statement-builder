@@ -1,11 +1,10 @@
 package com.exasol.sql.ddl.create.rendering;
 
-import com.exasol.datatype.type.*;
-import com.exasol.datatype.type.Boolean;
+import com.exasol.sql.ColumnsDefinition;
 import com.exasol.sql.Table;
-import com.exasol.sql.ddl.create.*;
-import com.exasol.sql.rendering.AbstractFragmentRenderer;
-import com.exasol.sql.rendering.StringRendererConfig;
+import com.exasol.sql.ddl.create.CreateTable;
+import com.exasol.sql.ddl.create.CreateTableVisitor;
+import com.exasol.sql.rendering.*;
 
 /**
  * The {@link CreateTableRenderer} turns SQL statement structures in to SQL strings.
@@ -43,112 +42,23 @@ public class CreateTableRenderer extends AbstractFragmentRenderer implements Cre
     @Override
     public void visit(final CreateTable createTable) {
         appendKeyWord("CREATE TABLE ");
+    }
+
+    @Override
+    public void leave(final CreateTable createTable) {
+        appendColumnReference(createTable.getColumns());
         setLastVisited(createTable);
     }
 
-    @Override
-    public void visit(final Column column) {
-        appendCommaWhenNeeded(column);
-        appendAutoQuoted(column.getColumnName());
-        setLastVisited(column);
-    }
-
-    @Override
-    public void visit(final ColumnsDefinition columnsDefinition) {
-        append(" (");
-        setLastVisited(columnsDefinition);
-    }
-
-    @Override
-    public void leave(final ColumnsDefinition columnsDefinition) {
-        append(")");
-        setLastVisited(columnsDefinition);
-    }
-
-    @Override
-    public void visit(final Char charColumn) {
-        appendStringDataType(charColumn);
-    }
-
-    @Override
-    public void visit(final Varchar varcharColumn) {
-        appendStringDataType(varcharColumn);
-    }
-
-    @Override
-    public void visit(final Boolean booleanColumn) {
-        appendDataTypeWithoutParameters(booleanColumn);
-    }
-
-    @Override
-    public void visit(final Date dateColumn) {
-        appendDataTypeWithoutParameters(dateColumn);
-    }
-
-    @Override
-    public void visit(final Decimal decimalColumn) {
-        appendSpace();
-        append(decimalColumn.getName());
-        append("(");
-        append(decimalColumn.getPrecision());
-        append(",");
-        append(decimalColumn.getScale());
-        append(")");
-    }
-
-    @Override
-    public void visit(final DoublePrecision doublePrecisionColumn) {
-        appendDataTypeWithoutParameters(doublePrecisionColumn);
-    }
-
-    @Override
-    public void visit(final Timestamp timestampColumn) {
-        appendDataTypeWithoutParameters(timestampColumn);
-    }
-
-    @Override
-    public void visit(final TimestampWithLocalTimezone timestampWithLocalTimezoneColumn) {
-        appendDataTypeWithoutParameters(timestampWithLocalTimezoneColumn);
-    }
-
-    @Override
-    public void visit(final IntervalDayToSecond intervalDayToSecondColumn) {
-        appendSpace();
-        append(getIntervalDayToSecondNameWithPrecision(intervalDayToSecondColumn));
-    }
-
-    @Override
-    public void visit(final IntervalYearToMonth intervalYearToMonthColumn) {
-        appendSpace();
-        append(getIntervalYearToMonthNameWithPrecision(intervalYearToMonthColumn));
+    private void appendColumnReference(final ColumnsDefinition columns) {
+        final ColumnsDefinitionRenderer renderer = new ColumnsDefinitionRenderer(this.config);
+        columns.accept(renderer);
+        append(renderer.render());
     }
 
     @Override
     public void visit(final Table table) {
         appendAutoQuoted(table.getName());
         setLastVisited(table);
-    }
-
-    private String getIntervalDayToSecondNameWithPrecision(final IntervalDayToSecond intervalDayToSecondColumn) {
-        return String.format(intervalDayToSecondColumn.getName(), intervalDayToSecondColumn.getYearPrecision(),
-                intervalDayToSecondColumn.getMillisecondPrecision());
-    }
-
-    private String getIntervalYearToMonthNameWithPrecision(final IntervalYearToMonth intervalYearToMonthColumn) {
-        return String.format(intervalYearToMonthColumn.getName(), intervalYearToMonthColumn.getYearPrecision());
-    }
-
-    private void appendDataTypeWithoutParameters(final DataType dataType) {
-        appendSpace();
-        append(dataType.getName());
-    }
-
-    private void appendStringDataType(
-            final AbstractStringDataType<? extends AbstractStringDataType<?>> stringDataType) {
-        appendSpace();
-        append(stringDataType.getName());
-        append("(");
-        append(stringDataType.getLength());
-        append(")");
     }
 }

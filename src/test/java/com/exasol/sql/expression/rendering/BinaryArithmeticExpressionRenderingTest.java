@@ -22,7 +22,6 @@ public class BinaryArithmeticExpressionRenderingTest {
     void testPlusRendering() {
         this.select.arithmeticExpression(plus(integerLiteral(1000), integerLiteral(234)), "ADD");
         assertThat(this.select, rendersTo("SELECT (1000+234) ADD"));
-
     }
 
     @Test
@@ -51,6 +50,5 @@ public class BinaryArithmeticExpressionRenderingTest {
         this.select.arithmeticExpression(divide(plus(integerLiteral(1000), integerLiteral(234)),
                 multiply(integerLiteral(1000), integerLiteral(100))));
         assertThat(this.select, rendersTo("SELECT ((1000+234)/(1000*100))"));
-
     }
 }

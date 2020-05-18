@@ -9,7 +9,7 @@ import com.exasol.sql.*;
  */
 public class CreateTable extends AbstractFragment implements SqlStatement, CreateTableFragment {
     private final Table table;
-    private ColumnsDefinition columnsDefinition;
+    private final ColumnsDefinition columnsDefinition = new ColumnsDefinition(this);
 
     /**
      * Create a new instance of an {@link CreateTable} statement
@@ -28,15 +28,8 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * @return <code>this</code> for fluent programming
      */
     public synchronized CreateTable booleanColumn(final String columnName) {
-        checkIfCreateTableColumnsExists();
         this.columnsDefinition.add(columnName, new Boolean());
         return this;
-    }
-
-    private void checkIfCreateTableColumnsExists() {
-        if (this.columnsDefinition == null) {
-            this.columnsDefinition = new ColumnsDefinition(this);
-        }
     }
 
     /**
@@ -47,7 +40,6 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * @return <code>this</code> for fluent programming
      */
     public synchronized CreateTable charColumn(final String columnName, final int length) {
-        checkIfCreateTableColumnsExists();
         this.columnsDefinition.add(columnName, new Char(length));
         return this;
     }
@@ -60,7 +52,6 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * @return <code>this</code> for fluent programming
      */
     public synchronized CreateTable varcharColumn(final String columnName, final int length) {
-        checkIfCreateTableColumnsExists();
         this.columnsDefinition.add(columnName, new Varchar(length));
         return this;
     }
@@ -72,7 +63,6 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * @return <code>this</code> for fluent programming
      */
     public synchronized CreateTable dateColumn(final String columnName) {
-        checkIfCreateTableColumnsExists();
         this.columnsDefinition.add(columnName, new Date());
         return this;
     }
@@ -86,7 +76,6 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * @return <code>this</code> for fluent programming
      */
     public synchronized CreateTable decimalColumn(final String columnName, final int precision, final int scale) {
-        checkIfCreateTableColumnsExists();
         this.columnsDefinition.add(columnName, new Decimal(precision, scale));
         return this;
     }
@@ -98,7 +87,6 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * @return <code>this</code> for fluent programming
      */
     public synchronized CreateTable doublePrecisionColumn(final String columnName) {
-        checkIfCreateTableColumnsExists();
         this.columnsDefinition.add(columnName, new DoublePrecision());
         return this;
     }
@@ -110,7 +98,6 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * @return <code>this</code> for fluent programming
      */
     public synchronized CreateTable timestampColumn(final String columnName) {
-        checkIfCreateTableColumnsExists();
         this.columnsDefinition.add(columnName, new Timestamp());
         return this;
     }
@@ -122,7 +109,6 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * @return <code>this</code> for fluent programming
      */
     public synchronized CreateTable timestampWithLocalTimeZoneColumn(final String columnName) {
-        checkIfCreateTableColumnsExists();
         this.columnsDefinition.add(columnName, new TimestampWithLocalTimezone());
         return this;
     }
@@ -137,7 +123,6 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      */
     public synchronized CreateTable intervalDayToSecondColumn(final String columnName, final int yearPrecision,
             final int millisecondPrecision) {
-        checkIfCreateTableColumnsExists();
         this.columnsDefinition.add(columnName, new IntervalDayToSecond(yearPrecision, millisecondPrecision));
         return this;
     }
@@ -150,7 +135,6 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * @return <code>this</code> for fluent programming
      */
     public synchronized CreateTable intervalYearToMonthColumn(final String columnName, final int yearPrecision) {
-        checkIfCreateTableColumnsExists();
         this.columnsDefinition.add(columnName, new IntervalYearToMonth(yearPrecision));
         return this;
     }
@@ -177,8 +161,6 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
     public void accept(final CreateTableVisitor visitor) {
         visitor.visit(this);
         this.table.accept(visitor);
-        if (this.columnsDefinition != null) {
-            this.columnsDefinition.accept(visitor);
-        }
+        visitor.leave(this);
     }
 }

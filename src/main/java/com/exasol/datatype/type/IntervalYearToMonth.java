@@ -1,6 +1,6 @@
 package com.exasol.datatype.type;
 
-import com.exasol.sql.ddl.create.CreateTableVisitor;
+import com.exasol.sql.ColumnDefinitionVisitor;
 
 /**
  * This class implements the Exasol-proprietary data type interval year to month
@@ -26,7 +26,7 @@ public class IntervalYearToMonth implements DataType {
     }
 
     @Override
-    public void accept(final CreateTableVisitor visitor) {
+    public void accept(final ColumnDefinitionVisitor visitor) {
         visitor.visit(this);
     }
 
