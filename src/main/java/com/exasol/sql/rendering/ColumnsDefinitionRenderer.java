@@ -20,7 +20,8 @@ public class ColumnsDefinitionRenderer extends AbstractFragmentRenderer implemen
     @Override
     public void visit(final ColumnsDefinition columnsDefinition) {
         if (!columnsDefinition.getColumns().isEmpty()) {
-            append(" (");
+            appendSpace();
+            append("(");
         }
     }
 

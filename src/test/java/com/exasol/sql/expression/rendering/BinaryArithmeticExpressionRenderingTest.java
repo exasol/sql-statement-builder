@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import com.exasol.sql.StatementFactory;
 import com.exasol.sql.dql.select.Select;
 
-public class BinaryArithmeticExpressionRenderingTest {
+class BinaryArithmeticExpressionRenderingTest {
     private Select select;
 
     @BeforeEach

@@ -4,43 +4,43 @@ import java.util.*;
 
 import com.exasol.sql.ColumnsDefinition;
 import com.exasol.sql.expression.ValueExpression;
+import com.exasol.sql.expression.ValueExpressionVisitor;
 import com.exasol.sql.expression.function.AbstractFunction;
 
 /**
  * This class represents a User Defined Function in the Exasol database.
  */
-public class ExasolUdfFunction extends AbstractFunction {
+public class ExasolUdf extends AbstractFunction {
     private final Optional<ColumnsDefinition> emitsColumnsDefinition;
 
-    private ExasolUdfFunction(final String functionName, final Optional<ColumnsDefinition> emitsColumnsDefinition,
+    private ExasolUdf(final String functionName, final Optional<ColumnsDefinition> emitsColumnsDefinition,
             final List<ValueExpression> valueExpressions) {
         super(functionName, valueExpressions);
         this.emitsColumnsDefinition = emitsColumnsDefinition;
     }
 
     /**
-     * Create a new {@link ExasolUdfFunction} instance.
+     * Create a new {@link ExasolUdf} instance.
      *
      * @param functionName name of the function
      * @param emitsColumnsDefinition column definitions for emits
      * @param valueExpressions zero or more value expressions
-     * @return new {@link ExasolUdfFunction}
+     * @return new {@link ExasolUdf}
      */
-    public static ExasolUdfFunction of(final String functionName, final ColumnsDefinition emitsColumnsDefinition,
+    public static ExasolUdf of(final String functionName, final ColumnsDefinition emitsColumnsDefinition,
             final ValueExpression... valueExpressions) {
-        return new ExasolUdfFunction(functionName, Optional.of(emitsColumnsDefinition),
-                Arrays.asList(valueExpressions));
+        return new ExasolUdf(functionName, Optional.of(emitsColumnsDefinition), Arrays.asList(valueExpressions));
     }
 
     /**
-     * Create a new {@link ExasolUdfFunction} instance.
+     * Create a new {@link ExasolUdf} instance.
      *
      * @param functionName name of the function
      * @param valueExpressions zero or more value expressions
-     * @return new {@link ExasolUdfFunction}
+     * @return new {@link ExasolUdf}
      */
-    public static ExasolUdfFunction of(final String functionName, final ValueExpression... valueExpressions) {
-        return new ExasolUdfFunction(functionName, Optional.empty(), Arrays.asList(valueExpressions));
+    public static ExasolUdf of(final String functionName, final ValueExpression... valueExpressions) {
+        return new ExasolUdf(functionName, Optional.empty(), Arrays.asList(valueExpressions));
     }
 
     @Override
@@ -64,5 +64,14 @@ public class ExasolUdfFunction extends AbstractFunction {
      */
     public Optional<ColumnsDefinition> getEmitsColumnsDefinition() {
         return this.emitsColumnsDefinition;
+    }
+
+    @Override
+    public void accept(final ValueExpressionVisitor visitor) {
+        visitor.visit(this);
+        for (final ValueExpression valueExpression : this.valueExpressions) {
+            valueExpression.accept(visitor);
+        }
+        visitor.leave(this);
     }
 }

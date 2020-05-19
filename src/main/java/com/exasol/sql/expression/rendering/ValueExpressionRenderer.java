@@ -4,7 +4,8 @@ import com.exasol.sql.ColumnsDefinition;
 import com.exasol.sql.UnnamedPlaceholder;
 import com.exasol.sql.expression.*;
 import com.exasol.sql.expression.function.Function;
-import com.exasol.sql.expression.function.exasol.ExasolUdfFunction;
+import com.exasol.sql.expression.function.exasol.ExasolFunction;
+import com.exasol.sql.expression.function.exasol.ExasolUdf;
 import com.exasol.sql.rendering.ColumnsDefinitionRenderer;
 import com.exasol.sql.rendering.StringRendererConfig;
 
@@ -80,7 +81,11 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
     }
 
     @Override
-    public void visit(final Function function) {
+    public void visit(final ExasolFunction function) {
+        visitFunction(function);
+    }
+
+    private void visitFunction(final Function function) {
         appendCommaWhenNeeded(function);
         appendKeyword(function.getFunctionName());
         if (function.hasParenthesis()) {
@@ -89,7 +94,20 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
     }
 
     @Override
-    public void leave(final Function function) {
+    public void leave(final ExasolFunction function) {
+        if (function.hasParenthesis()) {
+            endParenthesis();
+        }
+        setLastVisited(function);
+    }
+
+    @Override
+    public void visit(final ExasolUdf function) {
+        visitFunction(function);
+    }
+
+    @Override
+    public void leave(final ExasolUdf function) {
         if (function.hasParenthesis()) {
             endParenthesis();
         }
@@ -97,11 +115,12 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
         setLastVisited(function);
     }
 
-    private void appendEmitsWhenNecessary(final Function function) {
-        if (function instanceof ExasolUdfFunction && ((ExasolUdfFunction) function).hasEmitsColumnsDefinition()) {
+    @SuppressWarnings("squid:S3655")
+    // We do check if optional is present using a method hasEmitsColumnsDefinition().
+    private void appendEmitsWhenNecessary(final ExasolUdf function) {
+        if (function.hasEmitsColumnsDefinition()) {
             appendKeyword(" EMITS");
-            final ColumnsDefinition columnsDefinition = ((ExasolUdfFunction) function).getEmitsColumnsDefinition()
-                    .get();
+            final ColumnsDefinition columnsDefinition = function.getEmitsColumnsDefinition().get();
             final ColumnsDefinitionRenderer columnsDefinitionRenderer = new ColumnsDefinitionRenderer(this.config);
             columnsDefinition.accept(columnsDefinitionRenderer);
             this.builder.append(columnsDefinitionRenderer.render());

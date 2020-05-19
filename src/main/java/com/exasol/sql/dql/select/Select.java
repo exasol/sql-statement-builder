@@ -86,14 +86,15 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      * @param valueExpressions zero or more value expressions
      * @return <code>this</code> instance for fluent programming
      */
-    public Select udfFunction(final String functionName, final ColumnsDefinition emitsColumnsDefinition,
+
+    public Select udf(final String functionName, final ColumnsDefinition emitsColumnsDefinition,
             final ValueExpression... valueExpressions) {
-        final Function udfFunction = ExpressionTerm.udfFunction(functionName, emitsColumnsDefinition, valueExpressions);
-        return createUdfFunction(udfFunction);
+        final Function udf = ExpressionTerm.udf(functionName, emitsColumnsDefinition, valueExpressions);
+        return createUdf(udf);
     }
 
-    private Select createUdfFunction(Function udfFunction) {
-        final DerivedColumn derivedColumn = new DerivedColumn(this, udfFunction);
+    private Select createUdf(Function udf) {
+        final DerivedColumn derivedColumn = new DerivedColumn(this, udf);
         this.derivedColumns.add(derivedColumn);
         return this;
     }
@@ -105,9 +106,9 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      * @param valueExpressions zero or more value expressions
      * @return <code>this</code> instance for fluent programming
      */
-    public Select udfFunction(final String functionName, final ValueExpression... valueExpressions) {
-        final Function udfFunction = ExpressionTerm.udfFunction(functionName, valueExpressions);
-        return createUdfFunction(udfFunction);
+    public Select udf(final String functionName, final ValueExpression... valueExpressions) {
+        final Function udf = ExpressionTerm.udf(functionName, valueExpressions);
+        return createUdf(udf);
     }
 
     /**

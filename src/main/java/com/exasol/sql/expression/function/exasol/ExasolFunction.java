@@ -3,6 +3,7 @@ package com.exasol.sql.expression.function.exasol;
 import java.util.*;
 
 import com.exasol.sql.expression.ValueExpression;
+import com.exasol.sql.expression.ValueExpressionVisitor;
 import com.exasol.sql.expression.function.AbstractFunction;
 import com.exasol.sql.expression.function.FunctionName;
 
@@ -41,5 +42,14 @@ public class ExasolFunction extends AbstractFunction {
     @Override
     public boolean hasParenthesis() {
         return !functionsWithoutParenthesis.contains(this.functionName);
+    }
+
+    @Override
+    public void accept(final ValueExpressionVisitor visitor) {
+        visitor.visit(this);
+        for (final ValueExpression valueExpression : this.valueExpressions) {
+            valueExpression.accept(visitor);
+        }
+        visitor.leave(this);
     }
 }

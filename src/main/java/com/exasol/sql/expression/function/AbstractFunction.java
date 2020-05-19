@@ -3,7 +3,6 @@ package com.exasol.sql.expression.function;
 import java.util.List;
 
 import com.exasol.sql.expression.ValueExpression;
-import com.exasol.sql.expression.ValueExpressionVisitor;
 import com.exasol.util.AbstractTreeNode;
 
 /**
@@ -13,6 +12,12 @@ public abstract class AbstractFunction extends AbstractTreeNode implements Funct
     protected String functionName;
     protected List<ValueExpression> valueExpressions;
 
+    /**
+     * Create a new instance using {@link AbstractFunction}.
+     * 
+     * @param functionName name of a function
+     * @param valueExpressions zero or more value expressions
+     */
     protected AbstractFunction(final String functionName, final List<ValueExpression> valueExpressions) {
         this.functionName = functionName;
         this.valueExpressions = valueExpressions;
@@ -25,14 +30,5 @@ public abstract class AbstractFunction extends AbstractTreeNode implements Funct
     @Override
     public String getFunctionName() {
         return this.functionName;
-    }
-
-    @Override
-    public void accept(final ValueExpressionVisitor visitor) {
-        visitor.visit(this);
-        for (final ValueExpression valueExpression : this.valueExpressions) {
-            valueExpression.accept(visitor);
-        }
-        visitor.leave(this);
     }
 }

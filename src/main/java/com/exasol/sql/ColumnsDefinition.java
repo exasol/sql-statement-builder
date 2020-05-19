@@ -29,6 +29,11 @@ public class ColumnsDefinition extends AbstractFragment {
         this.columns = columns;
     }
 
+    /**
+     * Create a new builder for {@link ColumnsDefinition}.
+     * 
+     * @return new {@link Builder}
+     */
     public static Builder builder() {
         return new Builder();
     }
@@ -43,6 +48,11 @@ public class ColumnsDefinition extends AbstractFragment {
         this.columns.add(new Column(this, name, dataType));
     }
 
+    /**
+     * Get a list of columns.
+     * 
+     * @return list of columns
+     */
     public List<Column> getColumns() {
         return this.columns;
     }
@@ -55,10 +65,9 @@ public class ColumnsDefinition extends AbstractFragment {
         visitor.leave(this);
     }
 
-    public static ValueTableRow.Builder builder(final Fragment root) {
-        return new ValueTableRow.Builder(root);
-    }
-
+    /**
+     * A builder for {@link ColumnsDefinition}.
+     */
     public static class Builder {
         private final List<Column> columns = new ArrayList<>();
 

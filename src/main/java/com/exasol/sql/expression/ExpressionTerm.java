@@ -4,7 +4,7 @@ import com.exasol.sql.ColumnsDefinition;
 import com.exasol.sql.expression.function.Function;
 import com.exasol.sql.expression.function.FunctionName;
 import com.exasol.sql.expression.function.exasol.ExasolFunction;
-import com.exasol.sql.expression.function.exasol.ExasolUdfFunction;
+import com.exasol.sql.expression.function.exasol.ExasolUdf;
 
 /**
  * Static factory methods for SQL expressions.
@@ -177,11 +177,11 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
      * @param functionName a name of function
      * @param emitsColumnsDefinition column definitions for emits
      * @param valueExpressions zero or more value expressions
-     * @return UDF function
+     * @return UDF
      */
-    public static Function udfFunction(final String functionName, final ColumnsDefinition emitsColumnsDefinition,
+    public static Function udf(final String functionName, final ColumnsDefinition emitsColumnsDefinition,
             final ValueExpression... valueExpressions) {
-        return ExasolUdfFunction.of(functionName, emitsColumnsDefinition, valueExpressions);
+        return ExasolUdf.of(functionName, emitsColumnsDefinition, valueExpressions);
     }
 
     /**
@@ -189,10 +189,10 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
      *
      * @param functionName a name of function
      * @param valueExpressions zero or more value expressions
-     * @return UDF function
+     * @return UDF
      */
-    public static Function udfFunction(final String functionName, final ValueExpression... valueExpressions) {
-        return ExasolUdfFunction.of(functionName, valueExpressions);
+    public static Function udf(final String functionName, final ValueExpression... valueExpressions) {
+        return ExasolUdf.of(functionName, valueExpressions);
     }
 
     /**
