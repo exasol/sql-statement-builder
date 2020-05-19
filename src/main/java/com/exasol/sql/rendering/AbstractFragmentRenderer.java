@@ -58,7 +58,7 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
     }
 
     protected void appendCommaWhenNeeded(final Fragment fragment) {
-        if (this.lastVisited.getClass().equals(fragment.getClass())) {
+        if (this.lastVisited != null && lastVisited.getClass().equals(fragment.getClass())) {
             append(", ");
         }
     }

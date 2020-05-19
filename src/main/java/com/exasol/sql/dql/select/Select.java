@@ -55,7 +55,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      * Add a function.
      * 
      * @param functionName a name of function
-     * @param valueExpressions one or more value expression
+     * @param valueExpressions zero or more value expression
      * @return <code>this</code> instance for fluent programming
      */
     public Select function(final FunctionName functionName, final ValueExpression... valueExpressions) {
@@ -66,7 +66,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      * Add a function.
      *
      * @param functionName name of the function
-     * @param valueExpressions one or more value expression
+     * @param valueExpressions zero or more value expression
      * @param derivedColumnName name under which you can refer to the derived column
      * @return <code>this</code> instance for fluent programming
      */
@@ -76,6 +76,39 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
         final DerivedColumn derivedColumn = new DerivedColumn(this, function, derivedColumnName);
         this.derivedColumns.add(derivedColumn);
         return this;
+    }
+
+    /**
+     * Add a User Defined Function.
+     *
+     * @param functionName name of function
+     * @param emitsColumnsDefinition column definitions for emits
+     * @param valueExpressions zero or more value expressions
+     * @return <code>this</code> instance for fluent programming
+     */
+
+    public Select udf(final String functionName, final ColumnsDefinition emitsColumnsDefinition,
+            final ValueExpression... valueExpressions) {
+        final Function udf = ExpressionTerm.udf(functionName, emitsColumnsDefinition, valueExpressions);
+        return createUdf(udf);
+    }
+
+    private Select createUdf(Function udf) {
+        final DerivedColumn derivedColumn = new DerivedColumn(this, udf);
+        this.derivedColumns.add(derivedColumn);
+        return this;
+    }
+
+    /**
+     * Add a User Defined Function.
+     *
+     * @param functionName a name of function
+     * @param valueExpressions zero or more value expressions
+     * @return <code>this</code> instance for fluent programming
+     */
+    public Select udf(final String functionName, final ValueExpression... valueExpressions) {
+        final Function udf = ExpressionTerm.udf(functionName, valueExpressions);
+        return createUdf(udf);
     }
 
     /**

@@ -1,6 +1,6 @@
 package com.exasol.datatype.type;
 
-import com.exasol.sql.ddl.create.CreateTableVisitor;
+import com.exasol.sql.ColumnDefinitionVisitor;
 
 /**
  * This class implements the Exasol-proprietary data type interval day to second
@@ -13,7 +13,7 @@ public class IntervalDayToSecond implements DataType {
     /**
      * Create a new instance of an {@link IntervalDayToSecond} data type
      *
-     * @param yearPrecision        year precision value
+     * @param yearPrecision year precision value
      * @param millisecondPrecision millisecond precision value
      */
     public IntervalDayToSecond(final int yearPrecision, final int millisecondPrecision) {
@@ -55,7 +55,7 @@ public class IntervalDayToSecond implements DataType {
     }
 
     @Override
-    public void accept(final CreateTableVisitor visitor) {
+    public void accept(final ColumnDefinitionVisitor visitor) {
         visitor.visit(this);
     }
 }

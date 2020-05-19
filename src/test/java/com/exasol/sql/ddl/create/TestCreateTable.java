@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+import com.exasol.sql.Column;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -41,7 +42,7 @@ class TestCreateTable {
 
     @Test
     void testCreateTableWithBooleanColumn() {
-        final Column column = this.createTable.booleanColumn(BOOLEAN_COLUMN_NAME).getColumns().getColumns().get(0);
+        final Column column = this.createTable.booleanColumn(BOOLEAN_COLUMN_NAME).getColumnsDefinition().getColumns().get(0);
         assertInstance(column, BOOLEAN_COLUMN_NAME, Boolean.class);
     }
 
@@ -52,47 +53,47 @@ class TestCreateTable {
 
     @Test
     void testCreateTableWithCharColumn() {
-        final Column column = this.createTable.charColumn(CHAR_COLUMN_NAME, LENGTH).getColumns().getColumns().get(0);
+        final Column column = this.createTable.charColumn(CHAR_COLUMN_NAME, LENGTH).getColumnsDefinition().getColumns().get(0);
         assertInstance(column, CHAR_COLUMN_NAME, Char.class);
     }
 
     @Test
     void testCreateTableWithDateColumn() {
-        final Column column = this.createTable.dateColumn(DATE_COLUMN_NAME).getColumns().getColumns().get(0);
+        final Column column = this.createTable.dateColumn(DATE_COLUMN_NAME).getColumnsDefinition().getColumns().get(0);
         assertInstance(column, DATE_COLUMN_NAME, Date.class);
     }
 
     @Test
     void testCreateTableWithVarcharColumn() {
-        final Column column = this.createTable.varcharColumn(VARCHAR_COLUMN_NAME, LENGTH).getColumns().getColumns()
-                .get(0);
+        final Column column = this.createTable.varcharColumn(VARCHAR_COLUMN_NAME, LENGTH).getColumnsDefinition().getColumns()
+                                              .get(0);
         assertInstance(column, VARCHAR_COLUMN_NAME, Varchar.class);
     }
 
     @Test
     void testCreateTableWithDecimalColumn() {
-        final Column column = this.createTable.decimalColumn(DECIMAL_COLUMN_NAME, PRECISION, SCALE).getColumns()
+        final Column column = this.createTable.decimalColumn(DECIMAL_COLUMN_NAME, PRECISION, SCALE).getColumnsDefinition()
                 .getColumns().get(0);
         assertInstance(column, DECIMAL_COLUMN_NAME, Decimal.class);
     }
 
     @Test
     void testCreateTableWithDoublePrecisionColumn() {
-        final Column column = this.createTable.doublePrecisionColumn(DOUBLE_PRECISION_COLUMN_NAME).getColumns()
+        final Column column = this.createTable.doublePrecisionColumn(DOUBLE_PRECISION_COLUMN_NAME).getColumnsDefinition()
                 .getColumns().get(0);
         assertInstance(column, DOUBLE_PRECISION_COLUMN_NAME, DoublePrecision.class);
     }
 
     @Test
     void testCreateTableWithTimestampColumn() {
-        final Column column = this.createTable.timestampColumn(TIMESTAMP_COLUMN_NAME).getColumns().getColumns().get(0);
+        final Column column = this.createTable.timestampColumn(TIMESTAMP_COLUMN_NAME).getColumnsDefinition().getColumns().get(0);
         assertInstance(column, TIMESTAMP_COLUMN_NAME, Timestamp.class);
     }
 
     @Test
     void testCreateTableWithTimestampWithLocalTimeZoneColumn() {
         final Column column = this.createTable
-                .timestampWithLocalTimeZoneColumn(TIMESTAMP_WITH_LOCAL_TIMEZONE_COLUMN_NAME).getColumns().getColumns()
+                .timestampWithLocalTimeZoneColumn(TIMESTAMP_WITH_LOCAL_TIMEZONE_COLUMN_NAME).getColumnsDefinition().getColumns()
                 .get(0);
         assertInstance(column, TIMESTAMP_WITH_LOCAL_TIMEZONE_COLUMN_NAME, TimestampWithLocalTimezone.class);
     }
@@ -100,14 +101,14 @@ class TestCreateTable {
     @Test
     void testCreateTableWithIntervalDayToSecondColumn() {
         final Column column = this.createTable.intervalDayToSecondColumn(INTERVAL_DAY_TO_SECOND_COLUMN_NAME, 2, 2)
-                .getColumns().getColumns().get(0);
+                                              .getColumnsDefinition().getColumns().get(0);
         assertInstance(column, INTERVAL_DAY_TO_SECOND_COLUMN_NAME, IntervalDayToSecond.class);
     }
 
     @Test
     void testCreateTableWithIntervalYearToMonthColumn() {
         final Column column = this.createTable.intervalYearToMonthColumn(INTERVAL_YEAR_TO_MONTH_COLUMN_NAME, 2)
-                .getColumns().getColumns().get(0);
+                                              .getColumnsDefinition().getColumns().get(0);
         assertInstance(column, INTERVAL_YEAR_TO_MONTH_COLUMN_NAME, IntervalYearToMonth.class);
     }
 }

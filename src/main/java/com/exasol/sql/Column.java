@@ -1,22 +1,20 @@
-package com.exasol.sql.ddl.create;
+package com.exasol.sql;
 
 import com.exasol.datatype.type.DataType;
-import com.exasol.sql.AbstractFragment;
-import com.exasol.sql.Fragment;
 
 /**
  * This class represents a column in an SQL statement
  */
-public class Column extends AbstractFragment implements CreateTableFragment {
+public class Column extends AbstractFragment {
     private final String columnName;
     private final DataType dataType;
 
     /**
      * Create a new instance of a {@link Column}
      *
-     * @param root       root SQL statement
+     * @param root root SQL statement
      * @param columnName column name
-     * @param dataType   data type
+     * @param dataType data type
      */
     public Column(final Fragment root, final String columnName, final DataType dataType) {
         super(root);
@@ -42,8 +40,7 @@ public class Column extends AbstractFragment implements CreateTableFragment {
         return this.dataType;
     }
 
-    @Override
-    public void accept(final CreateTableVisitor visitor) {
+    public void accept(final ColumnDefinitionVisitor visitor) {
         visitor.visit(this);
         this.dataType.accept(visitor);
     }

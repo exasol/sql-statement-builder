@@ -1,6 +1,6 @@
 package com.exasol.datatype.type;
 
-import com.exasol.sql.ddl.create.CreateTableVisitor;
+import com.exasol.sql.ColumnDefinitionVisitor;
 
 /**
  * This class represents different SQL data types
@@ -8,9 +8,9 @@ import com.exasol.sql.ddl.create.CreateTableVisitor;
 public interface DataType {
 
     /**
-     * @param visitor instance of {@link CreateTableVisitor}
+     * @param visitor instance of {@link ColumnDefinitionVisitor}
      */
-    public void accept(final CreateTableVisitor visitor);
+    public void accept(final ColumnDefinitionVisitor visitor);
 
     /**
      * @return SQL representation of data type name

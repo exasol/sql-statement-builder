@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import com.exasol.sql.StatementFactory;
 import com.exasol.sql.dql.select.Select;
 
-public class BinaryArithmeticExpressionRenderingTest {
+class BinaryArithmeticExpressionRenderingTest {
     private Select select;
 
     @BeforeEach
@@ -22,7 +22,6 @@ public class BinaryArithmeticExpressionRenderingTest {
     void testPlusRendering() {
         this.select.arithmeticExpression(plus(integerLiteral(1000), integerLiteral(234)), "ADD");
         assertThat(this.select, rendersTo("SELECT (1000+234) ADD"));
-
     }
 
     @Test
@@ -51,6 +50,5 @@ public class BinaryArithmeticExpressionRenderingTest {
         this.select.arithmeticExpression(divide(plus(integerLiteral(1000), integerLiteral(234)),
                 multiply(integerLiteral(1000), integerLiteral(100))));
         assertThat(this.select, rendersTo("SELECT ((1000+234)/(1000*100))"));
-
     }
 }
