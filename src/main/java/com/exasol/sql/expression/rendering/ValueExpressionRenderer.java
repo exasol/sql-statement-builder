@@ -120,6 +120,7 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
     private void appendEmitsWhenNecessary(final ExasolUdf function) {
         if (function.hasEmitsColumnsDefinition()) {
             appendKeyword(" EMITS");
+            append(" ");
             final ColumnsDefinition columnsDefinition = function.getEmitsColumnsDefinition().get();
             final ColumnsDefinitionRenderer columnsDefinitionRenderer = new ColumnsDefinitionRenderer(this.config);
             columnsDefinition.accept(columnsDefinitionRenderer);

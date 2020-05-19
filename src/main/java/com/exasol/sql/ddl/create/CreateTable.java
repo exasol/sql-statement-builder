@@ -149,11 +149,11 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
     }
 
     /**
-     * Get columns of the table
+     * Get columns definition of the table.
      *
      * @return columns
      */
-    public ColumnsDefinition getColumns() {
+    public ColumnsDefinition getColumnsDefinition() {
         return this.columnsDefinition;
     }
 

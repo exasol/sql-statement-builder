@@ -46,7 +46,10 @@ public class CreateTableRenderer extends AbstractFragmentRenderer implements Cre
 
     @Override
     public void leave(final CreateTable createTable) {
-        appendColumnReference(createTable.getColumns());
+        if (!createTable.getColumnsDefinition().getColumns().isEmpty()) {
+            appendSpace();
+            appendColumnReference(createTable.getColumnsDefinition());
+        }
         setLastVisited(createTable);
     }
 
