@@ -23,6 +23,8 @@ public class ColumnsDefinition extends AbstractFragment {
 
     /**
      * Create an new instance of {@link ColumnsDefinition}.
+     * 
+     * @param columns list of columns
      */
     public ColumnsDefinition(final List<Column> columns) {
         super(null);
