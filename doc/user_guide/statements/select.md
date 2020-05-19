@@ -57,6 +57,21 @@ and renders them in the order they were added.
     .function(ExasolScalarFunction.RANDOM, "RANDOM_2", ExpressionTerm.integerLiteral(5), ExpressionTerm.integerLiteral(20));
     ```
 
+- The factory method `udf(...)` adds a user defined function to a statement. 
+A udf takes a name of function and any number of [`ValueExpression`](../../../src/main/java/com/exasol/sql/expression/ValueExpression.java)s.
+You can also create a udf with `EMITS` part containing column definitions.
+  
+    ```java
+        final Select selectWithoutEmits = StatementFactory.getInstance().select().udf("my_average", column("x"));
+        selectWithoutEmits.from().table("t");
+
+        final ColumnsDefinition columnsDefinition = ColumnsDefinition.builder().decimalColumn("id", 18, 0)
+                .varcharColumn("user_name", 100).decimalColumn("PAGE_VISITS", 18, 0).build();
+        final Select selectWithEmits = StatementFactory.getInstance().select().udf("sample_simple", columnsDefinition,
+                column("id"), column("user_name"), column("page_visits"), integerLiteral(20));
+        selectWithEmits.from().table("people");
+    ```
+
 - An `arithmetic expression` is a binary value expression using one of the following arithmetic operators: `+`, `-`, `*`, `/`.
 Add an arithmetic expression using an `arithmeticExpression( ... )` method.
 You can also set a name for a derived field that contains an arithmetic expression. 
