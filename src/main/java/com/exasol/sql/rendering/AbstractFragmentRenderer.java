@@ -64,7 +64,7 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
     }
 
     protected void appendRenderedBooleanExpression(final BooleanExpression expression) {
-        final BooleanExpressionRenderer expressionRenderer = new BooleanExpressionRenderer();
+        final BooleanExpressionRenderer expressionRenderer = new BooleanExpressionRenderer(this.config);
         expression.accept(expressionRenderer);
         append(expressionRenderer.render());
     }

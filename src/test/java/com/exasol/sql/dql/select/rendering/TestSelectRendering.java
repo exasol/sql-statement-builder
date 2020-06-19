@@ -2,6 +2,7 @@ package com.exasol.sql.dql.select.rendering;
 
 import static com.exasol.hamcrest.SqlFragmentRenderResultMatcher.rendersTo;
 import static com.exasol.hamcrest.SqlFragmentRenderResultMatcher.rendersWithConfigTo;
+import static com.exasol.sql.expression.BooleanTerm.eq;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -9,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import com.exasol.sql.StatementFactory;
 import com.exasol.sql.dql.select.Select;
-import com.exasol.sql.expression.BooleanTerm;
+import com.exasol.sql.expression.*;
 import com.exasol.sql.rendering.StringRendererConfig;
 
 class TestSelectRendering {
@@ -91,5 +92,14 @@ class TestSelectRendering {
         final StringRendererConfig config = StringRendererConfig.builder().quoteIdentifiers(true).build();
         assertThat(this.select.field("\"fieldA\"", "\"tableA\".fieldB"),
                 rendersWithConfigTo(config, "SELECT \"fieldA\", \"tableA\".\"fieldB\""));
+    }
+
+    @Test
+    void testQuotedIdentifiers() {
+        final StringRendererConfig config = StringRendererConfig.builder().quoteIdentifiers(true).build();
+        Select select = this.select.all();
+        select.from().table("person");
+        select.where(eq(ExpressionTerm.stringLiteral("foo"), ColumnReference.of("test")));
+        assertThat(select, rendersWithConfigTo(config, "SELECT * FROM \"person\" WHERE 'foo' = \"test\""));
     }
 }
