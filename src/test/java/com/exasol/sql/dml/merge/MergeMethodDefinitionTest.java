@@ -25,18 +25,18 @@ public class MergeMethodDefinitionTest {
     }
 
     @Test
-    public void testGetWhere() throws Exception {
+    public void testGetWhere() {
         this.mergeMethod.where(BooleanLiteral.of(true));
         assertThat(this.mergeMethod.getWhere().getExpression(), instanceOf(BooleanLiteral.class));
     }
 
     @Test
-    public void testHasWhereFalseByDefault() throws Exception {
+    public void testHasWhereFalseByDefault() {
         assertThat(this.mergeMethod.hasWhere(), equalTo(false));
     }
 
     @Test
-    public void testHasWhere() throws Exception {
+    public void testHasWhere() {
         this.mergeMethod.where(BooleanLiteral.of(true));
         assertThat(this.mergeMethod.hasWhere(), equalTo(true));
     }

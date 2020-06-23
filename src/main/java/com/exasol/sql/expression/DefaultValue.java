@@ -8,7 +8,7 @@ package com.exasol.sql.expression;
  * </p>
  */
 public final class DefaultValue extends AbstractValueExpression {
-    private static DefaultValue instance = new DefaultValue();
+    private static final DefaultValue instance = new DefaultValue();
 
     public static ValueExpression defaultValue() {
         return instance;
