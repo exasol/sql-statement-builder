@@ -14,34 +14,34 @@ import com.exasol.sql.Fragment;
 import com.exasol.sql.expression.BooleanLiteral;
 
 @ExtendWith(MockitoExtension.class)
-public class MergeMethodDefinitionTest {
+class MergeMethodDefinitionTest {
     private DummyMergeMethod mergeMethod;
     @Mock
     private Merge merge;
 
     @BeforeEach
-    public void beforeEach() {
+    void beforeEach() {
         this.mergeMethod = new DummyMergeMethod(this.merge);
     }
 
     @Test
-    public void testGetWhere() {
+    void testGetWhere() {
         this.mergeMethod.where(BooleanLiteral.of(true));
         assertThat(this.mergeMethod.getWhere().getExpression(), instanceOf(BooleanLiteral.class));
     }
 
     @Test
-    public void testHasWhereFalseByDefault() {
+    void testHasWhereFalseByDefault() {
         assertThat(this.mergeMethod.hasWhere(), equalTo(false));
     }
 
     @Test
-    public void testHasWhere() {
+    void testHasWhere() {
         this.mergeMethod.where(BooleanLiteral.of(true));
         assertThat(this.mergeMethod.hasWhere(), equalTo(true));
     }
 
-    private static class DummyMergeMethod extends MergeMethodDefinition {
+    static class DummyMergeMethod extends MergeMethodDefinition {
         public DummyMergeMethod(final Fragment root) {
             super(root);
         }
