@@ -7,8 +7,5 @@ addons:
   sonarcloud:
     organization: exasol
 
-before_script:
-  - version=$(grep -oP '(?<=^  <version>)[^<]*' pom.xml)
-
 script:
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
