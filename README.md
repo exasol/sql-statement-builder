@@ -76,3 +76,7 @@ The list below show all build dependencies in alphabetical order. Note that exce
 | [Maven Source Plugin](https://maven.apache.org/plugins/maven-source-plugin/)   | Creates source JARs                                    | Apache License 2.0            |
 | [Mockito](http://site.mockito.org/)                                            | Mocking framework                                      | MIT License                   |
 | [OFT Maven Plugin](https://github.com/itsallcode/openfasttrace-maven-plugin)   | Requirement tracing                                    | GPL 3.0                       |
+| [Sonatype OSS Index Maven Plugin][sonatype-oss-index-maven-plugin]             | Checking Dependencies Vulnerability                    | ASL2                          |
+
+
+[sonatype-oss-index-maven-plugin]: https://sonatype.github.io/ossindex-maven/maven-plugin/
