@@ -5,6 +5,7 @@ import com.exasol.sql.*;
 /**
  * This class implements an SQL {@link DropTable} statement.
  */
+// [impl->dsn~drop-statements~1]
 public class DropTable extends AbstractFragment implements SqlStatement, DropTableFragment {
     private final Table table;
     private boolean ifExists = false;

@@ -3,6 +3,7 @@ package com.exasol.sql.expression;
 /**
  * This class represents long literals.
  */
+// [impl->dsn~literal-values~1]
 public class LongLiteral extends AbstractValueExpression {
     private final long value;
 

@@ -3,6 +3,7 @@ package com.exasol.sql.expression;
 /**
  * This class represents double literals.
  */
+// [impl->dsn~literal-values~1]
 public class DoubleLiteral extends AbstractValueExpression {
     private final double value;
 

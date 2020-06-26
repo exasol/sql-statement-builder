@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import com.exasol.sql.StatementFactory;
 
+// [utest->dsn~create-statements~1]
 class TestCreateSchema {
     private static final String TEST_SCHEMA_NAME = "test schema name";
     private CreateSchema createSchema;

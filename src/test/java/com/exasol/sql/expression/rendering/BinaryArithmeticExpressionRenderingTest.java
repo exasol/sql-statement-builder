@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import com.exasol.sql.StatementFactory;
 import com.exasol.sql.dql.select.Select;
 
+// [utest->dsn~arithmetic-operation-from-enum~1]
 class BinaryArithmeticExpressionRenderingTest {
     private Select select;
 

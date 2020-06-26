@@ -3,6 +3,7 @@ package com.exasol.sql.expression;
 /**
  * This class represents integer literals.
  */
+// [impl->dsn~literal-values~1]
 public final class IntegerLiteral extends AbstractValueExpression {
     private final int value;
 

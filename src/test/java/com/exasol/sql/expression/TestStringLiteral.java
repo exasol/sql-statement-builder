@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 import org.junit.jupiter.api.Test;
 
+// [utest->dsn~literal-values~1]
 class TestStringLiteral {
     @Test
     void testGetToString() {

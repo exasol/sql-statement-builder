@@ -7,6 +7,7 @@ package com.exasol.sql.expression;
  * This is for example used in updates embedded into {@code MERGE} statements.
  * </p>
  */
+// [impl->dsn~literal-values~1]
 public final class DefaultValue extends AbstractValueExpression {
     private static final DefaultValue instance = new DefaultValue();
 

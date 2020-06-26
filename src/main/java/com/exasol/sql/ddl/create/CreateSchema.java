@@ -7,6 +7,7 @@ import com.exasol.sql.ddl.Schema;
 /**
  * This class implements an SQL {@link CreateSchema} statement.
  */
+// [impl->dsn~create-statements~1]
 public class CreateSchema extends AbstractFragment implements SqlStatement, CreateSchemaFragment {
     private final Schema schema;
 

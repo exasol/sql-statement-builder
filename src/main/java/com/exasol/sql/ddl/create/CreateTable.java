@@ -7,6 +7,7 @@ import com.exasol.sql.*;
 /**
  * This class implements an SQL {@link CreateTable} statement
  */
+// [impl->dsn~create-statements~1]
 public class CreateTable extends AbstractFragment implements SqlStatement, CreateTableFragment {
     private final Table table;
     private final ColumnsDefinition columnsDefinition = new ColumnsDefinition(this);

@@ -47,11 +47,18 @@ Needs: impl, utest
 
 Tags: Select Statement Builder
 
+### Using Literal Values
+`dsn~literal-values~1`
+
+Forwarded from requirements.
+
+Covers:
+
+* `req~literal-values~1`
+
+Needs: impl, utest
+
 ### Building Arithmetic Expressions
-
-#### Forwarded Requirements
-
-* `dsn --> impl, utest: req~arithmetic-operators~1`
 
 #### Constructing Arithmetic Operations From Operator Enumeration
 `dsn~arithmetic-operation-from-enum~1`
@@ -60,17 +67,44 @@ The `ArithmeticExpression` class allows creating expression objects from an enum
 
 Covers:
 
-* `req~boolean-operators~1`
+* `req~arithmetic-operators~1`
 
 Needs: impl, utest
 
 ### Building Boolean Expressions
 
-#### Forwarded Requirements
+#### Boolean Operators
+`dsn~boolean-operators~1`
 
-* `dsn --> impl, utest: req~boolean-operators~1`
-* `dsn --> impl, utest: req~boolean-literals~1`
-* `dsn --> impl, utest: req~comparison-operations~1`
+Forwarded from requirements.
+
+Covers:
+
+* `req~boolean-operators~1`
+
+Needs: impl, utest
+
+#### Boolean Literals
+`dsn~boolean-literals~1`
+
+Forwarded from requirements.
+
+Covers:
+
+* `req~boolean-literals~1`
+
+Needs: impl, utest
+
+#### Comparison Operations
+`dsn~comparison-operations~1`
+
+Forwarded from requirements.
+
+Covers:
+
+* `req~comparison-operations~1`
+
+Needs: impl, utest
 
 #### Constructing Boolean Comparison Operations From Operator Strings
 `dsn~boolean-operation.comparison.constructing-from-strings~1`
@@ -100,46 +134,153 @@ Covers:
 
 Needs: impl, utest
 
+
+### Value Table
+`dsn~value-table~1`
+
+Forwarded from requirements.
+
+Covers:
+
+* `req~value-table~1`
+
+Needs: impl, utest
+
 ### Building `SELECT` Statements
+`dsn~select-statements~1`
 
-#### Forwarded Requirements
+Forwarded from requirements.
 
-* `dsn --> impl, utest: req~value-table~1`
+Covers:
+
+* `req~select-statements~1`
+
+Needs: impl, utest
 
 ### Building `CREATE` Statements
+`dsn~create-statements~1`
 
-#### Forwarded Requirements
+Forwarded from requirements.
 
-* `dsn --> impl, utest: req~create-statements~1`
+Covers:
+
+* `req~create-statements~1`
+
+Needs: impl, utest
 
 ### Building `DROP` Statements
+`dsn~drop-statements~1`
 
-#### Forwarded Requirements
+Forwarded from requirements.
 
-* `dsn --> impl, utest: req~drop-statements~1`
+Covers:
+
+* `req~drop-statements~1`
+
+Needs: impl, utest
 
 ### Building `INSERT` Statements
 
-#### Forwarded Requirements
+#### `INSERT` Statements
+`dsn~insert-statements~1`
 
-* `dsn --> impl, utest: req~insert-statements~1`
-* `dsn --> impl, utest: req~values-as-insert-source~1`
+Forwarded from requirements.
+
+Covers:
+
+* `req~insert-statements~1`
+
+Needs: impl, utest
+
+#### Values as `INSERT` Source
+`dsn~values-as-insert-source~1`
+
+Covers:
+
+Forwarded from requirements.
+
+* `req~values-as-insert-source~1`
+
+Needs: impl, utest
 
 ### Building `MERGE` Statements 
+`dsn~merge-statements~1`
 
-#### Forwarded Requirements
+Forwarded from requirements.
 
-* `dsn --> impl, utest: req~merge-statements~1`
+Covers:
+
+* `req~merge-statements~1`
+
+Needs: impl, utest
 
 ### Rendering Statements
 
-#### Forwarded Requirements
+#### Configurable Case Rendering
+`dsn~rendering.sql.configurable-case~1`
 
-* `dsn --> impl, utest: req~rendering.sql.configurable-case~1`
-* `dsn --> impl, utest: req~rendering.sql.select~1`
-* `dsn --> impl, utest: req~rendering.sql.create~1`
-* `dsn --> impl, utest: req~rendering.sql.drop~1`
-* `dsn --> impl, utest: req~rendering.sql.insert~1`
+Forwarded from requirements.
+
+Covers:
+
+* `req~rendering.sql.configurable-case~1`
+
+Needs: impl, utest
+
+#### `SELECT` Statement Rendering
+`dsn~rendering.sql.select~1`
+
+Forwarded from requirements.
+
+Covers:
+
+* `req~rendering.sql.select~1`
+
+Needs: impl, utest
+
+#### `CREATE` Statement Rendering
+`dsn~rendering.sql.create~1`
+
+Forwarded from requirements.
+
+Covers:
+
+* `req~rendering.sql.create~1`
+
+Needs: impl, utest
+
+#### `DROP` Statement Rendering
+`dsn~rendering.sql.drop~1`
+
+Forwarded from requirements.
+
+Covers:
+
+* `req~rendering.sql.drop~1`
+
+Needs: impl, utest
+
+#### `INSERT` Statement Rendering
+`dsn~rendering.sql.insert~1`
+
+Forwarded from requirements.
+
+Covers:
+
+* `req~rendering.sql.insert~1`
+
+Needs: impl, utest
+
+#### `MERGE` Statement Rendering
+`dsn~rendering.sql.merge~1`
+
+Forwarded from requirements.
+
+Covers:
+
+* `req~rendering.sql.merge~1`
+
+Needs: impl, utest
 
 #### Renderer add Double Quotes for Schema, Table and Column Identifiers
 `dsn~rendering.add-double-quotes-for-schema-table-and-column-identifiers~1`

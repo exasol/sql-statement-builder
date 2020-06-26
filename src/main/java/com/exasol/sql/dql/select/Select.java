@@ -11,6 +11,7 @@ import com.exasol.sql.expression.function.FunctionName;
 /**
  * This class implements an SQL {@link Select} statement.
  */
+// [impl->dsn~select-statements~1]
 public class Select extends AbstractFragment implements SqlStatement, SelectFragment {
     private final List<DerivedColumn> derivedColumns = new ArrayList<>();
     private FromClause fromClause = null;
@@ -93,7 +94,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
         return createUdf(udf);
     }
 
-    private Select createUdf(Function udf) {
+    private Select createUdf(final Function udf) {
         final DerivedColumn derivedColumn = new DerivedColumn(this, udf);
         this.derivedColumns.add(derivedColumn);
         return this;
