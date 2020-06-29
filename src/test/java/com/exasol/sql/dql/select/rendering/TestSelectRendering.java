@@ -97,7 +97,7 @@ class TestSelectRendering {
     @Test
     void testQuotedIdentifiers() {
         final StringRendererConfig config = StringRendererConfig.builder().quoteIdentifiers(true).build();
-        Select select = this.select.all();
+        final Select select = this.select.all();
         select.from().table("person");
         select.where(eq(ExpressionTerm.stringLiteral("foo"), ColumnReference.of("test")));
         assertThat(select, rendersWithConfigTo(config, "SELECT * FROM \"person\" WHERE 'foo' = \"test\""));

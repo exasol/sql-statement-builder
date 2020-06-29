@@ -34,7 +34,7 @@ public class FromClause extends AbstractFragment implements SelectFragment {
     }
 
     /**
-     * Add a table name with an an alias to the {@link FromClause}.
+     * Add a table name with an alias to the {@link FromClause}.
      *
      * @param name table name
      * @param as table alias
@@ -52,6 +52,21 @@ public class FromClause extends AbstractFragment implements SelectFragment {
      * @return parent {@code FROM} clause
      */
     public FromClause valueTable(final ValueTable valueTable) {
+        this.valueTables.add(valueTable);
+        return this;
+    }
+
+    /**
+     * Create a {@link FromClause} from a value table and an alias.
+     *
+     * @param valueTable table of value expressions
+     * @param tableNameAlias table alias
+     * @param columnNamesAliases columns aliases
+     * @return parent {@code FROM} clause
+     */
+    public FromClause valueTableAs(final ValueTable valueTable, final String tableNameAlias,
+            final String... columnNamesAliases) {
+        valueTable.alias(tableNameAlias, columnNamesAliases);
         this.valueTables.add(valueTable);
         return this;
     }
