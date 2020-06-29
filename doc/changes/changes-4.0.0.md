@@ -8,7 +8,7 @@
  
 * #80: Added ossindex-maven-plugin and versions-maven-plugin, updated dependencies.
 * #81: Ported from Java 8 to Java 11.
-* #76: Added `SELECT FROM VALUES ... AS` support
+* #76: Added `SELECT FROM VALUES ... AS` support.
 
 ## Dependency updates
  
