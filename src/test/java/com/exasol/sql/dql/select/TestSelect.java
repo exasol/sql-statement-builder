@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import com.exasol.sql.StatementFactory;
 
+// [utest->dsn~select-statements~1]
 class TestSelect {
     private Select select;
 

@@ -13,6 +13,7 @@ import com.exasol.datatype.type.*;
 import com.exasol.datatype.type.Boolean;
 import com.exasol.sql.StatementFactory;
 
+// [utest->dsn~create-statements~1]
 class TestCreateTable {
     private static final int LENGTH = 20;
     private static final String TEST_TABLE_NAME = "test table name";

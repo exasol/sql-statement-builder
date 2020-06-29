@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import com.exasol.sql.StatementFactory;
 
+// [utest->dsn~drop-statements~1]
 class TestDropTable {
     private static final String TEST_TABLE_NAME = "test table name";
     private DropTable dropTable;

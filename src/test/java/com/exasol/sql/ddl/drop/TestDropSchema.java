@@ -9,13 +9,14 @@ import org.junit.jupiter.api.Test;
 
 import com.exasol.sql.StatementFactory;
 
+// [utest->dsn~drop-statements~1]
 class TestDropSchema {
     private static final String TEST_SCHEMA_NAME = "test schema name";
     private DropSchema dropSchema;
 
     @BeforeEach
     void setUp() {
-        dropSchema = StatementFactory.getInstance().dropSchema(TEST_SCHEMA_NAME);
+        this.dropSchema = StatementFactory.getInstance().dropSchema(TEST_SCHEMA_NAME);
     }
 
     @Test

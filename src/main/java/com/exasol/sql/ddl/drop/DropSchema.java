@@ -7,6 +7,7 @@ import com.exasol.sql.ddl.Schema;
 /**
  * This class implements an SQL {@link DropSchema} statement.
  */
+// [impl->dsn~drop-statements~1]
 public class DropSchema extends AbstractFragment implements SqlStatement, DropSchemaFragment {
     private final Schema schema;
     private Cascade cascade;

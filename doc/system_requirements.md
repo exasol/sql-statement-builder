@@ -448,6 +448,17 @@ Covers:
 
 Needs: dsn
 
+#### `MERGE` Statement Rendering
+`req~rendering.sql.merge~1`
+
+ESB renders abstract `MERGE` statements into SQL data manipulation language strings.
+
+Covers:
+
+* [feat~sql-string-rendering~1](#sql-string-rendering)
+
+Needs: dsn
+
 ### Exasol Dialect Specific Requirements
 
 #### Integer - Interval Conversion

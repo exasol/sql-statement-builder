@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.equalTo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+//[utest->dsn~merge-statements~1]
 class MergeTest {
     private Merge merge;
 

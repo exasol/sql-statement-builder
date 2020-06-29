@@ -55,7 +55,7 @@ public class BinaryArithmeticExpression extends AbstractTreeNode implements Valu
      * @return left operand
      */
     public ValueExpression getLeft() {
-        return left;
+        return this.left;
     }
 
     /**
@@ -64,12 +64,13 @@ public class BinaryArithmeticExpression extends AbstractTreeNode implements Valu
      * @return right operand
      */
     public ValueExpression getRight() {
-        return right;
+        return this.right;
     }
 
     /**
      * This enum represents arithmetic operators in an SQL statement.
      */
+    // [impl->dsn~arithmetic-operation-from-enum~1]
     public enum BinaryArithmeticOperator {
         ADD("+"), SUBTRACT("-"), MULTIPLY("*"), DIVIDE("/");
 

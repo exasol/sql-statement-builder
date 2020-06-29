@@ -3,6 +3,7 @@ package com.exasol.sql.expression;
 /**
  * This class represents float literals.
  */
+// [impl->dsn~literal-values~1]
 public class FloatLiteral extends AbstractValueExpression {
     private final float value;
 
