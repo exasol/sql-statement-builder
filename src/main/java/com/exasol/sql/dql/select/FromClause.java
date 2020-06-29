@@ -61,12 +61,12 @@ public class FromClause extends AbstractFragment implements SelectFragment {
      *
      * @param valueTable table of value expressions
      * @param tableNameAlias table alias
-     * @param columnNamesAliases columns aliases
+     * @param columnNameAliases columns aliases
      * @return parent {@code FROM} clause
      */
     public FromClause valueTableAs(final ValueTable valueTable, final String tableNameAlias,
-            final String... columnNamesAliases) {
-        valueTable.alias(tableNameAlias, columnNamesAliases);
+            final String... columnNameAliases) {
+        valueTable.alias(tableNameAlias, columnNameAliases);
         this.valueTables.add(valueTable);
         return this;
     }
