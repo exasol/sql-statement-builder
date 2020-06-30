@@ -53,6 +53,7 @@ final String sql = renderer.render();
 * [User Guide](doc/user_guide/user_guide.md)
 * [API Documentation](https://javadoc.io/doc/com.exasol/sql-statement-builder)
 * [MIT License](LICENSE)
+* [Changelog](doc/changes/changelog.md)
 
 ### Information for Developers
 

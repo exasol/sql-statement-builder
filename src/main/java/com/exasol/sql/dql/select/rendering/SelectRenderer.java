@@ -1,5 +1,7 @@
 package com.exasol.sql.dql.select.rendering;
 
+import java.util.List;
+
 import com.exasol.sql.*;
 import com.exasol.sql.dql.select.*;
 import com.exasol.sql.expression.BooleanExpression;
@@ -129,6 +131,19 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
     @Override
     public void leave(final ValueTable valueTable) {
         append(")");
+        if (valueTable.hasAlias()) {
+            appendKeyWord(" AS ");
+            appendAutoQuoted(valueTable.getTableNameAlias());
+            append("(");
+            final List<String> columnNameAliases = valueTable.getColumnNameAliases();
+            for (int i = 0; i < columnNameAliases.size(); i++) {
+                appendAutoQuoted(columnNameAliases.get(i));
+                if (i < columnNameAliases.size() - 1) {
+                    append(", ");
+                }
+            }
+            append(")");
+        }
         setLastVisited(valueTable);
     }
 

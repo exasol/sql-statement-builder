@@ -11,6 +11,8 @@ import com.exasol.sql.expression.ValueExpression;
 // [impl->dsn~value-table~1]
 public class ValueTable extends AbstractFragment {
     private final List<ValueTableRow> rows = new ArrayList<>();
+    private String tableNameAlias;
+    private final List<String> columnNameAliases = new ArrayList<>();
 
     /**
      * Create a new {@link ValueTable}.
@@ -172,5 +174,46 @@ public class ValueTable extends AbstractFragment {
             row.accept(visitor);
         }
         visitor.leave(this);
+    }
+
+    /**
+     * Set alias for the value table.
+     * 
+     * @param tableNameAlias table name alias
+     * @param columnNameAliases zero or more column names aliases
+     */
+    public void alias(final String tableNameAlias, final String... columnNameAliases) {
+        this.tableNameAlias = tableNameAlias;
+        if (columnNameAliases.length > 0) {
+            this.columnNameAliases.addAll(Arrays.asList(columnNameAliases));
+        }
+    }
+
+    /**
+     * CHeck if the value table has an alias.
+     * 
+     * @return true if the value table has an alias
+     */
+    public boolean hasAlias() {
+        return (this.tableNameAlias != null) && (!this.tableNameAlias.isEmpty()) //
+                && (!this.columnNameAliases.isEmpty());
+    }
+
+    /**
+     * Get a table name alias.
+     * 
+     * @return table name alias
+     */
+    public String getTableNameAlias() {
+        return this.tableNameAlias;
+    }
+
+    /**
+     * Get column name aliases.
+     * 
+     * @return column name aliases
+     */
+    public List<String> getColumnNameAliases() {
+        return this.columnNameAliases;
     }
 }
