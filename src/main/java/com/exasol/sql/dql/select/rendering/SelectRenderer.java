@@ -42,6 +42,17 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
     @Override
     public void visit(final FromClause fromClause) {
         appendKeyWord(" FROM ");
+        if (fromClause.hasInnerSelect()) {
+            startParenthesis();
+        }
+        setLastVisited(fromClause);
+    }
+
+    @Override
+    public void leave(FromClause fromClause) {
+        if (fromClause.hasInnerSelect()) {
+            endParenthesis();
+        }
         setLastVisited(fromClause);
     }
 
@@ -130,11 +141,11 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
 
     @Override
     public void leave(final ValueTable valueTable) {
-        append(")");
+        endParenthesis();
         if (valueTable.hasAlias()) {
             appendKeyWord(" AS ");
             appendAutoQuoted(valueTable.getTableNameAlias());
-            append("(");
+            startParenthesis();
             final List<String> columnNameAliases = valueTable.getColumnNameAliases();
             for (int i = 0; i < columnNameAliases.size(); i++) {
                 appendAutoQuoted(columnNameAliases.get(i));
@@ -142,7 +153,7 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
                     append(", ");
                 }
             }
-            append(")");
+            endParenthesis();
         }
         setLastVisited(valueTable);
     }
@@ -150,14 +161,14 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
     @Override
     public void visit(final ValueTableRow valueTableRow) {
         appendCommaWhenNeeded(valueTableRow);
-        append("(");
+        startParenthesis();
         appendValueTableRow(valueTableRow);
         setLastVisited(valueTableRow);
     }
 
     @Override
     public void leave(final ValueTableRow valueTableRow) {
-        append(")");
+        endParenthesis();
         setLastVisited(valueTableRow);
     }
 

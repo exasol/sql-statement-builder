@@ -102,4 +102,12 @@ class TestSelectRendering {
         select.where(eq(ExpressionTerm.stringLiteral("foo"), ColumnReference.of("test")));
         assertThat(select, rendersWithConfigTo(config, "SELECT * FROM \"person\" WHERE 'foo' = \"test\""));
     }
+
+    @Test
+    void testSelectFromSelect() {
+        final Select innerSelect = StatementFactory.getInstance().select();
+        innerSelect.all().from().table("t");
+        this.select.all().from().select(innerSelect);
+        assertThat(this.select, rendersTo("SELECT * FROM (SELECT * FROM t)"));
+    }
 }

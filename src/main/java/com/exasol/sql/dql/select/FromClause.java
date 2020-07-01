@@ -12,6 +12,7 @@ public class FromClause extends AbstractFragment implements SelectFragment {
     private final List<Table> tables = new ArrayList<>();
     private final List<Join> joins = new ArrayList<>();
     private final List<ValueTable> valueTables = new ArrayList<>();
+    private Select innerSelect;
 
     /**
      * Create a new instance of a {@link FromClause}.
@@ -167,9 +168,32 @@ public class FromClause extends AbstractFragment implements SelectFragment {
         return this;
     }
 
+    /**
+     * Add a select to the {@link FromClause}.
+     *
+     * @param select select statement
+     * @return {@code FROM} clause
+     */
+    public FromClause select(final Select select) {
+        this.innerSelect = select;
+        return this;
+    }
+
+    /**
+     * Check if the {@link FromClause} contains an inner select statement.
+     * 
+     * @return true if the {@link FromClause} contains an inner select statement
+     */
+    public boolean hasInnerSelect() {
+        return innerSelect != null;
+    }
+
     @Override
     public void accept(final SelectVisitor visitor) {
         visitor.visit(this);
+        if (this.innerSelect != null) {
+            this.innerSelect.accept(visitor);
+        }
         for (final Table table : this.tables) {
             table.accept(visitor);
         }
@@ -179,5 +203,6 @@ public class FromClause extends AbstractFragment implements SelectFragment {
         for (final ValueTable valueTable : this.valueTables) {
             valueTable.accept(visitor);
         }
+        visitor.leave(this);
     }
 }

@@ -35,10 +35,18 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
         append(this.config.useLowerCase() ? keyword.toLowerCase() : keyword);
     }
 
+    protected void startParenthesis() {
+        this.builder.append("(");
+    }
+
+    protected void endParenthesis() {
+        this.builder.append(")");
+    }
+
     protected void appendListOfValueExpressions(final List<? extends ValueExpression> valueExpressions) {
         if ((valueExpressions != null) && !valueExpressions.isEmpty()) {
             final ValueExpressionRenderer valueExpressionRenderer = new ValueExpressionRenderer(this.config);
-            for (ValueExpression valueExpression : valueExpressions) {
+            for (final ValueExpression valueExpression : valueExpressions) {
                 valueExpression.accept(valueExpressionRenderer);
             }
             this.builder.append(valueExpressionRenderer.render());
@@ -58,7 +66,7 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
     }
 
     protected void appendCommaWhenNeeded(final Fragment fragment) {
-        if (this.lastVisited != null && lastVisited.getClass().equals(fragment.getClass())) {
+        if (this.lastVisited != null && this.lastVisited.getClass().equals(fragment.getClass())) {
             append(", ");
         }
     }
