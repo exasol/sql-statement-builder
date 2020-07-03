@@ -1,4 +1,4 @@
-# SQL Statement Builder 4.0.0, released 02.07.2020
+# SQL Statement Builder 4.0.0, released 2020-07-02
 
 ## Bug Fixes
  
