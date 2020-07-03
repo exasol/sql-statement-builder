@@ -42,15 +42,15 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
     @Override
     public void visit(final FromClause fromClause) {
         appendKeyWord(" FROM ");
-        if (fromClause.hasInnerSelect()) {
+        if (fromClause.hasSubSelect()) {
             startParenthesis();
         }
         setLastVisited(fromClause);
     }
 
     @Override
-    public void leave(FromClause fromClause) {
-        if (fromClause.hasInnerSelect()) {
+    public void leave(final FromClause fromClause) {
+        if (fromClause.hasSubSelect()) {
             endParenthesis();
         }
         setLastVisited(fromClause);

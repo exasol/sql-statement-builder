@@ -4,11 +4,14 @@ import static com.exasol.hamcrest.SqlFragmentRenderResultMatcher.rendersTo;
 import static com.exasol.hamcrest.SqlFragmentRenderResultMatcher.rendersWithConfigTo;
 import static com.exasol.sql.expression.BooleanTerm.eq;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
+import static org.junit.Assert.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.exasol.sql.StatementFactory;
+import com.exasol.sql.ValueTable;
 import com.exasol.sql.dql.select.Select;
 import com.exasol.sql.expression.*;
 import com.exasol.sql.rendering.StringRendererConfig;
@@ -104,10 +107,23 @@ class TestSelectRendering {
     }
 
     @Test
-    void testSelectFromSelect() {
+    void testSelectFromSubSelect() {
         final Select innerSelect = StatementFactory.getInstance().select();
         innerSelect.all().from().table("t");
         this.select.all().from().select(innerSelect);
         assertThat(this.select, rendersTo("SELECT * FROM (SELECT * FROM t)"));
+    }
+
+    @Test
+    void testSelectFromSubSelectInvalid() {
+        final Select innerSelect = StatementFactory.getInstance().select();
+        innerSelect.all().from().table("t");
+        final ValueTable values = new ValueTable(this.select);
+        this.select.all().from().select(innerSelect).valueTable(values);
+        final SelectRenderer renderer = SelectRenderer.create();
+        final IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> this.select.accept(renderer));
+        assertThat(exception.getMessage(),
+                containsString("SELECT statement cannot combine sub-select and value table"));
     }
 }

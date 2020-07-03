@@ -175,24 +175,24 @@ public class FromClause extends AbstractFragment implements SelectFragment {
      * @return {@code FROM} clause
      */
     public FromClause select(final Select select) {
-        this.innerSelect = select;
+        this.subSelect = select;
         return this;
     }
 
     /**
-     * Check if the {@link FromClause} contains an inner select statement.
+     * Check if the {@link FromClause} contains a sub-select statement.
      * 
-     * @return true if the {@link FromClause} contains an inner select statement
+     * @return true if the {@link FromClause} contains a sub-select statement
      */
-    public boolean hasInnerSelect() {
-        return innerSelect != null;
+    public boolean hasSubSelect() {
+        return this.subSelect != null;
     }
 
     @Override
     public void accept(final SelectVisitor visitor) {
         visitor.visit(this);
-        if (hasInnerSelect()) {
-            this.innerSelect.accept(visitor);
+        if (hasSubSelect()) {
+            this.subSelect.accept(visitor);
         }
         for (final Table table : this.tables) {
             table.accept(visitor);
@@ -201,6 +201,9 @@ public class FromClause extends AbstractFragment implements SelectFragment {
             join.accept(visitor);
         }
         for (final ValueTable valueTable : this.valueTables) {
+            if (hasSubSelect()) {
+                throw new IllegalArgumentException("SELECT statement cannot combine sub-select and value table.");
+            }
             valueTable.accept(visitor);
         }
         visitor.leave(this);
