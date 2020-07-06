@@ -7,7 +7,7 @@ import static org.hamcrest.Matchers.sameInstance;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class MatchedClauseTest {
+class MatchedClauseTest {
     private MatchedClause matched;
 
     @BeforeEach

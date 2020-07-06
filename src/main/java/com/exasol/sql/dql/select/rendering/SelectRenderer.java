@@ -105,20 +105,22 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
         appendKeyWord(" ORDER BY ");
         appendListOfValueExpressions(orderByClause.getColumnReferences());
         final Boolean desc = orderByClause.getDesc();
-        appendStringDependingOnBoolean(desc, " DESC", " ASC");
+        if (desc != null) {
+            appendStringDependingOnBoolean(desc, " DESC", " ASC");
+        }
         final Boolean nullsFirst = orderByClause.getNullsFirst();
-        appendStringDependingOnBoolean(nullsFirst, " NULLS FIRST", " NULLS LAST");
+        if (nullsFirst != null) {
+            appendStringDependingOnBoolean(nullsFirst, " NULLS FIRST", " NULLS LAST");
+        }
         setLastVisited(orderByClause);
     }
 
-    private void appendStringDependingOnBoolean(final Boolean booleanValue, final String string1,
+    private void appendStringDependingOnBoolean(final boolean booleanValue, final String string1,
             final String string2) {
-        if (booleanValue != null) {
-            if (booleanValue) {
-                appendKeyWord(string1);
-            } else {
-                appendKeyWord(string2);
-            }
+        if (booleanValue) {
+            appendKeyWord(string1);
+        } else {
+            appendKeyWord(string2);
         }
     }
 

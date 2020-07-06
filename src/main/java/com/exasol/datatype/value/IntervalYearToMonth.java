@@ -23,6 +23,7 @@ import java.util.regex.Pattern;
  * also the recommended way to represent the interval values in other systems which do not
  * natively support this data type.
  */
+@java.lang.SuppressWarnings("squid:S4784") //regular expression is safe here
 public final class IntervalYearToMonth extends AbstractInterval {
     private static final int SIGN_MATCHING_GROUP = 1;
     private static final int YEARS_MATCHING_GROUP = 2;

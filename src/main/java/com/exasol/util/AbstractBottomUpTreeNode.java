@@ -1,21 +1,12 @@
 package com.exasol.util;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * This is an abstract base class for nodes in a tree structure.
  */
-public abstract class AbstractBottomUpTreeNode implements TreeNode {
-    private TreeNode parent = null;
-    private final List<TreeNode> children;
-
-    /**
-     * Create a new instance of a {@link AbstractBottomUpTreeNode} that serves as leaf node for a tree.
-     */
-    public AbstractBottomUpTreeNode() {
-        this.children = Collections.emptyList();
-    }
-
+public abstract class AbstractBottomUpTreeNode extends AbstractTree {
     /**
      * Create a new instance of a {@link AbstractBottomUpTreeNode}.
      *
@@ -69,48 +60,13 @@ public abstract class AbstractBottomUpTreeNode implements TreeNode {
     }
 
     @Override
-    public TreeNode getParent() {
-        return this.parent;
-    }
-
-    @Override
     public void addChild(final TreeNode child) {
         throw new UnsupportedOperationException("Node \"" + child.toString()
                 + "\" can only be added as child node in parent constructor in a bottom-up tree.");
     }
 
     @Override
-    public List<TreeNode> getChildren() {
-        return this.children;
-    }
-
-    @Override
-    public TreeNode getChild(final int index) {
-        return this.children.get(index);
-    }
-
-    @Override
-    public boolean isRoot() {
-        return (this == getRoot());
-    }
-
-    @Override
-    public boolean isChild() {
-        return (this.parent != null);
-    }
-
-    @Override
-    public boolean isSibling(final TreeNode node) {
-        return (this.parent != null) && (this.getParent().getChildren().contains(node));
-    }
-
-    @Override
     public void setParent(final TreeNode parent) {
         this.parent = parent;
-    }
-
-    @Override
-    public boolean isFirstSibling() {
-        return (this.parent != null) && (this.getParent().getChild(0) == this);
     }
 }

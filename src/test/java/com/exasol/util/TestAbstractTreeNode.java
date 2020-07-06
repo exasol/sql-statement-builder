@@ -97,14 +97,13 @@ class TestAbstractTreeNode {
 
     @Test
     void testSetParentToNullThrowsException() {
-        assertThrows(IllegalArgumentException.class, () -> new DummyTreeNode().setParent(null));
+        final DummyTreeNode dummyTreeNode = new DummyTreeNode();
+        assertThrows(IllegalArgumentException.class, () -> dummyTreeNode.setParent(null));
     }
 
     @Test
     void testSetParentToSelfThrowsException() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            final DummyTreeNode abstractNode = new DummyTreeNode();
-            abstractNode.setParent(abstractNode);
-        });
+        final DummyTreeNode abstractNode = new DummyTreeNode();
+        assertThrows(IllegalArgumentException.class, () -> abstractNode.setParent(abstractNode));
     }
 }

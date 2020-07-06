@@ -63,8 +63,9 @@ class TestAbstractBottomUpTreeNode {
     }
 
     @Test
-    void testAddingChildAfterConstructurThrowsExpection() {
-        assertThrows(UnsupportedOperationException.class, () -> this.node.addChild(new DummyBottomUpTreeNode()));
+    void testAddingChildAfterConstructorThrowsException() {
+        final DummyBottomUpTreeNode child = new DummyBottomUpTreeNode();
+        assertThrows(UnsupportedOperationException.class, () -> this.node.addChild(child));
     }
 
     @Test

@@ -11,7 +11,7 @@ import com.exasol.sql.StatementFactory;
 import com.exasol.sql.dql.select.Select;
 import com.exasol.sql.expression.BooleanTerm;
 
-public class ExasolAnalyticFunctionTest {
+class ExasolAnalyticFunctionTest {
     @Test
     void testAggregateFunctionCoalesce() {
         final Select select = StatementFactory.getInstance().select() //

@@ -3,7 +3,7 @@ package com.exasol.datatype.type;
 import com.exasol.sql.ColumnDefinitionVisitor;
 
 /**
- * This class implements the Exasol-proprietary data type interval day to second
+ * This class implements the Exasol-proprietary data type interval day to second.
  */
 public class IntervalDayToSecond implements DataType {
     private static final String NAME = "INTERVAL DAY(%s) TO SECOND(%s)";
@@ -48,7 +48,7 @@ public class IntervalDayToSecond implements DataType {
     }
 
     /**
-     * @return millisecond precisiom
+     * @return millisecond precision
      */
     public int getMillisecondPrecision() {
         return this.millisecondPrecision;

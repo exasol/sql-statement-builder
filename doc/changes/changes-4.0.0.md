@@ -11,6 +11,10 @@
 * #76: Added `SELECT FROM VALUES ... AS` support.
 * #77: Added `SELECT FROM (SELECT ...)` support.
 
+## Refactoring
+
+* #27: Fix sonar findings.
+
 ## Dependency updates
  
 * Added `org.sonatype.ossindex.maven:ossindex-maven-plugin:3.1.0`
