@@ -1,15 +1,10 @@
 package com.exasol.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * This is an abstract base class for nodes in a tree structure.
  */
-public abstract class AbstractTreeNode implements TreeNode {
+public abstract class AbstractTreeNode extends AbstractTree {
     private TreeNode root;
-    private TreeNode parent;
-    private final List<TreeNode> children = new ArrayList<>();
 
     /**
      * Create a new instance of a {@link AbstractTreeNode} that serves as root for a tree.
@@ -44,43 +39,8 @@ public abstract class AbstractTreeNode implements TreeNode {
     }
 
     @Override
-    public TreeNode getParent() {
-        return this.parent;
-    }
-
-    @Override
     public void addChild(final TreeNode child) {
         this.children.add(child);
         child.setParent(this);
-    }
-
-    @Override
-    public List<TreeNode> getChildren() {
-        return this.children;
-    }
-
-    @Override
-    public TreeNode getChild(final int index) {
-        return this.children.get(index);
-    }
-
-    @Override
-    public boolean isRoot() {
-        return (this == getRoot());
-    }
-
-    @Override
-    public boolean isChild() {
-        return (this.parent != null);
-    }
-
-    @Override
-    public boolean isFirstSibling() {
-        return (this.parent != null) && (this.getParent().getChild(0) == this);
-    }
-
-    @Override
-    public boolean isSibling(final TreeNode node) {
-        return (this.parent != null) && (this.getParent().getChildren().contains(node));
     }
 }

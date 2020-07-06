@@ -26,6 +26,7 @@ import java.util.regex.Pattern;
  * This is also the recommended way to represent the interval values in other systems which do
  * not natively support this data type.
  */
+@java.lang.SuppressWarnings("squid:S4784") //regular expression is safe here
 public final class IntervalDayToSecond extends AbstractInterval {
     private static final int SIGN_MATCHING_GROUP = 1;
     private static final int DAYS_MATCHING_GROUP = 2;

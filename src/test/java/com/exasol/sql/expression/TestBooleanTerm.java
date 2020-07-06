@@ -50,31 +50,39 @@ class TestBooleanTerm {
     // [utest->dsn~boolean-operators~1]
     @Test
     void testOperationFromUnknownOperatorThrowsException() {
-        assertThrows(IllegalArgumentException.class, () -> BooleanTerm.operation("illegal", not(true)));
+        final BooleanExpression notTrue = not(true);
+        assertThrows(IllegalArgumentException.class, () -> BooleanTerm.operation("illegal", notTrue));
     }
 
     // [utest->dsn~boolean-operators~1]
     @Test
     void testOperationFromNotWithMoreOrLessThanOneOperandThrowsException() {
-        assertThrows(IllegalArgumentException.class, () -> BooleanTerm.operation("not", not(true), not(false)));
+        final BooleanExpression notTrue = not(true);
+        final BooleanExpression notFalse = not(false);
+        assertThrows(IllegalArgumentException.class, () -> BooleanTerm.operation("not", notTrue, notFalse));
     }
 
     // [utest->dsn~boolean-operators~1]
     @Test
     void testOperationFromUpperCaseUnknownOperatorThrowsException() {
-        assertThrows(IllegalArgumentException.class, () -> BooleanTerm.operation("ILLEGAL", not(true)));
+        final BooleanExpression notTrue = not(true);
+        assertThrows(IllegalArgumentException.class, () -> BooleanTerm.operation("ILLEGAL", notTrue));
     }
 
     // [utest->dsn~boolean-operators~1]
     @Test
     void testOperationFromUpperCaseNotWithMoreOrLessThanOneOperandThrowsException() {
-        assertThrows(IllegalArgumentException.class, () -> BooleanTerm.operation("NOT", not(true), not(false)));
+        final BooleanExpression notTrue = not(true);
+        final BooleanExpression notFalse = not(false);
+        assertThrows(IllegalArgumentException.class, () -> BooleanTerm.operation("NOT", notTrue, notFalse));
     }
 
     // [utest->dsn~boolean-operators~1]
     @Test
     void testOperationFromNullOperatorThrowsException() {
-        assertThrows(NullPointerException.class, () -> BooleanTerm.operation(null, not(true), not(false)));
+        final BooleanExpression notTrue = not(true);
+        final BooleanExpression notFalse = not(false);
+        assertThrows(NullPointerException.class, () -> BooleanTerm.operation(null, notTrue, notFalse));
     }
 
     // [utest->dsn~boolean-operation.comparison.constructing-from-strings~1]
