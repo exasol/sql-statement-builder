@@ -12,7 +12,6 @@ import com.exasol.sql.rendering.StringRendererConfig;
  * The {@link SelectRenderer} turns SQL statement structures in to SQL strings.
  */
 // [impl->dsn~rendering.sql.select~1]
-@java.lang.SuppressWarnings("squid:S4784") //regular expression is safe here
 public class SelectRenderer extends AbstractFragmentRenderer implements SelectVisitor {
     /**
      * Create a new {@link SelectRenderer} with custom render settings.
