@@ -7,6 +7,8 @@ public interface SelectVisitor extends ValueTableVisitor {
 
     public void visit(FromClause fromClause);
 
+    public void leave(FromClause fromClause);
+
     public void visit(Join join);
 
     public void visit(LimitClause limitClause);
