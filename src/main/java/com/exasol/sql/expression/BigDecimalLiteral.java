@@ -23,6 +23,15 @@ public class BigDecimalLiteral extends AbstractValueExpression {
         return new BigDecimalLiteral(literal);
     }
 
+    /**
+     * Get the value of the {@link BigDecimalLiteral}.
+     *
+     * @return BigDecimal value
+     */
+    public BigDecimal getValue() {
+        return literal;
+    }
+
     @Override
     public void accept(ValueExpressionVisitor visitor) {
         visitor.visit(this);
