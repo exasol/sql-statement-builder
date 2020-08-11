@@ -20,6 +20,8 @@ public interface ValueExpressionVisitor {
 
     public void visit(FloatLiteral literal);
 
+    public void visit(BigDecimalLiteral literal);
+
     public void visit(BooleanLiteral literal);
 
     public void visit(ColumnReference columnReference);

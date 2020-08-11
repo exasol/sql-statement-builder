@@ -7,8 +7,11 @@ import static com.exasol.sql.expression.ExpressionTerm.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+import java.math.BigDecimal;
+
 import org.junit.jupiter.api.Test;
 
+import com.exasol.sql.expression.BigDecimalLiteral;
 import com.exasol.sql.expression.BooleanExpression;
 import com.exasol.sql.expression.ComparisonOperator;
 import com.exasol.sql.rendering.StringRendererConfig;
@@ -209,5 +212,13 @@ class TestBooleanExpressionRenderer {
                 () -> assertThat("not equal", ge(column("t", "city"), column("t", "machi")),
                         rendersTo("t.city >= t.machi")) //
         );
+    }
+
+    //// [utest->dsn~literal-values~1]
+    @Test
+    void testBigDecimalLiteralComparison() {
+        final BooleanExpression expression = eq(BigDecimalLiteral.of(BigDecimal.TEN),
+                BigDecimalLiteral.of(BigDecimal.valueOf(10.2)));
+        assertThat(expression, rendersTo("10 = 10.2"));
     }
 }
