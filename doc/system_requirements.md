@@ -188,9 +188,9 @@ Covers:
 Needs: dsn
 
 #### Literal Values
-`req~literal-values~1`
+`req~literal-values~2`
 
-ESB supports the following literal values: `default`, `double`, `float`, `integer`, `long`, `null`, `string`.
+ESB supports the following literal values: `default`, `double`, `float`, `integer`, `long`, `null`, `string`, `BigDecimal`.
 
 Covers:
 

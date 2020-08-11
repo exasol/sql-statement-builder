@@ -3,17 +3,19 @@ package com.exasol.sql.expression;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
+import java.math.BigDecimal;
+
 import org.junit.jupiter.api.Test;
 
 // [utest->dsn~literal-values~2]
-class FloatLiteralTest {
+class TestBigDecimalLiteral {
     @Test
     void testGetValue() {
-        assertThat(FloatLiteral.of(10.56f).getValue(), equalTo(10.56f));
+        assertThat(BigDecimalLiteral.of(BigDecimal.TEN).getValue(), equalTo(BigDecimal.TEN));
     }
 
     @Test
     void testGetToString() {
-        assertThat(FloatLiteral.of(10.56f).toString(), equalTo("10.56"));
+        assertThat(BigDecimalLiteral.of(BigDecimal.valueOf(123)).toString(), equalTo("123"));
     }
 }

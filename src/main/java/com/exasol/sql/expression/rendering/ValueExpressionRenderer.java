@@ -55,6 +55,13 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
     }
 
     @Override
+    public void visit(BigDecimalLiteral literal) {
+        appendCommaWhenNeeded(literal);
+        append(literal.toString());
+        setLastVisited(literal);
+    }
+
+    @Override
     public void visit(final BooleanLiteral literal) {
         appendCommaWhenNeeded(literal);
         append(literal.toString());

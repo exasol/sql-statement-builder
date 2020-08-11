@@ -3,7 +3,7 @@ package com.exasol.sql.expression;
 /**
  * This class represents a null literal.
  */
-// [impl->dsn~literal-values~1]
+// [impl->dsn~literal-values~2]
 public final class NullLiteral extends AbstractValueExpression {
     private static final NullLiteral instance = new NullLiteral();
 

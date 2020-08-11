@@ -3,7 +3,7 @@ package com.exasol.sql.expression;
 /**
  * This class represents string literals (or character literals in SQL terms).
  */
-// [impl->dsn~literal-values~1]
+// [impl->dsn~literal-values~2]
 public final class StringLiteral extends AbstractValueExpression {
     private final String literal;
 
