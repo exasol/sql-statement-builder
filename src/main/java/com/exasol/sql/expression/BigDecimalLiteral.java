@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 /**
  * This class represents BigDecimal literals.
  */
-// [impl->dsn~literal-values~1]
+// [impl->dsn~literal-values~2]
 public class BigDecimalLiteral extends AbstractValueExpression {
     private final BigDecimal literal;
 

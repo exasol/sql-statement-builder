@@ -48,13 +48,13 @@ Needs: impl, utest
 Tags: Select Statement Builder
 
 ### Using Literal Values
-`dsn~literal-values~1`
+`dsn~literal-values~2`
 
 Forwarded from requirements.
 
 Covers:
 
-* `req~literal-values~1`
+* `req~literal-values~2`
 
 Needs: impl, utest
 

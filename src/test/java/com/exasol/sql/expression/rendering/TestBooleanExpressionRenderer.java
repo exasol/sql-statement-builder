@@ -214,7 +214,7 @@ class TestBooleanExpressionRenderer {
         );
     }
 
-    //// [utest->dsn~literal-values~1]
+    //// [utest->dsn~literal-values~2]
     @Test
     void testBigDecimalLiteralComparison() {
         final BooleanExpression expression = eq(BigDecimalLiteral.of(BigDecimal.TEN),

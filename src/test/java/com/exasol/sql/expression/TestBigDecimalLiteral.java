@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 import org.junit.jupiter.api.Test;
 
-// [utest->dsn~literal-values~1]
+// [utest->dsn~literal-values~2]
 class TestBigDecimalLiteral {
     @Test
     void testGetValue() {
