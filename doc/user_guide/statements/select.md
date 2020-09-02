@@ -39,7 +39,7 @@ A `SELECT` statement can contain one or more derived columns. Here we describe a
 - The `asterisk / *` is  a wildcard representing all fields. Create an asterisk using the `all()` method.
 
     ```java
-    final Select selectWithOneField = factory.select().all();
+    final Select selectWithAllFields = factory.select().all();
     ```
 
 - The factory method `function(...)` adds a pre-defined function to a statement that evaluates to a value expression.
