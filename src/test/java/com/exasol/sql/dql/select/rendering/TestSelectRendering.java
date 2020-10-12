@@ -2,10 +2,11 @@ package com.exasol.sql.dql.select.rendering;
 
 import static com.exasol.hamcrest.SqlFragmentRenderResultMatcher.rendersTo;
 import static com.exasol.hamcrest.SqlFragmentRenderResultMatcher.rendersWithConfigTo;
-import static com.exasol.sql.expression.BooleanTerm.eq;
+import static com.exasol.sql.expression.BooleanTerm.*;
+import static com.exasol.sql.expression.ExpressionTerm.stringLiteral;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,8 @@ import org.junit.jupiter.api.Test;
 import com.exasol.sql.StatementFactory;
 import com.exasol.sql.ValueTable;
 import com.exasol.sql.dql.select.Select;
-import com.exasol.sql.expression.*;
+import com.exasol.sql.expression.BooleanExpression;
+import com.exasol.sql.expression.ColumnReference;
 import com.exasol.sql.rendering.StringRendererConfig;
 
 class TestSelectRendering {
@@ -77,7 +79,7 @@ class TestSelectRendering {
     // [utest->dsn~select-statement.out-of-order-clauses~1]
     @Test
     void testAddClausesInRandomOrder() {
-        assertThat(this.select.limit(1).all().where(BooleanTerm.not(true)).from().join("A", "A.aa = B.bb").table("B"),
+        assertThat(this.select.limit(1).all().where(not(true)).from().join("A", "A.aa = B.bb").table("B"),
                 rendersTo("SELECT * FROM B JOIN A ON A.aa = B.bb WHERE NOT(TRUE) LIMIT 1"));
     }
 
@@ -102,7 +104,7 @@ class TestSelectRendering {
         final StringRendererConfig config = StringRendererConfig.builder().quoteIdentifiers(true).build();
         final Select select = this.select.all();
         select.from().table("person");
-        select.where(eq(ExpressionTerm.stringLiteral("foo"), ColumnReference.of("test")));
+        select.where(eq(stringLiteral("foo"), ColumnReference.of("test")));
         assertThat(select, rendersWithConfigTo(config, "SELECT * FROM \"person\" WHERE 'foo' = \"test\""));
     }
 
@@ -125,5 +127,14 @@ class TestSelectRendering {
                 () -> this.select.accept(renderer));
         assertThat(exception.getMessage(),
                 containsString("SELECT statement cannot combine sub-select and value table"));
+    }
+
+    @Test
+    // [utest->dsn~like-predicate~1]
+    void testSelectWithLikePredicate() {
+        final BooleanExpression like1 = notLike(stringLiteral("abcd"), stringLiteral("a_d"));
+        final BooleanExpression like2 = like(stringLiteral("%bcd"), stringLiteral("\\%%d"));
+        this.select.valueExpression(like1, "res1").valueExpression(like2, "res2");
+        assertThat(this.select, rendersTo("SELECT 'abcd' NOT LIKE 'a_d' res1, '%bcd' LIKE '\\%%d' res2"));
     }
 }

@@ -1,7 +1,7 @@
 package com.exasol.sql.expression;
 
 /**
- * This class represents
+ * This class represents a logical AND predicate.
  */
 public class And extends AbstractBooleanExpression {
     /**

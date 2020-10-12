@@ -1,7 +1,7 @@
 package com.exasol.sql.expression;
 
 /**
- * This class implements the logical unary NOT
+ * This class implements the logical unary NOT predicate.
  */
 public class Not extends AbstractBooleanExpression {
     /**

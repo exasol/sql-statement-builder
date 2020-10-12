@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import com.exasol.sql.StatementFactory;
 import com.exasol.sql.dql.select.Select;
+import com.exasol.sql.expression.BooleanTerm;
 import com.exasol.sql.expression.ExpressionTerm;
 
 class TestWhereRendering {
@@ -17,12 +18,48 @@ class TestWhereRendering {
     @BeforeEach
     void beforeEach() {
         this.select = StatementFactory.getInstance().select();
-        this.select.all().from().table("person");
+        this.select.all().from().table("books");
     }
 
     @Test
     void testWhere() {
         assertThat(this.select.where(eq(ExpressionTerm.stringLiteral("foo"), ExpressionTerm.stringLiteral("bar"))),
-                rendersTo("SELECT * FROM person WHERE 'foo' = 'bar'"));
+                rendersTo("SELECT * FROM books WHERE 'foo' = 'bar'"));
+    }
+
+    @Test
+    // [utest->dsn~like-predicate~1]
+    void testWhereWithLike() {
+        assertThat(
+                this.select
+                        .where(BooleanTerm.like(ExpressionTerm.column("ISBN"), ExpressionTerm.stringLiteral("123%"))),
+                rendersTo("SELECT * FROM books WHERE ISBN LIKE '123%'"));
+    }
+
+    @Test
+    // [utest->dsn~like-predicate~1]
+    void testWhereWithLikeWithEscape() {
+        assertThat(
+                this.select.where(
+                        BooleanTerm.like(ExpressionTerm.column("ISBN"), ExpressionTerm.stringLiteral("123%"), '/')),
+                rendersTo("SELECT * FROM books WHERE ISBN LIKE '123%' ESCAPE '/'"));
+    }
+
+    @Test
+    // [utest->dsn~like-predicate~1]
+    void testWhereWithNotLike() {
+        assertThat(
+                this.select.where(
+                        BooleanTerm.notLike(ExpressionTerm.column("ISBN"), ExpressionTerm.stringLiteral("123%"))),
+                rendersTo("SELECT * FROM books WHERE ISBN NOT LIKE '123%'"));
+    }
+
+    @Test
+    // [utest->dsn~like-predicate~1]
+    void testWhereWithNotLikeWithEscape() {
+        assertThat(
+                this.select.where(
+                        BooleanTerm.notLike(ExpressionTerm.column("ISBN"), ExpressionTerm.stringLiteral("123%"), '/')),
+                rendersTo("SELECT * FROM books WHERE ISBN NOT LIKE '123%' ESCAPE '/'"));
     }
 }
