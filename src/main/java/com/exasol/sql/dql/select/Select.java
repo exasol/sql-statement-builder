@@ -119,7 +119,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      * @param arithmeticExpression arithmetic expression
      * @return <code>this</code> instance for fluent programming
      */
-    @Deprecated
+    @Deprecated(since = "4.0.2")
     public Select arithmeticExpression(final BinaryArithmeticExpression arithmeticExpression) {
         return valueExpression(arithmeticExpression);
     }
@@ -132,7 +132,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      * @param derivedColumnName    name under which you can refer to the derived column
      * @return <code>this</code> instance for fluent programming
      */
-    @Deprecated
+    @Deprecated(since = "4.0.2")
     public Select arithmeticExpression(final BinaryArithmeticExpression arithmeticExpression,
             final String derivedColumnName) {
         return valueExpression(arithmeticExpression, derivedColumnName);
