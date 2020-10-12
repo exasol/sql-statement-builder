@@ -28,6 +28,7 @@ class TestWhereRendering {
     }
 
     @Test
+    // [utest->dsn~like-predicate~1]
     void testWhereWithLike() {
         assertThat(
                 this.select
@@ -36,6 +37,7 @@ class TestWhereRendering {
     }
 
     @Test
+    // [utest->dsn~like-predicate~1]
     void testWhereWithLikeWithEscape() {
         assertThat(
                 this.select.where(
@@ -44,6 +46,7 @@ class TestWhereRendering {
     }
 
     @Test
+    // [utest->dsn~like-predicate~1]
     void testWhereWithNotLike() {
         assertThat(
                 this.select.where(
@@ -52,6 +55,7 @@ class TestWhereRendering {
     }
 
     @Test
+    // [utest->dsn~like-predicate~1]
     void testWhereWithNotLikeWithEscape() {
         assertThat(
                 this.select.where(

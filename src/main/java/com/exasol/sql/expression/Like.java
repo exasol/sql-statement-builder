@@ -3,6 +3,7 @@ package com.exasol.sql.expression;
 /**
  * This class represents a logical LIKE predicate.
  */
+// [impl->dsn~like-predicate~1]
 public class Like extends AbstractBooleanExpression {
     private final ValueExpression leftOperand;
     private final ValueExpression rightOperand;

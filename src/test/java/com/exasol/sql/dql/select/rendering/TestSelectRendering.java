@@ -130,6 +130,7 @@ class TestSelectRendering {
     }
 
     @Test
+    // [utest->dsn~like-predicate~1]
     void testSelectWithLikePredicate() {
         final BooleanExpression like1 = notLike(stringLiteral("abcd"), stringLiteral("a_d"));
         final BooleanExpression like2 = like(stringLiteral("%bcd"), stringLiteral("\\%%d"));

@@ -84,6 +84,17 @@ Covers:
 
 Needs: impl, utest
 
+#### [NOT] LIKE Predicate
+`dsn~like-predicate~1`
+
+Forwarded from requirements.
+
+Covers:
+
+* `req~like-predicate~1`
+
+Needs: impl, utest
+
 #### Boolean Literals
 `dsn~boolean-literals~1`
 

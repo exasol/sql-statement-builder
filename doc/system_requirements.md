@@ -173,6 +173,17 @@ Covers:
 
 Needs: dsn
 
+#### [NOT] LIKE Predicate
+`req~like-predicate~1`
+
+ESB supports the [NOT] LIKE predicate.
+
+Covers:
+
+* [feat~statement-definition~1](#statement-definition)
+
+Needs: dsn
+
 #### Boolean Literals
 `req~boolean-literals~1`
 
