@@ -23,4 +23,8 @@ public interface BooleanExpressionVisitor {
     public void visit(Comparison comparison);
 
     public void leave(Comparison comparison);
+
+    public void visit(Like like);
+
+    public void leave(Like like);
 }

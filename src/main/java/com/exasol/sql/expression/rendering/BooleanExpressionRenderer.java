@@ -94,4 +94,31 @@ public class BooleanExpressionRenderer extends AbstractExpressionRenderer implem
             endParenthesis();
         }
     }
+
+    @Override
+    public void visit(final Like like) {
+        connect(like);
+        if (!like.isRoot()) {
+            startParenthesis();
+        }
+        appendOperand(like.getLeftOperand());
+        if (like.hasNot()) {
+            this.builder.append(" NOT");
+        }
+        this.builder.append(" LIKE ");
+        appendOperand(like.getRightOperand());
+        if (like.hasEscape()) {
+            this.builder.append(" ESCAPE ");
+            this.builder.append("'");
+            this.builder.append(like.getEscape());
+            this.builder.append("'");
+        }
+    }
+
+    @Override
+    public void leave(final Like like) {
+        if (!like.isRoot()) {
+            endParenthesis();
+        }
+    }
 }

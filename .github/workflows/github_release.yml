@@ -1,13 +1,16 @@
-name: Upload Release Asset
+name: GitHub Release
 
 on:
   workflow_dispatch:
     inputs:
-      version:
-        description: 'Release version'
-        required: true
       upload_url:
         description: 'Upload URL'
+        required: true
+      asset_name:
+        description: 'Asset file name'
+        required: true
+      asset_path:
+        description: 'Asset file path'
         required: true
 
 jobs:
@@ -28,6 +31,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.inputs.upload_url }}
-          asset_path: ./target/sql-statement-builder-${{ github.event.inputs.version }}.jar
-          asset_name: sql-statement-builder-${{ github.event.inputs.version }}.jar
+          asset_path: ${{ github.event.inputs.asset_path }}
+          asset_name: ${{ github.event.inputs.asset_name }}
           asset_content_type: application/java-archive

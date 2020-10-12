@@ -7,9 +7,9 @@ public class Comparison extends AbstractBooleanExpression {
     private final ValueExpression rightOperand;
 
     // [impl->dsn~boolean-operation.comparison.constructing-from-enum~1]
-    public Comparison(final ComparisonOperator equal, final ValueExpression leftOperand,
+    public Comparison(final ComparisonOperator comparisonOperator, final ValueExpression leftOperand,
             final ValueExpression rightOperand) {
-        this.operator = equal;
+        this.operator = comparisonOperator;
         this.leftOperand = leftOperand;
         this.rightOperand = rightOperand;
     }

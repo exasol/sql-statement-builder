@@ -46,6 +46,22 @@ public abstract class BooleanTerm extends AbstractBooleanExpression {
         return new Or(expressions);
     }
 
+    public static BooleanExpression like(final ValueExpression left, final ValueExpression right) {
+        return Like.builder().left(left).right(right).build();
+    }
+
+    public static BooleanExpression like(final ValueExpression left, final ValueExpression right, char escape) {
+        return Like.builder().left(left).right(right).escape(escape).build();
+    }
+
+    public static BooleanExpression notLike(final ValueExpression left, final ValueExpression right) {
+        return Like.builder().left(left).right(right).not().build();
+    }
+
+    public static BooleanExpression notLike(final ValueExpression left, final ValueExpression right, char escape) {
+        return Like.builder().left(left).right(right).not().escape(escape).build();
+    }
+
     // [impl->dsn~boolean-operation.comparison.constructing-from-strings~1]
     public static BooleanExpression compare(final ValueExpression left, final String operatorSymbol,
             final ValueExpression right) {
@@ -91,7 +107,7 @@ public abstract class BooleanTerm extends AbstractBooleanExpression {
     /**
      * Create a logical operation from an operator name and a list of operands
      *
-     * @param operator    name of the operator
+     * @param operator name of the operator
      * @param expressions operands
      * @return instance of either {@link And}, {@link Or} or {@link Not}
      * @throws IllegalArgumentException if the operator is unknown or null

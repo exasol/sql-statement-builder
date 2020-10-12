@@ -21,34 +21,34 @@ class BinaryArithmeticExpressionRenderingTest {
 
     @Test
     void testPlusRendering() {
-        this.select.arithmeticExpression(plus(integerLiteral(1000), integerLiteral(234)), "ADD");
+        this.select.valueExpression(plus(integerLiteral(1000), integerLiteral(234)), "ADD");
         assertThat(this.select, rendersTo("SELECT (1000+234) ADD"));
     }
 
     @Test
     void testMinusRendering() {
-        this.select.arithmeticExpression(minus(integerLiteral(1000), integerLiteral(1)), "SUB");
+        this.select.valueExpression(minus(integerLiteral(1000), integerLiteral(1)), "SUB");
         assertThat(this.select, rendersTo("SELECT (1000-1) SUB"));
 
     }
 
     @Test
     void testMultiplyRendering() {
-        this.select.arithmeticExpression(multiply(integerLiteral(1000), integerLiteral(1)), "MULT");
+        this.select.valueExpression(multiply(integerLiteral(1000), integerLiteral(1)), "MULT");
         assertThat(this.select, rendersTo("SELECT (1000*1) MULT"));
 
     }
 
     @Test
     void testDivideRendering() {
-        this.select.arithmeticExpression(divide(integerLiteral(1000), integerLiteral(1)), "DIV");
+        this.select.valueExpression(divide(integerLiteral(1000), integerLiteral(1)), "DIV");
         assertThat(this.select, rendersTo("SELECT (1000/1) DIV"));
 
     }
 
     @Test
     void testMultilevelExpressionRendering() {
-        this.select.arithmeticExpression(divide(plus(integerLiteral(1000), integerLiteral(234)),
+        this.select.valueExpression(divide(plus(integerLiteral(1000), integerLiteral(234)),
                 multiply(integerLiteral(1000), integerLiteral(100))));
         assertThat(this.select, rendersTo("SELECT ((1000+234)/(1000*100))"));
     }
