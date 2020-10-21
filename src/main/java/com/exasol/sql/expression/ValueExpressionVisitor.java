@@ -1,6 +1,7 @@
 package com.exasol.sql.expression;
 
 import com.exasol.sql.UnnamedPlaceholder;
+import com.exasol.sql.expression.function.exasol.ExasolCastFunction;
 import com.exasol.sql.expression.function.exasol.ExasolFunction;
 import com.exasol.sql.expression.function.exasol.ExasolUdf;
 
@@ -41,4 +42,6 @@ public interface ValueExpressionVisitor {
     public void visit(NullLiteral nullLiteral);
 
     public void visit(BooleanExpression booleanExpression);
+
+    public void visit(ExasolCastFunction castFunction);
 }
