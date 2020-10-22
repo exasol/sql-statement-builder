@@ -55,7 +55,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
     /**
      * Add a function.
      * 
-     * @param functionName     a name of function
+     * @param functionName     name of function
      * @param valueExpressions zero or more value expression
      * @return <code>this</code> instance for fluent programming
      */
@@ -76,6 +76,30 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
         final Function function = ExpressionTerm.function(functionName, valueExpressions);
         final DerivedColumn derivedColumn = new DerivedColumn(this, function, derivedColumnName);
         this.derivedColumns.add(derivedColumn);
+        return this;
+    }
+
+    /**
+     * Add a function.
+     *
+     * @param function          function
+     * @param derivedColumnName name under which you can refer to the derived column
+     * @return <code>this</code> instance for fluent programming
+     */
+    public Select function(final Function function, final String derivedColumnName) {
+        final DerivedColumn derivedColumn = new DerivedColumn(this, function, derivedColumnName);
+        this.derivedColumns.add(derivedColumn);
+        return this;
+    }
+
+    /**
+     * Add a function.
+     *
+     * @param function function
+     * @return <code>this</code> instance for fluent programming
+     */
+    public Select function(final Function function) {
+        function(function, "");
         return this;
     }
 

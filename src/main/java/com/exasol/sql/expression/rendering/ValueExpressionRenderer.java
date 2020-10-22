@@ -1,9 +1,11 @@
 package com.exasol.sql.expression.rendering;
 
+import com.exasol.datatype.type.DataType;
 import com.exasol.sql.ColumnsDefinition;
 import com.exasol.sql.UnnamedPlaceholder;
 import com.exasol.sql.expression.*;
 import com.exasol.sql.expression.function.Function;
+import com.exasol.sql.expression.function.exasol.CastExasolFunction;
 import com.exasol.sql.expression.function.exasol.ExasolFunction;
 import com.exasol.sql.expression.function.exasol.ExasolUdf;
 import com.exasol.sql.rendering.ColumnsDefinitionRenderer;
@@ -55,7 +57,7 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
     }
 
     @Override
-    public void visit(BigDecimalLiteral literal) {
+    public void visit(final BigDecimalLiteral literal) {
         appendCommaWhenNeeded(literal);
         append(literal.toString());
         setLastVisited(literal);
@@ -129,7 +131,7 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
             appendKeyword(" EMITS");
             append(" ");
             final ColumnsDefinition columnsDefinition = function.getEmitsColumnsDefinition().get();
-            final ColumnsDefinitionRenderer columnsDefinitionRenderer = new ColumnsDefinitionRenderer(this.config);
+            final ColumnsDefinitionRenderer columnsDefinitionRenderer = getColumnsDefinitionRenderer();
             columnsDefinition.accept(columnsDefinitionRenderer);
             this.builder.append(columnsDefinitionRenderer.render());
         }
@@ -164,5 +166,22 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
         final BooleanExpressionRenderer expressionRenderer = new BooleanExpressionRenderer(this.config);
         booleanExpression.accept(expressionRenderer);
         append(expressionRenderer.render());
+    }
+
+    @Override
+    public void visit(final CastExasolFunction castFunction) {
+        appendKeyword("CAST");
+        startParenthesis();
+        castFunction.getValue().accept(this);
+        appendKeyword(" AS");
+        final DataType type = castFunction.getType();
+        final ColumnsDefinitionRenderer columnsDefinitionRenderer = getColumnsDefinitionRenderer();
+        type.accept(columnsDefinitionRenderer);
+        append(columnsDefinitionRenderer.render());
+        endParenthesis();
+    }
+
+    private ColumnsDefinitionRenderer getColumnsDefinitionRenderer() {
+        return new ColumnsDefinitionRenderer(this.config);
     }
 }
