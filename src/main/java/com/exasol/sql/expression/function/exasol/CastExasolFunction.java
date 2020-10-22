@@ -10,23 +10,23 @@ import com.exasol.sql.expression.function.FunctionName;
 /**
  * This class represents the Exasol CAST function.
  */
-public class ExasolFunctionCast extends ExasolFunction {
+public class CastExasolFunction extends ExasolFunction {
     private final DataType type;
 
-    private ExasolFunctionCast(final ValueExpression value, final DataType type) {
+    private CastExasolFunction(final ValueExpression value, final DataType type) {
         super(ExasolScalarFunctionCast.CAST, List.of(value));
         this.type = type;
     }
 
     /**
-     * Create a new {@link ExasolFunctionCast} instance.
+     * Create a new {@link CastExasolFunction} instance.
      *
      * @param valueExpression value to cast
      * @param type            type to cast the value to
-     * @return new {@link ExasolFunctionCast}
+     * @return new {@link CastExasolFunction}
      */
-    public static ExasolFunctionCast of(final ValueExpression valueExpression, final DataType type) {
-        return new ExasolFunctionCast(valueExpression, type);
+    public static CastExasolFunction of(final ValueExpression valueExpression, final DataType type) {
+        return new CastExasolFunction(valueExpression, type);
     }
 
     /**

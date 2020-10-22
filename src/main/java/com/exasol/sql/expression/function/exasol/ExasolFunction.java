@@ -1,8 +1,9 @@
 package com.exasol.sql.expression.function.exasol;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
-import com.exasol.datatype.type.DataType;
 import com.exasol.sql.expression.ValueExpression;
 import com.exasol.sql.expression.ValueExpressionVisitor;
 import com.exasol.sql.expression.function.AbstractFunction;
@@ -38,10 +39,6 @@ public class ExasolFunction extends AbstractFunction {
      */
     public static ExasolFunction of(final FunctionName functionName, final ValueExpression... valueExpressions) {
         return new ExasolFunction(functionName, Arrays.asList(valueExpressions));
-    }
-
-    public static ExasolFunction castScalarFunction(final ValueExpression valueExpression, final DataType dataType) {
-        return ExasolFunctionCast.of(valueExpression, dataType);
     }
 
     @Override

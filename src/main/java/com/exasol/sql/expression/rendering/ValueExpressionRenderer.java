@@ -5,7 +5,9 @@ import com.exasol.sql.ColumnsDefinition;
 import com.exasol.sql.UnnamedPlaceholder;
 import com.exasol.sql.expression.*;
 import com.exasol.sql.expression.function.Function;
-import com.exasol.sql.expression.function.exasol.*;
+import com.exasol.sql.expression.function.exasol.CastExasolFunction;
+import com.exasol.sql.expression.function.exasol.ExasolFunction;
+import com.exasol.sql.expression.function.exasol.ExasolUdf;
 import com.exasol.sql.rendering.ColumnsDefinitionRenderer;
 import com.exasol.sql.rendering.StringRendererConfig;
 
@@ -167,7 +169,7 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
     }
 
     @Override
-    public void visit(final ExasolFunctionCast castFunction) {
+    public void visit(final CastExasolFunction castFunction) {
         appendKeyword("CAST");
         startParenthesis();
         castFunction.getValue().accept(this);
