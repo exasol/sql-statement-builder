@@ -1,4 +1,4 @@
-# SQL Statement Builder 4.3.0, released 2020-XX-XX
+# SQL Statement Builder 4.3.0, released 2020-10-22
 
 Code Name: CAST function support
 
