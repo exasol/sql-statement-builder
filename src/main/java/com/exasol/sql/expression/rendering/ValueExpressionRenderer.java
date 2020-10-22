@@ -131,7 +131,7 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
             appendKeyword(" EMITS");
             append(" ");
             final ColumnsDefinition columnsDefinition = function.getEmitsColumnsDefinition().get();
-            final ColumnsDefinitionRenderer columnsDefinitionRenderer = new ColumnsDefinitionRenderer(this.config);
+            final ColumnsDefinitionRenderer columnsDefinitionRenderer = getColumnsDefinitionRenderer();
             columnsDefinition.accept(columnsDefinitionRenderer);
             this.builder.append(columnsDefinitionRenderer.render());
         }
@@ -175,9 +175,13 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
         castFunction.getValue().accept(this);
         appendKeyword(" AS");
         final DataType type = castFunction.getType();
-        final ColumnsDefinitionRenderer columnsDefinitionRenderer = new ColumnsDefinitionRenderer(this.config);
+        final ColumnsDefinitionRenderer columnsDefinitionRenderer = getColumnsDefinitionRenderer();
         type.accept(columnsDefinitionRenderer);
         append(columnsDefinitionRenderer.render());
         endParenthesis();
+    }
+
+    private ColumnsDefinitionRenderer getColumnsDefinitionRenderer() {
+        return new ColumnsDefinitionRenderer(this.config);
     }
 }
