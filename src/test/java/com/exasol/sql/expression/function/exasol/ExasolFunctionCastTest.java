@@ -10,18 +10,18 @@ import com.exasol.sql.StatementFactory;
 import com.exasol.sql.dql.select.Select;
 import com.exasol.sql.expression.NullLiteral;
 
-class ExasolCastFunctionTest {
-
+class ExasolFunctionCastTest {
     @Test
     void testRendering() {
-        final Select select = StatementFactory.getInstance().select().cast(NullLiteral.nullLiteral(), new Varchar(254));
+        final Select select = StatementFactory.getInstance().select()
+                .function(ExasolFunction.castScalarFunction(NullLiteral.nullLiteral(), new Varchar(254)));
         assertThat(select, rendersTo("SELECT CAST(NULL AS VARCHAR(254))"));
     }
 
     @Test
     void testRenderingWithName() {
-        final Select select = StatementFactory.getInstance().select().cast(NullLiteral.nullLiteral(), new Varchar(254),
-                "TEST");
+        final Select select = StatementFactory.getInstance().select()
+                .function(ExasolFunction.castScalarFunction(NullLiteral.nullLiteral(), new Varchar(254)), "TEST");
         assertThat(select, rendersTo("SELECT CAST(NULL AS VARCHAR(254)) TEST"));
     }
 }

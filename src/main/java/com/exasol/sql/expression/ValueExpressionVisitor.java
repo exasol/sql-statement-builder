@@ -1,9 +1,7 @@
 package com.exasol.sql.expression;
 
 import com.exasol.sql.UnnamedPlaceholder;
-import com.exasol.sql.expression.function.exasol.ExasolCastFunction;
-import com.exasol.sql.expression.function.exasol.ExasolFunction;
-import com.exasol.sql.expression.function.exasol.ExasolUdf;
+import com.exasol.sql.expression.function.exasol.*;
 
 /**
  * Visitor interface for a {@link BooleanTerm}.
@@ -43,5 +41,5 @@ public interface ValueExpressionVisitor {
 
     public void visit(BooleanExpression booleanExpression);
 
-    public void visit(ExasolCastFunction castFunction);
+    public void visit(ExasolFunctionCast castFunction);
 }

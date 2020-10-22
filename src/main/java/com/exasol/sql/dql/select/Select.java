@@ -3,15 +3,10 @@ package com.exasol.sql.dql.select;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.exasol.datatype.type.DataType;
-import com.exasol.sql.AbstractFragment;
-import com.exasol.sql.ColumnsDefinition;
-import com.exasol.sql.DerivedColumn;
-import com.exasol.sql.SqlStatement;
+import com.exasol.sql.*;
 import com.exasol.sql.expression.*;
 import com.exasol.sql.expression.function.Function;
 import com.exasol.sql.expression.function.FunctionName;
-import com.exasol.sql.expression.function.exasol.ExasolCastFunction;
 
 /**
  * This class implements an SQL {@link Select} statement.
@@ -60,7 +55,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
     /**
      * Add a function.
      * 
-     * @param functionName     a name of function
+     * @param functionName     name of function
      * @param valueExpressions zero or more value expression
      * @return <code>this</code> instance for fluent programming
      */
@@ -85,28 +80,26 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
     }
 
     /**
-     * Add a cast function.
+     * Add a function.
      *
-     * @param value value to cast
-     * @param type  type to cast the value to
-     * @return <code>this</code> instance for fluent programming
-     */
-    public Select cast(final ValueExpression value, final DataType type) {
-        return this.cast(value, type, "");
-    }
-
-    /**
-     * Add a cast function.
-     * 
-     * @param value             value to cast
-     * @param type              type to cast the value to
+     * @param function          function
      * @param derivedColumnName name under which you can refer to the derived column
      * @return <code>this</code> instance for fluent programming
      */
-    public Select cast(final ValueExpression value, final DataType type, final String derivedColumnName) {
-        final Function castFunction = ExasolCastFunction.of(value, type);
-        final DerivedColumn derivedColumn = new DerivedColumn(this, castFunction, derivedColumnName);
+    public Select function(final Function function, final String derivedColumnName) {
+        final DerivedColumn derivedColumn = new DerivedColumn(this, function, derivedColumnName);
         this.derivedColumns.add(derivedColumn);
+        return this;
+    }
+
+    /**
+     * Add a function.
+     *
+     * @param function function
+     * @return <code>this</code> instance for fluent programming
+     */
+    public Select function(final Function function) {
+        function(function, "");
         return this;
     }
 

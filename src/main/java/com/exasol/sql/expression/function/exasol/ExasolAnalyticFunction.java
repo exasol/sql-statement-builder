@@ -14,6 +14,6 @@ import com.exasol.sql.expression.function.FunctionName;
  * <a href="https://github.com/exasol/sql-statement-builder/issues/72"> github issue # 72</a>.
  * </p>
  */
-public enum ExasolAnalyticFunctions implements FunctionName {
+public enum ExasolAnalyticFunction implements FunctionName {
     ANY, EVERY, LISTAGG
 }

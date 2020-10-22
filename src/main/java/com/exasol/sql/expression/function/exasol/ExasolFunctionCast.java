@@ -5,29 +5,28 @@ import java.util.List;
 import com.exasol.datatype.type.DataType;
 import com.exasol.sql.expression.ValueExpression;
 import com.exasol.sql.expression.ValueExpressionVisitor;
-import com.exasol.sql.expression.function.AbstractFunction;
+import com.exasol.sql.expression.function.FunctionName;
 
 /**
  * This class represents the Exasol CAST function.
  */
-public class ExasolCastFunction extends AbstractFunction {
-    private static final String FUNCTION_NAME = "CAST";
+public class ExasolFunctionCast extends ExasolFunction {
     private final DataType type;
 
-    private ExasolCastFunction(final ValueExpression value, final DataType type) {
-        super(FUNCTION_NAME, List.of(value));
+    private ExasolFunctionCast(final ValueExpression value, final DataType type) {
+        super(ExasolScalarFunctionCast.CAST, List.of(value));
         this.type = type;
     }
 
     /**
-     * Create a new {@link ExasolCastFunction} instance.
+     * Create a new {@link ExasolFunctionCast} instance.
      *
      * @param valueExpression value to cast
      * @param type            type to cast the value to
-     * @return new {@link ExasolCastFunction}
+     * @return new {@link ExasolFunctionCast}
      */
-    public static ExasolCastFunction of(final ValueExpression valueExpression, final DataType type) {
-        return new ExasolCastFunction(valueExpression, type);
+    public static ExasolFunctionCast of(final ValueExpression valueExpression, final DataType type) {
+        return new ExasolFunctionCast(valueExpression, type);
     }
 
     /**
@@ -56,5 +55,9 @@ public class ExasolCastFunction extends AbstractFunction {
     @Override
     public void accept(final ValueExpressionVisitor visitor) {
         visitor.visit(this);
+    }
+
+    private enum ExasolScalarFunctionCast implements FunctionName {
+        CAST
     }
 }

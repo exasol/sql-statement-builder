@@ -2,6 +2,7 @@ package com.exasol.sql.expression.function.exasol;
 
 import java.util.*;
 
+import com.exasol.datatype.type.DataType;
 import com.exasol.sql.expression.ValueExpression;
 import com.exasol.sql.expression.ValueExpressionVisitor;
 import com.exasol.sql.expression.function.AbstractFunction;
@@ -14,7 +15,7 @@ public class ExasolFunction extends AbstractFunction {
     private static final List<String> functionsWithoutParenthesis = Arrays.asList("SYSDATE", "CURRENT_SCHEMA",
             "CURRENT_SESSION", "CURRENT_STATEMENT", "CURRENT_USER", "ROWNUM", "ROWID", "SCOPE_USER", "USER");
 
-    private ExasolFunction(final FunctionName functionName, final List<ValueExpression> valueExpressions) {
+    protected ExasolFunction(final FunctionName functionName, final List<ValueExpression> valueExpressions) {
         super(functionName.toString(), valueExpressions);
     }
 
@@ -31,12 +32,16 @@ public class ExasolFunction extends AbstractFunction {
     /**
      * Create a new {@link ExasolFunction} instance.
      *
-     * @param functionName name of the function
+     * @param functionName     name of the function
      * @param valueExpressions zero or more value expressions
      * @return new {@link ExasolFunction}
      */
     public static ExasolFunction of(final FunctionName functionName, final ValueExpression... valueExpressions) {
         return new ExasolFunction(functionName, Arrays.asList(valueExpressions));
+    }
+
+    public static ExasolFunction castScalarFunction(final ValueExpression valueExpression, final DataType dataType) {
+        return ExasolFunctionCast.of(valueExpression, dataType);
     }
 
     @Override

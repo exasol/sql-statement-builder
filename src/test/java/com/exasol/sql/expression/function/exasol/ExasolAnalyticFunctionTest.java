@@ -16,7 +16,7 @@ class ExasolAnalyticFunctionTest {
     void testAggregateFunctionCoalesce() {
         final Select select = StatementFactory.getInstance().select() //
                 .field("department") //
-                .function(ExasolAnalyticFunctions.ANY, " ANY_ ", BooleanTerm.lt(column("age"), integerLiteral(30)));
+                .function(ExasolAnalyticFunction.ANY, " ANY_ ", BooleanTerm.lt(column("age"), integerLiteral(30)));
         select.from().table("employee_table");
         select.groupBy(column("department"));
         assertThat(select,
