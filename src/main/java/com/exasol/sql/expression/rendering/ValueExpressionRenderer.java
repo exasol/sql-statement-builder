@@ -175,13 +175,9 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
         castFunction.getValue().accept(this);
         appendKeyword(" AS");
         final DataType type = castFunction.getType();
-        appendColumnDefinition(type);
-        endParenthesis();
-    }
-
-    private void appendColumnDefinition(final DataType type) {
         final ColumnsDefinitionRenderer columnsDefinitionRenderer = new ColumnsDefinitionRenderer(this.config);
         type.accept(columnsDefinitionRenderer);
         append(columnsDefinitionRenderer.render());
+        endParenthesis();
     }
 }
