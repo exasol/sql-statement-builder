@@ -11,11 +11,11 @@ import com.exasol.sql.expression.function.AbstractFunction;
  * This class represents the Exasol CAST function.
  */
 public class ExasolCastFunction extends AbstractFunction {
-    private static final String CAST_FUNCTION_NAME = "CAST";
+    private static final String FUNCTION_NAME = "CAST";
     private final DataType type;
 
     private ExasolCastFunction(final ValueExpression value, final DataType type) {
-        super(CAST_FUNCTION_NAME, List.of(value));
+        super(FUNCTION_NAME, List.of(value));
         this.type = type;
     }
 

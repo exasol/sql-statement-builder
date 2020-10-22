@@ -1,5 +1,6 @@
 package com.exasol.sql.expression.rendering;
 
+import com.exasol.datatype.type.DataType;
 import com.exasol.sql.ColumnsDefinition;
 import com.exasol.sql.UnnamedPlaceholder;
 import com.exasol.sql.expression.*;
@@ -173,9 +174,14 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
         startParenthesis();
         castFunction.getValue().accept(this);
         appendKeyword(" AS");
-        final ColumnsDefinitionRenderer columnsDefinitionRenderer = new ColumnsDefinitionRenderer(this.config);
-        castFunction.getType().accept(columnsDefinitionRenderer);
-        append(columnsDefinitionRenderer.render());
+        final DataType type = castFunction.getType();
+        appendColumnDefinition(type);
         endParenthesis();
+    }
+
+    private void appendColumnDefinition(final DataType type) {
+        final ColumnsDefinitionRenderer columnsDefinitionRenderer = new ColumnsDefinitionRenderer(this.config);
+        type.accept(columnsDefinitionRenderer);
+        append(columnsDefinitionRenderer.render());
     }
 }
