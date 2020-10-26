@@ -1,6 +1,8 @@
 package com.exasol.sql.expression.rendering;
 
 import com.exasol.sql.expression.*;
+import com.exasol.sql.expression.comparison.Comparison;
+import com.exasol.sql.expression.comparison.LikeComparison;
 import com.exasol.sql.rendering.StringRendererConfig;
 
 public class BooleanExpressionRenderer extends AbstractExpressionRenderer implements BooleanExpressionVisitor {
@@ -90,34 +92,16 @@ public class BooleanExpressionRenderer extends AbstractExpressionRenderer implem
 
     @Override
     public void leave(final Comparison comparison) {
+        if (comparison instanceof LikeComparison) {
+            final LikeComparison like = (LikeComparison) comparison;
+            if (like.hasEscape()) {
+                this.builder.append(" ESCAPE ");
+                this.builder.append("'");
+                this.builder.append(like.getEscape());
+                this.builder.append("'");
+            }
+        }
         if (!comparison.isRoot()) {
-            endParenthesis();
-        }
-    }
-
-    @Override
-    public void visit(final Like like) {
-        connect(like);
-        if (!like.isRoot()) {
-            startParenthesis();
-        }
-        appendOperand(like.getLeftOperand());
-        if (like.hasNot()) {
-            this.builder.append(" NOT");
-        }
-        this.builder.append(" LIKE ");
-        appendOperand(like.getRightOperand());
-        if (like.hasEscape()) {
-            this.builder.append(" ESCAPE ");
-            this.builder.append("'");
-            this.builder.append(like.getEscape());
-            this.builder.append("'");
-        }
-    }
-
-    @Override
-    public void leave(final Like like) {
-        if (!like.isRoot()) {
             endParenthesis();
         }
     }

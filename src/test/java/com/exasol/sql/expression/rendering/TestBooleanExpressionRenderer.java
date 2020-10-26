@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import com.exasol.sql.expression.BigDecimalLiteral;
 import com.exasol.sql.expression.BooleanExpression;
-import com.exasol.sql.expression.ComparisonOperator;
+import com.exasol.sql.expression.comparison.SimpleComparisonOperator;
 import com.exasol.sql.rendering.StringRendererConfig;
 
 class TestBooleanExpressionRenderer {
@@ -42,8 +42,8 @@ class TestBooleanExpressionRenderer {
     @Test
     void testAndNestedComparisons() {
         final BooleanExpression expression = and(
-                compare(stringLiteral("a"), ComparisonOperator.EQUAL, stringLiteral("b")),
-                compare(stringLiteral("c"), ComparisonOperator.NOT_EQUAL, stringLiteral("d")));
+                compare(stringLiteral("a"), SimpleComparisonOperator.EQUAL, stringLiteral("b")),
+                compare(stringLiteral("c"), SimpleComparisonOperator.NOT_EQUAL, stringLiteral("d")));
         assertThat(expression, rendersTo("('a' = 'b') AND ('c' <> 'd')"));
     }
 
