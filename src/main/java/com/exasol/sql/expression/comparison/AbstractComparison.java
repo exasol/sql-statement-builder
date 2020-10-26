@@ -19,7 +19,7 @@ public abstract class AbstractComparison extends AbstractBooleanExpression imple
      * @param leftOperand        left-hand side operator of the comparison
      * @param rightOperand       right-hand side operator of the comparison
      */
-    public AbstractComparison(final ComparisonOperator comparisonOperator, final ValueExpression leftOperand,
+    protected AbstractComparison(final ComparisonOperator comparisonOperator, final ValueExpression leftOperand,
             final ValueExpression rightOperand) {
         this.operator = comparisonOperator;
         this.leftOperand = leftOperand;
