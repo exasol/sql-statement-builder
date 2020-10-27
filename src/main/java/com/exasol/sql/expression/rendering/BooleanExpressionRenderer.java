@@ -82,6 +82,15 @@ public class BooleanExpressionRenderer extends AbstractExpressionRenderer implem
         this.builder.append(comparison.getOperator().toString());
         this.builder.append(" ");
         appendOperand(comparison.getRightOperand());
+        if (comparison instanceof LikeComparison) {
+            final LikeComparison like = (LikeComparison) comparison;
+            if (like.hasEscape()) {
+                this.builder.append(" ESCAPE ");
+                this.builder.append("'");
+                this.builder.append(like.getEscape());
+                this.builder.append("'");
+            }
+        }
     }
 
     protected void appendOperand(final ValueExpression leftOperand) {
@@ -92,15 +101,6 @@ public class BooleanExpressionRenderer extends AbstractExpressionRenderer implem
 
     @Override
     public void leave(final Comparison comparison) {
-        if (comparison instanceof LikeComparison) {
-            final LikeComparison like = (LikeComparison) comparison;
-            if (like.hasEscape()) {
-                this.builder.append(" ESCAPE ");
-                this.builder.append("'");
-                this.builder.append(like.getEscape());
-                this.builder.append("'");
-            }
-        }
         if (!comparison.isRoot()) {
             endParenthesis();
         }

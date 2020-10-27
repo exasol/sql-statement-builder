@@ -10,5 +10,5 @@ public interface ComparisonOperator {
      * @return operator symbol
      */
     @Override
-    String toString();
+    public String toString();
 }

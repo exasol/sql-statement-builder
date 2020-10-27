@@ -3,6 +3,9 @@ package com.exasol.sql.expression.comparison;
 import com.exasol.sql.expression.BooleanExpression;
 import com.exasol.sql.expression.ValueExpression;
 
+/**
+ * Interface for classes that implement comparisons between two columns.
+ */
 public interface Comparison extends BooleanExpression {
 
     /**
