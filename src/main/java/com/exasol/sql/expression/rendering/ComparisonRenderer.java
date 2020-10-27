@@ -23,22 +23,23 @@ public class ComparisonRenderer extends AbstractExpressionRenderer implements Co
 
     @Override
     public void visit(final SimpleComparison simpleComparison) {
-        renderComparisonCommonPart(simpleComparison);
-        endParenthesis();
+        renderComparisonCommonPart(simpleComparison, () -> {
+        });
     }
 
     @Override
     public void visit(final LikeComparison like) {
-        renderComparisonCommonPart(like);
-        if (like.hasEscape()) {
-            this.builder.append(" ESCAPE ");
-            this.builder.append("'");
-            this.builder.append(like.getEscape());
-            this.builder.append("'");
-        }
+        renderComparisonCommonPart(like, () -> {
+            if (like.hasEscape()) {
+                this.builder.append(" ESCAPE ");
+                this.builder.append("'");
+                this.builder.append(like.getEscape());
+                this.builder.append("'");
+            }
+        });
     }
 
-    private void renderComparisonCommonPart(final Comparison comparison) {
+    private void renderComparisonCommonPart(final Comparison comparison, final Runnable beforeClosingParenthesisHook) {
         connect(comparison);
         if (!comparison.isRoot()) {
             startParenthesis();
@@ -48,6 +49,10 @@ public class ComparisonRenderer extends AbstractExpressionRenderer implements Co
         this.builder.append(comparison.getOperator().toString());
         this.builder.append(" ");
         appendOperand(comparison.getRightOperand());
+        beforeClosingParenthesisHook.run();
+        if (!comparison.isRoot()) {
+            endParenthesis();
+        }
     }
 
     private void appendOperand(final ValueExpression leftOperand) {

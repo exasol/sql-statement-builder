@@ -75,6 +75,7 @@ public class BooleanExpressionRenderer extends AbstractExpressionRenderer implem
 
     @Override
     public void visit(final Comparison comparison) {
+        connect(comparison);
         final ComparisonRenderer comparisonRenderer = new ComparisonRenderer(this.config);
         comparison.accept(comparisonRenderer);
         append(comparisonRenderer.render());
