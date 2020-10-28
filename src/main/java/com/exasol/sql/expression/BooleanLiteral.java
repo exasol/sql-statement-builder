@@ -76,7 +76,7 @@ public final class BooleanLiteral extends AbstractBooleanExpression implements V
 
     @Override
     public void dismissConcrete(final BooleanExpressionVisitor visitor) {
-        visitor.leave(this);
+        // empty on purpose
     }
 
     /**

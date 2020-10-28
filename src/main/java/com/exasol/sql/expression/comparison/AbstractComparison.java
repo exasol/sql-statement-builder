@@ -33,7 +33,7 @@ public abstract class AbstractComparison extends AbstractBooleanExpression imple
 
     @Override
     public final void dismissConcrete(final BooleanExpressionVisitor visitor) {
-        visitor.leave(this);
+        // empty on purpose
     }
 
     /**

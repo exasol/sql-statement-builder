@@ -69,20 +69,10 @@ public class BooleanExpressionRenderer extends AbstractExpressionRenderer implem
     }
 
     @Override
-    public void leave(final BooleanLiteral literal) {
-        // intentionally empty
-    }
-
-    @Override
     public void visit(final Comparison comparison) {
         connect(comparison);
         final ComparisonRenderer comparisonRenderer = new ComparisonRenderer(this.config);
         comparison.accept(comparisonRenderer);
         append(comparisonRenderer.render());
-    }
-
-    @Override
-    public void leave(final Comparison comparison) {
-        // intentionally empty
     }
 }
