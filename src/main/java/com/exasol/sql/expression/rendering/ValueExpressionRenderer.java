@@ -23,11 +23,20 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer
         super(config);
     }
 
+    public void visit(final ValueExpression... valueExpression) {
+        boolean isFirst = true;
+        for (final ValueExpression parameter : valueExpression) {
+            if (!isFirst) {
+                append(", ");
+            }
+            isFirst = false;
+            parameter.accept(this);
+        }
+    }
+
     @Override
     public void visit(final ColumnReference columnReference) {
-        appendCommaWhenNeeded(columnReference);
         appendAutoQuoted(columnReference.toString());
-        setLastVisited(columnReference);
     }
 
     @Override
@@ -50,72 +59,54 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer
     @Override
     public void visit(final UnnamedPlaceholder unnamedPlaceholder) {
         append("?");
-        setLastVisited(unnamedPlaceholder);
     }
 
     @Override
     public void visit(final DefaultValue defaultValue) {
         appendKeyword("DEFAULT");
-        setLastVisited(defaultValue);
     }
 
     /** Literal visitor **/
     @Override
     public void visit(final StringLiteral literal) {
-        appendCommaWhenNeeded(literal);
         append("'");
         append(literal.toString());
         append("'");
-        setLastVisited(literal);
     }
 
     @Override
     public void visit(final IntegerLiteral literal) {
-        appendCommaWhenNeeded(literal);
         append(literal.toString());
-        setLastVisited(literal);
     }
 
     @Override
     public void visit(final LongLiteral literal) {
-        appendCommaWhenNeeded(literal);
         append(literal.toString());
-        setLastVisited(literal);
     }
 
     @Override
     public void visit(final DoubleLiteral literal) {
-        appendCommaWhenNeeded(literal);
         append(literal.toString());
-        setLastVisited(literal);
     }
 
     @Override
     public void visit(final FloatLiteral literal) {
-        appendCommaWhenNeeded(literal);
         append(literal.toString());
-        setLastVisited(literal);
     }
 
     @Override
     public void visit(final BigDecimalLiteral literal) {
-        appendCommaWhenNeeded(literal);
         append(literal.toString());
-        setLastVisited(literal);
     }
 
     @Override
     public void visit(final BooleanLiteral literal) {
-        appendCommaWhenNeeded(literal);
         append(literal.toString());
-        setLastVisited(literal);
     }
 
     @Override
     public void visit(final NullLiteral nullLiteral) {
-        appendCommaWhenNeeded(nullLiteral);
         appendKeyword("NULL");
-        setLastVisited(nullLiteral);
     }
 
     /** Function visitor */
@@ -126,18 +117,14 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer
     }
 
     private void renderFunction(final AbstractFunction function) {
-        appendCommaWhenNeeded(function);
         appendKeyword(function.getFunctionName());
         if (function.hasParenthesis()) {
             startParenthesis();
         }
-        for (final ValueExpression parameter : function.getValueExpressions()) {
-            parameter.accept(this);
-        }
+        this.visit(function.getValueExpressions().toArray(ValueExpression[]::new));
         if (function.hasParenthesis()) {
             endParenthesis();
         }
-        setLastVisited(function);
     }
 
     @Override
@@ -174,19 +161,15 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer
 
     @Override
     public void visit(final BinaryArithmeticExpression expression) {
-        appendCommaWhenNeeded(expression);
         startParenthesis();
         appendOperand(expression.getLeft());
         append(expression.getStringOperatorRepresentation());
         appendOperand(expression.getRight());
         endParenthesis();
-        setLastVisited(expression);
     }
 
     private void appendOperand(final ValueExpression operand) {
-        final ValueExpressionRenderer expressionRenderer = new ValueExpressionRenderer(this.config);
-        operand.accept(expressionRenderer);
-        this.builder.append(expressionRenderer.render());
+        operand.accept(this);
     }
 
     private ColumnsDefinitionRenderer getColumnsDefinitionRenderer() {

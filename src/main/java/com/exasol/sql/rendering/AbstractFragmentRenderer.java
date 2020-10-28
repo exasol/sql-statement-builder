@@ -43,12 +43,16 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
         this.builder.append(")");
     }
 
+    protected void appendRenderedValueExpression(final ValueExpression expression) {
+        final ValueExpressionRenderer renderer = new ValueExpressionRenderer(this.config);
+        expression.accept(renderer);
+        append(renderer.render());
+    }
+
     protected void appendListOfValueExpressions(final List<? extends ValueExpression> valueExpressions) {
         if ((valueExpressions != null) && !valueExpressions.isEmpty()) {
             final ValueExpressionRenderer valueExpressionRenderer = new ValueExpressionRenderer(this.config);
-            for (final ValueExpression valueExpression : valueExpressions) {
-                valueExpression.accept(valueExpressionRenderer);
-            }
+            valueExpressionRenderer.visit(valueExpressions.toArray(ValueExpression[]::new));
             this.builder.append(valueExpressionRenderer.render());
         }
     }
@@ -79,12 +83,6 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
 
     protected void append(final int number) {
         this.builder.append(number);
-    }
-
-    protected void appendRenderedValueExpression(final ValueExpression expression) {
-        final ValueExpressionRenderer renderer = new ValueExpressionRenderer(this.config);
-        expression.accept(renderer);
-        append(renderer.render());
     }
 
     protected void appendAutoQuoted(final String identifier) {

@@ -25,12 +25,7 @@ public class Or extends AbstractBooleanExpression {
     }
 
     @Override
-    public void acceptConcrete(final BooleanExpressionVisitor visitor) {
+    public void accept(final BooleanExpressionVisitor visitor) {
         visitor.visit(this);
-    }
-
-    @Override
-    public void dismissConcrete(final BooleanExpressionVisitor visitor) {
-        visitor.leave(this);
     }
 }

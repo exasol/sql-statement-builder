@@ -16,7 +16,7 @@ public abstract class AbstractTree implements TreeNode {
     }
 
     @Override
-    public List<TreeNode> getChildren() {
+    public List<? extends TreeNode> getChildren() {
         return this.children;
     }
 

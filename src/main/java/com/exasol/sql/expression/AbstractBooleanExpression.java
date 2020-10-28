@@ -1,7 +1,8 @@
 package com.exasol.sql.expression;
 
+import java.util.List;
+
 import com.exasol.util.AbstractBottomUpTreeNode;
-import com.exasol.util.TreeNode;
 
 /**
  * Abstract base class for all types of BooleanExpressions.
@@ -20,27 +21,14 @@ public abstract class AbstractBooleanExpression extends AbstractBottomUpTreeNode
     }
 
     @Override
-    public void accept(final BooleanExpressionVisitor visitor) {
-        acceptConcrete(visitor);
-        for (final TreeNode child : this.getChildren()) {
-            ((BooleanExpression) child).accept(visitor);
-        }
-        dismissConcrete(visitor);
+    public List<BooleanExpression> getChildren() {
+        return (List<BooleanExpression>) super.getChildren();
     }
 
-    /**
-     * Sub-classes must override this method so that the visitor knows the type of the visited class at compile time.
-     *
-     * @param visitor visitor to accept
-     */
-    public abstract void acceptConcrete(final BooleanExpressionVisitor visitor);
-
-    /**
-     * Sub-classes must override this method so that the visitor knows the type of the visited class at compile time.
-     *
-     * @param visitor visitor to accept
-     */
-    public abstract void dismissConcrete(final BooleanExpressionVisitor visitor);
+    @Override
+    public BooleanExpression getChild(final int index) {
+        return (BooleanExpression) super.getChild(index);
+    }
 
     @Override
     public void accept(final ValueExpressionVisitor visitor) {

@@ -1,11 +1,16 @@
 package com.exasol.sql.expression;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.exasol.sql.expression.literal.BooleanLiteral;
 
 /**
  * This class represents a logical AND predicate.
  */
 public class And extends AbstractBooleanExpression {
+    private final List<BooleanExpression> operands;
+
     /**
      * Create a new {@link And} instance
      *
@@ -13,6 +18,7 @@ public class And extends AbstractBooleanExpression {
      */
     public And(final BooleanExpression... expressions) {
         super(expressions);
+        this.operands = Arrays.asList(expressions);
     }
 
     /**
@@ -25,12 +31,7 @@ public class And extends AbstractBooleanExpression {
     }
 
     @Override
-    public void acceptConcrete(final BooleanExpressionVisitor visitor) {
+    public void accept(final BooleanExpressionVisitor visitor) {
         visitor.visit(this);
-    }
-
-    @Override
-    public void dismissConcrete(final BooleanExpressionVisitor visitor) {
-        visitor.leave(this);
     }
 }

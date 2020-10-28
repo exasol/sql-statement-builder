@@ -26,16 +26,6 @@ public abstract class AbstractComparison extends AbstractBooleanExpression imple
         this.rightOperand = rightOperand;
     }
 
-    @Override
-    public final void acceptConcrete(final BooleanExpressionVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public final void dismissConcrete(final BooleanExpressionVisitor visitor) {
-        // empty on purpose
-    }
-
     /**
      * Get the left-hand side operator of the comparison
      *
@@ -64,5 +54,10 @@ public abstract class AbstractComparison extends AbstractBooleanExpression imple
     @Override
     public ComparisonOperator getOperator() {
         return this.operator;
+    }
+
+    @Override
+    public void accept(final BooleanExpressionVisitor visitor) {
+        visitor.visit(this);
     }
 }

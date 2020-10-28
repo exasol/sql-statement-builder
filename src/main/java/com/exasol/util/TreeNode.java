@@ -35,7 +35,7 @@ public interface TreeNode {
      *
      * @return child nodes
      */
-    public List<TreeNode> getChildren();
+    public List<? extends TreeNode> getChildren();
 
     /**
      * Get child node by position in the list of siblings. The position depends on the order in which the children were

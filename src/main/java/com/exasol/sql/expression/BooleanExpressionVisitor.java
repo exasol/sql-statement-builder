@@ -13,13 +13,7 @@ public interface BooleanExpressionVisitor {
 
     public void visit(And and);
 
-    public void leave(Not not);
-
-    public void leave(And and);
-
     public void visit(Or or);
-
-    public void leave(Or or);
 
     public void visit(Comparison comparison);
 }
