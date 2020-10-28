@@ -1,6 +1,7 @@
 package com.exasol.sql.expression;
 
 import com.exasol.sql.expression.comparison.Comparison;
+import com.exasol.sql.expression.literal.BooleanLiteral;
 
 /**
  * Visitor interface for a {@link BooleanTerm}

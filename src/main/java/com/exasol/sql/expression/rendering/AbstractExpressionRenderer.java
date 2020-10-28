@@ -3,7 +3,10 @@ package com.exasol.sql.expression.rendering;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-import com.exasol.sql.expression.*;
+import com.exasol.sql.expression.BinaryArithmeticExpression;
+import com.exasol.sql.expression.BooleanExpression;
+import com.exasol.sql.expression.ValueExpression;
+import com.exasol.sql.expression.literal.BooleanLiteral;
 import com.exasol.sql.rendering.StringRendererConfig;
 import com.exasol.util.QuotesApplier;
 

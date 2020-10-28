@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import com.exasol.datatype.type.Varchar;
 import com.exasol.sql.StatementFactory;
 import com.exasol.sql.dql.select.Select;
-import com.exasol.sql.expression.NullLiteral;
+import com.exasol.sql.expression.literal.NullLiteral;
 
 class CastExasolFunctionTest {
     @Test

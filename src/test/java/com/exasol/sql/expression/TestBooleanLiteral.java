@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import com.exasol.sql.expression.literal.BooleanLiteral;
+
 class TestBooleanLiteral {
     // [utest->dsn~boolean-literals~1]
     @ValueSource(strings = { "true", "t", "yes", "y", "on", "enabled", "1" })

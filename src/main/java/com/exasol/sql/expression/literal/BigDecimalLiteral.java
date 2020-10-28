@@ -1,4 +1,4 @@
-package com.exasol.sql.expression;
+package com.exasol.sql.expression.literal;
 
 import java.math.BigDecimal;
 
@@ -6,10 +6,10 @@ import java.math.BigDecimal;
  * This class represents BigDecimal literals.
  */
 // [impl->dsn~literal-values~2]
-public class BigDecimalLiteral extends AbstractValueExpression {
+public class BigDecimalLiteral extends AbstractLiteral {
     private final BigDecimal literal;
 
-    private BigDecimalLiteral(BigDecimal literal) {
+    private BigDecimalLiteral(final BigDecimal literal) {
         this.literal = literal;
     }
 
@@ -19,7 +19,7 @@ public class BigDecimalLiteral extends AbstractValueExpression {
      * @param literal content
      * @return new {@link StringLiteral}
      */
-    public static BigDecimalLiteral of(BigDecimal literal) {
+    public static BigDecimalLiteral of(final BigDecimal literal) {
         return new BigDecimalLiteral(literal);
     }
 
@@ -29,16 +29,16 @@ public class BigDecimalLiteral extends AbstractValueExpression {
      * @return BigDecimal value
      */
     public BigDecimal getValue() {
-        return literal;
+        return this.literal;
     }
 
     @Override
-    public void accept(ValueExpressionVisitor visitor) {
+    public void accept(final LiteralVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
     public String toString() {
-        return literal.toString();
+        return this.literal.toString();
     }
 }

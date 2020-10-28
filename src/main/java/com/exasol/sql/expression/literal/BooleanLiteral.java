@@ -1,10 +1,13 @@
-package com.exasol.sql.expression;
+package com.exasol.sql.expression.literal;
+
+import com.exasol.sql.expression.BooleanExpression;
+import com.exasol.sql.expression.BooleanExpressionVisitor;
 
 /**
  * This class represents boolean literals (read "true" and "false")
  */
 // [impl->dsn~boolean-literals~1]
-public final class BooleanLiteral extends AbstractBooleanExpression implements ValueExpression {
+public final class BooleanLiteral extends AbstractLiteral implements BooleanExpression {
     private static final String FALSE = "FALSE";
     private static final String TRUE = "TRUE";
     private final boolean value;
@@ -69,16 +72,6 @@ public final class BooleanLiteral extends AbstractBooleanExpression implements V
         return this.value;
     }
 
-    @Override
-    public void acceptConcrete(final BooleanExpressionVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public void dismissConcrete(final BooleanExpressionVisitor visitor) {
-        // empty on purpose
-    }
-
     /**
      * Map an array of booleans to and array of BooleanExpressions
      *
@@ -94,7 +87,12 @@ public final class BooleanLiteral extends AbstractBooleanExpression implements V
     }
 
     @Override
-    public void accept(final ValueExpressionVisitor visitor) {
+    public void accept(final LiteralVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    public void accept(final BooleanExpressionVisitor visitor) {
         visitor.visit(this);
     }
 }

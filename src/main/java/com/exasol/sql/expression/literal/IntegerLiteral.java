@@ -1,10 +1,10 @@
-package com.exasol.sql.expression;
+package com.exasol.sql.expression.literal;
 
 /**
  * This class represents integer literals.
  */
 // [impl->dsn~literal-values~2]
-public final class IntegerLiteral extends AbstractValueExpression {
+public final class IntegerLiteral extends AbstractLiteral {
     private final int value;
 
     private IntegerLiteral(final int value) {
@@ -31,7 +31,7 @@ public final class IntegerLiteral extends AbstractValueExpression {
     }
 
     @Override
-    public void accept(final ValueExpressionVisitor visitor) {
+    public void accept(final LiteralVisitor visitor) {
         visitor.visit(this);
     }
 

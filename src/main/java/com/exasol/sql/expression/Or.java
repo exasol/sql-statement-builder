@@ -1,5 +1,7 @@
 package com.exasol.sql.expression;
 
+import com.exasol.sql.expression.literal.BooleanLiteral;
+
 /**
  * This class represents a logical OR predicate.
  */

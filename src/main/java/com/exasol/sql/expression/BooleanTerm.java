@@ -3,6 +3,7 @@ package com.exasol.sql.expression;
 import com.exasol.sql.expression.comparison.LikeComparison;
 import com.exasol.sql.expression.comparison.SimpleComparison;
 import com.exasol.sql.expression.comparison.SimpleComparisonOperator;
+import com.exasol.sql.expression.literal.BooleanLiteral;
 
 // [impl->dsn~boolean-operators~1]
 public abstract class BooleanTerm extends AbstractBooleanExpression {

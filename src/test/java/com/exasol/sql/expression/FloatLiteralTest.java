@@ -5,6 +5,8 @@ import static org.hamcrest.Matchers.equalTo;
 
 import org.junit.jupiter.api.Test;
 
+import com.exasol.sql.expression.literal.FloatLiteral;
+
 // [utest->dsn~literal-values~2]
 class FloatLiteralTest {
     @Test

@@ -5,9 +5,9 @@ import java.util.Collections;
 import java.util.List;
 
 import com.exasol.sql.expression.ValueExpression;
-import com.exasol.sql.expression.ValueExpressionVisitor;
 import com.exasol.sql.expression.function.AbstractFunction;
 import com.exasol.sql.expression.function.FunctionName;
+import com.exasol.sql.expression.function.FunctionVisitor;
 
 /**
  * This class represents a function in the Exasol database.
@@ -47,11 +47,7 @@ public class ExasolFunction extends AbstractFunction {
     }
 
     @Override
-    public void accept(final ValueExpressionVisitor visitor) {
+    public void accept(final FunctionVisitor visitor) {
         visitor.visit(this);
-        for (final ValueExpression valueExpression : this.valueExpressions) {
-            valueExpression.accept(visitor);
-        }
-        visitor.leave(this);
     }
 }

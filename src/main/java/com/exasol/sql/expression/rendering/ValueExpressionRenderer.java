@@ -4,21 +4,62 @@ import com.exasol.datatype.type.DataType;
 import com.exasol.sql.ColumnsDefinition;
 import com.exasol.sql.UnnamedPlaceholder;
 import com.exasol.sql.expression.*;
+import com.exasol.sql.expression.function.AbstractFunction;
 import com.exasol.sql.expression.function.Function;
+import com.exasol.sql.expression.function.FunctionVisitor;
 import com.exasol.sql.expression.function.exasol.CastExasolFunction;
 import com.exasol.sql.expression.function.exasol.ExasolFunction;
 import com.exasol.sql.expression.function.exasol.ExasolUdf;
+import com.exasol.sql.expression.literal.*;
 import com.exasol.sql.rendering.ColumnsDefinitionRenderer;
 import com.exasol.sql.rendering.StringRendererConfig;
 
 /**
  * Renderer for common value expressions.
  */
-public class ValueExpressionRenderer extends AbstractExpressionRenderer implements ValueExpressionVisitor {
+public class ValueExpressionRenderer extends AbstractExpressionRenderer
+        implements ValueExpressionVisitor, LiteralVisitor, FunctionVisitor {
     public ValueExpressionRenderer(final StringRendererConfig config) {
         super(config);
     }
 
+    @Override
+    public void visit(final ColumnReference columnReference) {
+        appendCommaWhenNeeded(columnReference);
+        appendAutoQuoted(columnReference.toString());
+        setLastVisited(columnReference);
+    }
+
+    @Override
+    public void visit(final Literal literal) {
+        literal.accept((LiteralVisitor) this);
+    }
+
+    @Override
+    public void visit(final Function function) {
+        function.accept((FunctionVisitor) this);
+    }
+
+    @Override
+    public void visit(final BooleanExpression booleanExpression) {
+        final BooleanExpressionRenderer expressionRenderer = new BooleanExpressionRenderer(this.config);
+        booleanExpression.accept(expressionRenderer);
+        append(expressionRenderer.render());
+    }
+
+    @Override
+    public void visit(final UnnamedPlaceholder unnamedPlaceholder) {
+        append("?");
+        setLastVisited(unnamedPlaceholder);
+    }
+
+    @Override
+    public void visit(final DefaultValue defaultValue) {
+        appendKeyword("DEFAULT");
+        setLastVisited(defaultValue);
+    }
+
+    /** Literal visitor **/
     @Override
     public void visit(final StringLiteral literal) {
         appendCommaWhenNeeded(literal);
@@ -71,39 +112,28 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
     }
 
     @Override
-    public void visit(final ColumnReference columnReference) {
-        appendCommaWhenNeeded(columnReference);
-        appendAutoQuoted(columnReference.toString());
-        setLastVisited(columnReference);
+    public void visit(final NullLiteral nullLiteral) {
+        appendCommaWhenNeeded(nullLiteral);
+        appendKeyword("NULL");
+        setLastVisited(nullLiteral);
     }
 
-    @Override
-    public void visit(final UnnamedPlaceholder unnamedPlaceholder) {
-        append("?");
-        setLastVisited(unnamedPlaceholder);
-    }
-
-    @Override
-    public void visit(final DefaultValue defaultValue) {
-        appendKeyword("DEFAULT");
-        setLastVisited(defaultValue);
-    }
+    /** Function visitor */
 
     @Override
     public void visit(final ExasolFunction function) {
-        visitFunction(function);
+        renderFunction(function);
     }
 
-    private void visitFunction(final Function function) {
+    private void renderFunction(final AbstractFunction function) {
         appendCommaWhenNeeded(function);
         appendKeyword(function.getFunctionName());
         if (function.hasParenthesis()) {
             startParenthesis();
         }
-    }
-
-    @Override
-    public void leave(final ExasolFunction function) {
+        for (final ValueExpression parameter : function.getValueExpressions()) {
+            parameter.accept(this);
+        }
         if (function.hasParenthesis()) {
             endParenthesis();
         }
@@ -112,16 +142,21 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
 
     @Override
     public void visit(final ExasolUdf function) {
-        visitFunction(function);
+        renderFunction(function);
+        appendEmitsWhenNecessary(function);
     }
 
     @Override
-    public void leave(final ExasolUdf function) {
-        if (function.hasParenthesis()) {
-            endParenthesis();
-        }
-        appendEmitsWhenNecessary(function);
-        setLastVisited(function);
+    public void visit(final CastExasolFunction castFunction) {
+        appendKeyword("CAST");
+        startParenthesis();
+        castFunction.getValue().accept(this);
+        appendKeyword(" AS");
+        final DataType type = castFunction.getType();
+        final ColumnsDefinitionRenderer columnsDefinitionRenderer = getColumnsDefinitionRenderer();
+        type.accept(columnsDefinitionRenderer);
+        append(columnsDefinitionRenderer.render());
+        endParenthesis();
     }
 
     @SuppressWarnings("squid:S3655")
@@ -148,37 +183,10 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
         setLastVisited(expression);
     }
 
-    protected void appendOperand(final ValueExpression operand) {
+    private void appendOperand(final ValueExpression operand) {
         final ValueExpressionRenderer expressionRenderer = new ValueExpressionRenderer(this.config);
         operand.accept(expressionRenderer);
         this.builder.append(expressionRenderer.render());
-    }
-
-    @Override
-    public void visit(final NullLiteral nullLiteral) {
-        appendCommaWhenNeeded(nullLiteral);
-        appendKeyword("NULL");
-        setLastVisited(nullLiteral);
-    }
-
-    @Override
-    public void visit(final BooleanExpression booleanExpression) {
-        final BooleanExpressionRenderer expressionRenderer = new BooleanExpressionRenderer(this.config);
-        booleanExpression.accept(expressionRenderer);
-        append(expressionRenderer.render());
-    }
-
-    @Override
-    public void visit(final CastExasolFunction castFunction) {
-        appendKeyword("CAST");
-        startParenthesis();
-        castFunction.getValue().accept(this);
-        appendKeyword(" AS");
-        final DataType type = castFunction.getType();
-        final ColumnsDefinitionRenderer columnsDefinitionRenderer = getColumnsDefinitionRenderer();
-        type.accept(columnsDefinitionRenderer);
-        append(columnsDefinitionRenderer.render());
-        endParenthesis();
     }
 
     private ColumnsDefinitionRenderer getColumnsDefinitionRenderer() {

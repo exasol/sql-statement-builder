@@ -1,10 +1,10 @@
-package com.exasol.sql.expression;
+package com.exasol.sql.expression.literal;
 
 /**
  * This class represents a null literal.
  */
 // [impl->dsn~literal-values~2]
-public final class NullLiteral extends AbstractValueExpression {
+public final class NullLiteral extends AbstractLiteral {
     private static final NullLiteral instance = new NullLiteral();
 
     public static NullLiteral nullLiteral() {
@@ -16,7 +16,7 @@ public final class NullLiteral extends AbstractValueExpression {
     }
 
     @Override
-    public void accept(final ValueExpressionVisitor visitor) {
+    public void accept(final LiteralVisitor visitor) {
         visitor.visit(this);
     }
 }

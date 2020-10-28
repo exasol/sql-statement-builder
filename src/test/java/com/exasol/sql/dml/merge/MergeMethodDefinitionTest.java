@@ -11,7 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.exasol.sql.Fragment;
-import com.exasol.sql.expression.BooleanLiteral;
+import com.exasol.sql.expression.literal.BooleanLiteral;
 
 @ExtendWith(MockitoExtension.class)
 class MergeMethodDefinitionTest {

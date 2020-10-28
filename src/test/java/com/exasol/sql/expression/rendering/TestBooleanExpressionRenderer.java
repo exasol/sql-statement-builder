@@ -11,9 +11,9 @@ import java.math.BigDecimal;
 
 import org.junit.jupiter.api.Test;
 
-import com.exasol.sql.expression.BigDecimalLiteral;
 import com.exasol.sql.expression.BooleanExpression;
 import com.exasol.sql.expression.comparison.SimpleComparisonOperator;
+import com.exasol.sql.expression.literal.BigDecimalLiteral;
 import com.exasol.sql.rendering.StringRendererConfig;
 
 class TestBooleanExpressionRenderer {
