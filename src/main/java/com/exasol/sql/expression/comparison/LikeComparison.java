@@ -1,24 +1,21 @@
-package com.exasol.sql.expression;
+package com.exasol.sql.expression.comparison;
+
+import com.exasol.sql.expression.ValueExpression;
 
 /**
- * This class represents a logical LIKE predicate.
+ * This class represents a LIKE comparison.
  */
 // [impl->dsn~like-predicate~1]
-public class Like extends AbstractBooleanExpression {
-    private final ValueExpression leftOperand;
-    private final ValueExpression rightOperand;
-    private final boolean not;
+public class LikeComparison extends AbstractComparison {
     private final Character escape;
 
-    private Like(final Builder builder) {
-        this.leftOperand = builder.left;
-        this.rightOperand = builder.right;
-        this.not = builder.not;
+    private LikeComparison(final Builder builder) {
+        super(builder.operator, builder.left, builder.right);
         this.escape = builder.escape;
     }
 
     /**
-     * Create a new builder for {@link Like}.
+     * Create a new builder for {@link LikeComparison}.
      *
      * @return new {@link Builder}
      */
@@ -26,22 +23,9 @@ public class Like extends AbstractBooleanExpression {
         return new Builder();
     }
 
-    /**
-     * Get the left-hand side operator.
-     *
-     * @return left operator
-     */
-    public ValueExpression getLeftOperand() {
-        return this.leftOperand;
-    }
-
-    /**
-     * Get the right-hand side operator.
-     *
-     * @return right operator
-     */
-    public ValueExpression getRightOperand() {
-        return this.rightOperand;
+    @Override
+    public void accept(final ComparisonVisitor visitor) {
+        visitor.visit(this);
     }
 
     /**
@@ -50,7 +34,7 @@ public class Like extends AbstractBooleanExpression {
      * @return true if contains not
      */
     public boolean hasNot() {
-        return this.not;
+        return getOperator().equals(LikeComparisonOperator.NOT_LIKE);
     }
 
     /**
@@ -71,23 +55,22 @@ public class Like extends AbstractBooleanExpression {
         return this.escape;
     }
 
-    @Override
-    public void acceptConcrete(final BooleanExpressionVisitor visitor) {
-        visitor.visit(this);
-    }
+    public enum LikeComparisonOperator implements ComparisonOperator {
+        LIKE, NOT_LIKE;
 
-    @Override
-    public void dismissConcrete(final BooleanExpressionVisitor visitor) {
-        visitor.leave(this);
+        @Override
+        public String toString() {
+            return super.toString().replace("_", " ");
+        }
     }
 
     /**
-     * A builder for {@link Like}.
+     * A builder for {@link LikeComparison}.
      */
     public static class Builder {
         private ValueExpression left;
         private ValueExpression right;
-        private boolean not = false;
+        private LikeComparisonOperator operator = LikeComparisonOperator.LIKE;
         private Character escape = null;
 
         /**
@@ -118,7 +101,7 @@ public class Like extends AbstractBooleanExpression {
          * @return <code>this</code> for fluent programming
          */
         public Builder not() {
-            this.not = true;
+            this.operator = LikeComparisonOperator.NOT_LIKE;
             return this;
         }
 
@@ -134,12 +117,12 @@ public class Like extends AbstractBooleanExpression {
         }
 
         /**
-         * Create a new instance of {@link Like}.
+         * Create a new instance of {@link LikeComparison}.
          * 
-         * @return new instance of {@link Like}
+         * @return new instance of {@link LikeComparison}
          */
-        public Like build() {
-            return new Like(this);
+        public LikeComparison build() {
+            return new LikeComparison(this);
         }
     }
 }

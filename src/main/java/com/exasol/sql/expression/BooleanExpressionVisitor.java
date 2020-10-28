@@ -1,5 +1,7 @@
 package com.exasol.sql.expression;
 
+import com.exasol.sql.expression.comparison.Comparison;
+
 /**
  * Visitor interface for a {@link BooleanTerm}
  */
@@ -12,8 +14,6 @@ public interface BooleanExpressionVisitor {
 
     public void leave(Not not);
 
-    public void leave(BooleanLiteral literal);
-
     public void leave(And and);
 
     public void visit(Or or);
@@ -21,10 +21,4 @@ public interface BooleanExpressionVisitor {
     public void leave(Or or);
 
     public void visit(Comparison comparison);
-
-    public void leave(Comparison comparison);
-
-    public void visit(Like like);
-
-    public void leave(Like like);
 }

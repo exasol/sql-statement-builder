@@ -1,5 +1,9 @@
 package com.exasol.sql.expression;
 
+import com.exasol.sql.expression.comparison.LikeComparison;
+import com.exasol.sql.expression.comparison.SimpleComparison;
+import com.exasol.sql.expression.comparison.SimpleComparisonOperator;
+
 // [impl->dsn~boolean-operators~1]
 public abstract class BooleanTerm extends AbstractBooleanExpression {
     private BooleanTerm() {
@@ -47,67 +51,68 @@ public abstract class BooleanTerm extends AbstractBooleanExpression {
     }
 
     public static BooleanExpression like(final ValueExpression left, final ValueExpression right) {
-        return Like.builder().left(left).right(right).build();
+        return LikeComparison.builder().left(left).right(right).build();
     }
 
-    public static BooleanExpression like(final ValueExpression left, final ValueExpression right, char escape) {
-        return Like.builder().left(left).right(right).escape(escape).build();
+    public static BooleanExpression like(final ValueExpression left, final ValueExpression right, final char escape) {
+        return LikeComparison.builder().left(left).right(right).escape(escape).build();
     }
 
     public static BooleanExpression notLike(final ValueExpression left, final ValueExpression right) {
-        return Like.builder().left(left).right(right).not().build();
+        return LikeComparison.builder().left(left).right(right).not().build();
     }
 
-    public static BooleanExpression notLike(final ValueExpression left, final ValueExpression right, char escape) {
-        return Like.builder().left(left).right(right).not().escape(escape).build();
+    public static BooleanExpression notLike(final ValueExpression left, final ValueExpression right,
+            final char escape) {
+        return LikeComparison.builder().left(left).right(right).not().escape(escape).build();
     }
 
     // [impl->dsn~boolean-operation.comparison.constructing-from-strings~1]
     public static BooleanExpression compare(final ValueExpression left, final String operatorSymbol,
             final ValueExpression right) {
-        return new Comparison(ComparisonOperator.ofSymbol(operatorSymbol), left, right);
+        return new SimpleComparison(SimpleComparisonOperator.ofSymbol(operatorSymbol), left, right);
     }
 
     // [impl->dsn~boolean-operation.comparison.constructing-from-enum~1]
-    public static BooleanExpression compare(final ValueExpression left, final ComparisonOperator operator,
+    public static BooleanExpression compare(final ValueExpression left, final SimpleComparisonOperator operator,
             final ValueExpression right) {
-        return new Comparison(operator, left, right);
+        return new SimpleComparison(operator, left, right);
     }
 
     // [impl->dsn~comparison-operations~1]
     public static BooleanExpression eq(final ValueExpression left, final ValueExpression right) {
-        return new Comparison(ComparisonOperator.EQUAL, left, right);
+        return new SimpleComparison(SimpleComparisonOperator.EQUAL, left, right);
     }
 
     // [impl->dsn~comparison-operations~1]
     public static BooleanExpression ne(final ValueExpression left, final ValueExpression right) {
-        return new Comparison(ComparisonOperator.NOT_EQUAL, left, right);
+        return new SimpleComparison(SimpleComparisonOperator.NOT_EQUAL, left, right);
     }
 
     // [impl->dsn~comparison-operations~1]
     public static BooleanExpression lt(final ValueExpression left, final ValueExpression right) {
-        return new Comparison(ComparisonOperator.LESS_THAN, left, right);
+        return new SimpleComparison(SimpleComparisonOperator.LESS_THAN, left, right);
     }
 
     // [impl->dsn~comparison-operations~1]
     public static BooleanExpression gt(final ValueExpression left, final ValueExpression right) {
-        return new Comparison(ComparisonOperator.GREATER_THAN, left, right);
+        return new SimpleComparison(SimpleComparisonOperator.GREATER_THAN, left, right);
     }
 
     // [impl->dsn~comparison-operations~1]
     public static BooleanExpression le(final ValueExpression left, final ValueExpression right) {
-        return new Comparison(ComparisonOperator.LESS_THAN_OR_EQUAL, left, right);
+        return new SimpleComparison(SimpleComparisonOperator.LESS_THAN_OR_EQUAL, left, right);
     }
 
     // [impl->dsn~comparison-operations~1]
     public static BooleanExpression ge(final ValueExpression left, final ValueExpression right) {
-        return new Comparison(ComparisonOperator.GREATER_THAN_OR_EQUAL, left, right);
+        return new SimpleComparison(SimpleComparisonOperator.GREATER_THAN_OR_EQUAL, left, right);
     }
 
     /**
      * Create a logical operation from an operator name and a list of operands
      *
-     * @param operator name of the operator
+     * @param operator    name of the operator
      * @param expressions operands
      * @return instance of either {@link And}, {@link Or} or {@link Not}
      * @throws IllegalArgumentException if the operator is unknown or null

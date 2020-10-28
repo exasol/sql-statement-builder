@@ -1,8 +1,12 @@
 package com.exasol.sql.expression.rendering;
 
 import com.exasol.sql.expression.*;
+import com.exasol.sql.expression.comparison.Comparison;
 import com.exasol.sql.rendering.StringRendererConfig;
 
+/**
+ * Renderer for {@link BooleanExpression}s.
+ */
 public class BooleanExpressionRenderer extends AbstractExpressionRenderer implements BooleanExpressionVisitor {
     public BooleanExpressionRenderer(final StringRendererConfig config) {
         super(config);
@@ -65,60 +69,10 @@ public class BooleanExpressionRenderer extends AbstractExpressionRenderer implem
     }
 
     @Override
-    public void leave(final BooleanLiteral literal) {
-        // intentionally empty
-    }
-
-    @Override
     public void visit(final Comparison comparison) {
         connect(comparison);
-        if (!comparison.isRoot()) {
-            startParenthesis();
-        }
-        appendOperand(comparison.getLeftOperand());
-        this.builder.append(" ");
-        this.builder.append(comparison.getOperator().toString());
-        this.builder.append(" ");
-        appendOperand(comparison.getRightOperand());
-    }
-
-    protected void appendOperand(final ValueExpression leftOperand) {
-        final ValueExpressionRenderer leftExpressionRenderer = new ValueExpressionRenderer(this.config);
-        leftOperand.accept(leftExpressionRenderer);
-        this.builder.append(leftExpressionRenderer.render());
-    }
-
-    @Override
-    public void leave(final Comparison comparison) {
-        if (!comparison.isRoot()) {
-            endParenthesis();
-        }
-    }
-
-    @Override
-    public void visit(final Like like) {
-        connect(like);
-        if (!like.isRoot()) {
-            startParenthesis();
-        }
-        appendOperand(like.getLeftOperand());
-        if (like.hasNot()) {
-            this.builder.append(" NOT");
-        }
-        this.builder.append(" LIKE ");
-        appendOperand(like.getRightOperand());
-        if (like.hasEscape()) {
-            this.builder.append(" ESCAPE ");
-            this.builder.append("'");
-            this.builder.append(like.getEscape());
-            this.builder.append("'");
-        }
-    }
-
-    @Override
-    public void leave(final Like like) {
-        if (!like.isRoot()) {
-            endParenthesis();
-        }
+        final ComparisonRenderer comparisonRenderer = new ComparisonRenderer(this.config);
+        comparison.accept(comparisonRenderer);
+        append(comparisonRenderer.render());
     }
 }

@@ -8,6 +8,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import com.exasol.sql.expression.comparison.SimpleComparison;
+import com.exasol.sql.expression.comparison.SimpleComparisonOperator;
+
 class TestBooleanTerm {
     // [utest->dsn~boolean-operators~1]
     @Test
@@ -88,13 +91,14 @@ class TestBooleanTerm {
     // [utest->dsn~boolean-operation.comparison.constructing-from-strings~1]
     @Test
     void testOperationFromComparisonOperatorString() {
-        assertThat(BooleanTerm.compare(stringLiteral("a"), "<>", stringLiteral("b")), instanceOf(Comparison.class));
+        assertThat(BooleanTerm.compare(stringLiteral("a"), "<>", stringLiteral("b")),
+                instanceOf(SimpleComparison.class));
     }
 
     // [utest->dsn~boolean-operation.comparison.constructing-from-enum~1]
     @Test
     void testOperationFromComparisonOperatorEnum() {
-        assertThat(BooleanTerm.compare(stringLiteral("a"), ComparisonOperator.NOT_EQUAL, stringLiteral("b")),
-                instanceOf(Comparison.class));
+        assertThat(BooleanTerm.compare(stringLiteral("a"), SimpleComparisonOperator.NOT_EQUAL, stringLiteral("b")),
+                instanceOf(SimpleComparison.class));
     }
 }
