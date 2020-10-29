@@ -10,9 +10,9 @@ import com.exasol.sql.expression.literal.*;
 /**
  * Static factory methods for SQL expressions.
  */
-public abstract class ExpressionTerm implements ValueExpression {
+public class ExpressionTerm {
     private ExpressionTerm() {
-        super();
+        // empty on purpose
     }
 
     /**

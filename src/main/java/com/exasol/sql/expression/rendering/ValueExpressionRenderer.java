@@ -83,7 +83,7 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
     @Override
     public void visit(final SimpleComparison simpleComparison) {
         openComparison(simpleComparison);
-        closeComparison(simpleComparison);
+        closeComparison();
     }
 
     @Override
@@ -95,7 +95,7 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
             this.builder.append(like.getEscape());
             this.builder.append("'");
         }
-        closeComparison(like);
+        closeComparison();
     }
 
     private void openComparison(final Comparison comparison) {
@@ -108,7 +108,7 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
         appendOperand(comparison.getRightOperand());
     }
 
-    private void closeComparison(final Comparison comparison) {
+    private void closeComparison() {
         endParenthesisIfNested();
     }
 
