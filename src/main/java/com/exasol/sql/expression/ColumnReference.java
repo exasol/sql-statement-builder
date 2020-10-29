@@ -3,7 +3,7 @@ package com.exasol.sql.expression;
 /**
  * This class represents column reference.
  */
-public final class ColumnReference extends AbstractValueExpression {
+public final class ColumnReference implements ValueExpression {
     private final String columnName;
     private final String tableName;
 
@@ -15,7 +15,7 @@ public final class ColumnReference extends AbstractValueExpression {
     /**
      * Create a new {@link ColumnReference} from a column name and a table name.
      * 
-     * @param tableName table name
+     * @param tableName  table name
      * @param columnName column name
      * 
      * @return new {@link ColumnReference}
@@ -40,7 +40,7 @@ public final class ColumnReference extends AbstractValueExpression {
      * @return column name
      */
     public String getColumnName() {
-        return columnName;
+        return this.columnName;
     }
 
     /**
@@ -49,16 +49,16 @@ public final class ColumnReference extends AbstractValueExpression {
      * @return table name
      */
     public String getTableName() {
-        return tableName;
+        return this.tableName;
     }
 
     public String toString() {
         final StringBuilder stringBuilder = new StringBuilder();
-        if ((tableName != null) && !tableName.isEmpty()) {
-            stringBuilder.append(tableName);
+        if ((this.tableName != null) && !this.tableName.isEmpty()) {
+            stringBuilder.append(this.tableName);
             stringBuilder.append(".");
         }
-        stringBuilder.append(columnName);
+        stringBuilder.append(this.columnName);
         return stringBuilder.toString();
     }
 

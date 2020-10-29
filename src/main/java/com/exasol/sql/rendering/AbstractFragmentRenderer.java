@@ -4,9 +4,7 @@ import java.util.List;
 
 import com.exasol.sql.Fragment;
 import com.exasol.sql.ValueTableRow;
-import com.exasol.sql.expression.BooleanExpression;
 import com.exasol.sql.expression.ValueExpression;
-import com.exasol.sql.expression.rendering.BooleanExpressionRenderer;
 import com.exasol.sql.expression.rendering.ValueExpressionRenderer;
 import com.exasol.util.QuotesApplier;
 
@@ -73,12 +71,6 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
         if (this.lastVisited != null && this.lastVisited.getClass().equals(fragment.getClass())) {
             append(", ");
         }
-    }
-
-    protected void appendRenderedBooleanExpression(final BooleanExpression expression) {
-        final BooleanExpressionRenderer expressionRenderer = new BooleanExpressionRenderer(this.config);
-        expression.accept(expressionRenderer);
-        append(expressionRenderer.render());
     }
 
     protected void append(final int number) {

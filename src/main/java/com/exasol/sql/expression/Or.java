@@ -6,13 +6,15 @@ import com.exasol.sql.expression.literal.BooleanLiteral;
  * This class represents a logical OR predicate.
  */
 public class Or extends AbstractBooleanExpression {
+    private final BooleanExpression[] operands;
+
     /**
      * Create a new {@link Or} instance
      *
-     * @param expressions boolean expressions to be connected by a logical Or
+     * @param operands boolean expressions to be connected by a logical Or
      */
-    public Or(final BooleanExpression... expressions) {
-        super(expressions);
+    public Or(final BooleanExpression... operands) {
+        this.operands = operands;
     }
 
     /**
@@ -22,6 +24,15 @@ public class Or extends AbstractBooleanExpression {
      */
     public Or(final boolean... values) {
         this(BooleanLiteral.toBooleanExpressions(values));
+    }
+
+    /**
+     * Get the operands of this OR.
+     * 
+     * @return operands of this OR
+     */
+    public BooleanExpression[] getOperands() {
+        return this.operands;
     }
 
     @Override

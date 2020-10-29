@@ -1,11 +1,9 @@
 package com.exasol.sql.expression;
 
-import com.exasol.util.TreeNode;
-
 /**
  * Common interface for all types of value expressions
  */
-public interface ValueExpression extends TreeNode {
+public interface ValueExpression {
     /**
      * Accept a visitor
      *

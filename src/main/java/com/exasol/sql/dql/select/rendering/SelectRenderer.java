@@ -2,7 +2,10 @@ package com.exasol.sql.dql.select.rendering;
 
 import java.util.List;
 
-import com.exasol.sql.*;
+import com.exasol.sql.DerivedColumn;
+import com.exasol.sql.Table;
+import com.exasol.sql.ValueTable;
+import com.exasol.sql.ValueTableRow;
 import com.exasol.sql.dql.select.*;
 import com.exasol.sql.expression.BooleanExpression;
 import com.exasol.sql.rendering.AbstractFragmentRenderer;
@@ -84,7 +87,7 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
     @Override
     public void visit(final WhereClause whereClause) {
         appendKeyWord(" WHERE ");
-        appendRenderedBooleanExpression(whereClause.getExpression());
+        appendRenderedValueExpression(whereClause.getExpression());
         setLastVisited(whereClause);
     }
 
@@ -95,7 +98,7 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
         final BooleanExpression having = groupByClause.getHavingBooleanExpression();
         if (having != null) {
             appendKeyWord(" HAVING ");
-            appendRenderedBooleanExpression(having);
+            appendRenderedValueExpression(having);
         }
         setLastVisited(groupByClause);
     }

@@ -6,6 +6,7 @@ import com.exasol.sql.expression.literal.BooleanLiteral;
  * This class implements the logical unary NOT predicate.
  */
 public class Not extends AbstractBooleanExpression {
+    private final BooleanExpression negatedExpression;
 
     /**
      * Create a new instance of a unary {@link Not} from a boolean literal
@@ -28,10 +29,10 @@ public class Not extends AbstractBooleanExpression {
     /**
      * Create a new instance of a unary {@link Not} from a boolean expression
      *
-     * @param expression boolean expression literal to be negated
+     * @param negatedExpression boolean expression literal to be negated
      */
-    public Not(final BooleanExpression expression) {
-        super(expression);
+    public Not(final BooleanExpression negatedExpression) {
+        this.negatedExpression = negatedExpression;
     }
 
     /**
@@ -40,7 +41,7 @@ public class Not extends AbstractBooleanExpression {
      * @return boolean expression literal to be negated
      */
     public BooleanExpression getNegated() {
-        return this.getChild(0);
+        return this.negatedExpression;
     }
 
     @Override

@@ -4,6 +4,10 @@ import com.exasol.datatype.type.DataType;
 import com.exasol.sql.ColumnsDefinition;
 import com.exasol.sql.UnnamedPlaceholder;
 import com.exasol.sql.expression.*;
+import com.exasol.sql.expression.comparison.Comparison;
+import com.exasol.sql.expression.comparison.ComparisonVisitor;
+import com.exasol.sql.expression.comparison.LikeComparison;
+import com.exasol.sql.expression.comparison.SimpleComparison;
 import com.exasol.sql.expression.function.AbstractFunction;
 import com.exasol.sql.expression.function.Function;
 import com.exasol.sql.expression.function.FunctionVisitor;
@@ -17,11 +21,98 @@ import com.exasol.sql.rendering.StringRendererConfig;
 /**
  * Renderer for common value expressions.
  */
-public class ValueExpressionRenderer extends AbstractExpressionRenderer
-        implements ValueExpressionVisitor, LiteralVisitor, FunctionVisitor {
+public class ValueExpressionRenderer extends AbstractExpressionRenderer implements BooleanExpressionVisitor,
+        ComparisonVisitor, ValueExpressionVisitor, LiteralVisitor, FunctionVisitor {
+    int nestedLevel = 0;
+
+    /**
+     * Create a new instance of {@link ValueExpressionRenderer}.
+     * 
+     * @param config render configuration
+     */
     public ValueExpressionRenderer(final StringRendererConfig config) {
         super(config);
     }
+
+    @Override
+    public void visit(final Not not) {
+        appendKeyword("NOT");
+        startParenthesis();
+        not.getNegated().accept((BooleanExpressionVisitor) this);
+        endParenthesis();
+    }
+
+    @Override
+    public void visit(final And and) {
+        startParenthesisIfNested();
+        append(" AND ", and.getOperands());
+        endParenthesisIfNested();
+    }
+
+    private void append(final String separator, final BooleanExpression... expressions) {
+        boolean isFirst = true;
+        for (final BooleanExpression expression : expressions) {
+            if (!isFirst) {
+                appendKeyword(separator);
+            }
+            isFirst = false;
+            expression.accept((BooleanExpressionVisitor) this);
+        }
+    }
+
+    @Override
+    public void visit(final Or or) {
+        startParenthesisIfNested();
+        append(" OR ", or.getOperands());
+        endParenthesisIfNested();
+    }
+
+    @Override
+    public void visit(final BooleanLiteral literal) {
+        appendBooleanLiteral(literal);
+    }
+
+    @Override
+    public void visit(final Comparison comparison) {
+        comparison.accept((ComparisonVisitor) this);
+    }
+
+    /*
+     * Comparison renderer
+     */
+    @Override
+    public void visit(final SimpleComparison simpleComparison) {
+        openComparison(simpleComparison);
+        closeComparison(simpleComparison);
+    }
+
+    @Override
+    public void visit(final LikeComparison like) {
+        openComparison(like);
+        if (like.hasEscape()) {
+            this.builder.append(" ESCAPE ");
+            this.builder.append("'");
+            this.builder.append(like.getEscape());
+            this.builder.append("'");
+        }
+        closeComparison(like);
+    }
+
+    private void openComparison(final Comparison comparison) {
+        startParenthesisIfNested();
+        appendOperand(comparison.getLeftOperand());
+        this.builder.append(" ");
+        this.builder.append(comparison.getOperator().toString());
+        this.builder.append(" ");
+
+        appendOperand(comparison.getRightOperand());
+    }
+
+    private void closeComparison(final Comparison comparison) {
+        endParenthesisIfNested();
+    }
+
+    /* Value expression visitor */
 
     public void visit(final ValueExpression... valueExpression) {
         boolean isFirst = true;
@@ -51,9 +142,7 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer
 
     @Override
     public void visit(final BooleanExpression booleanExpression) {
-        final BooleanExpressionRenderer expressionRenderer = new BooleanExpressionRenderer(this.config);
-        booleanExpression.accept(expressionRenderer);
-        append(expressionRenderer.render());
+        booleanExpression.accept((BooleanExpressionVisitor) this);
     }
 
     @Override
@@ -100,11 +189,6 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer
     }
 
     @Override
-    public void visit(final BooleanLiteral literal) {
-        append(literal.toString());
-    }
-
-    @Override
     public void visit(final NullLiteral nullLiteral) {
         appendKeyword("NULL");
     }
@@ -121,7 +205,9 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer
         if (function.hasParenthesis()) {
             startParenthesis();
         }
+        ++this.nestedLevel;
         this.visit(function.getValueExpressions().toArray(ValueExpression[]::new));
+        --this.nestedLevel;
         if (function.hasParenthesis()) {
             endParenthesis();
         }
@@ -137,12 +223,14 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer
     public void visit(final CastExasolFunction castFunction) {
         appendKeyword("CAST");
         startParenthesis();
+        ++this.nestedLevel;
         castFunction.getValue().accept(this);
         appendKeyword(" AS");
         final DataType type = castFunction.getType();
         final ColumnsDefinitionRenderer columnsDefinitionRenderer = getColumnsDefinitionRenderer();
         type.accept(columnsDefinitionRenderer);
         append(columnsDefinitionRenderer.render());
+        --this.nestedLevel;
         endParenthesis();
     }
 
@@ -162,10 +250,12 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer
     @Override
     public void visit(final BinaryArithmeticExpression expression) {
         startParenthesis();
+        ++this.nestedLevel;
         appendOperand(expression.getLeft());
         append(expression.getStringOperatorRepresentation());
         appendOperand(expression.getRight());
         endParenthesis();
+        --this.nestedLevel;
     }
 
     private void appendOperand(final ValueExpression operand) {
@@ -174,5 +264,19 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer
 
     private ColumnsDefinitionRenderer getColumnsDefinitionRenderer() {
         return new ColumnsDefinitionRenderer(this.config);
+    }
+
+    private void startParenthesisIfNested() {
+        if (this.nestedLevel > 0) {
+            startParenthesis();
+        }
+        ++this.nestedLevel;
+    }
+
+    private void endParenthesisIfNested() {
+        --this.nestedLevel;
+        if (this.nestedLevel > 0) {
+            endParenthesis();
+        }
     }
 }
