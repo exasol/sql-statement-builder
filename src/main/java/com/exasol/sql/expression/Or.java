@@ -1,12 +1,15 @@
 package com.exasol.sql.expression;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.exasol.sql.expression.literal.BooleanLiteral;
 
 /**
  * This class represents a logical OR predicate.
  */
 public class Or extends AbstractBooleanExpression {
-    private final BooleanExpression[] operands;
+    private final List<BooleanExpression> operands;
 
     /**
      * Create a new {@link Or} instance
@@ -14,7 +17,7 @@ public class Or extends AbstractBooleanExpression {
      * @param operands boolean expressions to be connected by a logical Or
      */
     public Or(final BooleanExpression... operands) {
-        this.operands = operands;
+        this.operands = Arrays.asList(operands);
     }
 
     /**
@@ -31,7 +34,7 @@ public class Or extends AbstractBooleanExpression {
      * 
      * @return operands of this OR
      */
-    public BooleanExpression[] getOperands() {
+    public List<BooleanExpression> getOperands() {
         return this.operands;
     }
 

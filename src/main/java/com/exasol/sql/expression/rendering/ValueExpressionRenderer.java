@@ -1,5 +1,7 @@
 package com.exasol.sql.expression.rendering;
 
+import java.util.List;
+
 import com.exasol.datatype.type.DataType;
 import com.exasol.sql.ColumnsDefinition;
 import com.exasol.sql.UnnamedPlaceholder;
@@ -38,7 +40,7 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
     public void visit(final Not not) {
         appendKeyword("NOT");
         startParenthesis();
-        not.getNegated().accept((BooleanExpressionVisitor) this);
+        not.getOperand().accept((BooleanExpressionVisitor) this);
         endParenthesis();
     }
 
@@ -49,7 +51,7 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
         endParenthesisIfNested();
     }
 
-    private void append(final String separator, final BooleanExpression... expressions) {
+    private void append(final String separator, final List<BooleanExpression> expressions) {
         boolean isFirst = true;
         for (final BooleanExpression expression : expressions) {
             if (!isFirst) {
@@ -206,7 +208,7 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
             startParenthesis();
         }
         ++this.nestedLevel;
-        this.visit(function.getValueExpressions().toArray(ValueExpression[]::new));
+        this.visit(function.getParameters().toArray(ValueExpression[]::new));
         --this.nestedLevel;
         if (function.hasParenthesis()) {
             endParenthesis();

@@ -1,7 +1,5 @@
 package com.exasol.sql.expression.literal;
 
-import com.exasol.sql.expression.DoubleLiteral;
-
 /**
  * Visitor for {@link Literal}.
  */

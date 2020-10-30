@@ -36,7 +36,7 @@ public class CastExasolFunction extends AbstractFunction {
      * @return value to cast
      */
     public ValueExpression getValue() {
-        return this.valueExpressions.get(0);
+        return this.parameters.get(0);
     }
 
     /**

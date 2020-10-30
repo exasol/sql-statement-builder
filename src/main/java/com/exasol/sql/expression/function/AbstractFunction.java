@@ -10,17 +10,17 @@ import com.exasol.sql.expression.ValueExpressionVisitor;
  */
 public abstract class AbstractFunction implements Function {
     protected String functionName;
-    protected List<ValueExpression> valueExpressions;
+    protected List<ValueExpression> parameters;
 
     /**
      * Create a new instance using {@link AbstractFunction}.
      * 
-     * @param functionName     name of a function
-     * @param valueExpressions zero or more value expressions
+     * @param functionName name of a function
+     * @param parameters   zero or more value expressions
      */
-    protected AbstractFunction(final String functionName, final List<ValueExpression> valueExpressions) {
+    protected AbstractFunction(final String functionName, final List<ValueExpression> parameters) {
         this.functionName = functionName;
-        this.valueExpressions = valueExpressions;
+        this.parameters = parameters;
     }
 
     @Override
@@ -33,8 +33,8 @@ public abstract class AbstractFunction implements Function {
      * 
      * @return list of value expressions
      */
-    public List<ValueExpression> getValueExpressions() {
-        return this.valueExpressions;
+    public List<ValueExpression> getParameters() {
+        return this.parameters;
     }
 
     @Override

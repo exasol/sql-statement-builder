@@ -1,12 +1,15 @@
 package com.exasol.sql.expression;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.exasol.sql.expression.literal.BooleanLiteral;
 
 /**
  * This class represents a logical AND predicate.
  */
 public class And extends AbstractBooleanExpression {
-    private final BooleanExpression[] operands;
+    private final List<BooleanExpression> operands;
 
     /**
      * Create a new {@link And} instance
@@ -14,7 +17,7 @@ public class And extends AbstractBooleanExpression {
      * @param operands boolean expressions to be connected by a logical AND
      */
     public And(final BooleanExpression... operands) {
-        this.operands = operands;
+        this.operands = Arrays.asList(operands);
     }
 
     /**
@@ -31,7 +34,7 @@ public class And extends AbstractBooleanExpression {
      * 
      * @return operands of this AND
      */
-    public BooleanExpression[] getOperands() {
+    public List<BooleanExpression> getOperands() {
         return this.operands;
     }
 

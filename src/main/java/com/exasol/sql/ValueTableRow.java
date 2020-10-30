@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.exasol.sql.expression.DoubleLiteral;
 import com.exasol.sql.expression.ValueExpression;
 import com.exasol.sql.expression.literal.*;
 

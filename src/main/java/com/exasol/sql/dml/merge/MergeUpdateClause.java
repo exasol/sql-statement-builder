@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.exasol.sql.Fragment;
 import com.exasol.sql.expression.DefaultValue;
-import com.exasol.sql.expression.DoubleLiteral;
 import com.exasol.sql.expression.ValueExpression;
 import com.exasol.sql.expression.literal.*;
 

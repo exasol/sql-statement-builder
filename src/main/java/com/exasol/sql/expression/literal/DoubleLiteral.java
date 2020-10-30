@@ -1,7 +1,4 @@
-package com.exasol.sql.expression;
-
-import com.exasol.sql.expression.literal.AbstractLiteral;
-import com.exasol.sql.expression.literal.LiteralVisitor;
+package com.exasol.sql.expression.literal;
 
 /**
  * This class represents double literals.
