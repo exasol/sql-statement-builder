@@ -92,7 +92,7 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
     public void visit(final LikeComparison like) {
         openComparison(like);
         if (like.hasEscape()) {
-            this.builder.append(" ESCAPE ");
+            this.builder.appendKeyword(" ESCAPE ");
             this.builder.append("'");
             this.builder.append(like.getEscape());
             this.builder.append("'");
