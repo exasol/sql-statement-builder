@@ -12,7 +12,7 @@ import com.exasol.sql.expression.literal.*;
  */
 public class ExpressionTerm {
     private ExpressionTerm() {
-        // empty on purpose
+        // constructor hidden on purpose
     }
 
     /**

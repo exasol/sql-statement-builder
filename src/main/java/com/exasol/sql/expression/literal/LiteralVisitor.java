@@ -6,7 +6,6 @@ import com.exasol.sql.expression.DoubleLiteral;
  * Visitor for {@link Literal}.
  */
 public interface LiteralVisitor {
-
     public void visit(final NullLiteral nullLiteral);
 
     public void visit(final StringLiteral literal);

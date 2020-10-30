@@ -6,7 +6,6 @@ import com.exasol.sql.expression.literal.BooleanLiteral;
  * This class represents a logical AND predicate.
  */
 public class And extends AbstractBooleanExpression {
-
     private final BooleanExpression[] operands;
 
     /**
