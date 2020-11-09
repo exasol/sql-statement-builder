@@ -15,13 +15,13 @@ class CastExasolFunctionTest {
     void testRendering() {
         final Select select = StatementFactory.getInstance().select()
                 .function(CastExasolFunction.of(NullLiteral.nullLiteral(), new Varchar(254)));
-        assertThat(select, rendersTo("SELECT CAST(NULL AS VARCHAR(254))"));
+        assertThat(select, rendersTo("SELECT CAST(NULL AS  VARCHAR(254))"));
     }
 
     @Test
     void testRenderingWithName() {
         final Select select = StatementFactory.getInstance().select()
                 .function(CastExasolFunction.of(NullLiteral.nullLiteral(), new Varchar(254)), "TEST");
-        assertThat(select, rendersTo("SELECT CAST(NULL AS VARCHAR(254)) TEST"));
+        assertThat(select, rendersTo("SELECT CAST(NULL AS  VARCHAR(254)) TEST"));
     }
 }

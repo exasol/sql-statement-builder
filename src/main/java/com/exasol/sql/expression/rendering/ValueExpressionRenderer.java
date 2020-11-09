@@ -92,10 +92,10 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
     public void visit(final LikeComparison like) {
         openComparison(like);
         if (like.hasEscape()) {
-            this.builder.appendKeyword(" ESCAPE ");
-            this.builder.append("'");
+            appendKeyword(" ESCAPE ");
+            append("'");
             this.builder.append(like.getEscape());
-            this.builder.append("'");
+            append("'");
         }
         closeComparison();
     }
@@ -227,7 +227,7 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
         startParenthesis();
         ++this.nestedLevel;
         castFunction.getValue().accept(this);
-        appendKeyword(" AS");
+        appendKeyword(" AS ");
         final DataType type = castFunction.getType();
         final ColumnsDefinitionRenderer columnsDefinitionRenderer = getColumnsDefinitionRenderer();
         type.accept(columnsDefinitionRenderer);
@@ -256,8 +256,8 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
         appendOperand(expression.getLeft());
         append(expression.getStringOperatorRepresentation());
         appendOperand(expression.getRight());
-        endParenthesis();
         --this.nestedLevel;
+        endParenthesis();
     }
 
     private void appendOperand(final ValueExpression operand) {
