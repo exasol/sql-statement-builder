@@ -1,16 +1,20 @@
 package com.exasol.sql.expression;
 
+import com.exasol.sql.expression.literal.BooleanLiteral;
+
 /**
  * This class implements the logical unary NOT predicate.
  */
 public class Not extends AbstractBooleanExpression {
+    private final BooleanExpression operand;
+
     /**
      * Create a new instance of a unary {@link Not} from a boolean literal
      *
      * @param value boolean literal to be negated
      */
     public Not(final boolean value) {
-        super(BooleanLiteral.of(value));
+        this(BooleanLiteral.of(value));
     }
 
     /**
@@ -19,25 +23,29 @@ public class Not extends AbstractBooleanExpression {
      * @param value string literal to be negated
      */
     public Not(final String value) {
-        super(BooleanLiteral.of(value));
+        this(BooleanLiteral.of(value));
     }
 
     /**
      * Create a new instance of a unary {@link Not} from a boolean expression
      *
-     * @param expression boolean expression literal to be negated
+     * @param operand boolean expression literal to be negated
      */
-    public Not(final BooleanExpression expression) {
-        super(expression);
+    public Not(final BooleanExpression operand) {
+        this.operand = operand;
+    }
+
+    /**
+     * Get the boolean expression literal to be negated.
+     * 
+     * @return boolean expression literal to be negated
+     */
+    public BooleanExpression getOperand() {
+        return this.operand;
     }
 
     @Override
-    public void acceptConcrete(final BooleanExpressionVisitor visitor) {
+    public void accept(final BooleanExpressionVisitor visitor) {
         visitor.visit(this);
-    }
-
-    @Override
-    public void dismissConcrete(final BooleanExpressionVisitor visitor) {
-        visitor.leave(this);
     }
 }

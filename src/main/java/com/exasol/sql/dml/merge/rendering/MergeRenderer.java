@@ -1,6 +1,9 @@
 package com.exasol.sql.dml.merge.rendering;
 
-import com.exasol.sql.*;
+import com.exasol.sql.DerivedColumn;
+import com.exasol.sql.Table;
+import com.exasol.sql.ValueTable;
+import com.exasol.sql.ValueTableRow;
 import com.exasol.sql.dml.insert.InsertFields;
 import com.exasol.sql.dml.insert.rendering.InsertRenderer;
 import com.exasol.sql.dml.merge.*;
@@ -47,7 +50,7 @@ public class MergeRenderer extends AbstractFragmentRenderer implements MergeVisi
     @Override
     public void visit(final OnClause onClause) {
         appendKeyWord(" ON ");
-        appendRenderedBooleanExpression(onClause.getCondition());
+        appendRenderedValueExpression(onClause.getCondition());
         setLastVisited(onClause);
     }
 
@@ -155,7 +158,7 @@ public class MergeRenderer extends AbstractFragmentRenderer implements MergeVisi
     @Override
     public void visit(final WhereClause whereClause) {
         appendKeyWord(" WHERE ");
-        appendRenderedBooleanExpression(whereClause.getExpression());
+        appendRenderedValueExpression(whereClause.getExpression());
         setLastVisited(whereClause);
     }
 }

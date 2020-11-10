@@ -18,5 +18,12 @@ public interface Function extends ValueExpression {
      * 
      * @return true if function has parenthesis with parameters
      */
-    boolean hasParenthesis();
+    public boolean hasParenthesis();
+
+    /**
+     * Accept {@link FunctionVisitor}.
+     * 
+     * @param visitor visitor to accept
+     */
+    public void accept(final FunctionVisitor visitor);
 }

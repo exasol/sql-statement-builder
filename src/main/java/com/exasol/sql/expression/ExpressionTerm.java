@@ -5,13 +5,14 @@ import com.exasol.sql.expression.function.Function;
 import com.exasol.sql.expression.function.FunctionName;
 import com.exasol.sql.expression.function.exasol.ExasolFunction;
 import com.exasol.sql.expression.function.exasol.ExasolUdf;
+import com.exasol.sql.expression.literal.*;
 
 /**
  * Static factory methods for SQL expressions.
  */
-public abstract class ExpressionTerm extends AbstractValueExpression {
+public class ExpressionTerm {
     private ExpressionTerm() {
-        super();
+        // constructor hidden on purpose
     }
 
     /**
@@ -97,7 +98,7 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
     /**
      * Create a reference to a column in a specific table.
      * 
-     * @param table table name
+     * @param table  table name
      * @param column column name
      *
      * @return column reference
@@ -109,7 +110,7 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
     /**
      * Create a binary arithmetic expression with ADD operator.
      * 
-     * @param left left operand
+     * @param left  left operand
      * @param right right operand
      * @return binary arithmetic expression
      */
@@ -120,7 +121,7 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
     /**
      * Create a binary arithmetic expression with SUBTRACT operator.
      *
-     * @param left left operand
+     * @param left  left operand
      * @param right right operand
      * @return binary arithmetic expression
      */
@@ -131,7 +132,7 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
     /**
      * Create a binary arithmetic expression with DIVIDE operator.
      *
-     * @param left left operand
+     * @param left  left operand
      * @param right right operand
      * @return binary arithmetic expression
      */
@@ -142,7 +143,7 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
     /**
      * Create a binary arithmetic expression with DIVIDE operator.
      *
-     * @param left left operand
+     * @param left  left operand
      * @param right right operand
      * @return binary arithmetic expression
      */
@@ -163,7 +164,7 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
     /**
      * Create an Exasol function.
      *
-     * @param functionName a name of function
+     * @param functionName     a name of function
      * @param valueExpressions zero or more value expressions
      * @return <code>this</code> instance for fluent programming
      */
@@ -174,9 +175,9 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
     /**
      * Create a User Defined Function.
      *
-     * @param functionName a name of function
+     * @param functionName           a name of function
      * @param emitsColumnsDefinition column definitions for emits
-     * @param valueExpressions zero or more value expressions
+     * @param valueExpressions       zero or more value expressions
      * @return UDF
      */
     public static Function udf(final String functionName, final ColumnsDefinition emitsColumnsDefinition,
@@ -187,7 +188,7 @@ public abstract class ExpressionTerm extends AbstractValueExpression {
     /**
      * Create a User Defined Function.
      *
-     * @param functionName a name of function
+     * @param functionName     a name of function
      * @param valueExpressions zero or more value expressions
      * @return UDF
      */

@@ -4,17 +4,18 @@ import java.util.List;
 
 import com.exasol.datatype.type.DataType;
 import com.exasol.sql.expression.ValueExpression;
-import com.exasol.sql.expression.ValueExpressionVisitor;
+import com.exasol.sql.expression.function.AbstractFunction;
 import com.exasol.sql.expression.function.FunctionName;
+import com.exasol.sql.expression.function.FunctionVisitor;
 
 /**
  * This class represents the Exasol CAST function.
  */
-public class CastExasolFunction extends ExasolFunction {
+public class CastExasolFunction extends AbstractFunction {
     private final DataType type;
 
     private CastExasolFunction(final ValueExpression value, final DataType type) {
-        super(ExasolScalarFunctionCast.CAST, List.of(value));
+        super(ExasolScalarFunctionCast.CAST.toString(), List.of(value));
         this.type = type;
     }
 
@@ -35,7 +36,7 @@ public class CastExasolFunction extends ExasolFunction {
      * @return value to cast
      */
     public ValueExpression getValue() {
-        return this.valueExpressions.get(0);
+        return this.parameters.get(0);
     }
 
     /**
@@ -53,7 +54,7 @@ public class CastExasolFunction extends ExasolFunction {
     }
 
     @Override
-    public void accept(final ValueExpressionVisitor visitor) {
+    public void accept(final FunctionVisitor visitor) {
         visitor.visit(this);
     }
 

@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.exasol.sql.Fragment;
-import com.exasol.sql.expression.*;
+import com.exasol.sql.expression.DefaultValue;
+import com.exasol.sql.expression.ValueExpression;
+import com.exasol.sql.expression.literal.*;
 
 /**
  * Represents the {@code MERGE} strategy of updating matched rows.
@@ -24,7 +26,7 @@ public class MergeUpdateClause extends MergeMethodDefinition implements MergeFra
     /**
      * Update a column with a value expression.
      *
-     * @param column column to be updated
+     * @param column     column to be updated
      * @param expression value expression
      * @return {@code this} for fluent programming
      */
@@ -36,7 +38,7 @@ public class MergeUpdateClause extends MergeMethodDefinition implements MergeFra
     /**
      * Update a column with a string value.
      *
-     * @param column column to be updated
+     * @param column  column to be updated
      * @param literal string literal
      * @return {@code this} for fluent programming
      */
@@ -47,7 +49,7 @@ public class MergeUpdateClause extends MergeMethodDefinition implements MergeFra
     /**
      * Update a column with a char value.
      *
-     * @param column column to be updated
+     * @param column  column to be updated
      * @param literal char literal
      * @return {@code this} for fluent programming
      */
@@ -58,7 +60,7 @@ public class MergeUpdateClause extends MergeMethodDefinition implements MergeFra
     /**
      * Update a column with an integer value.
      *
-     * @param column column to be updated
+     * @param column  column to be updated
      * @param literal integer literal
      * @return {@code this} for fluent programming
      */
@@ -69,7 +71,7 @@ public class MergeUpdateClause extends MergeMethodDefinition implements MergeFra
     /**
      * Update a column with a long value.
      *
-     * @param column column to be updated
+     * @param column  column to be updated
      * @param literal long literal
      * @return {@code this} for fluent programming
      */
@@ -80,7 +82,7 @@ public class MergeUpdateClause extends MergeMethodDefinition implements MergeFra
     /**
      * Update a column with a double value.
      *
-     * @param column column to be updated
+     * @param column  column to be updated
      * @param literal double literal
      * @return {@code this} for fluent programming
      */
@@ -91,7 +93,7 @@ public class MergeUpdateClause extends MergeMethodDefinition implements MergeFra
     /**
      * Update a column with a float value.
      *
-     * @param column column to be updated
+     * @param column  column to be updated
      * @param literal float literal
      * @return {@code this} for fluent programming
      */
@@ -102,7 +104,7 @@ public class MergeUpdateClause extends MergeMethodDefinition implements MergeFra
     /**
      * Update a column with a boolean value.
      *
-     * @param column column to be updated
+     * @param column  column to be updated
      * @param literal boolean literal
      * @return {@code this} for fluent programming
      */

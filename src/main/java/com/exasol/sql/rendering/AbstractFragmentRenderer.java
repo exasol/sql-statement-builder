@@ -4,9 +4,7 @@ import java.util.List;
 
 import com.exasol.sql.Fragment;
 import com.exasol.sql.ValueTableRow;
-import com.exasol.sql.expression.BooleanExpression;
 import com.exasol.sql.expression.ValueExpression;
-import com.exasol.sql.expression.rendering.BooleanExpressionRenderer;
 import com.exasol.sql.expression.rendering.ValueExpressionRenderer;
 import com.exasol.util.QuotesApplier;
 
@@ -43,12 +41,16 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
         this.builder.append(")");
     }
 
+    protected void appendRenderedValueExpression(final ValueExpression expression) {
+        final ValueExpressionRenderer renderer = new ValueExpressionRenderer(this.config);
+        expression.accept(renderer);
+        append(renderer.render());
+    }
+
     protected void appendListOfValueExpressions(final List<? extends ValueExpression> valueExpressions) {
         if ((valueExpressions != null) && !valueExpressions.isEmpty()) {
             final ValueExpressionRenderer valueExpressionRenderer = new ValueExpressionRenderer(this.config);
-            for (final ValueExpression valueExpression : valueExpressions) {
-                valueExpression.accept(valueExpressionRenderer);
-            }
+            valueExpressionRenderer.visit(valueExpressions.toArray(ValueExpression[]::new));
             this.builder.append(valueExpressionRenderer.render());
         }
     }
@@ -71,20 +73,8 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
         }
     }
 
-    protected void appendRenderedBooleanExpression(final BooleanExpression expression) {
-        final BooleanExpressionRenderer expressionRenderer = new BooleanExpressionRenderer(this.config);
-        expression.accept(expressionRenderer);
-        append(expressionRenderer.render());
-    }
-
     protected void append(final int number) {
         this.builder.append(number);
-    }
-
-    protected void appendRenderedValueExpression(final ValueExpression expression) {
-        final ValueExpressionRenderer renderer = new ValueExpressionRenderer(this.config);
-        expression.accept(renderer);
-        append(renderer.render());
     }
 
     protected void appendAutoQuoted(final String identifier) {

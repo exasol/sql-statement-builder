@@ -1,14 +1,12 @@
 package com.exasol.sql.expression;
 
-import com.exasol.util.AbstractTreeNode;
-
 /**
  * This class represents a binary arithmetic expression.
  * <p>
  * Examples: +, -, *, /
  * </p>
  */
-public class BinaryArithmeticExpression extends AbstractTreeNode implements ValueExpression {
+public class BinaryArithmeticExpression implements ValueExpression {
     private final BinaryArithmeticOperator arithmeticOperator;
     private final ValueExpression left;
     private final ValueExpression right;
@@ -18,16 +16,14 @@ public class BinaryArithmeticExpression extends AbstractTreeNode implements Valu
         this.arithmeticOperator = arithmeticOperator;
         this.left = left;
         this.right = right;
-        addChild(left);
-        addChild(right);
     }
 
     /**
      * Create a new {@link BinaryArithmeticExpression} instance.
      * 
      * @param operator arithmetic operator represented by {@link BinaryArithmeticOperator}
-     * @param left left part of the expression
-     * @param right right part of the expression
+     * @param left     left part of the expression
+     * @param right    right part of the expression
      * @return new {@link BinaryArithmeticExpression} instance
      */
     public static BinaryArithmeticExpression of(final BinaryArithmeticOperator operator, final ValueExpression left,

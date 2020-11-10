@@ -1,7 +1,7 @@
 package com.exasol.sql.expression.rendering;
 
-import static com.exasol.hamcrest.BooleanExpressionRenderResultMatcher.rendersTo;
-import static com.exasol.hamcrest.BooleanExpressionRenderResultMatcher.rendersWithConfigTo;
+import static com.exasol.hamcrest.ValueExpressionRenderResultMatcher.rendersTo;
+import static com.exasol.hamcrest.ValueExpressionRenderResultMatcher.rendersWithConfigTo;
 import static com.exasol.sql.expression.BooleanTerm.*;
 import static com.exasol.sql.expression.ExpressionTerm.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -11,9 +11,9 @@ import java.math.BigDecimal;
 
 import org.junit.jupiter.api.Test;
 
-import com.exasol.sql.expression.BigDecimalLiteral;
 import com.exasol.sql.expression.BooleanExpression;
 import com.exasol.sql.expression.comparison.SimpleComparisonOperator;
+import com.exasol.sql.expression.literal.BigDecimalLiteral;
 import com.exasol.sql.rendering.StringRendererConfig;
 
 class TestBooleanExpressionRenderer {

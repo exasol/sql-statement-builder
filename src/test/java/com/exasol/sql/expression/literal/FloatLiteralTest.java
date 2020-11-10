@@ -1,4 +1,4 @@
-package com.exasol.sql.expression;
+package com.exasol.sql.expression.literal;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;

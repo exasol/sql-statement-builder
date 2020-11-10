@@ -8,20 +8,20 @@ import org.junit.jupiter.api.Test;
 import com.exasol.datatype.type.Varchar;
 import com.exasol.sql.StatementFactory;
 import com.exasol.sql.dql.select.Select;
-import com.exasol.sql.expression.NullLiteral;
+import com.exasol.sql.expression.literal.NullLiteral;
 
 class CastExasolFunctionTest {
     @Test
     void testRendering() {
         final Select select = StatementFactory.getInstance().select()
                 .function(CastExasolFunction.of(NullLiteral.nullLiteral(), new Varchar(254)));
-        assertThat(select, rendersTo("SELECT CAST(NULL AS VARCHAR(254))"));
+        assertThat(select, rendersTo("SELECT CAST(NULL AS  VARCHAR(254))"));
     }
 
     @Test
     void testRenderingWithName() {
         final Select select = StatementFactory.getInstance().select()
                 .function(CastExasolFunction.of(NullLiteral.nullLiteral(), new Varchar(254)), "TEST");
-        assertThat(select, rendersTo("SELECT CAST(NULL AS VARCHAR(254)) TEST"));
+        assertThat(select, rendersTo("SELECT CAST(NULL AS  VARCHAR(254)) TEST"));
     }
 }

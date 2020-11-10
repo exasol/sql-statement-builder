@@ -1,8 +1,11 @@
 package com.exasol.sql;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-import com.exasol.sql.expression.*;
+import com.exasol.sql.expression.ValueExpression;
+import com.exasol.sql.expression.literal.*;
 
 /**
  * This class represents a row in a {@link ValueTable}.
@@ -14,7 +17,7 @@ public class ValueTableRow extends AbstractFragment {
     /**
      * Create a value table row from a list of expressions.
      *
-     * @param root root node of the SQL statement
+     * @param root        root node of the SQL statement
      * @param expressions value expressions
      */
     public ValueTableRow(final Fragment root, final ValueExpression... expressions) {
@@ -25,7 +28,7 @@ public class ValueTableRow extends AbstractFragment {
     /**
      * Create a value table row from a list of string literals.
      *
-     * @param root root node of the SQL statement
+     * @param root   root node of the SQL statement
      * @param values sting literals
      */
     public ValueTableRow(final Fragment root, final String... values) {

@@ -1,0 +1,13 @@
+@startuml
+interface ValueExpression
+interface BooleanExpression
+interface Function
+interface Comparison
+interface Literal
+
+ValueExpression <|-- BooleanExpression
+ValueExpression <|-- Function
+ValueExpression <|-- Literal
+BooleanExpression <|-- Comparison
+
+@enduml

@@ -1,10 +1,10 @@
-package com.exasol.sql.expression;
+package com.exasol.sql.expression.literal;
 
 /**
  * This class represents long literals.
  */
 // [impl->dsn~literal-values~2]
-public class LongLiteral extends AbstractValueExpression {
+public class LongLiteral extends AbstractLiteral {
     private final long value;
 
     private LongLiteral(final long value) {
@@ -31,7 +31,7 @@ public class LongLiteral extends AbstractValueExpression {
     }
 
     @Override
-    public void accept(final ValueExpressionVisitor visitor) {
+    public void accept(final LiteralVisitor visitor) {
         visitor.visit(this);
     }
 

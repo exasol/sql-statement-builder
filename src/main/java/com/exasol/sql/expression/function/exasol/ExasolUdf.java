@@ -1,11 +1,13 @@
 package com.exasol.sql.expression.function.exasol;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 import com.exasol.sql.ColumnsDefinition;
 import com.exasol.sql.expression.ValueExpression;
-import com.exasol.sql.expression.ValueExpressionVisitor;
 import com.exasol.sql.expression.function.AbstractFunction;
+import com.exasol.sql.expression.function.FunctionVisitor;
 
 /**
  * This class represents a User Defined Function in the Exasol database.
@@ -22,9 +24,9 @@ public class ExasolUdf extends AbstractFunction {
     /**
      * Create a new {@link ExasolUdf} instance.
      *
-     * @param functionName name of the function
+     * @param functionName           name of the function
      * @param emitsColumnsDefinition column definitions for emits
-     * @param valueExpressions zero or more value expressions
+     * @param valueExpressions       zero or more value expressions
      * @return new {@link ExasolUdf}
      */
     public static ExasolUdf of(final String functionName, final ColumnsDefinition emitsColumnsDefinition,
@@ -35,7 +37,7 @@ public class ExasolUdf extends AbstractFunction {
     /**
      * Create a new {@link ExasolUdf} instance.
      *
-     * @param functionName name of the function
+     * @param functionName     name of the function
      * @param valueExpressions zero or more value expressions
      * @return new {@link ExasolUdf}
      */
@@ -46,6 +48,11 @@ public class ExasolUdf extends AbstractFunction {
     @Override
     public boolean hasParenthesis() {
         return true;
+    }
+
+    @Override
+    public void accept(final FunctionVisitor visitor) {
+        visitor.visit(this);
     }
 
     /**
@@ -64,14 +71,5 @@ public class ExasolUdf extends AbstractFunction {
      */
     public Optional<ColumnsDefinition> getEmitsColumnsDefinition() {
         return this.emitsColumnsDefinition;
-    }
-
-    @Override
-    public void accept(final ValueExpressionVisitor visitor) {
-        visitor.visit(this);
-        for (final ValueExpression valueExpression : this.valueExpressions) {
-            valueExpression.accept(visitor);
-        }
-        visitor.leave(this);
     }
 }
