@@ -20,10 +20,7 @@ import com.exasol.sql.expression.function.exasol.CastExasolFunction;
 import com.exasol.sql.expression.function.exasol.ExasolFunction;
 import com.exasol.sql.expression.function.exasol.ExasolUdf;
 import com.exasol.sql.expression.literal.*;
-import com.exasol.sql.expression.predicate.InPredicate;
-import com.exasol.sql.expression.predicate.IsNullPredicate;
-import com.exasol.sql.expression.predicate.Predicate;
-import com.exasol.sql.expression.predicate.PredicateVisitor;
+import com.exasol.sql.expression.predicate.*;
 import com.exasol.sql.rendering.ColumnsDefinitionRenderer;
 import com.exasol.sql.rendering.StringRendererConfig;
 
@@ -113,7 +110,6 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
         this.builder.append(" ");
         this.builder.append(comparison.getOperator().toString());
         this.builder.append(" ");
-
         appendOperand(comparison.getRightOperand());
     }
 
@@ -150,6 +146,29 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
             visit(inPredicate.getOperands());
         }
         append(")");
+        endParenthesisIfNested();
+    }
+
+    @Override
+    public void visit(final ExistsPredicate existsPredicate) {
+        startParenthesisIfNested();
+        append(existsPredicate.getOperator().toString());
+        append(" (");
+        appendSelect(existsPredicate.getSelectQuery());
+        append(")");
+        endParenthesisIfNested();
+    }
+
+    @Override
+    public void visit(final BetweenPredicate betweenPredicate) {
+        startParenthesisIfNested();
+        appendOperand(betweenPredicate.getExpression());
+        append(" ");
+        append(betweenPredicate.getOperator().toString());
+        append(" ");
+        appendOperand(betweenPredicate.getStartExpression());
+        appendKeyword(" AND ");
+        appendOperand(betweenPredicate.getEndExpression());
         endParenthesisIfNested();
     }
 

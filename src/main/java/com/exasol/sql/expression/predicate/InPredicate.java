@@ -114,12 +114,12 @@ public class InPredicate extends AbstractPredicate {
         }
 
         /**
-         * Adds the sub query.
+         * Adds the sub select query.
          *
-         * @param select sub select for {@code IN} predicate
+         * @param select sub select for {@code [NOT] IN} predicate
          * @return <code>this</code> for fluent programming
          */
-        public Builder subQuery(final Select select) {
+        public Builder selectQuery(final Select select) {
             if (this.operands != null) {
                 throw new IllegalArgumentException(getExceptionMessage());
             }

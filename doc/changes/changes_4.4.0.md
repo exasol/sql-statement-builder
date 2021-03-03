@@ -2,9 +2,15 @@
 
 Code Name: More Predicates
 
+## Summary
+
+In this release, we have added additional Exasol predicates such as `IS [NOT]
+NULL` or `[NOT] BETWEEN`. We also refactored the comparison and `LIKE`
+operators.
+
 ## Features / Improvements
 
-* #104: Added additional Exasol predicates
+* #104: Added additional predicates
 
 ## Refactoring
  

@@ -4,7 +4,9 @@ import static com.exasol.hamcrest.ValueExpressionRenderResultMatcher.rendersTo;
 import static com.exasol.hamcrest.ValueExpressionRenderResultMatcher.rendersWithConfigTo;
 import static com.exasol.sql.expression.BooleanTerm.*;
 import static com.exasol.sql.expression.ExpressionTerm.*;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.exasol.sql.StatementFactory;
 import com.exasol.sql.dql.select.Select;
@@ -88,6 +90,55 @@ class PredicateExpressionRendererTest {
     void testNotInPredicateWithSelect() {
         final BooleanExpression inPredicate = notIn(integerLiteral(5), select.field("id"));
         assertThat(inPredicate, rendersTo("5 NOT IN (SELECT id FROM test)"));
+    }
+
+    @Test
+    void testInPredicateBothExpressionAndSelectException() {
+        final InPredicate.Builder builder = InPredicate.builder().expression(integerLiteral(1))
+                .operands(integerLiteral(2));
+        final IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> builder.selectQuery(select));
+        assertThat(exception.getMessage(),
+                containsString("The '[NOT] IN' predicate cannot have both select query and expressions"));
+    }
+
+    @Test
+    void testInPredicateBothSelectAndExpressionException() {
+        final InPredicate.Builder builder = InPredicate.builder().expression(integerLiteral(1)).selectQuery(select);
+        final IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> builder.operands(stringLiteral("a")));
+        assertThat(exception.getMessage(),
+                containsString("The '[NOT] IN' predicate cannot have both select query and expressions"));
+    }
+
+    @Test
+    void testExistsPredicate() {
+        assertThat(exists(select.all()), rendersTo("EXISTS (SELECT * FROM test)"));
+    }
+
+    @Test
+    void testNestedExistsPredicate() {
+        final BooleanExpression expr = or(not(true), exists(select.field("id")));
+        assertThat(expr, rendersTo("NOT(TRUE) OR (EXISTS (SELECT id FROM test))"));
+    }
+
+    @Test
+    void testBetweenPredicate() {
+        final BooleanExpression expr = between(integerLiteral(2), integerLiteral(1), integerLiteral(3));
+        assertThat(expr, rendersTo("2 BETWEEN 1 AND 3"));
+    }
+
+    @Test
+    void testNotBetweenPredicate() {
+        final BooleanExpression expr = notBetween(stringLiteral("c"), stringLiteral("a"), stringLiteral("b"));
+        assertThat(expr, rendersTo("'c' NOT BETWEEN 'a' AND 'b'"));
+    }
+
+    @Test
+    void testNestedBetweenPredicate() {
+        final BooleanExpression expr = and(between(integerLiteral(2), integerLiteral(1), integerLiteral(3)),
+                notBetween(stringLiteral("c"), stringLiteral("a"), stringLiteral("b")));
+        assertThat(expr, rendersTo("(2 BETWEEN 1 AND 3) AND ('c' NOT BETWEEN 'a' AND 'b')"));
     }
 
 }

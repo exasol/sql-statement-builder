@@ -9,4 +9,8 @@ public interface PredicateVisitor {
 
     public void visit(InPredicate inPredicate);
 
+    public void visit(ExistsPredicate existsPredicate);
+
+    public void visit(BetweenPredicate betweenPredicate);
+
 }

@@ -5,8 +5,7 @@ import com.exasol.sql.expression.comparison.LikeComparison;
 import com.exasol.sql.expression.comparison.SimpleComparison;
 import com.exasol.sql.expression.comparison.SimpleComparisonOperator;
 import com.exasol.sql.expression.literal.BooleanLiteral;
-import com.exasol.sql.expression.predicate.InPredicate;
-import com.exasol.sql.expression.predicate.IsNullPredicate;
+import com.exasol.sql.expression.predicate.*;
 import com.exasol.sql.expression.predicate.IsNullPredicate.IsNullPredicateOperator;
 
 // [impl->dsn~boolean-operators~1]
@@ -136,12 +135,29 @@ public abstract class BooleanTerm extends AbstractBooleanExpression {
 
     // [impl->dsn~predicate-operators~1]
     public static BooleanExpression in(final ValueExpression operand, final Select select) {
-        return InPredicate.builder().expression(operand).subQuery(select).build();
+        return InPredicate.builder().expression(operand).selectQuery(select).build();
     }
 
     // [impl->dsn~predicate-operators~1]
     public static BooleanExpression notIn(final ValueExpression operand, final Select select) {
-        return InPredicate.builder().expression(operand).subQuery(select).not().build();
+        return InPredicate.builder().expression(operand).selectQuery(select).not().build();
+    }
+
+    // [impl->dsn~predicate-operators~1]
+    public static BooleanExpression exists(final Select select) {
+        return new ExistsPredicate(select);
+    }
+
+    // [impl->dsn~predicate-operators~1]
+    public static BooleanExpression between(final ValueExpression expression, final ValueExpression start,
+            final ValueExpression end) {
+        return BetweenPredicate.builder().expression(expression).start(start).end(end).build();
+    }
+
+    // [impl->dsn~predicate-operators~1]
+    public static BooleanExpression notBetween(final ValueExpression expression, final ValueExpression start,
+            final ValueExpression end) {
+        return BetweenPredicate.builder().expression(expression).start(start).end(end).not().build();
     }
 
     /**
