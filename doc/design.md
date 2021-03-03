@@ -95,6 +95,17 @@ Covers:
 
 Needs: impl, utest
 
+#### Predicate Operators
+`dsn~predicate-operators~1`
+
+Forwarded from requirements.
+
+Covers:
+
+* `req~predicate-operators~1`
+
+Needs: impl, utest
+
 #### Boolean Literals
 `dsn~boolean-literals~1`
 

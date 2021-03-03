@@ -176,11 +176,27 @@ Needs: dsn
 #### [NOT] LIKE Predicate
 `req~like-predicate~1`
 
-ESB supports the [NOT] LIKE predicate.
+ESB supports the `[NOT] LIKE` predicate.
 
 Covers:
 
-* [feat~statement-definition~1](#statement-definition)
+* [`feat~statement-definition~1`](#statement-definition)
+
+Needs: dsn
+
+#### Predicate Operators
+`req~predicate-operators~1`
+
+ESB supports the following predicate operators:
+
+* `[NOT] BETWEEN`
+* `EXISTS`
+* `[NOT] IN`
+* `IS [NOT] NULL`
+
+Covers:
+
+* [`feat~statement-definition~1`](#statement-definition)
 
 Needs: dsn
 
