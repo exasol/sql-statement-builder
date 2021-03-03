@@ -1,10 +1,6 @@
 package com.exasol.sql.expression.predicate;
 
-import java.util.Arrays;
-import java.util.List;
-
 import com.exasol.sql.dql.select.Select;
-import com.exasol.sql.expression.ValueExpression;
 
 /**
  * A class that represents a {@code EXISTS} predicate.

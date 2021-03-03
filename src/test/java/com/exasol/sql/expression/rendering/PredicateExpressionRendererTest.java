@@ -12,6 +12,7 @@ import com.exasol.sql.StatementFactory;
 import com.exasol.sql.dql.select.Select;
 import com.exasol.sql.expression.BooleanExpression;
 import com.exasol.sql.expression.ValueExpression;
+import com.exasol.sql.expression.literal.Literal;
 import com.exasol.sql.expression.predicate.InPredicate;
 import com.exasol.sql.rendering.StringRendererConfig;
 
@@ -105,8 +106,9 @@ class PredicateExpressionRendererTest {
     @Test
     void testInPredicateBothSelectAndExpressionException() {
         final InPredicate.Builder builder = InPredicate.builder().expression(integerLiteral(1)).selectQuery(select);
+        final Literal operand = stringLiteral("a");
         final IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> builder.operands(stringLiteral("a")));
+                () -> builder.operands(operand));
         assertThat(exception.getMessage(),
                 containsString("The '[NOT] IN' predicate cannot have both select query and expressions"));
     }

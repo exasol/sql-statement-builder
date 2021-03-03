@@ -14,7 +14,7 @@ public abstract class AbstractPredicate implements Predicate {
      *
      * @param operator a predicate operator
      */
-    public AbstractPredicate(final PredicateOperator operator) {
+    protected AbstractPredicate(final PredicateOperator operator) {
         this.operator = operator;
     }
 
