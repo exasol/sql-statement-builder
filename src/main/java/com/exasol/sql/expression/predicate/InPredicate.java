@@ -32,7 +32,7 @@ public class InPredicate extends AbstractPredicate {
     }
 
     /**
-     * Returns the left expression in the {@code IN} predicate.
+     * Returns the left expression in the {@code [NOT] IN} predicate.
      *
      * @return expression in predicate
      */
@@ -41,7 +41,7 @@ public class InPredicate extends AbstractPredicate {
     }
 
     /**
-     * Returns the value expressions in the {@code IN} predicate.
+     * Returns the value expressions in the {@code [NOT] IN} predicate.
      *
      * @return value expression operands
      */
@@ -50,7 +50,7 @@ public class InPredicate extends AbstractPredicate {
     }
 
     /**
-     * Returns the sub select query in the {@code IN} predicate.
+     * Returns the sub select query in the {@code [NOT] IN} predicate.
      *
      * @return sub select query
      */
@@ -102,7 +102,7 @@ public class InPredicate extends AbstractPredicate {
         /**
          * Adds the operands.
          *
-         * @param operands operands for {@code IN} predicate
+         * @param operands operands for {@code [NOT] IN} predicate
          * @return <code>this</code> for fluent programming
          */
         public Builder operands(final ValueExpression... operands) {
@@ -143,7 +143,7 @@ public class InPredicate extends AbstractPredicate {
         }
 
         /**
-         * Creates a new instance of {@code IN} predicate class.
+         * Creates a new instance of {@code [NOT] IN} predicate class.
          *
          * @return new instance of {@link InPredicate}
          */
