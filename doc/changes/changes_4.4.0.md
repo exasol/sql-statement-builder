@@ -23,6 +23,7 @@ operators.
 
 * Updated `org.mockito:mockito-core:3.5.13` to `3.8.0`
 * Updated `org.mockito:mockito-junit-jupiter:3.5.13` to `3.8.0`
+* Updated `org.junit.jupiter:junit-jupiter:5.7.0` to `5.7.1`
 * Updated `nl.jqno.equalsverifier:equalsverifier:3.4.3` to `3.5.5`
 
 ### Plugin Updates
