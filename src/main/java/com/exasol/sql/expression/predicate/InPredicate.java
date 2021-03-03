@@ -89,6 +89,13 @@ public class InPredicate extends AbstractPredicate {
         private InPredicateOperator operator = InPredicateOperator.IN;
 
         /**
+         * A private constructor to hide the public default.
+         */
+        private Builder() {
+            // intentionally empty
+        }
+
+        /**
          * Adds the predicate expression.
          *
          * @param expression in predicate expression

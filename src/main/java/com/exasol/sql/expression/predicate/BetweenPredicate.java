@@ -80,6 +80,13 @@ public class BetweenPredicate extends AbstractPredicate {
         private BetweenPredicateOperator operator = BetweenPredicateOperator.BETWEEN;
 
         /**
+         * A private constructor to hide the public default.
+         */
+        private Builder() {
+            // intentionally empty
+        }
+
+        /**
          * Adds the left expression of predicate.
          *
          * @param expression in predicate expression
