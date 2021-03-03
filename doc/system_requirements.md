@@ -110,7 +110,7 @@ This is necessary since complex statements are usually build as a result of mult
 
 Covers:
 
-* [feat~statement-definition~1](#statement-definition)
+* [`feat~statement-definition~1`](#statement-definition)
 
 Needs: dsn
 
@@ -125,7 +125,7 @@ If users can't get illegal structures to compile, they don't need to spend time 
 
 Covers:
 
-* [feat~compile-time-error-checking~1](#compile-time-error-checking)
+* [`feat~compile-time-error-checking~1`](#compile-time-error-checking)
 
 Needs: dsn
 
@@ -138,7 +138,7 @@ ESB supports the following arithmetic operators: `+`, `-`, `*`, `/`.
 
 Covers:
 
-* [feat~statement-definition~1](#statement-definition)
+* [`feat~statement-definition~1`](#statement-definition)
 
 Needs: dsn
 
@@ -158,7 +158,7 @@ ESB supports the following comparison operations:
 
 Covers:
 
-* [feat~statement-definition~1](#statement-definition)
+* [`feat~statement-definition~1`](#statement-definition)
 
 Needs: dsn
 
@@ -169,7 +169,7 @@ ESB supports the following boolean operators: `AND`, `OR` and `NOT`
 
 Covers:
 
-* [feat~statement-definition~1](#statement-definition)
+* [`feat~statement-definition~1`](#statement-definition)
 
 Needs: dsn
 
@@ -210,7 +210,7 @@ ESB can convert the following string literals into boolean values, independently
 
 Covers:
 
-* [feat~statement-definition~1](#statement-definition)
+* [`feat~statement-definition~1`](#statement-definition)
 
 Needs: dsn
 
@@ -221,7 +221,7 @@ ESB supports the following literal values: `default`, `double`, `float`, `intege
 
 Covers:
 
-* [feat~statement-definition~1](#statement-definition)
+* [`feat~statement-definition~1`](#statement-definition)
 
 Needs: dsn
 
@@ -238,7 +238,7 @@ ESB supports the following way to construct tables from a value table:
 
 Covers:
 
-* [feat~statement-definition~1](#statement-definition)
+* [`feat~statement-definition~1`](#statement-definition)
 
 Needs: dsn
 
@@ -265,7 +265,7 @@ Create table:
 
 Covers:
 
-* [feat~statement-definition~1](#statement-definition)
+* [`feat~statement-definition~1`](#statement-definition)
 
 Needs: dsn
 
@@ -288,7 +288,7 @@ Drop table:
     
 Covers:
 
-* [feat~statement-definition~1](#statement-definition)
+* [`feat~statement-definition~1`](#statement-definition)
 
 Needs: dsn
 
@@ -308,7 +308,7 @@ ESB supports the following `INSERT` statement:
 
 Covers:
 
-* [feat~statement-definition~1](#statement-definition)
+* [`feat~statement-definition~1`](#statement-definition)
 
 Needs: dsn
 
@@ -322,7 +322,7 @@ ESB supports a list of explicit values as `INSERT` source:
 
 Covers:
 
-* [feat~statement-definition~1](#statement-definition)
+* [`feat~statement-definition~1`](#statement-definition)
 
 Needs: dsn
 
@@ -354,7 +354,7 @@ ESB supports the following `MERGE` statement:
 
 Covers:
 
-* [feat~statement-definition~1](#statement-definition)
+* [`feat~statement-definition~1`](#statement-definition)
 
 Needs: dsn
 
@@ -391,7 +391,7 @@ ESB supports the following `SELECT` statement:
     
 Covers:
 
-* [feat~statement-definition~1](#statement-definition)
+* [`feat~statement-definition~1`](#statement-definition)
 
 Needs: dsn
 
@@ -408,7 +408,7 @@ While keyword case is mostly an esthetic point, different users still have diffe
 
 Covers:
 
-* [feat~sql-string-rendering~1](#sql-string-rendering)
+* [`feat~sql-string-rendering~1`](#sql-string-rendering)
 
 Needs: dsn
 
@@ -427,7 +427,7 @@ The Exasol database for example requires identifiers to be enclosed in double qu
 
 Covers:
 
-* [feat~sql-string-rendering~1](#sql-string-rendering)
+* [`feat~sql-string-rendering~1`](#sql-string-rendering)
 
 Needs: dsn
 
@@ -438,7 +438,7 @@ ESB renders abstract `SELECT` statements into SQL query strings.
 
 Covers:
 
-* [feat~sql-string-rendering~1](#sql-string-rendering)
+* [`feat~sql-string-rendering~1`](#sql-string-rendering)
 
 Needs: dsn
 
@@ -449,7 +449,7 @@ ESB renders abstract `CREATE` statements into SQL data definition language strin
 
 Covers:
 
-* [feat~sql-string-rendering~1](#sql-string-rendering)
+* [`feat~sql-string-rendering~1`](#sql-string-rendering)
 
 Needs: dsn
 
@@ -460,7 +460,7 @@ ESB renders abstract `DROP` statements into SQL data definition language strings
 
 Covers:
 
-* [feat~sql-string-rendering~1](#sql-string-rendering)
+* [`feat~sql-string-rendering~1`](#sql-string-rendering)
 
 Needs: dsn
 
@@ -471,7 +471,7 @@ ESB renders abstract `INSERT` statements into SQL data manipulation language str
 
 Covers:
 
-* [feat~sql-string-rendering~1](#sql-string-rendering)
+* [`feat~sql-string-rendering~1`](#sql-string-rendering)
 
 Needs: dsn
 
@@ -482,7 +482,7 @@ ESB renders abstract `MERGE` statements into SQL data manipulation language stri
 
 Covers:
 
-* [feat~sql-string-rendering~1](#sql-string-rendering)
+* [`feat~sql-string-rendering~1`](#sql-string-rendering)
 
 Needs: dsn
 
@@ -499,6 +499,6 @@ Neighboring systems of an Exasol database often do not have equivalent data type
 
 Covers:
 
-* [feat~data-conversion~1](#data-conversion)
+* [`feat~data-conversion~1`](#data-conversion)
 
 Needs: dsn
