@@ -1,10 +1,13 @@
 package com.exasol.sql.expression.rendering;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.exasol.datatype.type.DataType;
 import com.exasol.sql.ColumnsDefinition;
 import com.exasol.sql.UnnamedPlaceholder;
+import com.exasol.sql.dql.select.Select;
+import com.exasol.sql.dql.select.rendering.SelectRenderer;
 import com.exasol.sql.expression.*;
 import com.exasol.sql.expression.comparison.Comparison;
 import com.exasol.sql.expression.comparison.ComparisonVisitor;
@@ -17,6 +20,10 @@ import com.exasol.sql.expression.function.exasol.CastExasolFunction;
 import com.exasol.sql.expression.function.exasol.ExasolFunction;
 import com.exasol.sql.expression.function.exasol.ExasolUdf;
 import com.exasol.sql.expression.literal.*;
+import com.exasol.sql.expression.predicate.InPredicate;
+import com.exasol.sql.expression.predicate.IsNullPredicate;
+import com.exasol.sql.expression.predicate.Predicate;
+import com.exasol.sql.expression.predicate.PredicateVisitor;
 import com.exasol.sql.rendering.ColumnsDefinitionRenderer;
 import com.exasol.sql.rendering.StringRendererConfig;
 
@@ -24,12 +31,12 @@ import com.exasol.sql.rendering.StringRendererConfig;
  * Renderer for common value expressions.
  */
 public class ValueExpressionRenderer extends AbstractExpressionRenderer implements BooleanExpressionVisitor,
-        ComparisonVisitor, ValueExpressionVisitor, LiteralVisitor, FunctionVisitor {
+        ComparisonVisitor, FunctionVisitor, LiteralVisitor, PredicateVisitor, ValueExpressionVisitor {
     int nestedLevel = 0;
 
     /**
      * Create a new instance of {@link ValueExpressionRenderer}.
-     * 
+     *
      * @param config render configuration
      */
     public ValueExpressionRenderer(final StringRendererConfig config) {
@@ -114,17 +121,59 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
         endParenthesisIfNested();
     }
 
+    /* Predicate visitor */
+
+    @Override
+    public void visit(final Predicate predicate) {
+        predicate.accept((PredicateVisitor) this);
+    }
+
+    @Override
+    public void visit(final IsNullPredicate isNullPredicate) {
+        startParenthesisIfNested();
+        appendOperand(isNullPredicate.getOperand());
+        append(" ");
+        append(isNullPredicate.getOperator().toString());
+        endParenthesisIfNested();
+    }
+
+    @Override
+    public void visit(final InPredicate inPredicate) {
+        startParenthesisIfNested();
+        appendOperand(inPredicate.getExpression());
+        append(" ");
+        append(inPredicate.getOperator().toString());
+        append(" (");
+        if (inPredicate.hasSelectQuery()) {
+            appendSelect(inPredicate.getSelectQuery());
+        } else {
+            visit(inPredicate.getOperands());
+        }
+        append(")");
+        endParenthesisIfNested();
+    }
+
+    private void appendSelect(final Select select) {
+        final SelectRenderer selectRenderer = SelectRenderer.create(config);
+        select.accept(selectRenderer);
+        append(selectRenderer.render());
+    }
+
     /* Value expression visitor */
 
-    public void visit(final ValueExpression... valueExpression) {
+    public void visit(final List<ValueExpression> valueExpressions) {
         boolean isFirst = true;
-        for (final ValueExpression parameter : valueExpression) {
+        for (final ValueExpression parameter : valueExpressions) {
             if (!isFirst) {
                 append(", ");
             }
             isFirst = false;
             parameter.accept(this);
         }
+    }
+
+    public void visit(final ValueExpression... valueExpressions) {
+        visit(Arrays.asList(valueExpressions));
     }
 
     @Override

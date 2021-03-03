@@ -1,9 +1,13 @@
 package com.exasol.sql.expression;
 
+import com.exasol.sql.dql.select.Select;
 import com.exasol.sql.expression.comparison.LikeComparison;
 import com.exasol.sql.expression.comparison.SimpleComparison;
 import com.exasol.sql.expression.comparison.SimpleComparisonOperator;
 import com.exasol.sql.expression.literal.BooleanLiteral;
+import com.exasol.sql.expression.predicate.InPredicate;
+import com.exasol.sql.expression.predicate.IsNullPredicate;
+import com.exasol.sql.expression.predicate.IsNullPredicate.IsNullPredicateOperator;
 
 // [impl->dsn~boolean-operators~1]
 public abstract class BooleanTerm extends AbstractBooleanExpression {
@@ -108,6 +112,36 @@ public abstract class BooleanTerm extends AbstractBooleanExpression {
     // [impl->dsn~comparison-operations~1]
     public static BooleanExpression ge(final ValueExpression left, final ValueExpression right) {
         return new SimpleComparison(SimpleComparisonOperator.GREATER_THAN_OR_EQUAL, left, right);
+    }
+
+    // [impl->dsn~predicate-operators~1]
+    public static BooleanExpression isNull(final ValueExpression operand) {
+        return new IsNullPredicate(operand);
+    }
+
+    // [impl->dsn~predicate-operators~1]
+    public static BooleanExpression isNotNull(final ValueExpression operand) {
+        return new IsNullPredicate(IsNullPredicateOperator.IS_NOT_NULL, operand);
+    }
+
+    // [impl->dsn~predicate-operators~1]
+    public static BooleanExpression in(final ValueExpression operand, final ValueExpression... operands) {
+        return InPredicate.builder().expression(operand).operands(operands).build();
+    }
+
+    // [impl->dsn~predicate-operators~1]
+    public static BooleanExpression notIn(final ValueExpression operand, final ValueExpression... operands) {
+        return InPredicate.builder().expression(operand).operands(operands).not().build();
+    }
+
+    // [impl->dsn~predicate-operators~1]
+    public static BooleanExpression in(final ValueExpression operand, final Select select) {
+        return InPredicate.builder().expression(operand).subQuery(select).build();
+    }
+
+    // [impl->dsn~predicate-operators~1]
+    public static BooleanExpression notIn(final ValueExpression operand, final Select select) {
+        return InPredicate.builder().expression(operand).subQuery(select).not().build();
     }
 
     /**
