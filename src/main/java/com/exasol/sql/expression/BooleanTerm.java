@@ -1,9 +1,12 @@
 package com.exasol.sql.expression;
 
+import com.exasol.sql.dql.select.Select;
 import com.exasol.sql.expression.comparison.LikeComparison;
 import com.exasol.sql.expression.comparison.SimpleComparison;
 import com.exasol.sql.expression.comparison.SimpleComparisonOperator;
 import com.exasol.sql.expression.literal.BooleanLiteral;
+import com.exasol.sql.expression.predicate.*;
+import com.exasol.sql.expression.predicate.IsNullPredicate.IsNullPredicateOperator;
 
 // [impl->dsn~boolean-operators~1]
 public abstract class BooleanTerm extends AbstractBooleanExpression {
@@ -108,6 +111,53 @@ public abstract class BooleanTerm extends AbstractBooleanExpression {
     // [impl->dsn~comparison-operations~1]
     public static BooleanExpression ge(final ValueExpression left, final ValueExpression right) {
         return new SimpleComparison(SimpleComparisonOperator.GREATER_THAN_OR_EQUAL, left, right);
+    }
+
+    // [impl->dsn~predicate-operators~1]
+    public static BooleanExpression isNull(final ValueExpression operand) {
+        return new IsNullPredicate(operand);
+    }
+
+    // [impl->dsn~predicate-operators~1]
+    public static BooleanExpression isNotNull(final ValueExpression operand) {
+        return new IsNullPredicate(IsNullPredicateOperator.IS_NOT_NULL, operand);
+    }
+
+    // [impl->dsn~predicate-operators~1]
+    public static BooleanExpression in(final ValueExpression operand, final ValueExpression... operands) {
+        return InPredicate.builder().expression(operand).operands(operands).build();
+    }
+
+    // [impl->dsn~predicate-operators~1]
+    public static BooleanExpression notIn(final ValueExpression operand, final ValueExpression... operands) {
+        return InPredicate.builder().expression(operand).operands(operands).not().build();
+    }
+
+    // [impl->dsn~predicate-operators~1]
+    public static BooleanExpression in(final ValueExpression operand, final Select select) {
+        return InPredicate.builder().expression(operand).selectQuery(select).build();
+    }
+
+    // [impl->dsn~predicate-operators~1]
+    public static BooleanExpression notIn(final ValueExpression operand, final Select select) {
+        return InPredicate.builder().expression(operand).selectQuery(select).not().build();
+    }
+
+    // [impl->dsn~predicate-operators~1]
+    public static BooleanExpression exists(final Select select) {
+        return new ExistsPredicate(select);
+    }
+
+    // [impl->dsn~predicate-operators~1]
+    public static BooleanExpression between(final ValueExpression expression, final ValueExpression start,
+            final ValueExpression end) {
+        return BetweenPredicate.builder().expression(expression).start(start).end(end).build();
+    }
+
+    // [impl->dsn~predicate-operators~1]
+    public static BooleanExpression notBetween(final ValueExpression expression, final ValueExpression start,
+            final ValueExpression end) {
+        return BetweenPredicate.builder().expression(expression).start(start).end(end).not().build();
     }
 
     /**
