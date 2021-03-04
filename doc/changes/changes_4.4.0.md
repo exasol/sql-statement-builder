@@ -1,4 +1,4 @@
-# SQL Statement Builder 4.4.0, released 2021-XX-XX
+# SQL Statement Builder 4.4.0, released 2021-03-04
 
 Code Name: More Predicates
 
