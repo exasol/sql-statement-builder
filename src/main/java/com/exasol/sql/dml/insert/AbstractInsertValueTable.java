@@ -33,7 +33,7 @@ public abstract class AbstractInsertValueTable<T extends AbstractInsertValueTabl
      * Define fields into which should be inserted.
      *
      * @param names field names
-     * @return <code>this</code> for fluent programming
+     * @return {@code this} for fluent programming
      */
     public synchronized T field(final String... names) {
         if (!hasFields()) {
@@ -47,7 +47,7 @@ public abstract class AbstractInsertValueTable<T extends AbstractInsertValueTabl
      * Insert a value table.
      *
      * @param table value table to be inserted
-     * @return <code>this</code> for fluent programming
+     * @return {@code this} for fluent programming
      */
     public synchronized T valueTable(final ValueTable table) {
         if (hasValues()) {
@@ -61,7 +61,7 @@ public abstract class AbstractInsertValueTable<T extends AbstractInsertValueTabl
      * Insert a list of string values.
      *
      * @param values string values to be inserted
-     * @return <code>this</code> for fluent programming
+     * @return {@code this} for fluent programming
      */
     // [impl->dsn~values-as-insert-source~1]
     public synchronized T values(final String... values) {
@@ -74,7 +74,7 @@ public abstract class AbstractInsertValueTable<T extends AbstractInsertValueTabl
      * Insert a list of integer values.
      *
      * @param values integer values to be inserted
-     * @return <code>this</code> for fluent programming
+     * @return {@code this} for fluent programming
      */
     // [impl->dsn~values-as-insert-source~1]
     public T values(final int... values) {
@@ -87,7 +87,7 @@ public abstract class AbstractInsertValueTable<T extends AbstractInsertValueTabl
      * Insert a list of value expressions.
      *
      * @param expressions value expressions to be inserted
-     * @return <code>this</code> for fluent programming
+     * @return {@code this} for fluent programming
      */
     // [impl->dsn~values-as-insert-source~1]
     public T values(final ValueExpression... expressions) {
@@ -99,7 +99,7 @@ public abstract class AbstractInsertValueTable<T extends AbstractInsertValueTabl
     /**
      * Add an unnamed value placeholder to the value list (this is useful for prepared statements).
      *
-     * @return <code>this</code> for fluent programming
+     * @return {@code this} for fluent programming
      */
     // [impl->dsn~values-as-insert-source~1]
     public synchronized T valuePlaceholder() {
@@ -112,7 +112,7 @@ public abstract class AbstractInsertValueTable<T extends AbstractInsertValueTabl
      * Add a given number unnamed value placeholder to the value list (this is useful for prepared statements).
      *
      * @param amount number of placeholders to be added
-     * @return <code>this</code> for fluent programming
+     * @return {@code this} for fluent programming
      */
     // [impl->dsn~values-as-insert-source~1]
     public synchronized T valuePlaceholders(final int amount) {

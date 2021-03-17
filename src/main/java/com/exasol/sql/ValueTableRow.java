@@ -1,8 +1,6 @@
 package com.exasol.sql;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import com.exasol.sql.expression.ValueExpression;
 import com.exasol.sql.expression.literal.*;
@@ -89,7 +87,7 @@ public class ValueTableRow extends AbstractFragment {
          * Add one or more string literals to the row.
          *
          * @param values strings to be added
-         * @return <code>this</code> for fluent programming
+         * @return {@code this} for fluent programming
          */
         public Builder add(final String... values) {
             for (final String value : values) {
@@ -102,7 +100,7 @@ public class ValueTableRow extends AbstractFragment {
          * Add one or more char literals to the row.
          *
          * @param values chars to be added
-         * @return <code>this</code> for fluent programming
+         * @return {@code this} for fluent programming
          */
         public Builder add(final char... values) {
             for (final char value : values) {
@@ -115,7 +113,7 @@ public class ValueTableRow extends AbstractFragment {
          * Add one or more integer literals to the row.
          *
          * @param values integers to be added
-         * @return <code>this</code> for fluent programming
+         * @return {@code this} for fluent programming
          */
         public Builder add(final int... values) {
             for (final int value : values) {
@@ -128,7 +126,7 @@ public class ValueTableRow extends AbstractFragment {
          * Add one or more long literals to the row.
          *
          * @param values longs to be added
-         * @return <code>this</code> for fluent programming
+         * @return {@code this} for fluent programming
          */
         public Builder add(final long... values) {
             for (final long value : values) {
@@ -141,7 +139,7 @@ public class ValueTableRow extends AbstractFragment {
          * Add one or more double literals to the row.
          *
          * @param values doubles to be added
-         * @return <code>this</code> for fluent programming
+         * @return {@code this} for fluent programming
          */
         public Builder add(final double... values) {
             for (final double value : values) {
@@ -154,7 +152,7 @@ public class ValueTableRow extends AbstractFragment {
          * Add one or more float literals to the row.
          *
          * @param values floats to be added
-         * @return <code>this</code> for fluent programming
+         * @return {@code this} for fluent programming
          */
         public Builder add(final float... values) {
             for (final float value : values) {
@@ -167,7 +165,7 @@ public class ValueTableRow extends AbstractFragment {
          * Add one or more boolean literals to the row.
          *
          * @param values booleans to be added
-         * @return <code>this</code> for fluent programming
+         * @return {@code this} for fluent programming
          */
         public Builder add(final boolean... values) {
             for (final boolean value : values) {
@@ -179,7 +177,7 @@ public class ValueTableRow extends AbstractFragment {
         /**
          * Add an {@link UnnamedPlaceholder} to the row.
          *
-         * @return <code>this</code> for fluent programming
+         * @return {@code this} for fluent programming
          */
         public Builder addPlaceholder() {
             this.expressions.add(new UnnamedPlaceholder());
@@ -190,7 +188,7 @@ public class ValueTableRow extends AbstractFragment {
          * Add a list of expressions to the {@link ValueTableRow}.
          *
          * @param expressions expressions to be added
-         * @return <code>this</code> for fluent programming
+         * @return {@code this} for fluent programming
          */
         public Builder add(final List<ValueExpression> expressions) {
             this.expressions.addAll(expressions);

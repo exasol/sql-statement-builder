@@ -26,7 +26,7 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * Add boolean column
      *
      * @param columnName name of the column to be added
-     * @return <code>this</code> for fluent programming
+     * @return {@code this} for fluent programming
      */
     public synchronized CreateTable booleanColumn(final String columnName) {
         this.columnsDefinition.add(columnName, new Boolean());
@@ -37,8 +37,8 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * Add char column.
      *
      * @param columnName name of the column to be added
-     * @param length pre-defined length for stored strings
-     * @return <code>this</code> for fluent programming
+     * @param length     pre-defined length for stored strings
+     * @return {@code this} for fluent programming
      */
     public synchronized CreateTable charColumn(final String columnName, final int length) {
         this.columnsDefinition.add(columnName, new Char(length));
@@ -49,8 +49,8 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * Add varchar column.
      *
      * @param columnName name of the column to be added
-     * @param length pre-defined length for stored strings
-     * @return <code>this</code> for fluent programming
+     * @param length     pre-defined length for stored strings
+     * @return {@code this} for fluent programming
      */
     public synchronized CreateTable varcharColumn(final String columnName, final int length) {
         this.columnsDefinition.add(columnName, new Varchar(length));
@@ -61,7 +61,7 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * Add date column
      *
      * @param columnName name of the column to be added
-     * @return <code>this</code> for fluent programming
+     * @return {@code this} for fluent programming
      */
     public synchronized CreateTable dateColumn(final String columnName) {
         this.columnsDefinition.add(columnName, new Date());
@@ -72,9 +72,9 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * Add decimal column.
      *
      * @param columnName name of the column to be added
-     * @param precision precision for numeric value
-     * @param scale scale for numeric value
-     * @return <code>this</code> for fluent programming
+     * @param precision  precision for numeric value
+     * @param scale      scale for numeric value
+     * @return {@code this} for fluent programming
      */
     public synchronized CreateTable decimalColumn(final String columnName, final int precision, final int scale) {
         this.columnsDefinition.add(columnName, new Decimal(precision, scale));
@@ -85,7 +85,7 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * Add double precision column
      *
      * @param columnName name of the column to be added
-     * @return <code>this</code> for fluent programming
+     * @return {@code this} for fluent programming
      */
     public synchronized CreateTable doublePrecisionColumn(final String columnName) {
         this.columnsDefinition.add(columnName, new DoublePrecision());
@@ -96,7 +96,7 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * Add timestamp column
      *
      * @param columnName name of the column to be added
-     * @return <code>this</code> for fluent programming
+     * @return {@code this} for fluent programming
      */
     public synchronized CreateTable timestampColumn(final String columnName) {
         this.columnsDefinition.add(columnName, new Timestamp());
@@ -107,7 +107,7 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      * Add timestamp with local time zone column
      *
      * @param columnName name of the column to be added
-     * @return <code>this</code> for fluent programming
+     * @return {@code this} for fluent programming
      */
     public synchronized CreateTable timestampWithLocalTimeZoneColumn(final String columnName) {
         this.columnsDefinition.add(columnName, new TimestampWithLocalTimezone());
@@ -117,10 +117,10 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
     /**
      * Add interval day to second column.
      *
-     * @param columnName name of the column to be added
-     * @param yearPrecision year precision value
+     * @param columnName           name of the column to be added
+     * @param yearPrecision        year precision value
      * @param millisecondPrecision millisecond precision value
-     * @return <code>this</code> for fluent programming
+     * @return {@code this} for fluent programming
      */
     public synchronized CreateTable intervalDayToSecondColumn(final String columnName, final int yearPrecision,
             final int millisecondPrecision) {
@@ -131,9 +131,9 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
     /**
      * Add interval year to month column.
      *
-     * @param columnName name of the column to be added
+     * @param columnName    name of the column to be added
      * @param yearPrecision year precision value
-     * @return <code>this</code> for fluent programming
+     * @return {@code this} for fluent programming
      */
     public synchronized CreateTable intervalYearToMonthColumn(final String columnName, final int yearPrecision) {
         this.columnsDefinition.add(columnName, new IntervalYearToMonth(yearPrecision));

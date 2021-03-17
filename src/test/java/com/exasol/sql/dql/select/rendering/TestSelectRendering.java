@@ -3,7 +3,7 @@ package com.exasol.sql.dql.select.rendering;
 import static com.exasol.hamcrest.SqlFragmentRenderResultMatcher.rendersTo;
 import static com.exasol.hamcrest.SqlFragmentRenderResultMatcher.rendersWithConfigTo;
 import static com.exasol.sql.expression.BooleanTerm.*;
-import static com.exasol.sql.expression.ExpressionTerm.stringLiteral;
+import static com.exasol.sql.expression.ExpressionTerm.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -11,11 +11,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.exasol.datatype.type.Varchar;
 import com.exasol.sql.StatementFactory;
 import com.exasol.sql.ValueTable;
 import com.exasol.sql.dql.select.Select;
-import com.exasol.sql.expression.BooleanExpression;
-import com.exasol.sql.expression.ColumnReference;
+import com.exasol.sql.expression.*;
+import com.exasol.sql.expression.function.exasol.*;
+import com.exasol.sql.expression.literal.NullLiteral;
 import com.exasol.sql.rendering.StringRendererConfig;
 
 class TestSelectRendering {
@@ -136,5 +138,43 @@ class TestSelectRendering {
         final BooleanExpression like2 = like(stringLiteral("%bcd"), stringLiteral("\\%%d"));
         this.select.valueExpression(like1, "res1").valueExpression(like2, "res2");
         assertThat(this.select, rendersTo("SELECT 'abcd' NOT LIKE 'a_d' res1, '%bcd' LIKE '\\%%d' res2"));
+    }
+
+    @Test
+    void testSelectCastFunction() {
+        final Select select = StatementFactory.getInstance().select()
+                .function(CastExasolFunction.of(NullLiteral.nullLiteral(), new Varchar(254)), "TEST");
+        assertThat(select, rendersTo("SELECT CAST(NULL AS  VARCHAR(254)) TEST"));
+    }
+
+    @Test
+    void testSelectAggregateFunctionCoalesce() {
+        final Select select = StatementFactory.getInstance().select() //
+                .function(ExasolAggregateFunction.APPROXIMATE_COUNT_DISTINCT, "COUNT_APPR", column("customer_id"));
+        select.from().table("orders");
+        select.where(BooleanTerm.gt(column("price"), integerLiteral(1000)));
+        assertThat(select,
+                rendersTo("SELECT APPROXIMATE_COUNT_DISTINCT(customer_id) COUNT_APPR FROM orders WHERE price > 1000"));
+    }
+
+    @Test
+    void testSelectAnalyticFunction() {
+        final Select select = StatementFactory.getInstance().select() //
+                .field("department") //
+                .function(ExasolAnalyticFunction.ANY, " ANY_ ", BooleanTerm.lt(column("age"), integerLiteral(30)));
+        select.from().table("employee_table");
+        select.groupBy(column("department"));
+        assertThat(select,
+                rendersTo("SELECT department, ANY((age < 30)) ANY_ FROM employee_table GROUP BY department"));
+    }
+
+    @Test
+    void testSelectTwoScalatFunctions() {
+        final Select select = StatementFactory.getInstance().select() //
+                .function(ExasolScalarFunction.ADD_YEARS, "AY1", stringLiteral("2000-02-29"), integerLiteral(1)) //
+                .function(ExasolScalarFunction.ADD_YEARS, "AY2", stringLiteral("2005-01-31 12:00:00"),
+                        integerLiteral(-1));
+        assertThat(select,
+                rendersTo("SELECT ADD_YEARS('2000-02-29', 1) AY1, ADD_YEARS('2005-01-31 12:00:00', -1) AY2"));
     }
 }

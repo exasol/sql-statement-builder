@@ -17,7 +17,7 @@ public final class StringRendererConfig {
     /**
      * Get whether the statements should be produced in lower case.
      *
-     * @return <code>true</code> if statements are produced in lower case
+     * @return {@code true} if statements are produced in lower case
      */
     public boolean useLowerCase() {
         return this.lowerCase;
@@ -26,7 +26,7 @@ public final class StringRendererConfig {
     /**
      * Get whether identifiers should be enclosed in double quotation marks.
      *
-     * @return <code>true</code> if should be enclosed in quotes
+     * @return {@code true} if should be enclosed in quotes
      */
     public boolean useQuotes() {
         return this.quote;
@@ -72,7 +72,7 @@ public final class StringRendererConfig {
         /**
          * Define whether the statement should be produced in lower case
          *
-         * @param lowerCase set to <code>true</code> if the statement should be produced in lower case
+         * @param lowerCase set to {@code true} if the statement should be produced in lower case
          * @return this instance for fluent programming
          */
         public Builder lowerCase(final boolean lowerCase) {
@@ -83,7 +83,7 @@ public final class StringRendererConfig {
         /**
          * Define whether schema, table and field identifiers should be enclosed in double quotation marks.
          *
-         * @param quote set to <code>true</code> if identifiers should be enclosed in quotes
+         * @param quote set to {@code true} if identifiers should be enclosed in quotes
          * @return this instance for fluent programming
          */
         public Builder quoteIdentifiers(final boolean quote) {

@@ -43,7 +43,7 @@ public class ColumnsDefinition extends AbstractFragment {
     /**
      * Add a new column to the {@link ColumnsDefinition}
      *
-     * @param name name of the column to be added
+     * @param name     name of the column to be added
      * @param dataType data type of the column to be added
      */
     public void add(final String name, final DataType dataType) {
@@ -77,7 +77,7 @@ public class ColumnsDefinition extends AbstractFragment {
          * Add boolean column
          *
          * @param columnName name of the column to be added
-         * @return <code>this</code> for fluent programming
+         * @return {@code this} for fluent programming
          */
         public Builder booleanColumn(final String columnName) {
             this.columns.add(new Column(null, columnName, new Boolean()));
@@ -88,8 +88,8 @@ public class ColumnsDefinition extends AbstractFragment {
          * Add char column.
          *
          * @param columnName name of the column to be added
-         * @param length pre-defined length for stored strings
-         * @return <code>this</code> for fluent programming
+         * @param length     pre-defined length for stored strings
+         * @return {@code this} for fluent programming
          */
         public Builder charColumn(final String columnName, final int length) {
             this.columns.add(new Column(null, columnName, new Char(length)));
@@ -100,8 +100,8 @@ public class ColumnsDefinition extends AbstractFragment {
          * Add varchar column.
          *
          * @param columnName name of the column to be added
-         * @param length pre-defined length for stored strings
-         * @return <code>this</code> for fluent programming
+         * @param length     pre-defined length for stored strings
+         * @return {@code this} for fluent programming
          */
         public Builder varcharColumn(final String columnName, final int length) {
             this.columns.add(new Column(null, columnName, new Varchar(length)));
@@ -112,7 +112,7 @@ public class ColumnsDefinition extends AbstractFragment {
          * Add date column.
          *
          * @param columnName name of the column to be added
-         * @return <code>this</code> for fluent programming
+         * @return {@code this} for fluent programming
          */
         public Builder dateColumn(final String columnName) {
             this.columns.add(new Column(null, columnName, new Date()));
@@ -123,9 +123,9 @@ public class ColumnsDefinition extends AbstractFragment {
          * Add decimal column.
          *
          * @param columnName name of the column to be added
-         * @param precision precision for numeric value
-         * @param scale scale for numeric value
-         * @return <code>this</code> for fluent programming
+         * @param precision  precision for numeric value
+         * @param scale      scale for numeric value
+         * @return {@code this} for fluent programming
          */
         public Builder decimalColumn(final String columnName, final int precision, final int scale) {
             this.columns.add(new Column(null, columnName, new Decimal(precision, scale)));
@@ -136,7 +136,7 @@ public class ColumnsDefinition extends AbstractFragment {
          * Add double precision column.
          *
          * @param columnName name of the column to be added
-         * @return <code>this</code> for fluent programming
+         * @return {@code this} for fluent programming
          */
         public Builder doublePrecisionColumn(final String columnName) {
             this.columns.add(new Column(null, columnName, new DoublePrecision()));
@@ -147,7 +147,7 @@ public class ColumnsDefinition extends AbstractFragment {
          * Add timestamp column.
          *
          * @param columnName name of the column to be added
-         * @return <code>this</code> for fluent programming
+         * @return {@code this} for fluent programming
          */
         public Builder timestampColumn(final String columnName) {
             this.columns.add(new Column(null, columnName, new Timestamp()));
@@ -158,7 +158,7 @@ public class ColumnsDefinition extends AbstractFragment {
          * Add timestamp with local time zone column.
          *
          * @param columnName name of the column to be added
-         * @return <code>this</code> for fluent programming
+         * @return {@code this} for fluent programming
          */
         public Builder timestampWithLocalTimeZoneColumn(final String columnName) {
             this.columns.add(new Column(null, columnName, new TimestampWithLocalTimezone()));
@@ -168,10 +168,10 @@ public class ColumnsDefinition extends AbstractFragment {
         /**
          * Add interval day to second column.
          *
-         * @param columnName name of the column to be added
-         * @param yearPrecision year precision value
+         * @param columnName           name of the column to be added
+         * @param yearPrecision        year precision value
          * @param millisecondPrecision millisecond precision value
-         * @return <code>this</code> for fluent programming
+         * @return {@code this} for fluent programming
          */
         public Builder intervalDayToSecondColumn(final String columnName, final int yearPrecision,
                 final int millisecondPrecision) {
@@ -183,9 +183,9 @@ public class ColumnsDefinition extends AbstractFragment {
         /**
          * Add interval year to month column.
          *
-         * @param columnName name of the column to be added
+         * @param columnName    name of the column to be added
          * @param yearPrecision year precision value
-         * @return <code>this</code> for fluent programming
+         * @return {@code this} for fluent programming
          */
         public Builder intervalYearToMonthColumn(final String columnName, final int yearPrecision) {
             this.columns.add(new Column(null, columnName, new IntervalYearToMonth(yearPrecision)));

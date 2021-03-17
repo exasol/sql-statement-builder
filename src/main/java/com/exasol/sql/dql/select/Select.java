@@ -30,7 +30,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
     /**
      * Add a wildcard field for all involved fields.
      *
-     * @return <code>this</code> instance for fluent programming
+     * @return {@code this} instance for fluent programming
      */
     public Select all() {
         final DerivedColumn derivedColumn = new DerivedColumn(this, ColumnReference.of("*"));
@@ -42,7 +42,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      * Add one or more named fields.
      *
      * @param names field name
-     * @return <code>this</code> instance for fluent programming
+     * @return {@code this} instance for fluent programming
      */
     public Select field(final String... names) {
         for (final String name : names) {
@@ -57,7 +57,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      * 
      * @param functionName     name of function
      * @param valueExpressions zero or more value expression
-     * @return <code>this</code> instance for fluent programming
+     * @return {@code this} instance for fluent programming
      */
     public Select function(final FunctionName functionName, final ValueExpression... valueExpressions) {
         return function(functionName, "", valueExpressions);
@@ -69,7 +69,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      * @param functionName      name of the function
      * @param valueExpressions  zero or more value expression
      * @param derivedColumnName name under which you can refer to the derived column
-     * @return <code>this</code> instance for fluent programming
+     * @return {@code this} instance for fluent programming
      */
     public Select function(final FunctionName functionName, final String derivedColumnName,
             final ValueExpression... valueExpressions) {
@@ -84,7 +84,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      *
      * @param function          function
      * @param derivedColumnName name under which you can refer to the derived column
-     * @return <code>this</code> instance for fluent programming
+     * @return {@code this} instance for fluent programming
      */
     public Select function(final Function function, final String derivedColumnName) {
         final DerivedColumn derivedColumn = new DerivedColumn(this, function, derivedColumnName);
@@ -96,7 +96,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      * Add a function.
      *
      * @param function function
-     * @return <code>this</code> instance for fluent programming
+     * @return {@code this} instance for fluent programming
      */
     public Select function(final Function function) {
         function(function, "");
@@ -109,7 +109,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      * @param functionName           name of function
      * @param emitsColumnsDefinition column definitions for emits
      * @param valueExpressions       zero or more value expressions
-     * @return <code>this</code> instance for fluent programming
+     * @return {@code this} instance for fluent programming
      */
 
     public Select udf(final String functionName, final ColumnsDefinition emitsColumnsDefinition,
@@ -129,7 +129,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      *
      * @param functionName     a name of function
      * @param valueExpressions zero or more value expressions
-     * @return <code>this</code> instance for fluent programming
+     * @return {@code this} instance for fluent programming
      */
     public Select udf(final String functionName, final ValueExpression... valueExpressions) {
         final Function udf = ExpressionTerm.udf(functionName, valueExpressions);
@@ -141,7 +141,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      *
      * @deprecated please use a {@link #valueExpression(ValueExpression)} valueExpression} method instead.
      * @param arithmeticExpression arithmetic expression
-     * @return <code>this</code> instance for fluent programming
+     * @return {@code this} instance for fluent programming
      */
     @Deprecated(since = "4.0.2")
     public Select arithmeticExpression(final BinaryArithmeticExpression arithmeticExpression) {
@@ -154,7 +154,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      * @deprecated please use a {@link #valueExpression(ValueExpression, String)} valueExpression} method instead.
      * @param arithmeticExpression arithmetic expression
      * @param derivedColumnName    name under which you can refer to the derived column
-     * @return <code>this</code> instance for fluent programming
+     * @return {@code this} instance for fluent programming
      */
     @Deprecated(since = "4.0.2")
     public Select arithmeticExpression(final BinaryArithmeticExpression arithmeticExpression,
@@ -166,7 +166,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      * Add a value expression.
      *
      * @param valueExpression value expression
-     * @return <code>this</code> instance for fluent programming
+     * @return {@code this} instance for fluent programming
      */
     public Select valueExpression(final ValueExpression valueExpression) {
         final DerivedColumn derivedColumn = new DerivedColumn(this, valueExpression);
@@ -179,7 +179,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      *
      * @param valueExpression   value expression
      * @param derivedColumnName name under which you can refer to the derived column
-     * @return <code>this</code> instance for fluent programming
+     * @return {@code this} instance for fluent programming
      */
     public Select valueExpression(final ValueExpression valueExpression, final String derivedColumnName) {
         final DerivedColumn derivedColumn = new DerivedColumn(this, valueExpression, derivedColumnName);
@@ -204,7 +204,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      * Create a new full outer {@link LimitClause}.
      *
      * @param count maximum number of rows to be included in query result
-     * @return <code>this</code> for fluent programming
+     * @return {@code this} for fluent programming
      * @throws IllegalStateException if a limit clause already exists
      */
     // [impl->dsn~select-statement.out-of-order-clauses~1]
@@ -222,7 +222,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      *
      * @param offset index of the first row in the query result
      * @param count  maximum number of rows to be included in query result
-     * @return <code>this</code> for fluent programming
+     * @return {@code this} for fluent programming
      * @throws IllegalStateException if a limit clause already exists
      */
     // [impl->dsn~select-statement.out-of-order-clauses~1]
@@ -239,7 +239,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      * Create a new {@link WhereClause}.
      *
      * @param expression boolean expression that defines the filter criteria
-     * @return <code>this</code> for fluent programming
+     * @return {@code this} for fluent programming
      */
     // [impl->dsn~select-statement.out-of-order-clauses~1]
     public synchronized Select where(final BooleanExpression expression) {

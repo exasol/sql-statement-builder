@@ -24,7 +24,7 @@ public class DropTable extends AbstractFragment implements SqlStatement, DropTab
     /**
      * Add {@code IF EXISTS} clause into a {@code DROP TABLE} statement.
      *
-     * @return <code>this</code> for fluent programming
+     * @return {@code this} for fluent programming
      */
     public synchronized DropTable ifExists() {
         if (!this.ifExists) {
@@ -36,7 +36,7 @@ public class DropTable extends AbstractFragment implements SqlStatement, DropTab
     /**
      * Add {@code CASCADE CONSTRAINTS} clause into a {@code DROP TABLE} statement.
      *
-     * @return <code>this</code> for fluent programming
+     * @return {@code this} for fluent programming
      */
     public DropTable cascadeConstraints() {
         this.cascadeConstraints = new CascadeConstraints(this);
