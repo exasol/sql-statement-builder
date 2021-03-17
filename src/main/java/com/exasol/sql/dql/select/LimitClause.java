@@ -55,7 +55,7 @@ public class LimitClause extends AbstractFragment implements SelectFragment {
     /**
      * Check if the limit clause has an offset
      *
-     * @return <code>true</code> if the limit clause has an offset
+     * @return {@code true} if the limit clause has an offset
      */
     public boolean hasOffset() {
         return this.offset > 0;

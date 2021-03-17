@@ -28,7 +28,7 @@ public class InPredicate extends AbstractPredicate {
      * @return {@code true} if predicate has a sub query, otherwise return {@code false}
      */
     public boolean hasSelectQuery() {
-        return selectQuery != null;
+        return this.selectQuery != null;
     }
 
     /**
@@ -37,7 +37,7 @@ public class InPredicate extends AbstractPredicate {
      * @return expression in predicate
      */
     public ValueExpression getExpression() {
-        return expression;
+        return this.expression;
     }
 
     /**
@@ -46,7 +46,7 @@ public class InPredicate extends AbstractPredicate {
      * @return value expression operands
      */
     public List<ValueExpression> getOperands() {
-        return operands;
+        return this.operands;
     }
 
     /**
@@ -55,7 +55,7 @@ public class InPredicate extends AbstractPredicate {
      * @return sub select query
      */
     public Select getSelectQuery() {
-        return selectQuery;
+        return this.selectQuery;
     }
 
     /**
@@ -99,7 +99,7 @@ public class InPredicate extends AbstractPredicate {
          * Adds the predicate expression.
          *
          * @param expression in predicate expression
-         * @return <code>this</code> for fluent programming
+         * @return {@code this} for fluent programming
          */
         public Builder expression(final ValueExpression expression) {
             this.expression = expression;
@@ -110,7 +110,7 @@ public class InPredicate extends AbstractPredicate {
          * Adds the operands.
          *
          * @param operands operands for {@code [NOT] IN} predicate
-         * @return <code>this</code> for fluent programming
+         * @return {@code this} for fluent programming
          */
         public Builder operands(final ValueExpression... operands) {
             if (this.selectQuery != null) {
@@ -124,7 +124,7 @@ public class InPredicate extends AbstractPredicate {
          * Adds the sub select query.
          *
          * @param select sub select for {@code [NOT] IN} predicate
-         * @return <code>this</code> for fluent programming
+         * @return {@code this} for fluent programming
          */
         public Builder selectQuery(final Select select) {
             if (this.operands != null) {
@@ -142,7 +142,7 @@ public class InPredicate extends AbstractPredicate {
         /**
          * Sets {@code NOT IN} predicate.
          *
-         * @return <code>this</code> for fluent programming
+         * @return {@code this} for fluent programming
          */
         public Builder not() {
             this.operator = InPredicateOperator.NOT_IN;

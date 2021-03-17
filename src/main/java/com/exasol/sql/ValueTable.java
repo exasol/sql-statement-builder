@@ -28,7 +28,7 @@ public class ValueTable extends AbstractFragment {
      *
      * @param literals literals to be appended
      *
-     * @return <code>this</code> for fluent programming
+     * @return {@code this} for fluent programming
      */
     public ValueTable appendRow(final String... literals) {
         this.rows.add(new ValueTableRow(this.root, literals));
@@ -40,7 +40,7 @@ public class ValueTable extends AbstractFragment {
      *
      * @param row row to be appended
      *
-     * @return <code>this</code> for fluent programming
+     * @return {@code this} for fluent programming
      */
     public ValueTable appendRow(final ValueTableRow row) {
         this.rows.add(row);
@@ -179,7 +179,7 @@ public class ValueTable extends AbstractFragment {
     /**
      * Set alias for the value table.
      * 
-     * @param tableNameAlias table name alias
+     * @param tableNameAlias    table name alias
      * @param columnNameAliases zero or more column names aliases
      */
     public void alias(final String tableNameAlias, final String... columnNameAliases) {

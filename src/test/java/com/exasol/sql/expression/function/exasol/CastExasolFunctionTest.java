@@ -1,27 +1,18 @@
 package com.exasol.sql.expression.function.exasol;
 
-import static com.exasol.hamcrest.SqlFragmentRenderResultMatcher.rendersTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
 
 import com.exasol.datatype.type.Varchar;
-import com.exasol.sql.StatementFactory;
-import com.exasol.sql.dql.select.Select;
 import com.exasol.sql.expression.literal.NullLiteral;
 
-class CastExasolFunctionTest {
+class CastExasolFunctionTest extends AbstractFunctionTest {
     @Test
     void testRendering() {
-        final Select select = StatementFactory.getInstance().select()
-                .function(CastExasolFunction.of(NullLiteral.nullLiteral(), new Varchar(254)));
-        assertThat(select, rendersTo("SELECT CAST(NULL AS  VARCHAR(254))"));
-    }
-
-    @Test
-    void testRenderingWithName() {
-        final Select select = StatementFactory.getInstance().select()
-                .function(CastExasolFunction.of(NullLiteral.nullLiteral(), new Varchar(254)), "TEST");
-        assertThat(select, rendersTo("SELECT CAST(NULL AS  VARCHAR(254)) TEST"));
+        final CastExasolFunction cast = CastExasolFunction.of(NullLiteral.nullLiteral(), new Varchar(254));
+        final String render = renderFunction(cast);
+        assertThat(render, CoreMatchers.equalTo("CAST(NULL AS  VARCHAR(254))"));
     }
 }

@@ -77,7 +77,7 @@ public class LikeComparison extends AbstractComparison {
          * Add the left operand.
          *
          * @param left left operand
-         * @return <code>this</code> for fluent programming
+         * @return {@code this} for fluent programming
          */
         public Builder left(final ValueExpression left) {
             this.left = left;
@@ -88,7 +88,7 @@ public class LikeComparison extends AbstractComparison {
          * Add the right operand.
          *
          * @param right right operand
-         * @return <code>this</code> for fluent programming
+         * @return {@code this} for fluent programming
          */
         public Builder right(final ValueExpression right) {
             this.right = right;
@@ -98,7 +98,7 @@ public class LikeComparison extends AbstractComparison {
         /**
          * Set for NOT LIKE expression.
          *
-         * @return <code>this</code> for fluent programming
+         * @return {@code this} for fluent programming
          */
         public Builder not() {
             this.operator = LikeComparisonOperator.NOT_LIKE;
@@ -109,7 +109,7 @@ public class LikeComparison extends AbstractComparison {
          * Add an escape character.
          *
          * @param escape escape character
-         * @return <code>this</code> for fluent programming
+         * @return {@code this} for fluent programming
          */
         public Builder escape(final char escape) {
             this.escape = escape;

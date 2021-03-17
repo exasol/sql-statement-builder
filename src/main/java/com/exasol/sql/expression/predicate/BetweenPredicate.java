@@ -24,7 +24,7 @@ public class BetweenPredicate extends AbstractPredicate {
      * @return left expression in the predicate
      */
     public ValueExpression getExpression() {
-        return expression;
+        return this.expression;
     }
 
     /**
@@ -33,7 +33,7 @@ public class BetweenPredicate extends AbstractPredicate {
      * @return start expression in the predicate
      */
     public ValueExpression getStartExpression() {
-        return start;
+        return this.start;
     }
 
     /**
@@ -42,7 +42,7 @@ public class BetweenPredicate extends AbstractPredicate {
      * @return end expression in the predicate
      */
     public ValueExpression getEndExpression() {
-        return end;
+        return this.end;
     }
 
     /**
@@ -86,7 +86,7 @@ public class BetweenPredicate extends AbstractPredicate {
          * Adds the left expression of predicate.
          *
          * @param expression in predicate expression
-         * @return <code>this</code> for fluent programming
+         * @return {@code this} for fluent programming
          */
         public Builder expression(final ValueExpression expression) {
             this.expression = expression;
@@ -97,7 +97,7 @@ public class BetweenPredicate extends AbstractPredicate {
          * Adds the start expression of predicate.
          *
          * @param start start expression in predicate
-         * @return <code>this</code> for fluent programming
+         * @return {@code this} for fluent programming
          */
         public Builder start(final ValueExpression start) {
             this.start = start;
@@ -108,7 +108,7 @@ public class BetweenPredicate extends AbstractPredicate {
          * Adds the end expression of predicate.
          *
          * @param end end expression in predicate
-         * @return <code>this</code> for fluent programming
+         * @return {@code this} for fluent programming
          */
         public Builder end(final ValueExpression end) {
             this.end = end;
@@ -118,7 +118,7 @@ public class BetweenPredicate extends AbstractPredicate {
         /**
          * Sets {@code NOT BETWEEN} predicate.
          *
-         * @return <code>this</code> for fluent programming
+         * @return {@code this} for fluent programming
          */
         public Builder not() {
             this.operator = BetweenPredicateOperator.NOT_BETWEEN;

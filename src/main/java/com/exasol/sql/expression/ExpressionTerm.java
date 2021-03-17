@@ -166,7 +166,7 @@ public class ExpressionTerm {
      *
      * @param functionName     a name of function
      * @param valueExpressions zero or more value expressions
-     * @return <code>this</code> instance for fluent programming
+     * @return {@code this} instance for fluent programming
      */
     public static Function function(final FunctionName functionName, final ValueExpression... valueExpressions) {
         return ExasolFunction.of(functionName, valueExpressions);

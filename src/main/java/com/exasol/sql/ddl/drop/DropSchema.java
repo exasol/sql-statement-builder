@@ -27,7 +27,7 @@ public class DropSchema extends AbstractFragment implements SqlStatement, DropSc
     /**
      * Add {@code IF EXISTS} clause into a {@code DROP SCHEMA} statement.
      *
-     * @return <code>this</code> for fluent programming
+     * @return {@code this} for fluent programming
      */
     public synchronized DropSchema ifExists() {
         if (!this.ifExists) {
