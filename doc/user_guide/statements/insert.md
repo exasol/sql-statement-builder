@@ -23,8 +23,22 @@ Create an `INSERT` statement for specific fields:
 
 ### Using Placeholders
 
+In SQL you can use value placeholders (`?`) in prepared statements. This allows you to add the values later in a safe way.
+
+you can add single placeholders like this:
 ```java
-		insert.valuePlaceholder()
+		        final Insert insert = StatementFactory.getInstance()
+                .insertInto("testTable")
+                .field("column1")
+                .valuePlaceholder();
+
+```
+or multiple in one statement:
+```java
+        final Insert insert = StatementFactory.getInstance()
+                .insertInto("testTable")
+                .field("column1", "column2","column3")
+                .valuePlaceholders(3);
 ```
 
 ### Using Value Tables
