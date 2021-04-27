@@ -23,7 +23,7 @@ Data Query Language (DQL)
 
 Data Modification Language (DML)
 
-- INSERT 
+- [INSERT](statements/insert.md)
 - [MERGE](statements/merge.md)
 
 [fluent]: https://en.wikipedia.org/wiki/Fluent_interface
