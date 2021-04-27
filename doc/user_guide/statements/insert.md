@@ -25,15 +25,17 @@ Create an `INSERT` statement for specific fields:
 
 In SQL you can use value placeholders (`?`) in prepared statements. This allows you to add the values later in a safe way.
 
-you can add single placeholders like this:
+You can add single placeholders in the following way:
+
 ```java
 		        final Insert insert = StatementFactory.getInstance()
                 .insertInto("testTable")
                 .field("column1")
                 .valuePlaceholder();
-
 ```
-or multiple in one statement:
+
+Here is an example with multiple placeholders in one statement:
+
 ```java
         final Insert insert = StatementFactory.getInstance()
                 .insertInto("testTable")
@@ -43,13 +45,13 @@ or multiple in one statement:
 
 ### Using Value Tables
 
+You can also use a value table in an insert:
+
 ```java
         final Insert insert = StatementFactory.getInstance().insertInto("tableName");
-
         final ValueTable table = new ValueTable(insert);
         table.appendRow("a", "b")
                 .appendRow("c", "d");
-
         insert.valueTable(table);
 ``` 
 
@@ -65,4 +67,5 @@ Use the `InsertRenderer` to render `Insert` objects into SQL strings.
         insert.accept(renderer);
         final String sql = renderer.render();
 ``` 
+
 For a more general introduction please refer to ["Rendering SQL Statements into Strings"](../rendering.md).
