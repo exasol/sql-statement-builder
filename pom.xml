@@ -298,6 +298,9 @@
                     <modules>
                         <module>maven_central</module>
                     </modules>
+                    <linkReplacements>
+                        <linkReplacement>https://github.com/hamcrest/JavaHamcrest/hamcrest-all|https://github.com/hamcrest/JavaHamcrest</linkReplacement>
+                    </linkReplacements>
                 </configuration>
             </plugin>
             <plugin>
