@@ -39,6 +39,7 @@
 
 [12]: https://www.eclemma.org/jacoco/index.html
 [32]: https://github.com/exasol/project-keeper-maven-plugin
+[2]: https://github.com/hamcrest/JavaHamcrest
 [9]: http://www.apache.org/licenses/LICENSE-2.0.txt
 [14]: https://maven.apache.org/surefire/maven-surefire-plugin/
 [30]: http://www.sonatype.com/public-parent/nexus-maven-plugins/nexus-staging/nexus-staging-maven-plugin/
@@ -52,7 +53,6 @@
 [22]: https://github.com/itsallcode/openfasttrace-maven-plugin
 [13]: https://www.eclipse.org/legal/epl-2.0/
 [31]: http://www.eclipse.org/legal/epl-v10.html
-[2]: https://github.com/hamcrest/JavaHamcrest/hamcrest-all
 [40]: http://zlika.github.io/reproducible-build-maven-plugin
 [23]: https://www.gnu.org/licenses/gpl-3.0.html
 [46]: http://maven.apache.org/plugins/maven-jar-plugin/
