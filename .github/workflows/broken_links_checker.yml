@@ -1,0 +1,17 @@
+name: Broken Links Checker
+
+on:
+  schedule:
+    - cron: "0 5 * * *"
+  push:
+
+jobs:
+  linkChecker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: lychee Link Checker
+        id: lc
+        uses: lycheeverse/lychee-action@v1.0.6
+      - name: Fail if there were link errors
+        run: exit ${{ steps.lc.outputs.exit_code }}

@@ -24,7 +24,7 @@ If you are a programmer, a code contribution in form of an automatic unit test c
 Maybe you are good at explaining how to use the SQL Statement Builder to end users? Help us improve the [user guide](doc/user_guide.md)!
 
 ## Ideas
-Last but not least if you have ideas for ways to improve or extend OFT, feel free to write a [feature request](hhttps://github.com/EXASOL/sql-statement-builder/issues/new?template=Feature_request.md).
+Last but not least if you have ideas for ways to improve or extend OFT, feel free to write a [feature request](https://github.com/EXASOL/sql-statement-builder/issues/new?template=Feature_request.md).
 
 # Style Guides
 We want the SQL Statement Builder to have a professional and uniform coding style. Formatter rules for Eclipse are part of the project. If you use a different editor, please make sure to match the current code formatting.
