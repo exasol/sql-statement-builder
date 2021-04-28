@@ -190,6 +190,7 @@
                     <serialwarn>true</serialwarn>
                     <failOnError>true</failOnError>
                     <failOnWarnings>true</failOnWarnings>
+                    <notimestamp>true</notimestamp>
                 </configuration>
             </plugin>
             <plugin>
