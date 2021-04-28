@@ -63,3 +63,5 @@ point to defining a CREATE TABLE SQL statement.
 
   String renderedString = renderer.render();
   ```
+  
+Please check [API documentation](https://exasol.github.io/sql-statement-builder/com/exasol/sql/ddl/create/CreateTable.html) for more details.

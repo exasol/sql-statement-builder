@@ -1,4 +1,4 @@
-# sql-statement-builder
+# SQL Statement Builder
 
 ![exasol-testcontainers logo](doc/images/sql-statement-builder_128x128.png)
 
@@ -51,44 +51,12 @@ final String sql = renderer.render();
 "Users" from the perspective of the `sql-statement-builder` are developers integrating the module into their own software.
 
 * [User Guide](doc/user_guide/user_guide.md)
-* [API Documentation](https://javadoc.io/doc/com.exasol/sql-statement-builder)
+* [API Documentation](https://exasol.github.io/sql-statement-builder/index.html)
 * [MIT License](LICENSE)
 * [Changelog](doc/changes/changelog.md)
+* [Dependencies](dependencies.md)
 
 ### Information for Developers
 
 * [System Requirement Specification](doc/system_requirements.md)
 * [Design](doc/design.md)
-
-## Dependencies
-
-### Test Dependencies
-
-| Dependency                                                                     | Purpose                                                | License                       |
----------------------------------------------------------------------------------|--------------------------------------------------------|--------------------------------
-| [Apache Maven](https://maven.apache.org/)                                      | Build tool                                             | Apache License 2.0            |
-| [Equals Verifier](https://github.com/jqno/equalsverifier)                      | Automatic contract checker for `equals()` and `hash()` | Apache License 2.0            |
-| [Hamcrest](http://hamcrest.org/)                                               | Advanced matchers for JUnit                            | GNU BSD-3-Clause              |
-| [JUnit 5](https://junit.org/junit5/)                                           | Unit testing framework                                 | Eclipse Public License 1.0    |
-| [Mockito](http://site.mockito.org/)                                            | Mocking framework                                      | MIT License                   |
-
-### Maven Plug-ins
-
-| Plug-in                                                                        | Purpose                                                | License                       |
----------------------------------------------------------------------------------|--------------------------------------------------------|--------------------------------
-| [Maven Compiler Plugin][maven-compiler-plugin]                                 | Setting required Java version                          | Apache License 2.0            |
-| [Maven GPG Plugin](https://maven.apache.org/plugins/maven-gpg-plugin/)         | Signs JARs                                             | Apache License 2.0            |
-| [Maven Enforcer Plugin][maven-enforcer-plugin]                                 | Controlling environment constants                      | Apache License 2.0            |
-| [Maven Jacoco Plugin](https://www.eclemma.org/jacoco/trunk/doc/maven.html)     | Code coverage metering                                 | Eclipse Public License 2.0    |
-| [Maven JavaDoc Plugin](https://maven.apache.org/plugins/maven-javadoc-plugin/) | Creates JavaDoc JARs                                   | Apache License 2.0            |
-| [Maven Source Plugin](https://maven.apache.org/plugins/maven-source-plugin/)   | Creates source JARs                                    | Apache License 2.0            |
-| [Maven Surefire Plugin][maven-surefire-plugin]                                 | Unit testing                                           | Apache License 2.0            |
-| [OFT Maven Plugin](https://github.com/itsallcode/openfasttrace-maven-plugin)   | Requirement tracing                                    | GPL 3.0                       |
-| [Sonatype OSS Index Maven Plugin][sonatype-oss-index-maven-plugin]             | Checking Dependencies Vulnerability                    | ASL2                          |
-| [Versions Maven Plugin][versions-maven-plugin]                                 | Checking if dependencies updates are available         | Apache License 2.0            |
-
-[maven-compiler-plugin]: https://maven.apache.org/plugins/maven-compiler-plugin/
-[maven-enforcer-plugin]: http://maven.apache.org/enforcer/maven-enforcer-plugin/
-[maven-surefire-plugin]: https://maven.apache.org/surefire/maven-surefire-plugin/
-[sonatype-oss-index-maven-plugin]: https://sonatype.github.io/ossindex-maven/maven-plugin/
-[versions-maven-plugin]: https://www.mojohaus.org/versions-maven-plugin/
