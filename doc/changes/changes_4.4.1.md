@@ -7,5 +7,9 @@ Code Name:
 * #97: Refactored functions tests.
 * #93: Replaced <code> by {@code}.
 
+## Documentation
+
+* #38: Added a GitHub action to deploy JavaDocs.
+
 ## Dependency Updates
 
