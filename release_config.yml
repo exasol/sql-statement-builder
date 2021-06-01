@@ -1,0 +1,11 @@
+community-tags:
+  - SQL Statement Builder
+  - Exasol
+  - SQL
+  - Builder Pattern
+  - Open Source
+  - GitHub
+community-project-name: SQL Statement Builder
+community-project-description: |
+  The [sql-statement-builder](https://github.com/exasol/sql-statement-builder)
+  supports building Exasol SQL statements safely without string concatenation.
