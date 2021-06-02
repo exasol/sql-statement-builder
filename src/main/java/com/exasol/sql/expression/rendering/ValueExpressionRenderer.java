@@ -276,7 +276,7 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
             startParenthesis();
         }
         ++this.nestedLevel;
-        this.visit(function.getParameters().toArray(ValueExpression[]::new));
+        this.visit(function.getParameters().stream().toArray(ValueExpression[]::new));
         --this.nestedLevel;
         if (function.hasParenthesis()) {
             endParenthesis();
