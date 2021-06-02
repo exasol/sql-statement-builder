@@ -219,21 +219,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--
-            <plugin>
-                <groupId>org.itsallcode</groupId>
-                <artifactId>openfasttrace-maven-plugin</artifactId>
-                <version>1.0.0</version>
-                <executions>
-                    <execution>
-                        <id>trace-requirements</id>
-                        <goals>
-                            <goal>trace</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            -->
             <plugin>
                 <groupId>org.sonatype.ossindex.maven</groupId>
                 <artifactId>ossindex-maven-plugin</artifactId>
@@ -303,28 +288,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--
-            <plugin>
-                <groupId>com.exasol</groupId>
-                <artifactId>project-keeper-maven-plugin</artifactId>
-                <version>0.7.1</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <modules>
-                        <module>maven_central</module>
-                    </modules>
-                    <linkReplacements>
-                        <linkReplacement>https://github.com/hamcrest/JavaHamcrest/hamcrest-all|https://github.com/hamcrest/JavaHamcrest</linkReplacement>
-                    </linkReplacements>
-                </configuration>
-            </plugin>
-            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
@@ -355,20 +318,6 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
-            <!--
-            <plugin>
-                <groupId>com.exasol</groupId>
-                <artifactId>error-code-crawler-maven-plugin</artifactId>
-                <version>0.4.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            -->
             <plugin>
                 <groupId>io.github.zlika</groupId>
                 <artifactId>reproducible-build-maven-plugin</artifactId>
