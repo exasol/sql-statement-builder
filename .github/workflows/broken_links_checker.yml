@@ -1,0 +1,16 @@
+name: Broken Links Checker
+
+on:
+  schedule:
+    - cron: "0 5 * * *"
+  push:
+
+jobs:
+  linkChecker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          use-quiet-mode: 'yes'
+          use-verbose-mode: 'yes'
