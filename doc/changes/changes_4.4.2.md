@@ -1,6 +1,6 @@
 # SQL Statement Builder 4.4.2, released 2021-??-??
 
-Code Name: D
+Code Name: 
 
 ## Refactoring
 
