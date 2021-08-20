@@ -1,11 +1,9 @@
 # SQL Statement Builder
 
-![exasol-testcontainers logo](doc/images/sql-statement-builder_128x128.png)
+![exasol-statement-builder-logo](doc/images/sql-statement-builder_128x128.png)
 
-[![Build Status](https://travis-ci.com/exasol/sql-statement-builder.svg?branch=develop)](https://travis-ci.com/exasol/sql-statement-builder)
+[![Build Status](https://github.com/exasol/sql-statement-builder/actions/workflows/ci-build.yml/badge.svg)](https://github.com/exasol/sql-statement-builder/actions/workflows/ci-build.yml)
 [![Maven Central](https://img.shields.io/maven-central/v/com.exasol/sql-statement-builder)](https://search.maven.org/artifact/com.exasol/sql-statement-builder)
-
-SonarCloud results:
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=com.exasol%3Asql-statement-builder&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.exasol%3Asql-statement-builder)
 

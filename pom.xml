@@ -1,8 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.exasol</groupId>
     <artifactId>sql-statement-builder</artifactId>
-    <version>4.4.1</version>
+    <version>4.4.2</version>
     <name>Exasol SQL Statement Builder</name>
     <description>This module provides a Builder for SQL statements that helps creating the correct structure and
         validates variable parts of the statements.
@@ -14,7 +16,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
         <gpg.skip>true</gpg.skip>
-        <mockito.version>3.10.0</mockito.version>
+        <mockito.version>3.12.0</mockito.version>
     </properties>
     <licenses>
         <license>
@@ -90,7 +92,7 @@
         <dependency>
             <groupId>nl.jqno.equalsverifier</groupId>
             <artifactId>equalsverifier</artifactId>
-            <version>3.6.1</version>
+            <version>3.7.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -304,7 +306,7 @@
             <plugin>
                 <groupId>com.exasol</groupId>
                 <artifactId>project-keeper-maven-plugin</artifactId>
-                <version>0.7.1</version>
+                <version>0.10.0</version>
                 <executions>
                     <execution>
                         <goals>
@@ -317,7 +319,9 @@
                         <module>maven_central</module>
                     </modules>
                     <linkReplacements>
-                        <linkReplacement>https://github.com/hamcrest/JavaHamcrest/hamcrest-all|https://github.com/hamcrest/JavaHamcrest</linkReplacement>
+                        <linkReplacement>
+                            https://github.com/hamcrest/JavaHamcrest/hamcrest-all|https://github.com/hamcrest/JavaHamcrest
+                        </linkReplacement>
                     </linkReplacements>
                 </configuration>
             </plugin>
@@ -354,7 +358,7 @@
             <plugin>
                 <groupId>com.exasol</groupId>
                 <artifactId>error-code-crawler-maven-plugin</artifactId>
-                <version>0.4.0</version>
+                <version>0.5.1</version>
                 <executions>
                     <execution>
                         <goals>

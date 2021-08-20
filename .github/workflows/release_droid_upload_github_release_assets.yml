@@ -33,3 +33,8 @@ jobs:
         with:
           upload_url: ${{ github.event.inputs.upload_url }}
           asset_path: target/*.jar
+      - name: Upload error-code-report
+        uses: shogo82148/actions-upload-release-asset@v1
+        with:
+          upload_url: ${{ github.event.inputs.upload_url }}
+          asset_path: target/error_code_report.json

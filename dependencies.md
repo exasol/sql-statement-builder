@@ -54,12 +54,12 @@
 [42]: https://maven.apache.org/plugins/maven-clean-plugin/
 [13]: https://www.eclipse.org/legal/epl-2.0/
 [31]: http://www.eclipse.org/legal/epl-v10.html
+[5]: https://github.com/mockito/mockito/blob/main/LICENSE
 [40]: http://zlika.github.io/reproducible-build-maven-plugin
 [50]: https://maven.apache.org/plugins/maven-site-plugin/
 [23]: https://www.gnu.org/licenses/gpl-3.0.html
 [11]: https://www.apache.org/licenses/LICENSE-2.0.txt
 [28]: https://maven.apache.org/enforcer/maven-enforcer-plugin/
-[5]: https://github.com/mockito/mockito/blob/release/3.x/LICENSE
 [1]: https://www.eclipse.org/legal/epl-v20.html
 [3]: http://www.opensource.org/licenses/bsd-license.php
 [48]: http://maven.apache.org/plugins/maven-install-plugin/
