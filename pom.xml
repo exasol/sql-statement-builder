@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.exasol</groupId>
     <artifactId>sql-statement-builder</artifactId>
-    <version>4.4.1</version>
+    <version>4.4.2</version>
     <name>Exasol SQL Statement Builder</name>
     <description>This module provides a Builder for SQL statements that helps creating the correct structure and
         validates variable parts of the statements.
@@ -16,6 +16,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
         <gpg.skip>true</gpg.skip>
+        <mockito.version>3.12.0</mockito.version>
     </properties>
     <licenses>
         <license>
@@ -79,13 +80,13 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>3.12.0</version>
+            <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
-            <version>3.12.0</version>
+            <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -316,8 +317,12 @@
                 <configuration>
                     <modules>
                         <module>maven_central</module>
-                        <module>integration_tests</module>
                     </modules>
+                    <linkReplacements>
+                        <linkReplacement>
+                            https://github.com/hamcrest/JavaHamcrest/hamcrest-all|https://github.com/hamcrest/JavaHamcrest
+                        </linkReplacement>
+                    </linkReplacements>
                 </configuration>
             </plugin>
             <plugin>
@@ -377,5 +382,33 @@
                 </executions>
             </plugin>
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>2.5.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.2.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.2.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>2.8.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.9.1</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 </project>

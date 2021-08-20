@@ -1,4 +1,4 @@
-# sql-statement-builder
+# SQL Statement Builder
 
 ![exasol-statement-builder-logo](doc/images/sql-statement-builder_128x128.png)
 
@@ -49,7 +49,7 @@ final String sql = renderer.render();
 "Users" from the perspective of the `sql-statement-builder` are developers integrating the module into their own software.
 
 * [User Guide](doc/user_guide/user_guide.md)
-* [API Documentation](https://javadoc.io/doc/com.exasol/sql-statement-builder)
+* [API Documentation](https://exasol.github.io/sql-statement-builder/index.html)
 * [MIT License](LICENSE)
 * [Changelog](doc/changes/changelog.md)
 * [Dependencies](dependencies.md)
