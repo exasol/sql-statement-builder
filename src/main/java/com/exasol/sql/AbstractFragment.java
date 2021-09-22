@@ -11,7 +11,7 @@ public abstract class AbstractFragment implements Fragment {
      *
      * @param root root SQL statement this fragment belongs to.
      */
-    public AbstractFragment(final Fragment root) {
+    protected AbstractFragment(final Fragment root) {
         this.root = root;
     }
 

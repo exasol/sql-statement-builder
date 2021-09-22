@@ -12,7 +12,7 @@ public abstract class AbstractExpressionRenderer {
     protected final StringBuilder builder = new StringBuilder();
     private final QuotesApplier quotesApplier;
 
-    public AbstractExpressionRenderer(final StringRendererConfig config) {
+    protected AbstractExpressionRenderer(final StringRendererConfig config) {
         this.config = config;
         this.quotesApplier = new QuotesApplier(config);
     }
