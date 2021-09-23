@@ -22,7 +22,7 @@ We also addes support for the keywords `DISTINCT` and `ANY` as well as the [over
 ### Test Dependency Updates
 
 * Updated `nl.jqno.equalsverifier:equalsverifier:3.6.1` to `3.7.1`
-* Updated `org.junit.jupiter:junit-jupiter:5.7.2` to `5.8.0`
+* Updated `org.junit.jupiter:junit-jupiter:5.7.2` to `5.8.1`
 * Updated `org.mockito:mockito-core:3.10.0` to `3.12.4`
 * Updated `org.mockito:mockito-junit-jupiter:3.10.0` to `3.12.4`
 
