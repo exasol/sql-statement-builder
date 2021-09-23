@@ -73,6 +73,11 @@ class TestCreateTableRendering {
     }
 
     @Test
+    void testCreateTableWithoutColumn() {
+        assertThat(this.createTable, rendersTo("CREATE TABLE testName"));
+    }
+
+    @Test
     void testCreateTableWithVarcharColumn() {
         assertThat(this.createTable.varcharColumn("a", 3000), rendersTo("CREATE TABLE testName (a VARCHAR(3000))"));
     }
