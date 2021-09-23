@@ -6,8 +6,6 @@ import com.exasol.datatype.type.Boolean;
 public interface ColumnDefinitionVisitor {
     public void visit(final ColumnsDefinition columnsDefinition);
 
-    public void leave(final ColumnsDefinition columnsDefinition);
-
     public void visit(final Column column);
 
     public void visit(final Char charColumn);

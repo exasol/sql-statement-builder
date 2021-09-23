@@ -1,5 +1,7 @@
 package com.exasol.sql.rendering;
 
+import java.util.List;
+
 import com.exasol.datatype.type.*;
 import com.exasol.datatype.type.Boolean;
 import com.exasol.sql.*;
@@ -19,14 +21,10 @@ public class ColumnsDefinitionRenderer extends AbstractFragmentRenderer implemen
 
     @Override
     public void visit(final ColumnsDefinition columnsDefinition) {
-        if (!columnsDefinition.getColumns().isEmpty()) {
+        final List<Column> columns = columnsDefinition.getColumns();
+        if (!columns.isEmpty()) {
             append("(");
-        }
-    }
-
-    @Override
-    public void leave(final ColumnsDefinition columnsDefinition) {
-        if (!columnsDefinition.getColumns().isEmpty()) {
+            columns.forEach(col -> col.accept(this));
             append(")");
         }
         setLastVisited(columnsDefinition);
