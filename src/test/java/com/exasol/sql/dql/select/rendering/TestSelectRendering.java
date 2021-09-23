@@ -163,6 +163,24 @@ class TestSelectRendering {
     }
 
     @Test
+    void testSelectAggregateFunctionCountStar() {
+        final Select select = StatementFactory.getInstance().select() //
+                .function(ExasolAggregateFunction.COUNT, "COUNT", column("*"));
+        select.from().table("orders");
+        assertThat(select, rendersTo("SELECT COUNT(*) COUNT FROM orders"));
+    }
+
+    @Test
+    void testSelectAnalyticFunctionWithoutArgument() {
+        final Select select = StatementFactory.getInstance().select() //
+                .field("department") //
+                .function(ExasolAnalyticFunction.ANY, " ANY_ ");
+        select.from().table("employee_table");
+        select.groupBy(column("department"));
+        assertThat(select, rendersTo("SELECT department, ANY() ANY_ FROM employee_table GROUP BY department"));
+    }
+
+    @Test
     void testSelectAnalyticFunction() {
         final Select select = StatementFactory.getInstance().select() //
                 .field("department") //
@@ -171,6 +189,30 @@ class TestSelectRendering {
         select.groupBy(column("department"));
         assertThat(select,
                 rendersTo("SELECT department, ANY((age < 30)) ANY_ FROM employee_table GROUP BY department"));
+    }
+
+    @Test
+    void testSelectAnalyticFunctionWithMultipleArgs() {
+        final Select select = StatementFactory.getInstance().select() //
+                .field("department") //
+                .function(ExasolAnalyticFunction.ANY, " ANY_ ", //
+                        BooleanTerm.lt(column("age"), integerLiteral(30)),
+                        BooleanTerm.gt(column("age"), integerLiteral(40)));
+        select.from().table("employee_table");
+        select.groupBy(column("department"));
+        assertThat(select, rendersTo(
+                "SELECT department, ANY((age < 30), (age > 40)) ANY_ FROM employee_table GROUP BY department"));
+    }
+
+    @Test
+    void testSelectAnalyticWithAnyKeywordFunction() {
+        final Select select = StatementFactory.getInstance().select() //
+                .field("department") //
+                .function(ExasolAnalyticFunction.ANY, " ANY_ ", BooleanTerm.lt(column("age"), integerLiteral(30)));
+        select.from().table("employee_table");
+        select.groupBy(column("department"));
+        assertThat(select,
+                rendersTo("SELECT department, ANY(DISTINCT(age < 30)) ANY_ FROM employee_table GROUP BY department"));
     }
 
     @Test
