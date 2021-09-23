@@ -73,6 +73,7 @@ class TestCreateTableRendering {
     }
 
     @Test
+    // Not a requirement, just to see what happens
     void testCreateTableWithoutColumn() {
         assertThat(this.createTable, rendersTo("CREATE TABLE testName"));
     }

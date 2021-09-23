@@ -29,6 +29,7 @@ class TestSelectRendering {
     }
 
     @Test
+    // Not a requirement, just to see what happens
     void testSelectWithoutFields() {
         assertThat(this.select, rendersTo("SELECT "));
     }
