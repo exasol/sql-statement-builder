@@ -1,6 +1,16 @@
-# Exasol SQL Statement Builder 4.4.3, released 2021-09-??
+# Exasol SQL Statement Builder 4.5.0, released 2021-09-??
 
-Code name: Internal refactorings and dependency updates
+Code name: Support more Aggregate and Analytic functions
+
+## Summary
+
+This release supports all aggregate and analytics functsions provided by Exasol, e.g. `GROUPING[_ID]`, `PERCENTILE_CONT`, `NTH_VALUE` and many more. See the [ticket](https://github.com/exasol/sql-statement-builder/issues/72) for a complete list.
+
+We also addes support for the keywords `DISTINCT` and `ANY` as well as the [over_clause](https://docs.exasol.com/sql_references/functions/analyticfunctions.htm?Highlight=over_clause) for analytic functions.
+
+## Features
+
+* [#72](https://github.com/exasol/sql-statement-builder/issues/72): Added support for more Aggregate and Analytic functions
 
 ## Refactoring
 
