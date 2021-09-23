@@ -1,10 +1,10 @@
 # Exasol SQL Statement Builder 4.4.3, released 2021-09-??
 
-Code name: Internal refactorings
+Code name: Internal refactorings on "More Predicates"
 
 ## Refactoring
 
-* [#117](https://github.com/exasol/sql-statement-builder/issues/117): Fix sonar findings
+* [#117](https://github.com/exasol/sql-statement-builder/issues/117): Fixed sonar findings
 
 ## Dependency Updates
 
