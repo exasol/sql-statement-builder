@@ -17,7 +17,7 @@ public abstract class AbstractInsertValueTable<T extends AbstractInsertValueTabl
      *
      * @param root root fragment
      */
-    public AbstractInsertValueTable(final Fragment root) {
+    protected AbstractInsertValueTable(final Fragment root) {
         super(root);
     }
 

@@ -3,10 +3,10 @@ package com.exasol.datatype.value;
 import java.util.regex.Matcher;
 
 public abstract class AbstractInterval {
-    protected long value;
-    protected boolean positive;
+    protected final long value;
+    protected final boolean positive;
 
-    public AbstractInterval(final long value) {
+    protected AbstractInterval(final long value) {
         if (value >= 0) {
             this.value = value;
             this.positive = true;
@@ -16,7 +16,7 @@ public abstract class AbstractInterval {
         }
     }
 
-    public AbstractInterval(final long absoluteValue, final boolean positive) {
+    protected AbstractInterval(final long absoluteValue, final boolean positive) {
         this.value = absoluteValue;
         this.positive = positive;
     }

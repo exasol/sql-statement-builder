@@ -20,7 +20,7 @@
 | [Maven Surefire Plugin][14]                             | [Apache License, Version 2.0][11]     |
 | [Apache Maven Source Plugin][16]                        | [Apache License, Version 2.0][11]     |
 | [Apache Maven Javadoc Plugin][18]                       | [Apache License, Version 2.0][11]     |
-| [Apache Maven GPG Plugin][20]                           | [Apache License, Version 2.0][9]      |
+| [Apache Maven GPG Plugin][20]                           | [Apache License, Version 2.0][11]     |
 | [OpenFastTrace Maven Plugin][22]                        | [GNU General Public License v3.0][23] |
 | [org.sonatype.ossindex.maven:ossindex-maven-plugin][24] | [ASL2][9]                             |
 | [Versions Maven Plugin][26]                             | [Apache License, Version 2.0][11]     |
@@ -37,7 +37,6 @@
 | [Apache Maven Install Plugin][48]                       | [Apache License, Version 2.0][9]      |
 | [Apache Maven Site Plugin][50]                          | [Apache License, Version 2.0][11]     |
 
-[12]: https://www.eclemma.org/jacoco/index.html
 [32]: https://github.com/exasol/project-keeper-maven-plugin
 [2]: https://github.com/hamcrest/JavaHamcrest
 [9]: http://www.apache.org/licenses/LICENSE-2.0.txt
@@ -48,12 +47,12 @@
 [34]: https://maven.apache.org/surefire/maven-failsafe-plugin/
 [26]: http://www.mojohaus.org/versions-maven-plugin/
 [10]: https://maven.apache.org/plugins/maven-compiler-plugin/
-[20]: http://maven.apache.org/plugins/maven-gpg-plugin/
 [44]: https://maven.apache.org/plugins/maven-resources-plugin/
 [22]: https://github.com/itsallcode/openfasttrace-maven-plugin
 [42]: https://maven.apache.org/plugins/maven-clean-plugin/
 [13]: https://www.eclipse.org/legal/epl-2.0/
 [31]: http://www.eclipse.org/legal/epl-v10.html
+[12]: https://www.jacoco.org/jacoco/trunk/doc/maven.html
 [5]: https://github.com/mockito/mockito/blob/main/LICENSE
 [40]: http://zlika.github.io/reproducible-build-maven-plugin
 [50]: https://maven.apache.org/plugins/maven-site-plugin/
@@ -65,6 +64,7 @@
 [48]: http://maven.apache.org/plugins/maven-install-plugin/
 [0]: https://junit.org/junit5/
 [24]: https://sonatype.github.io/ossindex-maven/maven-plugin/
+[20]: https://maven.apache.org/plugins/maven-gpg-plugin/
 [8]: http://www.jqno.nl/equalsverifier
 [16]: https://maven.apache.org/plugins/maven-source-plugin/
 [36]: http://maven.apache.org/plugins/maven-deploy-plugin/
