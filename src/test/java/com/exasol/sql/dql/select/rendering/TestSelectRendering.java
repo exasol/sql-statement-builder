@@ -28,6 +28,11 @@ class TestSelectRendering {
         this.select = StatementFactory.getInstance().select();
     }
 
+    @Test
+    void testSelectWithoutFields() {
+        assertThat(this.select, rendersTo("SELECT "));
+    }
+
     // [utest->dsn~rendering.sql.select~1]
     @Test
     void testSelectAll() {
