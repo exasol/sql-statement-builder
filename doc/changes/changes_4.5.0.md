@@ -10,12 +10,12 @@ We also addes support for the keywords `DISTINCT` and `ANY` as well as the [over
 
 ## Features
 
-* [#72](https://github.com/exasol/sql-statement-builder/issues/72): Added support for more Aggregate and Analytic functions
+* #72: Added support for more Aggregate and Analytic functions
 
 ## Refactoring
 
-* [#117](https://github.com/exasol/sql-statement-builder/issues/117): Fixed sonar findings
-* [#102](https://github.com/exasol/sql-statement-builder/issues/102): Refactored ColumnsDefinitionRenderer
+* #117: Fixed sonar findings
+* #102: Refactored ColumnsDefinitionRenderer
 
 ## Dependency Updates
 
