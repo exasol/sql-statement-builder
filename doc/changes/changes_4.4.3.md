@@ -4,8 +4,8 @@ Code name: Internal refactorings on "More Predicates"
 
 ## Refactoring
 
-* [#117](https://github.com/exasol/sql-statement-builder/issues/117): Fixed sonar findings
-* [#102](https://github.com/exasol/sql-statement-builder/issues/102): Refactored ColumnsDefinitionRenderer
+* #117: Fixed sonar findings
+* #102: Refactored ColumnsDefinitionRenderer
 
 ## Dependency Updates
 
