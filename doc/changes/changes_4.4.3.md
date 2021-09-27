@@ -7,6 +7,10 @@ Code name: Internal refactorings on "More Predicates"
 * #117: Fixed sonar findings
 * #102: Refactored ColumnsDefinitionRenderer
 
+## Documentation
+
+* #123: Improved documentation
+
 ## Dependency Updates
 
 ### Test Dependency Updates
