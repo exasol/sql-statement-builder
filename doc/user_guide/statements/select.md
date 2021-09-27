@@ -43,7 +43,7 @@ A `SELECT` statement can contain one or more derived columns. Here we describe a
     ```
 
 - The factory method `function(...)` adds a pre-defined function to a statement that evaluates to a value expression.
-You can only create functions that the SSB supports. Check [the list of supported functions](../list_of_supported_exasol_functions.md).
+You can only create functions that the ESB supports. Check [the list of supported functions](../list_of_supported_exasol_functions.md).
 
     You can also set a name for a derived field that contains a function. 
 A function takes any number of [`ValueExpression`](../../../src/main/java/com/exasol/sql/expression/ValueExpression.java)s 
