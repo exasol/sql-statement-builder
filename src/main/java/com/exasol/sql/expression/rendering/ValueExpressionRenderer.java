@@ -9,16 +9,10 @@ import com.exasol.sql.UnnamedPlaceholder;
 import com.exasol.sql.dql.select.Select;
 import com.exasol.sql.dql.select.rendering.SelectRenderer;
 import com.exasol.sql.expression.*;
-import com.exasol.sql.expression.comparison.Comparison;
-import com.exasol.sql.expression.comparison.ComparisonVisitor;
-import com.exasol.sql.expression.comparison.LikeComparison;
-import com.exasol.sql.expression.comparison.SimpleComparison;
-import com.exasol.sql.expression.function.AbstractFunction;
-import com.exasol.sql.expression.function.Function;
-import com.exasol.sql.expression.function.FunctionVisitor;
-import com.exasol.sql.expression.function.exasol.CastExasolFunction;
-import com.exasol.sql.expression.function.exasol.ExasolFunction;
-import com.exasol.sql.expression.function.exasol.ExasolUdf;
+import com.exasol.sql.expression.comparison.*;
+import com.exasol.sql.expression.function.*;
+import com.exasol.sql.expression.function.exasol.*;
+import com.exasol.sql.expression.function.exasol.AnalyticFunction.Keyword;
 import com.exasol.sql.expression.literal.*;
 import com.exasol.sql.expression.predicate.*;
 import com.exasol.sql.rendering.ColumnsDefinitionRenderer;
@@ -173,7 +167,7 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
     }
 
     private void appendSelect(final Select select) {
-        final SelectRenderer selectRenderer = SelectRenderer.create(config);
+        final SelectRenderer selectRenderer = SelectRenderer.create(this.config);
         select.accept(selectRenderer);
         append(selectRenderer.render());
     }
@@ -267,15 +261,18 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
 
     @Override
     public void visit(final ExasolFunction function) {
-        renderFunction(function);
+        renderFunction(function, null);
     }
 
-    private void renderFunction(final AbstractFunction function) {
+    private void renderFunction(final AbstractFunction function, final Keyword keyword) {
         appendKeyword(function.getFunctionName());
         if (function.hasParenthesis()) {
             startParenthesis();
         }
         ++this.nestedLevel;
+        if (keyword != null) {
+            this.appendKeyword(keyword.name());
+        }
         this.visit(function.getParameters().toArray(ValueExpression[]::new));
         --this.nestedLevel;
         if (function.hasParenthesis()) {
@@ -285,8 +282,13 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
 
     @Override
     public void visit(final ExasolUdf function) {
-        renderFunction(function);
+        renderFunction(function, null);
         appendEmitsWhenNecessary(function);
+    }
+
+    @Override
+    public void visit(final AnalyticFunction analyticFunction) {
+        renderFunction(analyticFunction, analyticFunction.getKeyword());
     }
 
     @Override

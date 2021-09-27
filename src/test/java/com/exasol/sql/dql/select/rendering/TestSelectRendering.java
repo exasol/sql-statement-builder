@@ -10,6 +10,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import com.exasol.datatype.type.Varchar;
 import com.exasol.sql.StatementFactory;
@@ -205,15 +207,19 @@ class TestSelectRendering {
                 "SELECT department, ANY((age < 30), (age > 40)) ANY_ FROM employee_table GROUP BY department"));
     }
 
-    @Test
-    void testSelectAnalyticWithAnyKeywordFunction() {
+    @ParameterizedTest
+    @CsvSource(value = { "NULL, ''", "DISTINCT, DISTINCT", "ALL, ALL" }, nullValues = "NULL")
+    void testSelectAnalyticFunctionWithKeyword(
+            final com.exasol.sql.expression.function.exasol.AnalyticFunction.Keyword keyword,
+            final String expectedKeyword) {
         final Select select = StatementFactory.getInstance().select() //
                 .field("department") //
-                .function(ExasolAnalyticFunction.ANY, " ANY_ ", BooleanTerm.lt(column("age"), integerLiteral(30)));
+                .function(AnalyticFunction.of(ExasolAnalyticFunction.ANY, keyword,
+                        BooleanTerm.lt(column("age"), integerLiteral(30))), "ANY_");
         select.from().table("employee_table");
         select.groupBy(column("department"));
-        assertThat(select,
-                rendersTo("SELECT department, ANY(DISTINCT(age < 30)) ANY_ FROM employee_table GROUP BY department"));
+        assertThat(select, rendersTo("SELECT department, ANY(" + expectedKeyword
+                + "(age < 30)) ANY_ FROM employee_table GROUP BY department"));
     }
 
     @Test
