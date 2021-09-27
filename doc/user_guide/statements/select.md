@@ -165,7 +165,7 @@ select.groupBy(column("t", "city"), column("t", "order"), column("t", "price"))
 A `SELECT` statement can contain one `ORDER BY` clause.
 
 To start a `ORDER BY` clause, use the `orderBy()` method of the `Select` class.
-You can also use `nullsFirst()`/`nullsLast()` and `asc()`/`desc()` methods within this clause.
+You can also use `nullsFirst()` / `nullsLast()` and `asc()` / `desc()` methods within this clause.
 
 ```java
 Select select = factory.select().all();
