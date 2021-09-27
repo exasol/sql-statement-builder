@@ -13,7 +13,7 @@ import com.exasol.sql.expression.function.FunctionVisitor;
  * This class represents a function in the Exasol database.
  */
 public class ExasolFunction extends AbstractFunction {
-    private static final List<String> functionsWithoutParenthesis = Arrays.asList("SYSDATE", "CURRENT_SCHEMA",
+    private static final List<String> FUNCTIONS_WITHOUT_PARENTHESIS = Arrays.asList("SYSDATE", "CURRENT_SCHEMA",
             "CURRENT_SESSION", "CURRENT_STATEMENT", "CURRENT_USER", "ROWNUM", "ROWID", "SCOPE_USER", "USER");
 
     protected ExasolFunction(final FunctionName functionName, final List<ValueExpression> valueExpressions) {
@@ -43,7 +43,7 @@ public class ExasolFunction extends AbstractFunction {
 
     @Override
     public boolean hasParenthesis() {
-        return !functionsWithoutParenthesis.contains(this.functionName);
+        return !FUNCTIONS_WITHOUT_PARENTHESIS.contains(this.functionName);
     }
 
     @Override
