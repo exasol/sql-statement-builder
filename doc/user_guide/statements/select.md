@@ -72,6 +72,8 @@ You can also create a udf with `EMITS` part containing column definitions.
         selectWithEmits.from().table("people");
     ```
 
+- To add special functions (e.g. analytic functions) to a statement you can use the `function()` method that takes a `Function` as argument. See the [section about creating functions](#creating-functions) for details.
+
 - An `arithmetic expression` is a binary value expression using one of the following arithmetic operators: `+`, `-`, `*`, `/`.
 Add an arithmetic expression using an `arithmeticExpression( ... )` method.
 You can also set a name for a derived field that contains an arithmetic expression. 
@@ -172,4 +174,30 @@ Select select = factory.select().all();
 select.from().table("t");
 select.orderBy(column("t", "city"), column("t", "price"))
         .nullsFirst().asc();
+```
+
+## Creating Functions
+
+When you need to use special functions like analytic functions, you can add them to a statement like this:
+
+```java
+Function function = ... // create function
+Select select = factory.select().function(function, "<column>");
+```
+
+### Analytic functions
+
+#### Keywords `DISTINCT` and `ALL`
+
+You create an analytic function with a keyword `DISTINCT` or `ALL` like this:
+
+```java
+Function function = AnalyticFunction.of(ExasolAnalyticFunction.ANY, Keyword.DISTINCT,
+    BooleanTerm.lt(column("age"), integerLiteral(30)));
+```
+
+This will render to the following SQL code:
+
+```sql
+SELECT ANY(DISTINCT(age < 30))
 ```
