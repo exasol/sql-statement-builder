@@ -7,7 +7,7 @@ You can construct [`SELECT`](https://docs.exasol.com/sql/select.htm) SQL stateme
 You can create a basic `SELECT` like this:
 
 ```java
-Select select = StatementFactory.getInstance().select() //
+Select select = StatementFactory.getInstance().select()
     .field("fieldA", "tableA.fieldB", "tableB.*");
 select.from().table("schemaA.tableA");
 select.limit(10);
