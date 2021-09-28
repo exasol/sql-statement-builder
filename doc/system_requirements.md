@@ -373,11 +373,11 @@ ESB supports the following `SELECT` statement:
     
     derived-column = expression [as-clause]
     
-    expression = arithmetic-expression / column-reference / function  
+    expression = arithmetic-expression / column-reference / function
     
     table-expression = from-clause [where-clause] [limit-clause] [group-by-clause] [order-by-clause]
     
-    from-clause =  "FROM" table-reference 
+    from-clause =  "FROM" table-reference
     
     where-clause =  "WHERE" boolean-term
     

@@ -3,12 +3,19 @@
 Here you can find a list of supported(or partly supported) functions for the Exasol database.
 
 - [Scalar Functions](#scalar-functions)
+  - [Numeric Functions](#numeric-functions)
+  - [String Functions](#string-functions)
+  - [Date/Time Functions](#datetime-functions)
+  - [Geospatial Functions](#geospatial-functions)
+  - [Bitwise Function](#bitwise-function)
+  - [Conversion Functions](#conversion-functions)
+  - [Other Scalar Functions](#other-scalar-functions)
 - [Aggregate Functions](#aggregate-functions)
 - [Analytic Functions](#analytic-functions)
 
 ## Scalar Functions
-     
-#### Numeric Functions
+
+### Numeric Functions
 
 - ABS
 - ACOS
@@ -40,9 +47,9 @@ Here you can find a list of supported(or partly supported) functions for the Exa
 - TAN
 - TANH
 - TRUNC
- 
-#### String Functions
-    
+
+### String Functions
+
 - ASCII
 - BIT_LENGTH
 - CHARACTER_LENGTH
@@ -81,7 +88,7 @@ Here you can find a list of supported(or partly supported) functions for the Exa
 - UNICODECHR
 - UPPER
 
-#### Date/Time Functions
+### Date/Time Functions
 
 - ADD_DAYS
 - ADD_HOURS
@@ -117,7 +124,7 @@ Here you can find a list of supported(or partly supported) functions for the Exa
 - YEAR
 - YEARS_BETWEEN
 
-#### Geospatial Functions
+### Geospatial Functions
 
 - ST_AREA
 - ST_BOUNDARY
@@ -160,7 +167,7 @@ Here you can find a list of supported(or partly supported) functions for the Exa
 - ST_X
 - ST_Y
 
-#### Bitwise Function
+### Bitwise Function
 
 - BIT_AND
 - BIT_CHECK
@@ -174,7 +181,7 @@ Here you can find a list of supported(or partly supported) functions for the Exa
 - BIT_TO_NUM
 - BIT_XOR
 
-#### Conversion Functions
+### Conversion Functions
 
 - IS_NUMBER
 - IS_DATE
@@ -189,7 +196,7 @@ Here you can find a list of supported(or partly supported) functions for the Exa
 - TO_TIMESTAMP
 - TO_YMINTERVAL
 
-#### Other Scalar Functions
+### Other Scalar Functions
 
 - COALESCE
 - CURRENT_SCHEMA
