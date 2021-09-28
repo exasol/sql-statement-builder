@@ -1,7 +1,6 @@
 # DROP SCHEMA
 
-The `DropSchema` class of the SQL Statement Builder provides an entry 
-point to defining a DROP SCHEMA SQL statement.
+The `DropSchema` class of the SQL Statement Builder provides an entry point to defining a [`DROP SCHEMA`](https://docs.exasol.com/sql/drop_schema.htm) SQL statement.
 
 ## Usage
 
@@ -24,8 +23,7 @@ point to defining a DROP SCHEMA SQL statement.
     ```java
     dropSchema.ifExists().cascade();
     ```
-    Please do not use methods `cascade()` and `restrict()` on the same object.
-    If both these options are used on the same object, `IllegalArgumentException` will be thrown.
+    Please do not use methods `cascade()` and `restrict()` on the same object. If both these options are used on the same object, `IllegalArgumentException` will be thrown.
 
 3. Render the instance of `DropSchema` class. Click [here](../rendering.md) for more information on Rendering SQL Statement.
 
@@ -34,13 +32,13 @@ point to defining a DROP SCHEMA SQL statement.
     ```java
      DropSchema dropSchema = StatementFactory.getInstance().dropSchema("schemaName");
 
-     //optional step: add additional clauses
+     // optional step: add additional clauses
      dropSchema.ifExists().cascade();
-     //or
+     // or
      dropSchema.ifExists().restrict();
    
-     //Rendering
-     //optional step: add config
+     // Rendering
+     // optional step: add configuration
      StringRendererConfig config = StringRendererConfig.builder().lowerCase(true).build();
   
      DropSchemaRenderer renderer = DropSchemaRenderer.create(config);

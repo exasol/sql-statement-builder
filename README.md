@@ -32,14 +32,14 @@ Goals:
 The following example gives you an idea about what you can do with the SQL Statement Builder. Check our [user guide](doc/user_guide/user_guide.md) for more details.
 
 ```java
-final Select select = StatementFactory.getInstance().select() //
-        .field("fieldA", "tableA.fieldB", "tableB.*");
+Select select = StatementFactory.getInstance().select()
+    .field("fieldA", "tableA.fieldB", "tableB.*");
 select.from().table("schemaA.tableA");
 select.limit(10);
-final StringRendererConfig config = StringRendererConfig.builder().quoteIdentifiers(true).build();
-final SelectRenderer renderer = new SelectRenderer(config);
+StringRendererConfig config = StringRendererConfig.builder().quoteIdentifiers(true).build();
+SelectRenderer renderer = new SelectRenderer(config);
 select.accept(renderer);
-final String sql = renderer.render();
+String sql = renderer.render();
 ```
 
 ## Table of Contents

@@ -17,6 +17,10 @@ We also addes support for the keywords `DISTINCT` and `ANY` as well as the [over
 * #117: Fixed sonar findings
 * #102: Refactored ColumnsDefinitionRenderer
 
+## Documentation
+
+* #123: Improved documentation
+
 ## Dependency Updates
 
 ### Test Dependency Updates
