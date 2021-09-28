@@ -2,7 +2,7 @@
 
 ## Creating the Renderer With Default Settings
 
-To render an SQL statement, you need to create an instance of the SQl Statement Renderer (for example `CreateTableRenderer`) using the `create()` method of
+To render an SQL statement, you need to create an instance of the SQL Statement Renderer (for example `CreateTableRenderer`) using the `create()` method of
 the Renderer class:
 
 ```java
