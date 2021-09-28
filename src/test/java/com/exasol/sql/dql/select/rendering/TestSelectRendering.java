@@ -7,15 +7,19 @@ import static com.exasol.sql.expression.ExpressionTerm.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
+
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.*;
 
 import com.exasol.datatype.type.Varchar;
 import com.exasol.sql.StatementFactory;
 import com.exasol.sql.ValueTable;
+import com.exasol.sql.dql.select.OrderByClause;
 import com.exasol.sql.dql.select.Select;
 import com.exasol.sql.expression.*;
 import com.exasol.sql.expression.function.exasol.*;
@@ -208,7 +212,11 @@ class TestSelectRendering {
     }
 
     @ParameterizedTest
-    @CsvSource(value = { "NULL, ''", "DISTINCT, DISTINCT", "ALL, ALL" }, nullValues = "NULL")
+    @CsvSource(nullValues = "NULL", value = { //
+            "NULL, ''", //
+            "DISTINCT, DISTINCT", //
+            "ALL, ALL" //
+    })
     void testSelectAnalyticFunctionWithKeyword(
             final com.exasol.sql.expression.function.exasol.AnalyticFunction.Keyword keyword,
             final String expectedKeyword) {
@@ -220,6 +228,29 @@ class TestSelectRendering {
         select.groupBy(column("department"));
         assertThat(select, rendersTo("SELECT department, ANY(" + expectedKeyword
                 + "(age < 30)) ANY_ FROM employee_table GROUP BY department"));
+    }
+
+    static Stream<Arguments> overClauseArguments() {
+
+        final AnalyticFunction function = AnalyticFunction.of(ExasolAggregateFunction.AVG, column("age")) //
+                .over("window").orderBy(null).build();
+
+        return Stream.of(arguments(null, ""), //
+                arguments(OverClause.of("window1"), " OVER(window1)"),
+                arguments(OverClause.of("window1").orderBy(new OrderByClause(null, column("order"))),
+                        " OVER(window1 ORDER BY order)"));
+    }
+
+    @ParameterizedTest
+    @MethodSource("overClauseArguments")
+    void testSelectAnalyticFunctionWithOverClause(final OverClause overClause, final String expectedOverClause) {
+        final AnalyticFunction function = AnalyticFunction.of(ExasolAggregateFunction.AVG, column("age")) //
+                .over(overClause);
+        final Select select = StatementFactory.getInstance().select() //
+                .field("department") //
+                .function(function, "_AGE");
+        select.from().table("employee_table");
+        assertThat(select, rendersTo("SELECT department, AVG(age)" + expectedOverClause + " _AGE FROM employee_table"));
     }
 
     @Test

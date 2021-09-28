@@ -22,4 +22,6 @@ public interface SelectVisitor extends ValueTableVisitor {
     public void visit(DerivedColumn derivedColumn);
 
     public void visit(Table table);
+
+    public void visit(WindowClause windowClause);
 }

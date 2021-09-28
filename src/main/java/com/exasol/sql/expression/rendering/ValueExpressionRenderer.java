@@ -289,6 +289,15 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
     @Override
     public void visit(final AnalyticFunction analyticFunction) {
         renderFunction(analyticFunction, analyticFunction.getKeyword());
+        if (analyticFunction.getOverClause() != null) {
+            renderOverClause(analyticFunction.getOverClause());
+        }
+    }
+
+    private void renderOverClause(final OverClause overClause) {
+        final OverClauseRenderer overClauseRenderer = new OverClauseRenderer(this.config);
+        overClauseRenderer.visit(overClause);
+        this.append(overClauseRenderer.render());
     }
 
     @Override

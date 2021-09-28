@@ -2,10 +2,7 @@ package com.exasol.sql.dql.select.rendering;
 
 import java.util.List;
 
-import com.exasol.sql.DerivedColumn;
-import com.exasol.sql.Table;
-import com.exasol.sql.ValueTable;
-import com.exasol.sql.ValueTableRow;
+import com.exasol.sql.*;
 import com.exasol.sql.dql.select.*;
 import com.exasol.sql.expression.BooleanExpression;
 import com.exasol.sql.rendering.AbstractFragmentRenderer;
@@ -154,7 +151,7 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
             final List<String> columnNameAliases = valueTable.getColumnNameAliases();
             for (int i = 0; i < columnNameAliases.size(); i++) {
                 appendAutoQuoted(columnNameAliases.get(i));
-                if (i < columnNameAliases.size() - 1) {
+                if (i < (columnNameAliases.size() - 1)) {
                     append(", ");
                 }
             }
@@ -175,6 +172,11 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
     public void leave(final ValueTableRow valueTableRow) {
         endParenthesis();
         setLastVisited(valueTableRow);
+    }
+
+    @Override
+    public void visit(final WindowClause windowClause) {
+        throw new UnsupportedOperationException("todo");
     }
 
     /**
