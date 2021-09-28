@@ -46,8 +46,7 @@ A `SELECT` statement can contain one or more derived columns. Here we describe a
 You can only create functions that the ESB supports. Check [the list of supported functions](../list_of_supported_exasol_functions.md).
 
     You can also set a name for a derived field that contains a function. 
-A function takes any number of [`ValueExpression`](../../../src/main/java/com/exasol/sql/expression/ValueExpression.java)s 
-and renders them in the order they were added. 
+A function takes any number of [`ValueExpression`](../../../src/main/java/com/exasol/sql/expression/ValueExpression.java)s and renders them in the order they were added. 
 
     The `function(...)` factory method does not validate the function arguments.
 
@@ -58,8 +57,7 @@ and renders them in the order they were added.
     ```
 
 - The factory method `udf(...)` adds a user defined function to a statement. 
-A udf takes a name of function and any number of [`ValueExpression`](../../../src/main/java/com/exasol/sql/expression/ValueExpression.java)s.
-You can also create a udf with `EMITS` part containing column definitions.
+A udf takes a name of function and any number of [`ValueExpression`](../../../src/main/java/com/exasol/sql/expression/ValueExpression.java)s. You can also create a udf with `EMITS` part containing column definitions.
   
     ```java
     Select selectWithoutEmits = StatementFactory.getInstance().select().udf("my_average", column("x"));
@@ -73,8 +71,7 @@ You can also create a udf with `EMITS` part containing column definitions.
     ```
 
 - An `arithmetic expression` is a binary value expression using one of the following arithmetic operators: `+`, `-`, `*`, `/`.
-Add an arithmetic expression using an `arithmeticExpression( ... )` method.
-You can also set a name for a derived field that contains an arithmetic expression. 
+Add an arithmetic expression using an `arithmeticExpression( ... )` method. You can also set a name for a derived field that contains an arithmetic expression. 
 
     ```java
     Select select = factory.select()
@@ -84,8 +81,7 @@ You can also set a name for a derived field that contains an arithmetic expressi
 
 #### `FROM` clause
 
-A `SELECT` statement can contain a single `FROM` clause.
-To start a `FROM` clause, use a method `from()` of the `Select` class.
+A `SELECT` statement can contain a single `FROM` clause. To start a `FROM` clause, use a method `from()` of the `Select` class.
 
 You can append references to database tables with the `table( ... )` method.
 
@@ -126,8 +122,7 @@ selectFromTable.from().table("left_table")
 ```
 #### `WHERE` clause
 
-A `SELECT` statement can contain one `WHERE` clause with a boolean expression as filter criteria.
-To add a `WHERE` clause, use a method `where( ... )` of the `Select` class. 
+A `SELECT` statement can contain one `WHERE` clause with a boolean expression as filter criteria. To add a `WHERE` clause, use a method `where( ... )` of the `Select` class. 
 
 ```java
 Select select = factory.select.all();
@@ -137,8 +132,7 @@ select.where(eq(ExpressionTerm.stringLiteral("foo"), ExpressionTerm.stringLitera
 
 #### `LIMIT` clause
 
-A `SELECT` statement can contain one `LIMIT` clause with count and an optional offset.
-To add a `LIMIT` clause, use a method `limit( ... )` of the `Select` class. 
+A `SELECT` statement can contain one `LIMIT` clause with count and an optional offset. To add a `LIMIT` clause, use a method `limit( ... )` of the `Select` class. 
 
 ```java
 Select select = factory.select().all();
@@ -148,8 +142,7 @@ select.limit(1);
 
 #### `GROUP BY` clause
 
-A `SELECT` statement can contain one `GROUP BY` clause.
-To start a `GROUP BY` clause, use the `groupBy()` method of the `Select` class. 
+A `SELECT` statement can contain one `GROUP BY` clause. To start a `GROUP BY` clause, use the `groupBy()` method of the `Select` class. 
 
 The `GROUP BY` clause supports a `HAVING` clause. To add it use a `having( ... )` method.
 
@@ -164,8 +157,7 @@ select.groupBy(column("t", "city"), column("t", "order"), column("t", "price"))
 
 A `SELECT` statement can contain one `ORDER BY` clause.
 
-To start a `ORDER BY` clause, use the `orderBy()` method of the `Select` class.
-You can also use `nullsFirst()` / `nullsLast()` and `asc()` / `desc()` methods within this clause.
+To start a `ORDER BY` clause, use the `orderBy()` method of the `Select` class. You can also use `nullsFirst()` / `nullsLast()` and `asc()` / `desc()` methods within this clause.
 
 ```java
 Select select = factory.select().all();

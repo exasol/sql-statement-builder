@@ -1,7 +1,6 @@
 # CREATE SCHEMA
 
-The `CreateSchema` class of the SQL Statement Builder provides an entry 
-point to defining a [`CREATE SCHEMA`](https://docs.exasol.com/sql/create_schema.htm) SQL statement.
+The `CreateSchema` class of the SQL Statement Builder provides an entry point to defining a [`CREATE SCHEMA`](https://docs.exasol.com/sql/create_schema.htm) SQL statement.
 
 ## Usage
 

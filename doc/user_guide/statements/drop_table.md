@@ -1,7 +1,6 @@
 # DROP TABLE
 
-The `DropTable` class of the SQL Statement Builder provides an entry 
-point to defining a [`DROP TABLE`](https://docs.exasol.com/sql/drop_table.htm) SQL statement.
+The `DropTable` class of the SQL Statement Builder provides an entry point to defining a [`DROP TABLE`](https://docs.exasol.com/sql/drop_table.htm) SQL statement.
 
 ## Usage
 

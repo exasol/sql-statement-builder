@@ -1,7 +1,6 @@
 # CREATE TABLE
 
-The `CreateTable` class of the SQL Statement Builder provides an entry 
-point to defining a [`CREATE TABLE`](https://docs.exasol.com/sql/create_table.htm) SQL statement.
+The `CreateTable` class of the SQL Statement Builder provides an entry point to defining a [`CREATE TABLE`](https://docs.exasol.com/sql/create_table.htm) SQL statement.
 
 ## Usage
 
@@ -23,9 +22,7 @@ point to defining a [`CREATE TABLE`](https://docs.exasol.com/sql/create_table.ht
              .booleanColumn("col_boolean");
   ```
 
-  Please keep in mind that the column name is required when creating a column.
-  Additionally, some column types require extra parameters, for instance
-  `VARCHAR`.
+  Please keep in mind that the column name is required when creating a column. Additionally, some column types require extra parameters, for instance `VARCHAR`.
 
   **Currently, the following column types are supported:**
 
