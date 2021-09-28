@@ -4,17 +4,18 @@ import com.exasol.sql.dql.select.OrderByClause;
 
 public class OverClause {
 
-    private final String windowName;
+    private String windowName;
     private PartitionClause partitionClause;
     private OrderByClause orderByClause;
     private WindowFrameClause windowFrameClause;
 
-    private OverClause(final String windowName) {
-        this.windowName = windowName;
+    public static OverClause of(final String windowName) {
+        return new OverClause().windowName(windowName);
     }
 
-    public static OverClause of(final String windowName) {
-        return new OverClause(windowName);
+    public OverClause windowName(final String windowName) {
+        this.windowName = windowName;
+        return this;
     }
 
     public OverClause orderBy(final OrderByClause orderByClause) {

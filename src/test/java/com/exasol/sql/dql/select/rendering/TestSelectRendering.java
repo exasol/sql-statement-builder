@@ -231,14 +231,14 @@ class TestSelectRendering {
     }
 
     static Stream<Arguments> overClauseArguments() {
-
-        final AnalyticFunction function = AnalyticFunction.of(ExasolAggregateFunction.AVG, column("age")) //
-                .over("window").orderBy(null).build();
-
         return Stream.of(arguments(null, ""), //
                 arguments(OverClause.of("window1"), " OVER(window1)"),
-                arguments(OverClause.of("window1").orderBy(new OrderByClause(null, column("order"))),
-                        " OVER(window1 ORDER BY order)"));
+                arguments(OverClause.of("window1").orderBy(new OrderByClause(null, column("dep"))),
+                        " OVER(window1 ORDER BY dep)"),
+                arguments(OverClause.of("window1").orderBy(new OrderByClause(null, column("dep")).asc().nullsFirst()),
+                        " OVER(window1 ORDER BY dep ASC NULLS FIRST)")
+
+        );
     }
 
     @ParameterizedTest

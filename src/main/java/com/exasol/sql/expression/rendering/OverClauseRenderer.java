@@ -1,6 +1,7 @@
 package com.exasol.sql.expression.rendering;
 
 import com.exasol.sql.dql.select.OrderByClause;
+import com.exasol.sql.dql.select.rendering.SelectRenderer;
 import com.exasol.sql.expression.function.exasol.OverClause;
 import com.exasol.sql.expression.function.exasol.OverClause.PartitionClause;
 import com.exasol.sql.expression.function.exasol.OverClause.WindowFrameClause;
@@ -37,8 +38,9 @@ class OverClauseRenderer extends AbstractExpressionRenderer {
     }
 
     private void appendOrderBy(final OrderByClause orderByClause) {
-        // TODO Auto-generated method stub
-
+        final SelectRenderer selectRenderer = new SelectRenderer(this.config);
+        orderByClause.accept(selectRenderer);
+        append(selectRenderer.render());
     }
 
     private void appendWindowFrame(final WindowFrameClause windowFrameClause) {

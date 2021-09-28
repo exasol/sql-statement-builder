@@ -2,6 +2,7 @@ package com.exasol.sql.expression.function.exasol;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 
 import com.exasol.sql.expression.ValueExpression;
 import com.exasol.sql.expression.function.*;
@@ -70,10 +71,15 @@ public class AnalyticFunction extends AbstractFunction {
     }
 
     public OverClause over(final String windowName) {
+        return over(over -> over.windowName(windowName)).overClause;
+    }
+
+    public AnalyticFunction over(final Consumer<OverClause> consumer) {
         if (this.overClause == null) {
-            this.overClause = OverClause.of(windowName);
+            this.overClause = new OverClause();
         }
-        return this.overClause;
+        consumer.accept(this.overClause);
+        return this;
     }
 
     /**
