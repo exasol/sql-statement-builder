@@ -254,12 +254,12 @@ public enum ExasolAnalyticAggregateFunctions implements FunctionName {
     APPROXIMATE_COUNT_DISTINCT,
     /**
      * See <a href=
-     * "https://docs.exasol.com/sql_references/functions/alphabeticallistfunctions/grouping[_id].htm">documentation</a>.
+     * "https://docs.exasol.com/sql_references/functions/alphabeticallistfunctions/grouping%5B_id%5D.htm">documentation</a>.
      */
     GROUPING,
     /**
      * See <a href=
-     * "https://docs.exasol.com/sql_references/functions/alphabeticallistfunctions/grouping[_id].htm">documentation</a>.
+     * "https://docs.exasol.com/sql_references/functions/alphabeticallistfunctions/grouping%5B_id%5D.htm">documentation</a>.
      */
     GROUPING_ID
 }

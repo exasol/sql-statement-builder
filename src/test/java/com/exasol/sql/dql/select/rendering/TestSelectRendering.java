@@ -249,6 +249,7 @@ class TestSelectRendering {
                 arguments(OverClause.of(null).orderBy(new OrderByClause(null, column("dep"))), " OVER( ORDER BY dep)"),
                 arguments(OverClause.of("window1").orderBy(new OrderByClause(null, column("dep")).asc().nullsFirst()),
                         " OVER(window1 ORDER BY dep ASC NULLS FIRST)"),
+                arguments(OverClause.of("window1").partitionBy(), " OVER(window1)"),
                 arguments(OverClause.of("window1").partitionBy(column("col")), " OVER(window1 PARTITION BY col)"),
                 arguments(OverClause.of("window1").partitionBy(column("col1"), column("col2")),
                         " OVER(window1 PARTITION BY col1, col2)"),
@@ -297,7 +298,22 @@ class TestSelectRendering {
     }
 
     @Test
-    void testSelectTwoScalatFunctions() {
+    void testSelectAnalyticFunctionOverClauseConfigurator() {
+        final AnalyticFunction function = AnalyticFunction.of(ExasolAnalyticAggregateFunctions.AVG, column("age")) //
+                .over(clause -> clause.windowName("window").partitionBy(column("col1"))
+                        .orderBy(new OrderByClause(null, column("col2")).asc())
+                        .windowFrame(frame -> frame.type(WindowFrameType.ROWS).unit(UnitType.CURRENT_ROW)
+                                .exclude(WindowFrameExclusionType.CURRENT_ROW)));
+        final Select select = StatementFactory.getInstance().select() //
+                .field("department") //
+                .function(function, "_AGE");
+        select.from().table("employee_table");
+        assertThat(select, rendersTo(
+                "SELECT department, AVG(age) OVER(window PARTITION BY col1 ORDER BY col2 ASC ROWS CURRENT ROW EXCLUDE CURRENT ROW) _AGE FROM employee_table"));
+    }
+
+    @Test
+    void testSelectTwoScalarFunctions() {
         final Select select = StatementFactory.getInstance().select() //
                 .function(ExasolScalarFunction.ADD_YEARS, "AY1", stringLiteral("2000-02-29"), integerLiteral(1)) //
                 .function(ExasolScalarFunction.ADD_YEARS, "AY2", stringLiteral("2005-01-31 12:00:00"),

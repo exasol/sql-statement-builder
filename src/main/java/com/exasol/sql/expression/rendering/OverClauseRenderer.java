@@ -10,8 +10,7 @@ import com.exasol.sql.dql.select.rendering.SelectRenderer;
 import com.exasol.sql.expression.ValueExpression;
 import com.exasol.sql.expression.function.exasol.OverClause;
 import com.exasol.sql.expression.function.exasol.WindowFrameClause;
-import com.exasol.sql.expression.function.exasol.WindowFrameClause.UnitType;
-import com.exasol.sql.expression.function.exasol.WindowFrameClause.WindowFrameUnitClause;
+import com.exasol.sql.expression.function.exasol.WindowFrameClause.*;
 import com.exasol.sql.rendering.StringRendererConfig;
 
 /**
@@ -30,9 +29,7 @@ class OverClauseRenderer extends AbstractExpressionRenderer {
         if (overClause.getWindowName() != null) {
             append(overClause.getWindowName());
         }
-        if (overClause.getPartitionByColumns() != null) {
-            appendPartition(overClause.getPartitionByColumns());
-        }
+        appendPartition(overClause.getPartitionByColumns());
         if (overClause.getOrderByClause() != null) {
             appendOrderBy(overClause.getOrderByClause());
         }
@@ -65,12 +62,18 @@ class OverClauseRenderer extends AbstractExpressionRenderer {
 
     private void appendWindowFrame(final WindowFrameClause windowFrameClause) {
         append(" ");
-        appendKeyword(windowFrameClause.getType().name());
-        append(" ");
+        final WindowFrameType type = windowFrameClause.getType();
+        if (type == null) {
+            throw new IllegalStateException(messageBuilder("E-ESB-3") //
+                    .message("Type not defined.") //
+                    .mitigation("Set type the window frame.").toString());
+        }
+        appendKeyword(type.name());
         if (windowFrameClause.getUnit1() == null) {
             throw new IllegalStateException(messageBuilder("E-ESB-1")
                     .message("First unit not defined. At lease one unit is required for a window frame").toString());
         }
+        append(" ");
         if (windowFrameClause.getUnit2() == null) {
             renderUnit(windowFrameClause.getUnit1());
         } else {
@@ -88,9 +91,8 @@ class OverClauseRenderer extends AbstractExpressionRenderer {
     private void renderUnit(final WindowFrameUnitClause unit) {
         if ((unit.getType() == UnitType.PRECEEDING) || (unit.getType() == UnitType.FOLLOWING)) {
             if (unit.getExpression() == null) {
-                throw new IllegalStateException(messageBuilder("E-ESB-2").message(
-                        "Expression is missing. An expression is required for unit types PRECEEDING and FOLLOWING")
-                        .toString());
+                throw new IllegalStateException(messageBuilder("E-ESB-2").message("Expression is missing.")
+                        .mitigation("Add expression for unit types PRECEEDING and FOLLOWING.").toString());
             }
             render(renderer -> renderer.visit(unit.getExpression()));
             append(" ");

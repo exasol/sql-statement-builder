@@ -38,7 +38,7 @@ public class WindowFrameClause {
     /**
      * Set the unit type of this {@link WindowFrameClause}.
      *
-     * @param type unit type of this {@link WindowFrameClause}
+     * @param unitType unit type of this {@link WindowFrameClause}
      * @return this {@link WindowFrameClause} for fluent programming
      */
     public WindowFrameClause unit(final UnitType unitType) {
@@ -50,7 +50,7 @@ public class WindowFrameClause {
      *
      * @param expression expression for the unit. Only required for unit types {@link UnitType#PRECEEDING} and
      *                   {@link UnitType#FOLLOWING}
-     * @param type       unit type of this {@link WindowFrameClause}
+     * @param unitType   unit type of this {@link WindowFrameClause}
      * @return this {@link WindowFrameClause} for fluent programming
      */
     public WindowFrameClause unit(final ValueExpression expression, final UnitType unitType) {
