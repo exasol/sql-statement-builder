@@ -225,39 +225,59 @@ Here you can find a list of supported(or partly supported) functions for the Exa
 - VALUE2PROC
 - ZEROIFNULL
 
+## Aggregate and analytic Functions
+
+- `ANY`
+- `AVG`
+- `CORR`
+- `COUNT`
+- `COVAR_POP`
+- `COVAR_SAMP`
+- `EVERY`
+- `FIRST_VALUE`
+- `GROUP_CONCAT`
+- `LAST_VALUE`
+- `LISTAGG`
+- `MAX`
+- `MEDIAN`
+- `MIN`
+- `MUL`
+- REGR_FUNCTIONS
+  - `REGR_AVGX`
+  - `REGR_AVGY`
+  - `REGR_COUNT`
+  - `REGR_INTERCEPT`
+  - `REGR_R2`
+  - `REGR_SLOPE`
+  - `REGR_SXX`
+  - `REGR_SXY`
+  - `REGR_SYY`
+- `SOME`
+- `STDDEV`
+- `STDDEV_POP`
+- `STDDEV_SAMP`
+- `SUM`
+- `VAR_POP`
+- `VAR_SAMP`
+- `VARIANCE`
+
 ## Aggregate Functions
 
-- APPROXIMATE_COUNT_DISTINCT
-- AVG
-- CORR
-- COUNT
-- COVAR_POP
-- COVAR_SAMP
-- FIRST_VALUE
-- GROUP_CONCAT
-- LAST_VALUE
-- MAX
-- MEDIAN
-- MIN
-- REGR_SLOPE
-- REGR_INTERCEPT
-- REGR_COUNT
-- REGR_R2
-- REGR_AVGX
-- REGR_AVGY
-- REGR_SXX
-- REGR_SXY
-- REGR_SYY
-- STDDEV
-- STDDEV_POP
-- STDDEV_SAMP
-- SUM
-- VAR_POP
-- VAR_SAMP
-- VARIANCE
+- `APPROXIMATE_COUNT_DISTINCT`
+- `GROUPING`
+- `GROUPING_ID`
 
 ## Analytic Functions
 
-- ANY
-- EVERY
-- LISTAGG
+- `CUME_DIST`
+- `DENSE_RANK`
+- `LAG`
+- `LEAD`
+- `NTH_VALUE`
+- `NTILE`
+- `PERCENT_RANK`
+- `PERCENTILE_CONT`
+- `PERCENTILE_DISC`
+- `RANK`
+- `RATIO_TO_REPORT`
+- `ROW_NUMBER`
