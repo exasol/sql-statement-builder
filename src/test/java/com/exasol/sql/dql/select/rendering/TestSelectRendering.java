@@ -162,7 +162,8 @@ class TestSelectRendering {
     @Test
     void testSelectAggregateFunctionCoalesce() {
         final Select select = StatementFactory.getInstance().select() //
-                .function(ExasolAggregateFunction.APPROXIMATE_COUNT_DISTINCT, "COUNT_APPR", column("customer_id"));
+                .function(ExasolAnalyticAggregateFunctions.APPROXIMATE_COUNT_DISTINCT, "COUNT_APPR",
+                        column("customer_id"));
         select.from().table("orders");
         select.where(BooleanTerm.gt(column("price"), integerLiteral(1000)));
         assertThat(select,
@@ -172,7 +173,7 @@ class TestSelectRendering {
     @Test
     void testSelectAggregateFunctionCountStar() {
         final Select select = StatementFactory.getInstance().select() //
-                .function(ExasolAggregateFunction.COUNT, "COUNT", column("*"));
+                .function(ExasolAnalyticAggregateFunctions.COUNT, "COUNT", column("*"));
         select.from().table("orders");
         assertThat(select, rendersTo("SELECT COUNT(*) COUNT FROM orders"));
     }
@@ -181,7 +182,7 @@ class TestSelectRendering {
     void testSelectAnalyticFunctionWithoutArgument() {
         final Select select = StatementFactory.getInstance().select() //
                 .field("department") //
-                .function(ExasolAnalyticFunction.ANY, " ANY_ ");
+                .function(ExasolAnalyticAggregateFunctions.ANY, " ANY_ ");
         select.from().table("employee_table");
         select.groupBy(column("department"));
         assertThat(select, rendersTo("SELECT department, ANY() ANY_ FROM employee_table GROUP BY department"));
@@ -191,7 +192,8 @@ class TestSelectRendering {
     void testSelectAnalyticFunction() {
         final Select select = StatementFactory.getInstance().select() //
                 .field("department") //
-                .function(ExasolAnalyticFunction.ANY, " ANY_ ", BooleanTerm.lt(column("age"), integerLiteral(30)));
+                .function(ExasolAnalyticAggregateFunctions.ANY, " ANY_ ",
+                        BooleanTerm.lt(column("age"), integerLiteral(30)));
         select.from().table("employee_table");
         select.groupBy(column("department"));
         assertThat(select,
@@ -202,7 +204,7 @@ class TestSelectRendering {
     void testSelectAnalyticFunctionWithMultipleArgs() {
         final Select select = StatementFactory.getInstance().select() //
                 .field("department") //
-                .function(ExasolAnalyticFunction.ANY, " ANY_ ", //
+                .function(ExasolAnalyticAggregateFunctions.ANY, " ANY_ ", //
                         BooleanTerm.lt(column("age"), integerLiteral(30)),
                         BooleanTerm.gt(column("age"), integerLiteral(40)));
         select.from().table("employee_table");
@@ -222,7 +224,7 @@ class TestSelectRendering {
             final String expectedKeyword) {
         final Select select = StatementFactory.getInstance().select() //
                 .field("department") //
-                .function(AnalyticFunction.of(ExasolAnalyticFunction.ANY, keyword,
+                .function(AnalyticFunction.of(ExasolAnalyticAggregateFunctions.ANY, keyword,
                         BooleanTerm.lt(column("age"), integerLiteral(30))), "ANY_");
         select.from().table("employee_table");
         select.groupBy(column("department"));
@@ -244,7 +246,7 @@ class TestSelectRendering {
     @ParameterizedTest
     @MethodSource("overClauseArguments")
     void testSelectAnalyticFunctionWithOverClause(final OverClause overClause, final String expectedOverClause) {
-        final AnalyticFunction function = AnalyticFunction.of(ExasolAggregateFunction.AVG, column("age")) //
+        final AnalyticFunction function = AnalyticFunction.of(ExasolAnalyticAggregateFunctions.AVG, column("age")) //
                 .over(overClause);
         final Select select = StatementFactory.getInstance().select() //
                 .field("department") //

@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import com.exasol.sql.expression.ValueExpression;
-import com.exasol.sql.expression.function.*;
+import com.exasol.sql.expression.function.AbstractFunction;
+import com.exasol.sql.expression.function.FunctionVisitor;
 
 /**
  * This class represents an analytic function in the Exasol database that supports keywords {@code DISTINCT} and
@@ -20,7 +21,7 @@ public class AnalyticFunction extends AbstractFunction {
     private final Keyword keyword;
     private OverClause overClause;
 
-    private AnalyticFunction(final FunctionName functionName, final Keyword keyword,
+    private AnalyticFunction(final ExasolAnalyticAggregateFunctions functionName, final Keyword keyword,
             final List<ValueExpression> valueExpressions) {
         super(functionName.toString(), valueExpressions);
         this.keyword = keyword;
@@ -33,7 +34,8 @@ public class AnalyticFunction extends AbstractFunction {
      * @param valueExpressions zero or more value expressions
      * @return new {@link AnalyticFunction}
      */
-    public static AnalyticFunction of(final FunctionName functionName, final ValueExpression... valueExpressions) {
+    public static AnalyticFunction of(final ExasolAnalyticAggregateFunctions functionName,
+            final ValueExpression... valueExpressions) {
         return of(functionName, null, valueExpressions);
     }
 
@@ -45,7 +47,7 @@ public class AnalyticFunction extends AbstractFunction {
      * @param valueExpressions zero or more value expressions
      * @return new {@link AnalyticFunction}
      */
-    public static AnalyticFunction of(final FunctionName functionName, final Keyword keyword,
+    public static AnalyticFunction of(final ExasolAnalyticAggregateFunctions functionName, final Keyword keyword,
             final ValueExpression... valueExpressions) {
         return new AnalyticFunction(functionName, keyword, Arrays.asList(valueExpressions));
     }
