@@ -23,6 +23,10 @@ We also addes support for the keywords `DISTINCT` and `ANY` as well as the [over
 
 ## Dependency Updates
 
+### Compile Dependency Updates
+
+* Added `com.exasol:error-reporting-java:0.4.0`
+
 ### Test Dependency Updates
 
 * Updated `nl.jqno.equalsverifier:equalsverifier:3.6.1` to `3.7.1`
