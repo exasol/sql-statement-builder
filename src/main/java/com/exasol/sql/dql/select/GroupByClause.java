@@ -15,7 +15,6 @@ public class GroupByClause extends AbstractFragment implements SelectFragment {
     private final SqlStatement rootStatement;
     private final List<ColumnReference> columnReferences;
     private BooleanExpression booleanExpression;
-    private WindowClause windowClause;
 
     /**
      * Create a new instance of a {@link GroupByClause}.
@@ -61,36 +60,5 @@ public class GroupByClause extends AbstractFragment implements SelectFragment {
      */
     public BooleanExpression getHavingBooleanExpression() {
         return this.booleanExpression;
-    }
-
-    /**
-     * Add a window clause to the having statement. Return the existing window clause if one was added before.
-     *
-     * @return the {@link WindowClause} for fluent programming
-     */
-    public WindowClause window() {
-        if (this.windowClause == null) {
-            this.windowClause = WindowClause.of(this.root);
-        }
-        return this.windowClause;
-    }
-
-    /**
-     * Add the given window clause to the having statement.
-     *
-     * @return this {@link GroupByClause} for fluent programming
-     */
-    public GroupByClause window(final WindowClause windowClause) {
-        this.windowClause = windowClause;
-        return this;
-    }
-
-    /**
-     * Get the window clause of the "having" statement.
-     *
-     * @return the window clause
-     */
-    public WindowClause getWindowClause() {
-        return this.windowClause;
     }
 }

@@ -174,11 +174,6 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
         setLastVisited(valueTableRow);
     }
 
-    @Override
-    public void visit(final WindowClause windowClause) {
-        throw new UnsupportedOperationException("todo");
-    }
-
     /**
      * Create an {@link SelectRenderer} using the default renderer configuration
      *
