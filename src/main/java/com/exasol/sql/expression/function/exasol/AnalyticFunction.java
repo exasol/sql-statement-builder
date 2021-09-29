@@ -2,7 +2,7 @@ package com.exasol.sql.expression.function.exasol;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Consumer;
+import java.util.function.UnaryOperator;
 
 import com.exasol.sql.expression.ValueExpression;
 import com.exasol.sql.expression.function.AbstractFunction;
@@ -18,13 +18,12 @@ public class AnalyticFunction extends AbstractFunction {
         DISTINCT, ALL
     }
 
-    private final Keyword keyword;
+    private Keyword keyword;
     private OverClause overClause;
 
-    private AnalyticFunction(final ExasolAnalyticAggregateFunctions functionName, final Keyword keyword,
+    private AnalyticFunction(final ExasolAnalyticAggregateFunctions functionName,
             final List<ValueExpression> valueExpressions) {
         super(functionName.toString(), valueExpressions);
-        this.keyword = keyword;
     }
 
     /**
@@ -36,20 +35,30 @@ public class AnalyticFunction extends AbstractFunction {
      */
     public static AnalyticFunction of(final ExasolAnalyticAggregateFunctions functionName,
             final ValueExpression... valueExpressions) {
-        return of(functionName, null, valueExpressions);
+        return new AnalyticFunction(functionName, Arrays.asList(valueExpressions));
     }
 
     /**
-     * Create a new {@link AnalyticFunction} instance with a keyword.
+     * Add keyword {@code DISTINCT} to the function call
      *
-     * @param functionName     name of the function
-     * @param keyword          keyword used in the function
-     * @param valueExpressions zero or more value expressions
-     * @return new {@link AnalyticFunction}
+     * @return this {@link AnalyticFunction} for fluent programming
      */
-    public static AnalyticFunction of(final ExasolAnalyticAggregateFunctions functionName, final Keyword keyword,
-            final ValueExpression... valueExpressions) {
-        return new AnalyticFunction(functionName, keyword, Arrays.asList(valueExpressions));
+    public AnalyticFunction keywordDistinct() {
+        return this.keyword(Keyword.DISTINCT);
+    }
+
+    /**
+     * Add keyword {@code ALL} to the function call
+     *
+     * @return this {@link AnalyticFunction} for fluent programming
+     */
+    public AnalyticFunction keywordAll() {
+        return this.keyword(Keyword.ALL);
+    }
+
+    private AnalyticFunction keyword(final Keyword keyword) {
+        this.keyword = keyword;
+        return this;
     }
 
     /**
@@ -72,16 +81,14 @@ public class AnalyticFunction extends AbstractFunction {
         return this;
     }
 
-    public OverClause over(final String windowName) {
-        return over(over -> over.windowName(windowName)).overClause;
-    }
-
-    public AnalyticFunction over(final Consumer<OverClause> consumer) {
-        if (this.overClause == null) {
-            this.overClause = new OverClause();
-        }
-        consumer.accept(this.overClause);
-        return this;
+    /**
+     * Add an {@code OVER} clause to the function call. You configure the clause in the given lambda.
+     *
+     * @param configurator lambda configuring the {@link OverClause}.
+     * @return this {@link AnalyticFunction} for fluent programming
+     */
+    public AnalyticFunction over(final UnaryOperator<OverClause> configurator) {
+        return this.over(configurator.apply(new OverClause()));
     }
 
     /**

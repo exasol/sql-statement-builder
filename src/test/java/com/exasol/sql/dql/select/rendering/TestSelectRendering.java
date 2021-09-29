@@ -23,9 +23,8 @@ import com.exasol.sql.dql.select.OrderByClause;
 import com.exasol.sql.dql.select.Select;
 import com.exasol.sql.expression.*;
 import com.exasol.sql.expression.function.exasol.*;
-import com.exasol.sql.expression.function.exasol.WindowFrameClause.WindowFrameExclusionType;
-import com.exasol.sql.expression.function.exasol.WindowFrameClause.WindowFrameType;
-import com.exasol.sql.expression.function.exasol.WindowFrameClause.WindowFrameUnitClause.UnitType;
+import com.exasol.sql.expression.function.exasol.AnalyticFunction.Keyword;
+import com.exasol.sql.expression.function.exasol.WindowFrameClause.*;
 import com.exasol.sql.expression.literal.NullLiteral;
 import com.exasol.sql.rendering.StringRendererConfig;
 
@@ -225,10 +224,17 @@ class TestSelectRendering {
     void testSelectAnalyticFunctionWithKeyword(
             final com.exasol.sql.expression.function.exasol.AnalyticFunction.Keyword keyword,
             final String expectedKeyword) {
+        final AnalyticFunction function = AnalyticFunction.of(ExasolAnalyticAggregateFunctions.ANY,
+                BooleanTerm.lt(column("age"), integerLiteral(30)));
+        if (keyword == Keyword.DISTINCT) {
+            function.keywordDistinct();
+        }
+        if (keyword == Keyword.ALL) {
+            function.keywordAll();
+        }
         final Select select = StatementFactory.getInstance().select() //
                 .field("department") //
-                .function(AnalyticFunction.of(ExasolAnalyticAggregateFunctions.ANY, keyword,
-                        BooleanTerm.lt(column("age"), integerLiteral(30))), "ANY_");
+                .function(function, "ANY_");
         select.from().table("employee_table");
         select.groupBy(column("department"));
         assertThat(select, rendersTo("SELECT department, ANY(" + expectedKeyword
@@ -236,7 +242,6 @@ class TestSelectRendering {
     }
 
     static Stream<Arguments> overClauseArguments() {
-        arguments(OverClause.of("window1").partitionBy(column("col")), " OVER(window1 PARTITION BY part)");
         return Stream.of(arguments(null, ""), //
                 arguments(OverClause.of("window1"), " OVER(window1)"),
                 arguments(OverClause.of("window1").orderBy(new OrderByClause(null, column("dep"))),
@@ -244,7 +249,7 @@ class TestSelectRendering {
                 arguments(OverClause.of(null).orderBy(new OrderByClause(null, column("dep"))), " OVER( ORDER BY dep)"),
                 arguments(OverClause.of("window1").orderBy(new OrderByClause(null, column("dep")).asc().nullsFirst()),
                         " OVER(window1 ORDER BY dep ASC NULLS FIRST)"),
-                arguments(OverClause.of("window1").partitionBy(column("col1")), " OVER(window1 PARTITION BY col1)"),
+                arguments(OverClause.of("window1").partitionBy(column("col")), " OVER(window1 PARTITION BY col)"),
                 arguments(OverClause.of("window1").partitionBy(column("col1"), column("col2")),
                         " OVER(window1 PARTITION BY col1, col2)"),
                 arguments(

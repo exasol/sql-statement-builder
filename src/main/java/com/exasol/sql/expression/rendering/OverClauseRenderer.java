@@ -10,25 +10,28 @@ import com.exasol.sql.dql.select.rendering.SelectRenderer;
 import com.exasol.sql.expression.ValueExpression;
 import com.exasol.sql.expression.function.exasol.OverClause;
 import com.exasol.sql.expression.function.exasol.WindowFrameClause;
+import com.exasol.sql.expression.function.exasol.WindowFrameClause.UnitType;
 import com.exasol.sql.expression.function.exasol.WindowFrameClause.WindowFrameUnitClause;
-import com.exasol.sql.expression.function.exasol.WindowFrameClause.WindowFrameUnitClause.UnitType;
 import com.exasol.sql.rendering.StringRendererConfig;
 
+/**
+ * A renderer for {@link OverClause}.
+ */
 class OverClauseRenderer extends AbstractExpressionRenderer {
 
     OverClauseRenderer(final StringRendererConfig config) {
         super(config);
     }
 
-    public void visit(final OverClause overClause) {
+    void visit(final OverClause overClause) {
         append(" ");
         appendKeyword("OVER");
         append("(");
         if (overClause.getWindowName() != null) {
             append(overClause.getWindowName());
         }
-        if (overClause.getPartitionClause() != null) {
-            appendPartition(overClause.getPartitionClause().getColumns());
+        if (overClause.getPartitionByColumns() != null) {
+            appendPartition(overClause.getPartitionByColumns());
         }
         if (overClause.getOrderByClause() != null) {
             appendOrderBy(overClause.getOrderByClause());
@@ -78,7 +81,7 @@ class OverClauseRenderer extends AbstractExpressionRenderer {
         }
         if (windowFrameClause.getExclusion() != null) {
             appendKeyword(" EXCLUDE ");
-            appendKeyword(windowFrameClause.getExclusion().getKeyword());
+            appendKeyword(windowFrameClause.getExclusion().getSqlKeyword());
         }
     }
 
@@ -92,6 +95,6 @@ class OverClauseRenderer extends AbstractExpressionRenderer {
             render(renderer -> renderer.visit(unit.getExpression()));
             append(" ");
         }
-        appendKeyword(unit.getType().getKeyword());
+        appendKeyword(unit.getType().getSqlKeyword());
     }
 }
