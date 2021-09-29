@@ -23,6 +23,9 @@ import com.exasol.sql.dql.select.OrderByClause;
 import com.exasol.sql.dql.select.Select;
 import com.exasol.sql.expression.*;
 import com.exasol.sql.expression.function.exasol.*;
+import com.exasol.sql.expression.function.exasol.WindowFrameClause.WindowFrameExclusionType;
+import com.exasol.sql.expression.function.exasol.WindowFrameClause.WindowFrameType;
+import com.exasol.sql.expression.function.exasol.WindowFrameClause.WindowFrameUnitClause.UnitType;
 import com.exasol.sql.expression.literal.NullLiteral;
 import com.exasol.sql.rendering.StringRendererConfig;
 
@@ -233,14 +236,47 @@ class TestSelectRendering {
     }
 
     static Stream<Arguments> overClauseArguments() {
+        arguments(OverClause.of("window1").partitionBy(column("col")), " OVER(window1 PARTITION BY part)");
         return Stream.of(arguments(null, ""), //
                 arguments(OverClause.of("window1"), " OVER(window1)"),
                 arguments(OverClause.of("window1").orderBy(new OrderByClause(null, column("dep"))),
                         " OVER(window1 ORDER BY dep)"),
+                arguments(OverClause.of(null).orderBy(new OrderByClause(null, column("dep"))), " OVER( ORDER BY dep)"),
                 arguments(OverClause.of("window1").orderBy(new OrderByClause(null, column("dep")).asc().nullsFirst()),
-                        " OVER(window1 ORDER BY dep ASC NULLS FIRST)")
+                        " OVER(window1 ORDER BY dep ASC NULLS FIRST)"),
+                arguments(OverClause.of("window1").partitionBy(column("col1")), " OVER(window1 PARTITION BY col1)"),
+                arguments(OverClause.of("window1").partitionBy(column("col1"), column("col2")),
+                        " OVER(window1 PARTITION BY col1, col2)"),
+                arguments(
+                        OverClause.of("window1")
+                                .windowFrame(frame -> frame.type(WindowFrameType.ROWS).unit(UnitType.CURRENT_ROW)),
+                        " OVER(window1 ROWS CURRENT ROW)"),
+                arguments(OverClause.of("window1").windowFrame(
+                        frame -> frame.type(WindowFrameType.ROWS).unit(integerLiteral(42), UnitType.PRECEEDING)),
+                        " OVER(window1 ROWS 42 PRECEEDING)"),
+                arguments(
+                        OverClause.of("window1")
+                                .windowFrame(frame -> frame.type(WindowFrameType.ROWS)
+                                        .unitBetween(UnitType.UNBOUNDED_PRECEEDING, UnitType.UNBOUNDED_FOLLOWING)),
+                        " OVER(window1 ROWS BETWEEN UNBOUNDED PRECEEDING AND UNBOUNDED FOLLOWING)"),
+                arguments(
+                        OverClause.of("window1")
+                                .windowFrame(frame -> frame.type(WindowFrameType.ROWS).unitBetween(column("col1"),
+                                        UnitType.PRECEEDING, column("col2"), UnitType.FOLLOWING)),
+                        " OVER(window1 ROWS BETWEEN col1 PRECEEDING AND col2 FOLLOWING)"),
 
-        );
+                arguments(
+                        OverClause.of("window1")
+                                .windowFrame(frame -> frame.type(WindowFrameType.ROWS).unit(UnitType.CURRENT_ROW)
+                                        .exclude(WindowFrameExclusionType.NO_OTHERS)),
+                        " OVER(window1 ROWS CURRENT ROW EXCLUDE NO OTHERS)"),
+                arguments(
+                        OverClause.of("window1")
+                                .windowFrame(frame -> frame.type(WindowFrameType.ROWS)
+                                        .unitBetween(column("col1"), UnitType.CURRENT_ROW, column("col2"),
+                                                UnitType.CURRENT_ROW)
+                                        .exclude(WindowFrameExclusionType.CURRENT_ROW)),
+                        " OVER(window1 ROWS BETWEEN CURRENT ROW AND CURRENT ROW EXCLUDE CURRENT ROW)"));
     }
 
     @ParameterizedTest
