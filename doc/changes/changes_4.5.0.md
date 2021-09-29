@@ -1,4 +1,4 @@
-# Exasol SQL Statement Builder 4.5.0, released 2021-09-??
+# Exasol SQL Statement Builder 4.5.0, released 2021-09-30
 
 Code name: Support more Aggregate and Analytic functions
 
