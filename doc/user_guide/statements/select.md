@@ -70,6 +70,8 @@ A udf takes a name of function and any number of [`ValueExpression`](../../../sr
     selectWithEmits.from().table("people");
     ```
 
+- To add special functions (e.g. analytic functions) to a statement you can use the `function()` method that takes a `Function` as argument. See the [section about creating functions](#creating-functions) for details.
+
 - An `arithmetic expression` is a binary value expression using one of the following arithmetic operators: `+`, `-`, `*`, `/`.
 Add an arithmetic expression using an `arithmeticExpression( ... )` method. You can also set a name for a derived field that contains an arithmetic expression. 
 
@@ -165,3 +167,145 @@ select.from().table("t");
 select.orderBy(column("t", "city"), column("t", "price"))
         .nullsFirst().asc();
 ```
+
+## Creating Functions
+
+When you need to use special functions like analytic functions, you can add them to a statement like this:
+
+```java
+Function function = ... // create function
+Select select = factory.select().function(function, "<column>");
+```
+
+### Analytic functions
+
+Exasols [analytic functions](https://docs.exasol.com/sql_references/functions/analyticfunctions.htm) support a special syntax. You can specify the keywords `DISTINCT` and `ALL` as well as an `OVER` clause.
+
+To create a new `AnalyticFunction` use the following code to use it in a `SELECT` statement:
+
+```java
+AnalyticFunction function = AnalyticFunction.of(ExasolAnalyticAggregateFunctions.ANY,
+            BooleanTerm.lt(column("age"), integerLiteral(30)));
+// configure the function
+Select select = factory.select().function(function, "<column>");
+```
+
+#### Keywords `DISTINCT` and `ALL`
+
+You create an analytic function with a keyword `DISTINCT` or `ALL` like this:
+
+```java
+AnalyticFunction function = ...
+function.keywordDistinct();
+// or
+function.keywordAll();
+```
+
+Example:
+
+```java
+AnalyticFunction function = AnalyticFunction.of(ExasolAnalyticAggregateFunctions.ANY,
+                        BooleanTerm.lt(column("age"), integerLiteral(30)))
+        .keywordDistinct();
+// -> ANY(DISTINCT(age < 30))
+```
+
+#### Adding an `OVER` clause
+
+You can create and configure the `OverClause` directly or use a configurator lambda:
+
+```java
+OverClause over = new OverClause().windowName("window1");
+// configure over clause
+function.over(over);
+
+// or use the configurator lambda:
+function.over(over -> over.windowName("window1"));
+```
+
+The `OverClause` offers four methods for configuration:
+
+* `windowName()`
+* `orderBy()`
+* `partitionBy()`
+* `windowFrame()`
+
+##### `windowName()`
+
+Add a named window like this:
+
+```java
+over.windowName("window1");
+// -> OVER(window1)
+```
+
+##### `orderBy()`
+
+You can add an `ORDER BY` clause like this:
+
+```java
+over.orderBy(new OrderByClause(select, column("city"), column("price")).asc().nullsFirst());
+// -> OVER(ORDER BY city, price ASC NULLS FIRST)
+```
+
+##### `partitionBy()`
+
+You can partition by one or more columns:
+
+```java
+over.partitionBy(column("city"), column("price"));
+// -> OVER(PARTITION BY city, price)
+```
+
+##### `windowFrame()`
+
+To add a window frame clause use a configurator lambda:
+
+```java
+over.windowFrame(frame -> frame.type(WindowFrameType.ROWS) /* ... */);
+```
+
+Window frames consist of three parts:
+
+1. The mandatory window frame unit type (`ROWS`, `RANGE` or `GROUPS`)
+
+    You specify the type like this:
+
+    ```java
+    over.windowFrame(frame -> frame.type(WindowFrameType.ROWS) /* ... */);
+    // -> OVER(ROWS ...)
+    ```
+
+2. The mandatory unit specification. This can bei either a single condition or a `BETWEEN ... AND` range:
+
+    * Specify a single condition like this:
+
+        ```java
+        over.windowFrame(frame -> frame.type(WindowFrameType.ROWS)
+                .unit(UnitType.CURRENT_ROW));
+        // -> ROWS CURRENT ROW
+
+        over.windowFrame(frame -> frame.type(WindowFrameType.ROWS)
+                .unit(integerLiteral(1), UnitType.PRECEEDING)));
+        // -> ROWS 1 PRECEEDING
+        ```
+    * Specify a range like this:
+
+        ```java
+        over.windowFrame(frame -> frame.type(WindowFrameType.ROWS)
+                .unitBetween(UnitType.UNBOUNDED_PRECEEDING, UnitType.UNBOUNDED_FOLLOWING));
+        // -> ROWS BETWEEN UNBOUNDED PRECEEDING AND UNBOUNDED FOLLOWING
+
+        over.windowFrame(frame -> frame.type(WindowFrameType.ROWS)
+                .unitBetween(column("col1"), UnitType.PRECEEDING, column("col2"), UnitType.FOLLOWING));
+        // -> ROWS BETWEEN col1 PRECEEDING AND col2 FOLLOWING
+        ```
+
+3. An optional exclusion:
+
+    ```java
+    over.windowFrame(frame -> frame.type(WindowFrameType.ROWS)
+            .unit(UnitType.CURRENT_ROW)
+            .exclude(WindowFrameExclusionType.NO_OTHERS));
+    // -> ROWS CURRENT ROW EXCLUDE NO OTHERS
+    ```
