@@ -44,7 +44,6 @@ class OverClauseRenderer extends AbstractExpressionRenderer {
             return;
         }
         appendKeyword(" PARTITION BY ");
-
         render(renderer -> renderer.visit(columns));
     }
 

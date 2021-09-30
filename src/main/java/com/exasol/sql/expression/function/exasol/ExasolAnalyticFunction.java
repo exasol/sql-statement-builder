@@ -7,7 +7,7 @@ import com.exasol.sql.expression.function.FunctionName;
  *
  * @deprecated Use enum {@link ExasolAnalyticAggregateFunctions}.
  */
-@Deprecated
+@Deprecated(since = "4.5", forRemoval = true)
 public enum ExasolAnalyticFunction implements FunctionName {
     ANY, EVERY, LISTAGG
 }

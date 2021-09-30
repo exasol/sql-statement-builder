@@ -253,7 +253,7 @@ over.orderBy(new OrderByClause(select, column("city"), column("price")).asc().nu
 You can partition by one or more columns:
 
 ```java
-over.partitionBy(column("city"), column("price))
+over.partitionBy(column("city"), column("price"));
 // -> OVER(PARTITION BY city, price)
 ```
 
