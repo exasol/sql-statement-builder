@@ -149,9 +149,9 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
             appendAutoQuoted(valueTable.getTableNameAlias());
             startParenthesis();
             final List<String> columnNameAliases = valueTable.getColumnNameAliases();
-            for (int i = 0; i < columnNameAliases.size(); i++) {
-                appendAutoQuoted(columnNameAliases.get(i));
-                if (i < (columnNameAliases.size() - 1)) {
+            for (int index = 0; index < columnNameAliases.size(); index++) {
+                appendAutoQuoted(columnNameAliases.get(index));
+                if (index < (columnNameAliases.size() - 1)) {
                     append(", ");
                 }
             }

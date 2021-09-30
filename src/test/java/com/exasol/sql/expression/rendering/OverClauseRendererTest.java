@@ -46,7 +46,7 @@ class OverClauseRendererTest {
         final OverClause clause = new OverClause()
                 .windowFrame(frame -> frame.type(WindowFrameType.RANGE).unit(UnitType.PRECEEDING));
         ExceptionAssertions.assertThrowsWithMessage(IllegalStateException.class, () -> this.renderer.visit(clause),
-                "E-ESB-2: Expression is missing. Add expression for unit types PRECEEDING and FOLLOWING.");
+                "E-ESB-2: Expression is required for window frame units PRECEEDING and FOLLOWING. Add expression for unit types PRECEEDING and FOLLOWING.");
     }
 
     @Test
