@@ -54,7 +54,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
 
     /**
      * Add a function.
-     * 
+     *
      * @param functionName     name of function
      * @param valueExpressions zero or more value expression
      * @return {@code this} instance for fluent programming
@@ -135,11 +135,11 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
     /**
      * Add an arithmetic expression.
      *
-     * @deprecated please use a {@link #valueExpression(ValueExpression)} valueExpression} method instead.
+     * @deprecated since {@code 4.0.2}, please use a {@link #valueExpression(ValueExpression)} valueExpression} method instead.
      * @param arithmeticExpression arithmetic expression
      * @return {@code this} instance for fluent programming
      */
-    @Deprecated(since = "4.0.2")
+    @Deprecated
     public Select arithmeticExpression(final BinaryArithmeticExpression arithmeticExpression) {
         return valueExpression(arithmeticExpression);
     }
@@ -147,12 +147,12 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
     /**
      * Add an arithmetic expression.
      *
-     * @deprecated please use a {@link #valueExpression(ValueExpression, String)} valueExpression} method instead.
+     * @deprecated since {@code 4.0.2}, please use a {@link #valueExpression(ValueExpression, String)} valueExpression} method instead.
      * @param arithmeticExpression arithmetic expression
      * @param derivedColumnName    name under which you can refer to the derived column
      * @return {@code this} instance for fluent programming
      */
-    @Deprecated(since = "4.0.2")
+    @Deprecated
     public Select arithmeticExpression(final BinaryArithmeticExpression arithmeticExpression,
             final String derivedColumnName) {
         return valueExpression(arithmeticExpression, derivedColumnName);
