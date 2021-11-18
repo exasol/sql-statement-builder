@@ -50,7 +50,7 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
     protected void appendListOfValueExpressions(final List<? extends ValueExpression> valueExpressions) {
         if ((valueExpressions != null) && !valueExpressions.isEmpty()) {
             final ValueExpressionRenderer valueExpressionRenderer = new ValueExpressionRenderer(this.config);
-            valueExpressionRenderer.visit(valueExpressions.toArray(ValueExpression[]::new));
+            valueExpressionRenderer.visit(valueExpressions.stream().toArray(ValueExpression[]::new));
             this.builder.append(valueExpressionRenderer.render());
         }
     }

@@ -16,7 +16,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <gpg.skip>true</gpg.skip>
-        <mockito.version>3.12.4</mockito.version>
+        <mockito.version>4.0.0</mockito.version>
     </properties>
     <licenses>
         <license>
@@ -97,7 +97,7 @@
         <dependency>
             <groupId>nl.jqno.equalsverifier</groupId>
             <artifactId>equalsverifier</artifactId>
-            <version>3.7.1</version>
+            <version>3.7.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -199,7 +199,7 @@
                 </executions>
                 <configuration>
                     <charset>UTF-8</charset>
-                    <doclint/>
+                    <doclint />
                     <serialwarn>true</serialwarn>
                     <failOnError>true</failOnError>
                     <failOnWarnings>true</failOnWarnings>
@@ -223,19 +223,6 @@
                                 <arg>loopback</arg>
                             </gpgArguments>
                         </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.itsallcode</groupId>
-                <artifactId>openfasttrace-maven-plugin</artifactId>
-                <version>1.0.0</version>
-                <executions>
-                    <execution>
-                        <id>trace-requirements</id>
-                        <goals>
-                            <goal>trace</goal>
-                        </goals>
                     </execution>
                 </executions>
             </plugin>
@@ -309,28 +296,6 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>com.exasol</groupId>
-                <artifactId>project-keeper-maven-plugin</artifactId>
-                <version>1.2.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <modules>
-                        <module>maven_central</module>
-                    </modules>
-                    <linkReplacements>
-                        <linkReplacement>
-                            https://github.com/hamcrest/JavaHamcrest/hamcrest-all|https://github.com/hamcrest/JavaHamcrest
-                        </linkReplacement>
-                    </linkReplacements>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>3.0.0-M3</version>
@@ -341,8 +306,7 @@
                     <includes>
                         <include>**IT.java</include>
                     </includes>
-                    <systemPropertyVariables>
-                    </systemPropertyVariables>
+                    <systemPropertyVariables></systemPropertyVariables>
                 </configuration>
                 <executions>
                     <execution>
@@ -361,21 +325,9 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>com.exasol</groupId>
-                <artifactId>error-code-crawler-maven-plugin</artifactId>
-                <version>0.6.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>io.github.zlika</groupId>
                 <artifactId>reproducible-build-maven-plugin</artifactId>
-                <version>0.13</version>
+                <version>0.14</version>
                 <executions>
                     <execution>
                         <id>strip-jar</id>
