@@ -34,17 +34,9 @@ jobs:
 
       - name: Run tests and build with Maven
         run: mvn --batch-mode --update-snapshots clean verify -DtrimStackTrace=false
-      
+
       - name: Publish Test Report for Java 11
         uses: scacap/action-surefire-report@v1
         if:  ${{ always() }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Sonar analysis
-        run: |
-          mvn --batch-mode sonar:sonar -DtrimStackTrace=false \
-              -Dsonar.organization=exasol -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
