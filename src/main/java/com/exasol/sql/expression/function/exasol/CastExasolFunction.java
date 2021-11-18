@@ -1,6 +1,6 @@
 package com.exasol.sql.expression.function.exasol;
 
-import java.util.List;
+import java.util.Arrays;
 
 import com.exasol.datatype.type.DataType;
 import com.exasol.sql.expression.ValueExpression;
@@ -15,7 +15,7 @@ public class CastExasolFunction extends AbstractFunction {
     private final DataType type;
 
     private CastExasolFunction(final ValueExpression value, final DataType type) {
-        super(ExasolScalarFunctionCast.CAST.toString(), List.of(value));
+        super(ExasolScalarFunctionCast.CAST.toString(), Arrays.asList(value));
         this.type = type;
     }
 
