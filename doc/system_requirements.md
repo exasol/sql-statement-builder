@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Exasol SQL Statement Builder (ESB) is a [Java](https://java.com) library that allows you to define SQL statements in a [internal Domain-specific language (DSL)](https://en.wikipedia.org/wiki/Domain-specific_language#Usage_patterns). This means it uses standard Java language features to create a DSL.
+The Exasol SQL Statement Builder (ESB) is a [Java](https://www.oracle.com/java/) library that allows you to define SQL statements in a [internal Domain-specific language (DSL)](https://en.wikipedia.org/wiki/Domain-specific_language#Usage_patterns). This means it uses standard Java language features to create a DSL.
 
 The project uses agile software development process, so this document contains only the portion of requirement necessary for the current iteration.
 
@@ -373,11 +373,11 @@ ESB supports the following `SELECT` statement:
     
     derived-column = expression [as-clause]
     
-    expression = arithmetic-expression / column-reference / function  
+    expression = arithmetic-expression / column-reference / function
     
     table-expression = from-clause [where-clause] [limit-clause] [group-by-clause] [order-by-clause]
     
-    from-clause =  "FROM" table-reference 
+    from-clause =  "FROM" table-reference
     
     where-clause =  "WHERE" boolean-term
     

@@ -2,8 +2,7 @@
 
 You can construct [`MERGE`](https://docs.exasol.com/sql/merge.htm) SQL statements using the `Merge` class.
 
-`Merge` supports a combination of `INSERT`, `UPDATE` and `DELETE` where source data is merged into a destination table. The merge strategy is configurable and depends on whether or not a row in source and destination are considered a match.
-Of course the criteria for that match is configurable too.
+`Merge` supports a combination of `INSERT`, `UPDATE` and `DELETE` where source data is merged into a destination table. The merge strategy is configurable and depends on whether or not a row in source and destination are considered a match. Of course the criteria for that match is configurable too.
 
 Note that while the individual merge strategies are optional parts of the `MERGE` statement, you need to pick *at least one* to get a valid statement.
 
@@ -12,7 +11,7 @@ Note that while the individual merge strategies are optional parts of the `MERGE
 You can create a basic `MERGE` like this:
 
 ```java
-final Merge merge = StatementFactory.getInstance()
+Merge merge = StatementFactory.getInstance()
     .merge("destination")
     .using("source")
     .on(eq(column("source", "id"), column("destination", "id");
@@ -30,10 +29,10 @@ Here is an example for `thenUpdate()`.
 
 ```java
 merge.whenMatched()
-    .thenUpdate() //
-    .setToDefault("c2") //
-    .set("c3", "foo") //
-    .set("c4", 42) //
+    .thenUpdate()
+    .setToDefault("c2")
+    .set("c3", "foo")
+    .set("c4", 42)
     .set("c5", integerLiteral(9000));
 ```
 
@@ -61,10 +60,10 @@ All three merge strategies can be narrowed down with a `WHERE` clause, to limit 
 Here is an example for a `MERGE` statement with a `DELETE` strategy.
 
 ```java
-merge.using("src") //
-    .on(eq(column("src", "c1"), column("dst", "c1"))) //
-    .whenMatched() //
-    .thenDelete() //
+merge.using("src")
+    .on(eq(column("src", "c1"), column("dst", "c1")))
+    .whenMatched()
+    .thenDelete()
     .where(gt(column("src", "c5"), integerLiteral(1000)));
 ```
 

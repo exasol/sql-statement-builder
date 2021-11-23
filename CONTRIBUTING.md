@@ -21,7 +21,7 @@ If you find a bug, please let us know by writing an [issue ticket](https://githu
 If you are a programmer, a code contribution in form of an automatic unit test case would be most appreciated, since this will make reproduction of the issue easier and prevent future regressions.
 
 ## Contributing to the User Guide
-Maybe you are good at explaining how to use the SQL Statement Builder to end users? Help us improve the [user guide](doc/user_guide.md)!
+Maybe you are good at explaining how to use the SQL Statement Builder to end users? Help us improve the [user guide](doc/user_guide/user_guide.md)!
 
 ## Ideas
 Last but not least if you have ideas for ways to improve or extend OFT, feel free to write a [feature request](https://github.com/EXASOL/sql-statement-builder/issues/new?template=Feature_request.md).

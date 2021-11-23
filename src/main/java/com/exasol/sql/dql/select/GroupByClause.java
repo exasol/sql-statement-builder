@@ -19,7 +19,7 @@ public class GroupByClause extends AbstractFragment implements SelectFragment {
     /**
      * Create a new instance of a {@link GroupByClause}.
      *
-     * @param rootStatement SQL statement this {@code GROUP BY} clause belongs to
+     * @param rootStatement    SQL statement this {@code GROUP BY} clause belongs to
      * @param columnReferences column references for the {@code GROUP BY} clause
      */
     public GroupByClause(final SqlStatement rootStatement, final ColumnReference... columnReferences) {
@@ -54,9 +54,9 @@ public class GroupByClause extends AbstractFragment implements SelectFragment {
     }
 
     /**
-     * Get the boolean expression.
+     * Get the "having" boolean expression.
      *
-     * @return boolean expression
+     * @return "having" boolean expression
      */
     public BooleanExpression getHavingBooleanExpression() {
         return this.booleanExpression;

@@ -16,7 +16,7 @@ public abstract class MergeMethodDefinition extends AbstractFragment {
      *
      * @param root root {@code MERGE} statement
      */
-    public MergeMethodDefinition(final Fragment root) {
+    protected MergeMethodDefinition(final Fragment root) {
         super(root);
     }
 

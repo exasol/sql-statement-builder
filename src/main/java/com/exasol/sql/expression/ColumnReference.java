@@ -14,10 +14,10 @@ public final class ColumnReference implements ValueExpression {
 
     /**
      * Create a new {@link ColumnReference} from a column name and a table name.
-     * 
+     *
      * @param tableName  table name
      * @param columnName column name
-     * 
+     *
      * @return new {@link ColumnReference}
      */
     public static ColumnReference column(final String tableName, final String columnName) {
@@ -52,6 +52,7 @@ public final class ColumnReference implements ValueExpression {
         return this.tableName;
     }
 
+    @Override
     public String toString() {
         final StringBuilder stringBuilder = new StringBuilder();
         if ((this.tableName != null) && !this.tableName.isEmpty()) {

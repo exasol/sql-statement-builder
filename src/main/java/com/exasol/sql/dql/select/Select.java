@@ -54,7 +54,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
 
     /**
      * Add a function.
-     * 
+     *
      * @param functionName     name of function
      * @param valueExpressions zero or more value expression
      * @return {@code this} instance for fluent programming
@@ -74,9 +74,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
     public Select function(final FunctionName functionName, final String derivedColumnName,
             final ValueExpression... valueExpressions) {
         final Function function = ExpressionTerm.function(functionName, valueExpressions);
-        final DerivedColumn derivedColumn = new DerivedColumn(this, function, derivedColumnName);
-        this.derivedColumns.add(derivedColumn);
-        return this;
+        return this.function(function, derivedColumnName);
     }
 
     /**
@@ -99,8 +97,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      * @return {@code this} instance for fluent programming
      */
     public Select function(final Function function) {
-        function(function, "");
-        return this;
+        return function(function, "");
     }
 
     /**
@@ -111,7 +108,6 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
      * @param valueExpressions       zero or more value expressions
      * @return {@code this} instance for fluent programming
      */
-
     public Select udf(final String functionName, final ColumnsDefinition emitsColumnsDefinition,
             final ValueExpression... valueExpressions) {
         final Function udf = ExpressionTerm.udf(functionName, emitsColumnsDefinition, valueExpressions);

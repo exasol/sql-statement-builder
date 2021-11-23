@@ -7,16 +7,24 @@ import static com.exasol.sql.expression.ExpressionTerm.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
+
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.*;
 
 import com.exasol.datatype.type.Varchar;
 import com.exasol.sql.StatementFactory;
 import com.exasol.sql.ValueTable;
+import com.exasol.sql.dql.select.OrderByClause;
 import com.exasol.sql.dql.select.Select;
 import com.exasol.sql.expression.*;
 import com.exasol.sql.expression.function.exasol.*;
+import com.exasol.sql.expression.function.exasol.AnalyticFunction.Keyword;
+import com.exasol.sql.expression.function.exasol.WindowFrameClause.*;
 import com.exasol.sql.expression.literal.NullLiteral;
 import com.exasol.sql.rendering.StringRendererConfig;
 
@@ -26,6 +34,12 @@ class TestSelectRendering {
     @BeforeEach
     void beforeEach() {
         this.select = StatementFactory.getInstance().select();
+    }
+
+    @Test
+    // Not a requirement, just to see what happens
+    void testSelectWithoutFields() {
+        assertThat(this.select, rendersTo("SELECT "));
     }
 
     // [utest->dsn~rendering.sql.select~1]
@@ -150,7 +164,8 @@ class TestSelectRendering {
     @Test
     void testSelectAggregateFunctionCoalesce() {
         final Select select = StatementFactory.getInstance().select() //
-                .function(ExasolAggregateFunction.APPROXIMATE_COUNT_DISTINCT, "COUNT_APPR", column("customer_id"));
+                .function(ExasolAnalyticAggregateFunctions.APPROXIMATE_COUNT_DISTINCT, "COUNT_APPR",
+                        column("customer_id"));
         select.from().table("orders");
         select.where(BooleanTerm.gt(column("price"), integerLiteral(1000)));
         assertThat(select,
@@ -158,10 +173,29 @@ class TestSelectRendering {
     }
 
     @Test
+    void testSelectAggregateFunctionCountStar() {
+        final Select select = StatementFactory.getInstance().select() //
+                .function(ExasolAnalyticAggregateFunctions.COUNT, "COUNT", column("*"));
+        select.from().table("orders");
+        assertThat(select, rendersTo("SELECT COUNT(*) COUNT FROM orders"));
+    }
+
+    @Test
+    void testSelectAnalyticFunctionWithoutArgument() {
+        final Select select = StatementFactory.getInstance().select() //
+                .field("department") //
+                .function(ExasolAnalyticAggregateFunctions.ANY, " ANY_ ");
+        select.from().table("employee_table");
+        select.groupBy(column("department"));
+        assertThat(select, rendersTo("SELECT department, ANY() ANY_ FROM employee_table GROUP BY department"));
+    }
+
+    @Test
     void testSelectAnalyticFunction() {
         final Select select = StatementFactory.getInstance().select() //
                 .field("department") //
-                .function(ExasolAnalyticFunction.ANY, " ANY_ ", BooleanTerm.lt(column("age"), integerLiteral(30)));
+                .function(ExasolAnalyticAggregateFunctions.ANY, " ANY_ ",
+                        BooleanTerm.lt(column("age"), integerLiteral(30)));
         select.from().table("employee_table");
         select.groupBy(column("department"));
         assertThat(select,
@@ -169,7 +203,117 @@ class TestSelectRendering {
     }
 
     @Test
-    void testSelectTwoScalatFunctions() {
+    void testSelectAnalyticFunctionWithMultipleArgs() {
+        final Select select = StatementFactory.getInstance().select() //
+                .field("department") //
+                .function(ExasolAnalyticAggregateFunctions.ANY, " ANY_ ", //
+                        BooleanTerm.lt(column("age"), integerLiteral(30)),
+                        BooleanTerm.gt(column("age"), integerLiteral(40)));
+        select.from().table("employee_table");
+        select.groupBy(column("department"));
+        assertThat(select, rendersTo(
+                "SELECT department, ANY((age < 30), (age > 40)) ANY_ FROM employee_table GROUP BY department"));
+    }
+
+    @ParameterizedTest
+    @CsvSource(nullValues = "NULL", value = { //
+            "NULL, ''", //
+            "DISTINCT, DISTINCT", //
+            "ALL, ALL" //
+    })
+    void testSelectAnalyticFunctionWithKeyword(
+            final com.exasol.sql.expression.function.exasol.AnalyticFunction.Keyword keyword,
+            final String expectedKeyword) {
+        final AnalyticFunction function = AnalyticFunction.of(ExasolAnalyticAggregateFunctions.ANY,
+                BooleanTerm.lt(column("age"), integerLiteral(30)));
+        if (keyword == Keyword.DISTINCT) {
+            function.keywordDistinct();
+        }
+        if (keyword == Keyword.ALL) {
+            function.keywordAll();
+        }
+        final Select select = StatementFactory.getInstance().select() //
+                .field("department") //
+                .function(function, "ANY_");
+        select.from().table("employee_table");
+        select.groupBy(column("department"));
+        assertThat(select, rendersTo("SELECT department, ANY(" + expectedKeyword
+                + "(age < 30)) ANY_ FROM employee_table GROUP BY department"));
+    }
+
+    static Stream<Arguments> overClauseArguments() {
+        return Stream.of(arguments(null, ""), //
+                arguments(OverClause.of("window1"), " OVER(window1)"),
+                arguments(OverClause.of("window1").orderBy(new OrderByClause(null, column("dep"))),
+                        " OVER(window1 ORDER BY dep)"),
+                arguments(OverClause.of(null).orderBy(new OrderByClause(null, column("dep"))), " OVER( ORDER BY dep)"),
+                arguments(OverClause.of("window1").orderBy(new OrderByClause(null, column("dep")).asc().nullsFirst()),
+                        " OVER(window1 ORDER BY dep ASC NULLS FIRST)"),
+                arguments(OverClause.of("window1").partitionBy(), " OVER(window1)"),
+                arguments(OverClause.of("window1").partitionBy(column("col")), " OVER(window1 PARTITION BY col)"),
+                arguments(OverClause.of("window1").partitionBy(column("col1"), column("col2")),
+                        " OVER(window1 PARTITION BY col1, col2)"),
+                arguments(
+                        OverClause.of("window1")
+                                .windowFrame(frame -> frame.type(WindowFrameType.ROWS).unit(UnitType.CURRENT_ROW)),
+                        " OVER(window1 ROWS CURRENT ROW)"),
+                arguments(OverClause.of("window1").windowFrame(
+                        frame -> frame.type(WindowFrameType.ROWS).unit(integerLiteral(42), UnitType.PRECEEDING)),
+                        " OVER(window1 ROWS 42 PRECEEDING)"),
+                arguments(
+                        OverClause.of("window1")
+                                .windowFrame(frame -> frame.type(WindowFrameType.ROWS)
+                                        .unitBetween(UnitType.UNBOUNDED_PRECEEDING, UnitType.UNBOUNDED_FOLLOWING)),
+                        " OVER(window1 ROWS BETWEEN UNBOUNDED PRECEEDING AND UNBOUNDED FOLLOWING)"),
+                arguments(
+                        OverClause.of("window1")
+                                .windowFrame(frame -> frame.type(WindowFrameType.ROWS).unitBetween(column("col1"),
+                                        UnitType.PRECEEDING, column("col2"), UnitType.FOLLOWING)),
+                        " OVER(window1 ROWS BETWEEN col1 PRECEEDING AND col2 FOLLOWING)"),
+
+                arguments(
+                        OverClause.of("window1")
+                                .windowFrame(frame -> frame.type(WindowFrameType.ROWS).unit(UnitType.CURRENT_ROW)
+                                        .exclude(WindowFrameExclusionType.NO_OTHERS)),
+                        " OVER(window1 ROWS CURRENT ROW EXCLUDE NO OTHERS)"),
+                arguments(
+                        OverClause.of("window1")
+                                .windowFrame(frame -> frame.type(WindowFrameType.ROWS)
+                                        .unitBetween(column("col1"), UnitType.CURRENT_ROW, column("col2"),
+                                                UnitType.CURRENT_ROW)
+                                        .exclude(WindowFrameExclusionType.CURRENT_ROW)),
+                        " OVER(window1 ROWS BETWEEN CURRENT ROW AND CURRENT ROW EXCLUDE CURRENT ROW)"));
+    }
+
+    @ParameterizedTest
+    @MethodSource("overClauseArguments")
+    void testSelectAnalyticFunctionWithOverClause(final OverClause overClause, final String expectedOverClause) {
+        final AnalyticFunction function = AnalyticFunction.of(ExasolAnalyticAggregateFunctions.AVG, column("age")) //
+                .over(overClause);
+        final Select select = StatementFactory.getInstance().select() //
+                .field("department") //
+                .function(function, "_AGE");
+        select.from().table("employee_table");
+        assertThat(select, rendersTo("SELECT department, AVG(age)" + expectedOverClause + " _AGE FROM employee_table"));
+    }
+
+    @Test
+    void testSelectAnalyticFunctionOverClauseConfigurator() {
+        final AnalyticFunction function = AnalyticFunction.of(ExasolAnalyticAggregateFunctions.AVG, column("age")) //
+                .over(clause -> clause.windowName("window").partitionBy(column("col1"))
+                        .orderBy(new OrderByClause(null, column("col2")).asc())
+                        .windowFrame(frame -> frame.type(WindowFrameType.ROWS).unit(UnitType.CURRENT_ROW)
+                                .exclude(WindowFrameExclusionType.CURRENT_ROW)));
+        final Select select = StatementFactory.getInstance().select() //
+                .field("department") //
+                .function(function, "_AGE");
+        select.from().table("employee_table");
+        assertThat(select, rendersTo(
+                "SELECT department, AVG(age) OVER(window PARTITION BY col1 ORDER BY col2 ASC ROWS CURRENT ROW EXCLUDE CURRENT ROW) _AGE FROM employee_table"));
+    }
+
+    @Test
+    void testSelectTwoScalarFunctions() {
         final Select select = StatementFactory.getInstance().select() //
                 .function(ExasolScalarFunction.ADD_YEARS, "AY1", stringLiteral("2000-02-29"), integerLiteral(1)) //
                 .function(ExasolScalarFunction.ADD_YEARS, "AY2", stringLiteral("2005-01-31 12:00:00"),

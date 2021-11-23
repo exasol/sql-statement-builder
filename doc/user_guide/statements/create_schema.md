@@ -1,11 +1,10 @@
 # CREATE SCHEMA
 
-The `CreateSchema` class of the SQL Statement Builder provides an entry 
-point to defining a CREATE SCHEMA SQL statement.
+The `CreateSchema` class of the SQL Statement Builder provides an entry point to defining a [`CREATE SCHEMA`](https://docs.exasol.com/sql/create_schema.htm) SQL statement.
 
 ## Usage
 
-1. Create an instance of the `CreateSchema` class through the `StatementFactory`
+1. Create an instance of the `CreateSchema` class through the `StatementFactory`:
 
   ```java
   CreateSchema createSchema = StatementFactory.getInstance().createSchema("schemaName");
@@ -18,7 +17,7 @@ point to defining a CREATE SCHEMA SQL statement.
   ```java
   CreateSchema createSchema = StatementFactory.getInstance().createSchema("schemaName");
 
-  //optional step: add config
+  // optional step: add configuration
   StringRendererConfig config = StringRendererConfig.builder().lowerCase(true).build();
   CreateSchemaRenderer renderer = CreateSchemaRenderer.create(config);
   createSchema.accept(renderer);

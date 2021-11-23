@@ -1,11 +1,9 @@
 # SQL Statement Builder
 
-![exasol-testcontainers logo](doc/images/sql-statement-builder_128x128.png)
+![exasol-statement-builder-logo](doc/images/sql-statement-builder_128x128.png)
 
-[![Build Status](https://travis-ci.com/exasol/sql-statement-builder.svg?branch=develop)](https://travis-ci.com/exasol/sql-statement-builder)
+[![Build Status](https://github.com/exasol/sql-statement-builder/actions/workflows/ci-build.yml/badge.svg)](https://github.com/exasol/sql-statement-builder/actions/workflows/ci-build.yml)
 [![Maven Central](https://img.shields.io/maven-central/v/com.exasol/sql-statement-builder)](https://search.maven.org/artifact/com.exasol/sql-statement-builder)
-
-SonarCloud results:
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=com.exasol%3Asql-statement-builder&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.exasol%3Asql-statement-builder)
 
@@ -34,14 +32,14 @@ Goals:
 The following example gives you an idea about what you can do with the SQL Statement Builder. Check our [user guide](doc/user_guide/user_guide.md) for more details.
 
 ```java
-final Select select = StatementFactory.getInstance().select() //
-        .field("fieldA", "tableA.fieldB", "tableB.*");
+Select select = StatementFactory.getInstance().select()
+    .field("fieldA", "tableA.fieldB", "tableB.*");
 select.from().table("schemaA.tableA");
 select.limit(10);
-final StringRendererConfig config = StringRendererConfig.builder().quoteIdentifiers(true).build();
-final SelectRenderer renderer = new SelectRenderer(config);
+StringRendererConfig config = StringRendererConfig.builder().quoteIdentifiers(true).build();
+SelectRenderer renderer = new SelectRenderer(config);
 select.accept(renderer);
-final String sql = renderer.render();
+String sql = renderer.render();
 ```
 
 ## Table of Contents

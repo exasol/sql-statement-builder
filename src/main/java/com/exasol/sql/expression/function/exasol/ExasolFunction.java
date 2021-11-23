@@ -1,28 +1,24 @@
 package com.exasol.sql.expression.function.exasol;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import com.exasol.sql.expression.ValueExpression;
-import com.exasol.sql.expression.function.AbstractFunction;
-import com.exasol.sql.expression.function.FunctionName;
-import com.exasol.sql.expression.function.FunctionVisitor;
+import com.exasol.sql.expression.function.*;
 
 /**
  * This class represents a function in the Exasol database.
  */
 public class ExasolFunction extends AbstractFunction {
-    private static final List<String> functionsWithoutParenthesis = Arrays.asList("SYSDATE", "CURRENT_SCHEMA",
+    private static final List<String> FUNCTIONS_WITHOUT_PARENTHESIS = Arrays.asList("SYSDATE", "CURRENT_SCHEMA",
             "CURRENT_SESSION", "CURRENT_STATEMENT", "CURRENT_USER", "ROWNUM", "ROWID", "SCOPE_USER", "USER");
 
-    protected ExasolFunction(final FunctionName functionName, final List<ValueExpression> valueExpressions) {
+    private ExasolFunction(final FunctionName functionName, final List<ValueExpression> valueExpressions) {
         super(functionName.toString(), valueExpressions);
     }
 
     /**
      * Create a new {@link ExasolFunction} instance.
-     * 
+     *
      * @param functionName name of the function
      * @return new {@link ExasolFunction}
      */
@@ -43,7 +39,7 @@ public class ExasolFunction extends AbstractFunction {
 
     @Override
     public boolean hasParenthesis() {
-        return !functionsWithoutParenthesis.contains(this.functionName);
+        return !FUNCTIONS_WITHOUT_PARENTHESIS.contains(this.functionName);
     }
 
     @Override

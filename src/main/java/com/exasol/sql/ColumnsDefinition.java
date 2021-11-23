@@ -23,7 +23,7 @@ public class ColumnsDefinition extends AbstractFragment {
 
     /**
      * Create an new instance of {@link ColumnsDefinition}.
-     * 
+     *
      * @param columns list of columns
      */
     public ColumnsDefinition(final List<Column> columns) {
@@ -33,7 +33,7 @@ public class ColumnsDefinition extends AbstractFragment {
 
     /**
      * Create a new builder for {@link ColumnsDefinition}.
-     * 
+     *
      * @return new {@link Builder}
      */
     public static Builder builder() {
@@ -52,7 +52,7 @@ public class ColumnsDefinition extends AbstractFragment {
 
     /**
      * Get a list of columns.
-     * 
+     *
      * @return list of columns
      */
     public List<Column> getColumns() {
@@ -61,10 +61,6 @@ public class ColumnsDefinition extends AbstractFragment {
 
     public void accept(final ColumnDefinitionVisitor visitor) {
         visitor.visit(this);
-        for (final Column column : this.columns) {
-            column.accept(visitor);
-        }
-        visitor.leave(this);
     }
 
     /**

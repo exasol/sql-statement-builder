@@ -19,10 +19,10 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
 
     /**
      * Create a new instance of an {@link AbstractFragmentRenderer}-based class.
-     * 
+     *
      * @param config renderer configuration
      */
-    public AbstractFragmentRenderer(final StringRendererConfig config) {
+    protected AbstractFragmentRenderer(final StringRendererConfig config) {
         this.config = config;
         this.lastVisited = null;
         this.quotesApplier = new QuotesApplier(config);
@@ -68,7 +68,7 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
     }
 
     protected void appendCommaWhenNeeded(final Fragment fragment) {
-        if (this.lastVisited != null && this.lastVisited.getClass().equals(fragment.getClass())) {
+        if ((this.lastVisited != null) && this.lastVisited.getClass().equals(fragment.getClass())) {
             append(", ");
         }
     }

@@ -1,11 +1,10 @@
 # CREATE TABLE
 
-The `CreateTable` class of the SQL Statement Builder provides an entry 
-point to defining a CREATE TABLE SQL statement.
+The `CreateTable` class of the SQL Statement Builder provides an entry point to defining a [`CREATE TABLE`](https://docs.exasol.com/sql/create_table.htm) SQL statement.
 
 ## Usage
 
-1. Create an instance of the `CreateTable` class through the `StatementFactory`
+1. Create an instance of the `CreateTable` class through the `StatementFactory`:
 
   ```java
   CreateTable createTable = StatementFactory.getInstance().createTable("tableName");
@@ -23,9 +22,7 @@ point to defining a CREATE TABLE SQL statement.
              .booleanColumn("col_boolean");
   ```
 
-  Please keep in mind that the column name is required when creating a column.
-  Additionally, some column types require extra parameters, for instance
-  `VARCHAR`.
+  Please keep in mind that the column name is required when creating a column. Additionally, some column types require extra parameters, for instance `VARCHAR`.
 
   **Currently, the following column types are supported:**
 
@@ -42,7 +39,7 @@ point to defining a CREATE TABLE SQL statement.
   |``TIMESTAMP WITH LOCAL TIME ZONE``| ``false``          | `createTable.timestampWithLocalTimeZoneColumn("col_tswithzone")` |
   |``VARCHAR``                       | ``true``           | `createTable.varcharColumn("col_varchar", 100)`                  |
 
-  You can find more information about the column types in the SQL Statement Builder's JavaDoc API description.
+  You can find more information about the column types in the SQL Statement Builder's [JavaDoc API description](https://exasol.github.io/sql-statement-builder/com/exasol/datatype/type/package-summary.html).
 
 3. Render the instance of `CreateTable` class. Click [here](../rendering.md) for more information on Rendering SQL Statement.
 
@@ -56,12 +53,12 @@ point to defining a CREATE TABLE SQL statement.
              .charColumn("col_char", 10)
              .booleanColumn("col_boolean");
 
-  //optional step: add config
+  // optional step: add configuration
   StringRendererConfig config = StringRendererConfig.builder().lowerCase(true).build();
   CreateTableRenderer renderer = CreateTableRenderer.create(config);
   createTable.accept(renderer);
 
   String renderedString = renderer.render();
   ```
-  
-Please check [API documentation](https://exasol.github.io/sql-statement-builder/com/exasol/sql/ddl/create/CreateTable.html) for more details.
+
+Please check the [API documentation](https://exasol.github.io/sql-statement-builder/com/exasol/sql/ddl/create/CreateTable.html) for more details.
