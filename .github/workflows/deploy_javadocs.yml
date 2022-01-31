@@ -14,7 +14,7 @@ jobs:
       - name: Build Javadocs
         run: mvn javadoc:javadoc
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@4.1.5
+        uses: JamesIves/github-pages-deploy-action@v4.2.3
         with:
           branch: gh-pages
           folder: target/site/apidocs/
