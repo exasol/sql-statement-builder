@@ -14,6 +14,7 @@ Code name:
 
 ### Test Dependency Updates
 
-* Updated `nl.jqno.equalsverifier:equalsverifier:3.7.1` to `3.7.2`
-* Updated `org.mockito:mockito-core:3.12.4` to `4.0.0`
-* Updated `org.mockito:mockito-junit-jupiter:3.12.4` to `4.0.0`
+* Updated `nl.jqno.equalsverifier:equalsverifier:3.7.1` to `3.10`
+* Updated `org.junit.jupiter:junit-jupiter:5.8.1` to `5.8.2`
+* Updated `org.mockito:mockito-core:3.12.4` to `4.4.0`
+* Updated `org.mockito:mockito-junit-jupiter:3.12.4` to `4.4.0`

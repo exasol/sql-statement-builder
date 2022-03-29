@@ -4,6 +4,7 @@ package com.exasol.sql;
  * Common base class for SQL statement fragments
  */
 public abstract class AbstractFragment implements Fragment {
+    /** Root fragment of the statement fragment tree */
     protected final Fragment root;
 
     /**
