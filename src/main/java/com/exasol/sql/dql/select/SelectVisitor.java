@@ -16,40 +16,41 @@ public interface SelectVisitor extends ValueTableVisitor {
     /**
      * Visit the {@code FROM} clause.
      *
-     * @param fromClause {@code FROM} clause to visit.
+     * @param fromClause {@code FROM} clause to visit
      */
     public void visit(final FromClause fromClause);
 
     /**
      * Leave the {@code FROM} clause.
      *
-     * @param fromClause {@code FROM} clause to leave.
+     * @param fromClause {@code FROM} clause to leave
      */
     public void leave(final FromClause fromClause);
 
     /**
      * Visit the {@code JOIN} clause.
      *
-     * @param join {@code JOIN} clause to visit.
+     * @param join {@code JOIN} clause to visit
      */
     public void visit(final Join join);
 
     /**
      * Visit the {@code LIMIT} clause.
      *
-     * @param limitClause {@code LIMIT} clause to visit.
+     * @param limitClause {@code LIMIT} clause to visit
      */
     public void visit(final LimitClause limitClause);
 
     /**
      * Visit the {@code WHERE} clause.
      *
-     * @param whereClause {@code WHERE} clause to visit.
+     * @param whereClause {@code WHERE} clause to visit
      */
     public void visit(final WhereClause whereClause);
 
     /**
      * Visit the {@code GROUP BY} clause.
+     
      * @param groupByClause {@code GROUP BY} clause to visit
      */
     public void visit(final GroupByClause groupByClause);

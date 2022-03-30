@@ -30,7 +30,7 @@ public interface ValueExpressionVisitor {
     public void visit(final UnnamedPlaceholder unnamedPlaceholder);
 
     /**
-     * Visit a column reference
+     * Visit a column reference.
      *
      * @param columnReference column reference to visit
      */
