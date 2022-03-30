@@ -8,7 +8,7 @@ import com.exasol.datatype.type.Boolean;
  */
 public interface ColumnDefinitionVisitor {
     /**
-     * Visit a set of column definitions
+     * Visit a set of column definitions.
      *
      * @param columnsDefinition column definitions to visit.
      */

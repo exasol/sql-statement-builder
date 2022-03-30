@@ -30,7 +30,7 @@ public interface BooleanExpressionVisitor {
     public void visit(final And and);
 
     /**
-     * Visit a logical {@code OR} expression
+     * Visit a logical {@code OR} expression.
      *
      * @param or logical {@code OR} to visit
      */
