@@ -294,25 +294,25 @@ public abstract class BooleanTerm extends AbstractBooleanExpression {
     /**
      * Check for value in list.
      *
-     * @param to_find operand to find in list
-     * @param in_list list to search the first operand in
+     * @param toFind operand to find in list
+     * @param inList list to search the first operand in
      * @return in-list search
      */
     // [impl->dsn~predicate-operators~1]
-    public static BooleanExpression in(final ValueExpression to_find, final ValueExpression... in_list) {
-        return InPredicate.builder().expression(to_find).operands(in_list).build();
+    public static BooleanExpression in(final ValueExpression toFind, final ValueExpression... inList) {
+        return InPredicate.builder().expression(toFind).operands(inList).build();
     }
 
     /**
      * Check if value not in list.
      *
-     * @param to_find operand to find in list
-     * @param in_list list to search the first operand in
+     * @param toFind operand to find in list
+     * @param inList list to search the first operand in
      * @return not-in-list search
      */
     // [impl->dsn~predicate-operators~1]
-    public static BooleanExpression notIn(final ValueExpression to_find, final ValueExpression... in_list) {
-        return InPredicate.builder().expression(to_find).operands(in_list).not().build();
+    public static BooleanExpression notIn(final ValueExpression toFind, final ValueExpression... inList) {
+        return InPredicate.builder().expression(toFind).operands(inList).not().build();
     }
 
     /**
