@@ -13,9 +13,12 @@ import com.exasol.sql.expression.function.FunctionVisitor;
  * {@code ALL} and the over clause.
  */
 public class AnalyticFunction extends AbstractFunction {
-
+    /** Analytic function keywords */
     public enum Keyword {
-        DISTINCT, ALL
+        /** Function over distinct values */
+        DISTINCT,
+        /** Function over all values (including duplicates) */
+        ALL
     }
 
     private Keyword keyword;

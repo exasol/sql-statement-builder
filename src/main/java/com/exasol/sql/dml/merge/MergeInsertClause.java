@@ -9,6 +9,7 @@ import com.exasol.sql.expression.BooleanExpression;
  * Represents the {@code MERGE} strategy of inserting rows from the source that do not match any row in the destination.
  */
 public class MergeInsertClause extends AbstractInsertValueTable<MergeInsertClause> implements MergeFragment {
+    /** {@code WHERE} clause  */
     protected WhereClause where = null;
 
     /**

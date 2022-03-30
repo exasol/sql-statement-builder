@@ -7,7 +7,17 @@ import java.beans.Expression;
  */
 public enum SimpleComparisonOperator implements ComparisonOperator {
     // [impl->dsn~comparison-operations~1]
-    EQUAL("="), NOT_EQUAL("<>"), GREATER_THAN(">"), GREATER_THAN_OR_EQUAL(">="), LESS_THAN("<"),
+    /** Equals comparator */
+    EQUAL("="),
+    /** Not equals comparator */
+    NOT_EQUAL("<>"),
+    /** Greater-than comparator */
+    GREATER_THAN(">"),
+    /** Greater-than-or-equal comparator */
+    GREATER_THAN_OR_EQUAL(">="),
+    /** Less-than comparator */
+    LESS_THAN("<"),
+    /** Less-than-or-equal comparator */
     LESS_THAN_OR_EQUAL("<=");
 
     private final String operatorSymbol;

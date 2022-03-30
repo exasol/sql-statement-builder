@@ -172,8 +172,11 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
         append(selectRenderer.render());
     }
 
-    /* Value expression visitor */
-
+    /**
+     * Visit expressions.
+     *
+     * @param valueExpressions value expressions to visit
+     */
     public void visit(final List<ValueExpression> valueExpressions) {
         boolean isFirst = true;
         for (final ValueExpression parameter : valueExpressions) {
@@ -185,6 +188,11 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
         }
     }
 
+    /**
+     * Visit a value expression.
+     *
+     * @param valueExpressions value expression to visit
+     */
     public void visit(final ValueExpression... valueExpressions) {
         visit(Arrays.asList(valueExpressions));
     }

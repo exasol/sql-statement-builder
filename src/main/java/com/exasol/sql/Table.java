@@ -65,22 +65,47 @@ public class Table extends AbstractFragment {
         return this.alias != null;
     }
 
+    /**
+     * Accept a {@link CreateTableVisitor}.
+     *
+     * @param visitor visitor to accept
+     */
     public void accept(final CreateTableVisitor visitor) {
         visitor.visit(this);
     }
 
+    /**
+     * Accept a {@link DropTableVisitor}.
+     *
+     * @param visitor visitor to accept
+     */
     public void accept(final DropTableVisitor visitor) {
         visitor.visit(this);
     }
 
+    /**
+     * Accept a {@link MergeVisitor}.
+     *
+     * @param visitor visitor to accept
+     */
     public void accept(final MergeVisitor visitor) {
         visitor.visit(this);
     }
 
+    /**
+     * Accept an {@link InsertVisitor}.
+     *
+     * @param visitor visitor to accpet
+     */
     public void accept(final InsertVisitor visitor) {
         visitor.visit(this);
     }
 
+    /**
+     * Accept a {@link SelectVisitor}.
+     *
+     * @param visitor visitor to accept
+     */
     public void accept(final SelectVisitor visitor) {
         visitor.visit(this);
     }

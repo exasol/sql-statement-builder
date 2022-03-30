@@ -1,11 +1,35 @@
 package com.exasol.sql;
 
-public interface ValueTableVisitor {
-    public void visit(ValueTable valueTable);
+/**
+ * Visitor for {@link ValueTable}.
+ */
+public interface ValueTableVisitor
+{
+    /**
+     * Visit a value table.
+     *
+     * @param valueTable value table to visit
+     */
+    public void visit(final ValueTable valueTable);
 
-    public void leave(ValueTable valueTable);
+    /**
+     * Leave a value table.
+     *
+     * @param valueTable value table to leave
+     */
+    public void leave(final ValueTable valueTable);
 
-    public void visit(ValueTableRow valueTableRow);
+    /**
+     * Visit a row in a value table.
+     *
+     * @param valueTableRow row to visit
+     */
+    public void visit(final ValueTableRow valueTableRow);
 
-    public void leave(ValueTableRow valueTableRow);
+    /**
+     * Leave a row in a value table
+     *
+     * @param valueTableRow row to leave
+     */
+    public void leave(final ValueTableRow valueTableRow);
 }

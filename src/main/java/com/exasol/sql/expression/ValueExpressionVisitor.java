@@ -8,18 +8,52 @@ import com.exasol.sql.expression.literal.Literal;
  * Visitor interface for a {@link BooleanTerm}.
  */
 public interface ValueExpressionVisitor {
+    /**
+     * Visit a literal.
+     *
+     * @param literal literal to visit
+     */
     public void visit(final Literal literal);
 
+    /**
+     * Visit a function.
+     *
+     * @param function function to visit
+     */
     public void visit(final Function function);
 
-    public void visit(UnnamedPlaceholder unnamedPlaceholder);
+    /**
+     * Visit an unnamed placeholder.
+     *
+     * @param unnamedPlaceholder placeholder to visit
+     */
+    public void visit(final UnnamedPlaceholder unnamedPlaceholder);
 
-    public void visit(ColumnReference columnReference);
+    /**
+     * Visit a column reference
+     *
+     * @param columnReference column reference to visit
+     */
+    public void visit(final ColumnReference columnReference);
 
-    public void visit(DefaultValue defaultValue);
+    /**
+     * Visit a default value.
+     *
+     * @param defaultValue default value to visit
+     */
+    public void visit(final DefaultValue defaultValue);
 
-    public void visit(BinaryArithmeticExpression expression);
+    /**
+     * Visit a binary arithmetic expression.
+     *
+     * @param expression binary arithmetic expression to visit
+     */
+    public void visit(final BinaryArithmeticExpression expression);
 
-    public void visit(BooleanExpression booleanExpression);
-
+    /**
+     * Visit a boolean expression.
+     *
+     * @param booleanExpression boolean expression to visit
+     */
+    public void visit(final BooleanExpression booleanExpression);
 }

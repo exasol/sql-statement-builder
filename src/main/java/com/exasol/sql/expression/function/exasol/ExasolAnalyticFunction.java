@@ -9,5 +9,10 @@ import com.exasol.sql.expression.function.FunctionName;
  */
 @Deprecated(since = "4.5", forRemoval = true)
 public enum ExasolAnalyticFunction implements FunctionName {
-    ANY, EVERY, LISTAGG
+    /** Any expression true */
+    ANY,
+    /** Every expression true */
+    EVERY,
+    /** Concatenated string of values of expression from all rows in the window or group */
+    LISTAGG
 }

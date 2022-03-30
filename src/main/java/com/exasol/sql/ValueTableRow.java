@@ -79,6 +79,11 @@ public class ValueTableRow extends AbstractFragment {
         private final Fragment root;
         private final List<ValueExpression> expressions = new ArrayList<>();
 
+        /**
+         * Create a new builder for a value table row.
+         *
+         * @param root root fragment of the SQL statement
+         */
         public Builder(final Fragment root) {
             this.root = root;
         }

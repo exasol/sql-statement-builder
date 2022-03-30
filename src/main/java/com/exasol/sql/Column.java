@@ -40,6 +40,11 @@ public class Column extends AbstractFragment {
         return this.dataType;
     }
 
+    /**
+     * Accept a {@link ColumnDefinitionVisitor}.
+     *
+     * @param visitor visitor to accept
+     */
     public void accept(final ColumnDefinitionVisitor visitor) {
         visitor.visit(this);
         this.dataType.accept(visitor);

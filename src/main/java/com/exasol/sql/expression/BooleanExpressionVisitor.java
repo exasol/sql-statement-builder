@@ -8,15 +8,45 @@ import com.exasol.sql.expression.predicate.Predicate;
  * Visitor interface for a {@link BooleanTerm}
  */
 public interface BooleanExpressionVisitor {
-    public void visit(Not not);
+    /**
+     * Visit a unary {@code NOT} expression.
+     *
+     * @param not unary {@code NOT} to visit
+     */
+    public void visit(final Not not);
 
-    public void visit(BooleanLiteral literal);
+    /**
+     * Visit a boolean literal.
+     *
+     * @param literal boolean literal to visit
+     */
+    public void visit(final BooleanLiteral literal);
 
-    public void visit(And and);
+    /**
+     * Visit a logical {@code AND} expression.
+     *
+     * @param and logical {@code AND} to visit
+     */
+    public void visit(final And and);
 
-    public void visit(Or or);
+    /**
+     * Visit a logical {@code OR} expression
+     *
+     * @param or logical {@code OR} to visit
+     */
+    public void visit(final Or or);
 
-    public void visit(Comparison comparison);
+    /**
+     * Visit a comparison.
+     *
+     * @param comparison comparison to visit
+     */
+    public void visit(final Comparison comparison);
 
-    public void visit(Predicate predicate);
+    /**
+     * Visit a predicate.
+     *
+     * @param predicate predicate to visit
+     */
+    public void visit(final Predicate predicate);
 }

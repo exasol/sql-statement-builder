@@ -9,7 +9,9 @@ import com.exasol.sql.expression.ValueExpressionVisitor;
  * This is a base class for functions.
  */
 public abstract class AbstractFunction implements Function {
+    /** Name of the function */
     protected String functionName;
+    /** Function parameters */
     protected List<ValueExpression> parameters;
 
     /**

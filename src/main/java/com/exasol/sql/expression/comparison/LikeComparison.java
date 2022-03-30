@@ -55,8 +55,14 @@ public class LikeComparison extends AbstractComparison {
         return this.escape;
     }
 
+    /**
+     * Fuzzy string comparators.
+     */
     public enum LikeComparisonOperator implements ComparisonOperator {
-        LIKE, NOT_LIKE;
+        /** {@code LIKE} comparator */
+        LIKE,
+        /** {@code NOT_LIKE} comparator */
+        NOT_LIKE;
 
         @Override
         public String toString() {

@@ -58,7 +58,10 @@ public class BetweenPredicate extends AbstractPredicate {
      * A class that represents {@link BetweenPredicate} operator.
      */
     public enum BetweenPredicateOperator implements PredicateOperator {
-        BETWEEN, NOT_BETWEEN;
+        /** Between boundaries */
+        BETWEEN,
+        /** Outside boundaries */
+        NOT_BETWEEN;
 
         @Override
         public String toString() {
