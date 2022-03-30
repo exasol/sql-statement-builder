@@ -59,6 +59,11 @@ public class ColumnsDefinition extends AbstractFragment {
         return this.columns;
     }
 
+    /**
+     * Accept a {@link ColumnDefinitionVisitor}.
+     *
+     * @param visitor visitor to accept
+     */
     public void accept(final ColumnDefinitionVisitor visitor) {
         visitor.visit(this);
     }

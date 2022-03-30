@@ -2,14 +2,42 @@ package com.exasol.sql.dml.insert;
 
 import com.exasol.sql.*;
 
+/**
+ * Visitor for {@code INSERT} statements.
+ */
 public interface InsertVisitor extends ValueTableVisitor {
-    public void visit(SqlStatement insert);
+    /**
+     * Visit an {@code INSERT} statement.
+     *
+     * @param insert {@code INSERT} statement to visit
+     */
+    public void visit(final SqlStatement insert);
 
-    public void visit(Table table);
+    /**
+     * Visit the table to insert into.
+     *
+     * @param table table to visit
+     */
+    public void visit(final Table table);
 
-    public void visit(InsertFields insertFields);
+    /**
+     * Visit the list of fields to insert into.
+     *
+     * @param insertFields fields to visit
+     */
+    public void visit(final InsertFields insertFields);
 
-    public void leave(InsertFields insertFields);
+    /**
+     * Leave the list of fields to insert into.
+     *
+     * @param insertFields fields to leave
+     */
+    public void leave(final InsertFields insertFields);
 
-    public void visit(DerivedColumn derivedColumn);
+    /**
+     * Visit a derived column.
+     *
+     * @param derivedColumn derived column to visit
+     */
+    public void visit(final DerivedColumn derivedColumn);
 }

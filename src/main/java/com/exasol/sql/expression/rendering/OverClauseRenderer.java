@@ -88,11 +88,11 @@ class OverClauseRenderer extends AbstractExpressionRenderer {
     }
 
     private void renderUnit(final WindowFrameUnitClause unit) {
-        if ((unit.getType() == UnitType.PRECEEDING) || (unit.getType() == UnitType.FOLLOWING)) {
+        if ((unit.getType() == UnitType.PRECEDING) || (unit.getType() == UnitType.FOLLOWING)) {
             if (unit.getExpression() == null) {
                 throw new IllegalStateException(messageBuilder("E-ESB-2")
-                        .message("Expression is required for window frame units PRECEEDING and FOLLOWING.")
-                        .mitigation("Add expression for unit types PRECEEDING and FOLLOWING.").toString());
+                        .message("Expression is required for window frame units PRECEDING and FOLLOWING.")
+                        .mitigation("Add expression for unit types PRECEDING and FOLLOWING.").toString());
             }
             render(renderer -> renderer.visit(unit.getExpression()));
             append(" ");

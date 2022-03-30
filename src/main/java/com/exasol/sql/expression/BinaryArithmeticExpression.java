@@ -68,7 +68,14 @@ public class BinaryArithmeticExpression implements ValueExpression {
      */
     // [impl->dsn~arithmetic-operation-from-enum~1]
     public enum BinaryArithmeticOperator {
-        ADD("+"), SUBTRACT("-"), MULTIPLY("*"), DIVIDE("/");
+        /** Addition */
+        ADD("+"),
+        /** Subtraction */
+        SUBTRACT("-"),
+        /** Multiplication */
+        MULTIPLY("*"),
+        /** Division */
+        DIVIDE("/");
 
         private final String stringOperatorRepresentation;
 

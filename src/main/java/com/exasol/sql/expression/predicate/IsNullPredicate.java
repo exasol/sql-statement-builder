@@ -43,7 +43,10 @@ public class IsNullPredicate extends AbstractPredicate {
      * An operator for {@link IsNullPredicate} class.
      */
     public enum IsNullPredicateOperator implements PredicateOperator {
-        IS_NULL, IS_NOT_NULL;
+        /** Is-null operator */
+        IS_NULL,
+        /** Is-not-null operator */
+        IS_NOT_NULL;
 
         @Override
         public String toString() {

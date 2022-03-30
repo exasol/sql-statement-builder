@@ -9,7 +9,9 @@ import com.exasol.sql.expression.ValueExpression;
  * @param <T> self pointer
  */
 public abstract class AbstractInsertValueTable<T extends AbstractInsertValueTable<T>> extends AbstractFragment {
+    /** Table with values used in the {@code INSERT} statement */
     protected ValueTable insertValueTable;
+    /** Fields to insert */
     protected InsertFields insertFields;
 
     /**
@@ -21,8 +23,16 @@ public abstract class AbstractInsertValueTable<T extends AbstractInsertValueTabl
         super(root);
     }
 
+    /**
+     * Generic self pointer.
+     *
+     * @return self pointer.
+     */
     protected abstract T self();
 
+    /**
+     * Prepare the value table.
+     */
     protected synchronized void createInsertValueInstanceIfItDoesNotExist() {
         if (!hasValues()) {
             this.insertValueTable = new ValueTable(this);

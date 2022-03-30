@@ -71,7 +71,10 @@ public class InPredicate extends AbstractPredicate {
      * A class that represents {@link InPredicate} operator.
      */
     public enum InPredicateOperator implements PredicateOperator {
-        IN, NOT_IN;
+        /** In-list operator */
+        IN,
+        /** Not-in-list operator */
+        NOT_IN;
 
         @Override
         public String toString() {
