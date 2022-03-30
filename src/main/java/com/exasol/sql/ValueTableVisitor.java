@@ -27,7 +27,7 @@ public interface ValueTableVisitor
     public void visit(final ValueTableRow valueTableRow);
 
     /**
-     * Leave a row in a value table
+     * Leave a row in a value table.
      *
      * @param valueTableRow row to leave
      */

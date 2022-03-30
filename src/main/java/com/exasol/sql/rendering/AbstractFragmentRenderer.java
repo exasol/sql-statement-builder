@@ -12,7 +12,7 @@ import com.exasol.util.QuotesApplier;
  * Abstract base class for SQL fragment renderers.
  */
 public abstract class AbstractFragmentRenderer implements FragmentRenderer {
-    /** Configuration that controls string rendering options */
+    /** Configuration that controls string rendering options. */
     protected final StringRendererConfig config;
     private final StringBuilder builder = new StringBuilder();
     private Fragment lastVisited;
@@ -79,7 +79,7 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
     }
 
     /**
-     * Append a string
+     * Append a string.
      *
      * @param string string to append
      *
@@ -90,7 +90,7 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
     }
 
     /**
-     * Set the last statement fragment that was visited
+     * Set the last statement fragment that was visited.
      *
      * @param fragment last visited fragment
      */
@@ -99,7 +99,7 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
     }
 
     /**
-     * Append a white space
+     * Append a white space.
      */
     protected void appendSpace() {
         append(" ");
@@ -125,7 +125,8 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
         this.builder.append(number);
     }
 
-    /** Append an auto-quoted SQL identifier
+    /**
+     * Append an auto-quoted SQL identifier.
      *
      * @param identifier SQL identifier to append
      */

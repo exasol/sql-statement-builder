@@ -28,6 +28,7 @@ public abstract class AbstractInterval {
 
     /**
      * Create an interval from an absolute value and a sign.
+     
      * @param absoluteValue absolute interval value
      * @param positive sign indicator
      */
@@ -58,7 +59,7 @@ public abstract class AbstractInterval {
     }
 
     /**
-     * Get the signed long integer value
+     * Get the signed long integer value.
      *
      * @return signed value
      */
