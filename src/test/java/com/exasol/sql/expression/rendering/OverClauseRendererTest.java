@@ -31,14 +31,14 @@ class OverClauseRendererTest {
     void testVisitWindowFrameEmptyFails() {
         final OverClause clause = new OverClause().windowFrame(frame -> frame);
         ExceptionAssertions.assertThrowsWithMessage(IllegalStateException.class, () -> this.renderer.visit(clause),
-                "E-ESB-3: Type not defined. Set type the window frame.");
+                "Type not defined. Set type the window frame.");
     }
 
     @Test
     void testVisitWindowFrameWithoutUnitFails() {
         final OverClause clause = new OverClause().windowFrame(frame -> frame.type(WindowFrameType.RANGE));
         ExceptionAssertions.assertThrowsWithMessage(IllegalStateException.class, () -> this.renderer.visit(clause),
-                "E-ESB-1: First unit not defined. At lease one unit is required for a window frame");
+                "First unit not defined. At least one unit is required for a window frame.");
     }
 
     @Test
@@ -46,7 +46,7 @@ class OverClauseRendererTest {
         final OverClause clause = new OverClause()
                 .windowFrame(frame -> frame.type(WindowFrameType.RANGE).unit(UnitType.PRECEDING));
         ExceptionAssertions.assertThrowsWithMessage(IllegalStateException.class, () -> this.renderer.visit(clause),
-                "E-ESB-2: Expression is required for window frame units PRECEDING and FOLLOWING."
+                "Expression is required for window frame units PRECEDING and FOLLOWING."
                         +" Add expression for unit types PRECEDING and FOLLOWING.");
     }
 
