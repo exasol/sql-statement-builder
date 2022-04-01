@@ -33,7 +33,9 @@ We also fixed typos in window frame clauses ("Preceding" instead of "Preceeding"
 * Updated `io.github.zlika:reproducible-build-maven-plugin:0.13` to `0.15`
 * Updated `org.apache.maven.plugins:maven-compiler-plugin:3.8.1` to `3.9.0`
 * Updated `org.apache.maven.plugins:maven-deploy-plugin:2.8.2` to `3.0.0-M1`
+* Removed `org.apache.maven.plugins:maven-failsafe-plugin:3.0.0-M3`
 * Updated `org.apache.maven.plugins:maven-jar-plugin:3.2.0` to `3.2.2`
 * Updated `org.apache.maven.plugins:maven-site-plugin:3.9.1` to `3.11.0`
+* Updated `org.apache.maven.plugins:maven-surefire-plugin:3.0.0-M4` to `3.0.0-M5`
 * Added `org.codehaus.mojo:flatten-maven-plugin:1.2.7`
 * Updated `org.itsallcode:openfasttrace-maven-plugin:1.0.0` to `1.5.0`
