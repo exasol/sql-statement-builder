@@ -1,4 +1,4 @@
-# Exasol SQL Statement Builder 4.5.1, released 2021-04-01
+# Exasol SQL Statement Builder 4.5.1, released 2022-04-01
 
 Code name: Java 17 compatibility
 
