@@ -9,9 +9,12 @@ on:
 jobs:
   java-17-compatibility:
     runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Set up JDK 17
@@ -20,7 +23,7 @@ jobs:
           distribution: 'temurin'
           java-version: 17
       - name: Cache local Maven repository
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -35,3 +38,4 @@ jobs:
         if: ${{ always() && github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          fail_if_no_tests: false

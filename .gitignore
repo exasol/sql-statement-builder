@@ -33,3 +33,4 @@ pom.xml.versionsBackup
 *.orig
 *.old
 *.md.html
+*.flattened-pom.xml

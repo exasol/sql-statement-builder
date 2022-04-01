@@ -1,0 +1,7 @@
+sources:
+  - type: maven
+    path: pom.xml
+    modules:
+      - maven_central
+linkReplacements:
+  - "https://github.com/hamcrest/JavaHamcrest/hamcrest-all|https://github.com/hamcrest/JavaHamcrest"
