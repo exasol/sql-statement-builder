@@ -28,7 +28,7 @@ We also fixed typos in window frame clauses ("Preceding" instead of "Preceeding"
 
 ### Plugin Dependency Updates
 
-* Updated `com.exasol:error-code-crawler-maven-plugin:0.6.0` to `1.0.0`
+* Removed `com.exasol:error-code-crawler-maven-plugin:0.6.0`
 * Updated `com.exasol:project-keeper-maven-plugin:1.2.0` to `1.3.4`
 * Updated `io.github.zlika:reproducible-build-maven-plugin:0.13` to `0.15`
 * Updated `org.apache.maven.plugins:maven-compiler-plugin:3.8.1` to `3.10.1`
