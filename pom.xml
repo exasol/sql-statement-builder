@@ -115,7 +115,7 @@
                 <configuration>
                     <!-- Set the highest log level for coverage testing, so that we
                     have a chance to reach branches in the logging lambdas too. -->
-                    <argLine>-Djava.util.logging.config.file=src/test/resources/logging.properties ${argLine}</argLine>
+                    <argLine>-Djava.util.logging.config.file=src/test/resources/logging.properties @{argLine}</argLine>
                     <excludes>
                         <exclude>**IT.java</exclude>
                     </excludes>
@@ -153,7 +153,7 @@
                 <configuration>
                     <!-- Set the highest log level for coverage testing, so that we have a chance to reach branches
                     <property>	                      in the logging lambdas too. -->
-                    <argLine>-Djava.util.logging.config.file=src/test/resources/logging.properties ${argLine}</argLine>
+                    <argLine>-Djava.util.logging.config.file=src/test/resources/logging.properties @{argLine}</argLine>
                     <includes>
                         <include>**IT.java</include>
                     </includes>

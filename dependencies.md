@@ -39,71 +39,37 @@
 | [Apache Maven Site Plugin][52]                          | [Apache License, Version 2.0][9]      |
 
 [40]: https://github.com/exasol/project-keeper
-
 [2]: https://github.com/hamcrest/JavaHamcrest
-
 [15]: http://www.apache.org/licenses/LICENSE-2.0.txt
-
 [20]: https://maven.apache.org/surefire/maven-surefire-plugin/
-
 [32]: http://www.sonatype.com/public-parent/nexus-maven-plugins/nexus-staging/nexus-staging-maven-plugin/
-
 [4]: https://github.com/mockito/mockito
-
 [37]: https://opensource.org/licenses/MIT
-
 [42]: https://maven.apache.org/surefire/maven-failsafe-plugin/
-
 [22]: http://www.mojohaus.org/versions-maven-plugin/
-
 [10]: https://maven.apache.org/plugins/maven-compiler-plugin/
-
 [46]: https://maven.apache.org/plugins/maven-resources-plugin/
-
 [38]: https://github.com/itsallcode/openfasttrace-maven-plugin
-
 [44]: https://maven.apache.org/plugins/maven-clean-plugin/
-
 [35]: https://www.eclipse.org/legal/epl-2.0/
-
 [24]: https://maven.apache.org/plugins/maven-deploy-plugin/
-
 [33]: http://www.eclipse.org/legal/epl-v10.html
-
 [34]: https://www.jacoco.org/jacoco/trunk/doc/maven.html
-
 [5]: https://github.com/mockito/mockito/blob/main/LICENSE
-
 [18]: http://zlika.github.io/reproducible-build-maven-plugin
-
 [52]: https://maven.apache.org/plugins/maven-site-plugin/
-
 [39]: https://www.gnu.org/licenses/gpl-3.0.html
-
 [9]: https://www.apache.org/licenses/LICENSE-2.0.txt
-
 [8]: https://www.jqno.nl/equalsverifier
-
 [12]: https://maven.apache.org/enforcer/maven-enforcer-plugin/
-
 [1]: https://www.eclipse.org/legal/epl-v20.html
-
 [3]: http://www.opensource.org/licenses/bsd-license.php
-
 [50]: http://maven.apache.org/plugins/maven-install-plugin/
-
 [0]: https://junit.org/junit5/
-
 [16]: https://sonatype.github.io/ossindex-maven/maven-plugin/
-
 [26]: https://maven.apache.org/plugins/maven-gpg-plugin/
-
 [14]: https://www.mojohaus.org/flatten-maven-plugin/flatten-maven-plugin
-
 [28]: https://maven.apache.org/plugins/maven-source-plugin/
-
 [30]: https://maven.apache.org/plugins/maven-javadoc-plugin/
-
 [36]: https://github.com/exasol/error-code-crawler-maven-plugin
-
 [48]: https://maven.apache.org/plugins/maven-jar-plugin/
