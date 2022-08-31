@@ -1,43 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.exasol</groupId>
     <artifactId>sql-statement-builder</artifactId>
-    <version>4.5.1</version>
+    <version>4.5.2</version>
     <name>Exasol SQL Statement Builder</name>
     <description>This module provides a Builder for SQL statements that helps creating the correct structure and
-        validates variable parts of the statements.
-    </description>
-    <url>https://github.com/exasol/sql-statement-builder</url>
+        validates variable parts of the statements.</description>
+    <url>https://github.com/exasol/sql-statement-builder/</url>
     <inceptionYear>2018</inceptionYear>
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>11</java.version>
-        <gpg.skip>true</gpg.skip>
-        <mockito.version>4.4.0</mockito.version>
+        <mockito.version>4.7.0</mockito.version>
     </properties>
-    <licenses>
-        <license>
-            <name>MIT</name>
-            <url>https://opensource.org/licenses/MIT</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-    <developers>
-        <developer>
-            <name>Exasol</name>
-            <email>opensource@exasol.com</email>
-            <organization>Exasol AG</organization>
-            <organizationUrl>https://www.exasol.com/</organizationUrl>
-        </developer>
-    </developers>
-    <scm>
-        <connection>scm:git:https://github.com/exasol/sql-statement-builder.git</connection>
-        <developerConnection>scm:git:https://github.com/exasol/sql-statement-builder.git</developerConnection>
-        <url>https://github.com/exasol/sql-statement-builder/tree/master</url>
-    </scm>
     <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
@@ -68,7 +42,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>5.8.2</version>
+            <version>5.9.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -92,7 +66,7 @@
         <dependency>
             <groupId>nl.jqno.equalsverifier</groupId>
             <artifactId>equalsverifier</artifactId>
-            <version>3.10</version>
+            <version>3.10.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -101,18 +75,15 @@
             <plugin>
                 <groupId>com.exasol</groupId>
                 <artifactId>error-code-crawler-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>verify</id>
-                        <!-- we disable execution we don't use error reporting in this base library -->
-                        <phase>none</phase>
-                    </execution>
-                </executions>
+                <configuration>
+                    <!-- We disable execution because we don't use error reporting in this base library -->
+                    <skip>true</skip>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.itsallcode</groupId>
                 <artifactId>openfasttrace-maven-plugin</artifactId>
-                <version>1.5.0</version>
+                <version>1.6.0</version>
                 <executions>
                     <execution>
                         <id>trace-requirements</id>
@@ -125,7 +96,7 @@
             <plugin>
                 <groupId>com.exasol</groupId>
                 <artifactId>project-keeper-maven-plugin</artifactId>
-                <version>2.2.0</version>
+                <version>2.6.2</version>
                 <executions>
                     <execution>
                         <goals>
@@ -135,39 +106,11 @@
                 </executions>
             </plugin>
         </plugins>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.1.0</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-install-plugin</artifactId>
-                    <version>2.5.2</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.2.2</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.2.0</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.8.2</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-site-plugin</artifactId>
-                    <version>3.11.0</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
     </build>
     <parent>
         <artifactId>sql-statement-builder-generated-parent</artifactId>
         <groupId>com.exasol</groupId>
-        <version>4.5.1</version>
+        <version>4.5.2</version>
         <relativePath>pk_generated_parent.pom</relativePath>
     </parent>
 </project>
