@@ -12,25 +12,19 @@ jobs:
         with:
           fetch-depth: 0
       - name: Set up Maven Central Repository
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: 11
+          cache: 'maven'
           server-id: ossrh
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
-      - name: Import GPG Key
-        run:
-          gpg --import --batch <(echo "${{ secrets.OSSRH_GPG_SECRET_KEY }}")
-      - name: Cache local Maven repository
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
+          gpg-private-key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
       - name: Publish to Central Repository
+        run: mvn --batch-mode -Dgpg.skip=false -DskipTests clean deploy
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-        run: mvn clean -Dgpg.skip=false -Dgpg.passphrase=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }} -DskipTests deploy
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
