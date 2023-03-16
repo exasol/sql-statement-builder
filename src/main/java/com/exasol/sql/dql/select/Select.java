@@ -285,14 +285,14 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
         if (this.whereClause != null) {
             this.whereClause.accept(visitor);
         }
-        if (this.limitClause != null) {
-            this.limitClause.accept(visitor);
-        }
         if (this.groupByClause != null) {
             this.groupByClause.accept(visitor);
         }
         if (this.orderByClause != null) {
             this.orderByClause.accept(visitor);
+        }
+        if (this.limitClause != null) {
+            this.limitClause.accept(visitor);
         }
     }
 }
