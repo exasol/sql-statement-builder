@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.exasol</groupId>
     <artifactId>sql-statement-builder</artifactId>
-    <version>4.5.2</version>
+    <version>4.5.3-SNAPSHOT</version>
     <name>Exasol SQL Statement Builder</name>
     <description>This module provides a Builder for SQL statements that helps creating the correct structure and
         validates variable parts of the statements.</description>
@@ -92,6 +92,9 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>com.exasol</groupId>
@@ -104,13 +107,16 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
             </plugin>
         </plugins>
     </build>
     <parent>
         <artifactId>sql-statement-builder-generated-parent</artifactId>
         <groupId>com.exasol</groupId>
-        <version>4.5.2</version>
+        <version>4.5.3-SNAPSHOT</version>
         <relativePath>pk_generated_parent.pom</relativePath>
     </parent>
 </project>
