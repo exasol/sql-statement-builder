@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout ️the repository
-        uses: actions/checkout@v2.3.1
+        uses: actions/checkout@v3
       - name: Build Javadocs
         run: mvn javadoc:javadoc
       - name: Deploy
