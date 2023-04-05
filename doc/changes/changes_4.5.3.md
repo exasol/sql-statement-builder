@@ -1,8 +1,10 @@
-# Exasol SQL Statement Builder 4.5.3, released 2023-??-??
+# Exasol SQL Statement Builder 4.5.3, released 2023-04-06
 
-Code name:
+Code name: Removed outdated `maven.exasol.com` references
 
 ## Summary
+
+In this release, we removed references to the discontinued Exasol `maven.exasol.com` artifactory.
 
 ## Refactoring
 
