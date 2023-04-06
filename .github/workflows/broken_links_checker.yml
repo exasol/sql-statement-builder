@@ -19,7 +19,10 @@ jobs:
       - name: Configure broken links checker
         run: |
           mkdir -p ./target
-          echo '{ "aliveStatusCodes": [429, 200], "ignorePatterns": [{"pattern": "^https?://(www.)?opensource.org"}] }' > ./target/broken_links_checker.json
+          echo '{"aliveStatusCodes": [429, 200], "ignorePatterns": [' \
+               '{"pattern": "^https?://(www|dev).mysql.com/"},' \
+               '{"pattern": "^https?://(www.)?opensource.org"}' \
+               ']}' > ./target/broken_links_checker.json
       - uses: gaurav-nelson/github-action-markdown-link-check@v1
         with:
           use-quiet-mode: 'yes'

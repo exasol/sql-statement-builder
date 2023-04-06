@@ -24,7 +24,9 @@ jobs:
       - name: Build with Maven skipping tests
         run: mvn --batch-mode clean verify -DskipTests
       - name: Generate sha256sum files
-        run: find target -maxdepth 1 -name *.jar -exec bash -c 'sha256sum {} > {}.sha256' \;
+        run: |
+          cd target
+          find . -maxdepth 1 -name \*.jar -exec bash -c 'sha256sum {} > {}.sha256' \;
       - name: Upload assets to the GitHub release draft
         uses: shogo82148/actions-upload-release-asset@v1
         with:
