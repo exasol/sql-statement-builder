@@ -2,15 +2,22 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.exasol</groupId>
-    <artifactId>sql-statement-builder</artifactId>
+    <artifactId>sql-statement-builder-java8</artifactId>
     <version>4.5.3</version>
+    <parent>
+        <artifactId>sql-statement-builder-generated-parent</artifactId>
+        <groupId>com.exasol</groupId>
+        <version>4.5.3</version>
+        <relativePath>pk_generated_parent.pom</relativePath>
+    </parent>
     <name>Exasol SQL Statement Builder</name>
     <description>This module provides a Builder for SQL statements that helps creating the correct structure and
         validates variable parts of the statements.</description>
     <url>https://github.com/exasol/sql-statement-builder/</url>
     <inceptionYear>2018</inceptionYear>
     <properties>
-        <mockito.version>5.2.0</mockito.version>
+        <java.version>1.8</java.version>
+        <mockito.version>5.3.0</mockito.version>
     </properties>
     <distributionManagement>
         <snapshotRepository>
@@ -62,10 +69,43 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <charset>UTF-8</charset>
+                    <doclint/>
+                    <serialwarn>true</serialwarn>
+                    <failOnError>true</failOnError>
+                    <!--
+                        Java8 Javadocs are not found while compiling using Java11 because of the modules
+                        Error:
+                        The code being documented uses modules but the packages defined in https://docs.oracle.com/javase/8/docs/api/ are in the unnamed module.
+                    -->
+                    <failOnWarnings>false</failOnWarnings>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>com.exasol</groupId>
                 <artifactId>error-code-crawler-maven-plugin</artifactId>
                 <configuration>
-                    <rulesUri>file:///${project.basedir}/versionsMavenPluginRules.xml</rulesUri>
+                    <!-- We disable execution because we don't use error reporting in this base library -->
+                    <skip>true</skip>
                 </configuration>
             </plugin>
             <plugin>
@@ -95,10 +135,4 @@
             </plugin>
         </plugins>
     </build>
-    <parent>
-        <artifactId>sql-statement-builder-generated-parent</artifactId>
-        <groupId>com.exasol</groupId>
-        <version>4.5.3</version>
-        <relativePath>pk_generated_parent.pom</relativePath>
-    </parent>
 </project>

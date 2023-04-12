@@ -263,8 +263,8 @@ class TestSelectRendering {
                 arguments(
                         OverClause.of("window1")
                                 .windowFrame(frame -> frame.type(WindowFrameType.ROWS)
-                                        .unitBetween(UnitType.UNBOUNDED_PRECEEDING, UnitType.UNBOUNDED_FOLLOWING)),
-                        " OVER(window1 ROWS BETWEEN UNBOUNDED PRECEEDING AND UNBOUNDED FOLLOWING)"),
+                                        .unitBetween(UnitType.UNBOUNDED_PRECEDING, UnitType.UNBOUNDED_FOLLOWING)),
+                        " OVER(window1 ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)"),
                 arguments(
                         OverClause.of("window1")
                                 .windowFrame(frame -> frame.type(WindowFrameType.ROWS).unitBetween(column("col1"),
