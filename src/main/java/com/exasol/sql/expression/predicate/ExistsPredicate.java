@@ -32,6 +32,7 @@ public class ExistsPredicate extends AbstractPredicate {
      * An operator for {@link ExistsPredicate} class.
      */
     public enum ExistsPredicateOperator implements PredicateOperator {
+        /** Exists operator */
         EXISTS;
 
         @Override

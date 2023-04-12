@@ -1,0 +1,14 @@
+pk_generated_parent.pom                                          linguist-generated=true
+dependencies.md                                                  linguist-generated=true
+versionsMavenPluginRules.xml                                     linguist-generated=true
+doc/changes/changelog.md                                         linguist-generated=true
+.github/workflows/broken_links_checker.yml                       linguist-generated=true
+.github/workflows/ci-build-next-java.yml                         linguist-generated=true
+.github/workflows/ci-build.yml                                   linguist-generated=true
+.github/workflows/dependencies_check.yml                         linguist-generated=true
+.github/workflows/release_droid_prepare_original_checksum.yml    linguist-generated=true
+.github/workflows/release_droid_print_quick_checksum.yml         linguist-generated=true
+.github/workflows/release_droid_release_on_maven_central.yml     linguist-generated=true
+.github/workflows/release_droid_upload_github_release_assets.yml linguist-generated=true
+.settings/org.eclipse.jdt.core.prefs                             linguist-generated=true
+.settings/org.eclipse.jdt.ui.prefs                               linguist-generated=true

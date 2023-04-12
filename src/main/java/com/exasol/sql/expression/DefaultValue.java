@@ -11,6 +11,11 @@ package com.exasol.sql.expression;
 public final class DefaultValue implements ValueExpression {
     private static final DefaultValue instance = new DefaultValue();
 
+    /**
+     * Create a default value expression.
+     *
+     * @return default value expression
+     */
     public static ValueExpression defaultValue() {
         return instance;
     }

@@ -2,15 +2,29 @@ name: Broken Links Checker
 
 on:
   schedule:
-    - cron: "0 5 * * *"
+    - cron: "0 5 * * 0"
   push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
   linkChecker:
     runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - name: Configure broken links checker
+        run: |
+          mkdir -p ./target
+          echo '{"aliveStatusCodes": [429, 200], "ignorePatterns": [' \
+               '{"pattern": "^https?://(www|dev).mysql.com/"},' \
+               '{"pattern": "^https?://(www.)?opensource.org"}' \
+               ']}' > ./target/broken_links_checker.json
       - uses: gaurav-nelson/github-action-markdown-link-check@v1
         with:
           use-quiet-mode: 'yes'
           use-verbose-mode: 'yes'
+          config-file: ./target/broken_links_checker.json

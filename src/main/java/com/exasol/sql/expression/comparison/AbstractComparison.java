@@ -8,8 +8,11 @@ import com.exasol.sql.expression.ValueExpression;
  * Abstract basis for comparisons.
  */
 public abstract class AbstractComparison extends AbstractBooleanExpression implements Comparison {
+    /** comparison operator */
     protected final ComparisonOperator operator;
+    /** left part of the comparison */
     protected final ValueExpression leftOperand;
+    /** right part of the comparison */
     protected final ValueExpression rightOperand;
 
     /**

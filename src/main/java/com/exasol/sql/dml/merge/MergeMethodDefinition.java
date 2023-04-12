@@ -9,6 +9,7 @@ import com.exasol.sql.expression.BooleanExpression;
  * Abstract base class for merge method definitions like {@code WHEN MATCHED THEN UPDATE}.
  */
 public abstract class MergeMethodDefinition extends AbstractFragment {
+    /** {@code WHERE} clause  */
     protected WhereClause where = null;
 
     /**

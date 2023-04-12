@@ -31,10 +31,20 @@ public class Schema extends AbstractFragment {
         return name;
     }
 
+    /**
+     * Accept a {@link CreateSchemaVisitor}.
+     *
+     * @param visitor visitor
+     */
     public void accept(final CreateSchemaVisitor visitor) {
         visitor.visit(this);
     }
 
+    /**
+     * Accept a {@link DropSchemaVisitor}.
+     *
+     * @param visitor visitor
+     */
     public void accept(final DropSchemaVisitor visitor) {
         visitor.visit(this);
     }

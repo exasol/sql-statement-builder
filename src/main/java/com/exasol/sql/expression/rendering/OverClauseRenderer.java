@@ -1,7 +1,5 @@
 package com.exasol.sql.expression.rendering;
 
-import static com.exasol.errorreporting.ExaError.messageBuilder;
-
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -63,14 +61,12 @@ class OverClauseRenderer extends AbstractExpressionRenderer {
         append(" ");
         final WindowFrameType type = windowFrameClause.getType();
         if (type == null) {
-            throw new IllegalStateException(messageBuilder("E-ESB-3") //
-                    .message("Type not defined.") //
-                    .mitigation("Set type the window frame.").toString());
+            throw new IllegalStateException("Type not defined. Set type the window frame.");
         }
         appendKeyword(type.name());
         if (windowFrameClause.getUnit1() == null) {
-            throw new IllegalStateException(messageBuilder("E-ESB-1")
-                    .message("First unit not defined. At lease one unit is required for a window frame").toString());
+            throw new IllegalStateException("First unit not defined."
+                    + " At least one unit is required for a window frame.");
         }
         append(" ");
         if (windowFrameClause.getUnit2() == null) {
@@ -88,11 +84,10 @@ class OverClauseRenderer extends AbstractExpressionRenderer {
     }
 
     private void renderUnit(final WindowFrameUnitClause unit) {
-        if ((unit.getType() == UnitType.PRECEEDING) || (unit.getType() == UnitType.FOLLOWING)) {
+        if ((unit.getType() == UnitType.PRECEDING) || (unit.getType() == UnitType.FOLLOWING)) {
             if (unit.getExpression() == null) {
-                throw new IllegalStateException(messageBuilder("E-ESB-2")
-                        .message("Expression is required for window frame units PRECEEDING and FOLLOWING.")
-                        .mitigation("Add expression for unit types PRECEEDING and FOLLOWING.").toString());
+                throw new IllegalStateException("Expression is required for window frame units PRECEDING and FOLLOWING."
+                        + " Add expression for unit types PRECEDING and FOLLOWING.");
             }
             render(renderer -> renderer.visit(unit.getExpression()));
             append(" ");

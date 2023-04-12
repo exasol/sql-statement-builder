@@ -7,12 +7,16 @@ import com.exasol.sql.expression.ValueExpression;
  * <a href="https://docs.exasol.com/sql_references/functions/analyticfunctions.htm">documentation</a> for details.
  */
 public class WindowFrameClause {
-
     /**
      * The type of a window frame clause
      */
     public enum WindowFrameType {
-        ROWS, RANGE, GROUPS
+        /** Rows frame */
+        ROWS,
+        /** Range frame */
+        RANGE,
+        /** Groups frame */
+        GROUPS
     }
 
     private WindowFrameClause.WindowFrameType type;
@@ -48,7 +52,7 @@ public class WindowFrameClause {
     /**
      * Set the unit type of this {@link WindowFrameClause}.
      *
-     * @param expression expression for the unit. Only required for unit types {@link UnitType#PRECEEDING} and
+     * @param expression expression for the unit. Only required for unit types {@link UnitType#PRECEDING} and
      *                   {@link UnitType#FOLLOWING}
      * @param unitType   unit type of this {@link WindowFrameClause}
      * @return this {@link WindowFrameClause} for fluent programming
@@ -73,10 +77,10 @@ public class WindowFrameClause {
      * Set the unit type of this {@link WindowFrameClause} to {@code BETWEEN ... AND ...}.
      *
      * @param unitType1   {@code BETWEEN} unit
-     * @param expression1 {@code BETWEEN} expression. Only required for unit types {@link UnitType#PRECEEDING} and
+     * @param expression1 {@code BETWEEN} expression. Only required for unit types {@link UnitType#PRECEDING} and
      *                    {@link UnitType#FOLLOWING}
      * @param unitType2   {@code AND} unit
-     * @param expression2 {@code AND} expression. Only required for unit types {@link UnitType#PRECEEDING} and
+     * @param expression2 {@code AND} expression. Only required for unit types {@link UnitType#PRECEDING} and
      *                    {@link UnitType#FOLLOWING}
      * @return this {@link WindowFrameClause} for fluent programming
      */
@@ -138,9 +142,16 @@ public class WindowFrameClause {
      * Represents a unit type.
      */
     public enum UnitType {
-
-        UNBOUNDED_PRECEEDING("UNBOUNDED PRECEEDING"), UNBOUNDED_FOLLOWING("UNBOUNDED FOLLOWING"),
-        PRECEEDING("PRECEEDING"), FOLLOWING("FOLLOWING"), CURRENT_ROW("CURRENT ROW");
+        /** Unbounded preceding */
+        UNBOUNDED_PRECEDING("UNBOUNDED PRECEDING"),
+        /** Unbounded following */
+        UNBOUNDED_FOLLOWING("UNBOUNDED FOLLOWING"),
+        /** Preceding */
+        PRECEDING("PRECEDING"),
+        /** Following */
+        FOLLOWING("FOLLOWING"),
+        /** Current row */
+        CURRENT_ROW("CURRENT ROW");
 
         private final String sqlKeyword;
 
@@ -162,7 +173,6 @@ public class WindowFrameClause {
      * Represents a window frame unit.
      */
     public static class WindowFrameUnitClause {
-
         private final UnitType type;
         private final ValueExpression expression;
 
@@ -194,7 +204,14 @@ public class WindowFrameClause {
      * Represents the type of a window frame exclusion.
      */
     public enum WindowFrameExclusionType {
-        CURRENT_ROW("CURRENT ROW"), TIES("TIES"), GROUP("GROUP"), NO_OTHERS("NO OTHERS");
+        /** Current row */
+        CURRENT_ROW("CURRENT ROW"),
+        /** Ties */
+        TIES("TIES"),
+        /** Group */
+        GROUP("GROUP"),
+        /** No others */
+        NO_OTHERS("NO OTHERS");
 
         private final String sqlKeyword;
 

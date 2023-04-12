@@ -258,8 +258,8 @@ class TestSelectRendering {
                                 .windowFrame(frame -> frame.type(WindowFrameType.ROWS).unit(UnitType.CURRENT_ROW)),
                         " OVER(window1 ROWS CURRENT ROW)"),
                 arguments(OverClause.of("window1").windowFrame(
-                        frame -> frame.type(WindowFrameType.ROWS).unit(integerLiteral(42), UnitType.PRECEEDING)),
-                        " OVER(window1 ROWS 42 PRECEEDING)"),
+                        frame -> frame.type(WindowFrameType.ROWS).unit(integerLiteral(42), UnitType.PRECEDING)),
+                        " OVER(window1 ROWS 42 PRECEDING)"),
                 arguments(
                         OverClause.of("window1")
                                 .windowFrame(frame -> frame.type(WindowFrameType.ROWS)
@@ -268,8 +268,8 @@ class TestSelectRendering {
                 arguments(
                         OverClause.of("window1")
                                 .windowFrame(frame -> frame.type(WindowFrameType.ROWS).unitBetween(column("col1"),
-                                        UnitType.PRECEEDING, column("col2"), UnitType.FOLLOWING)),
-                        " OVER(window1 ROWS BETWEEN col1 PRECEEDING AND col2 FOLLOWING)"),
+                                        UnitType.PRECEDING, column("col2"), UnitType.FOLLOWING)),
+                        " OVER(window1 ROWS BETWEEN col1 PRECEDING AND col2 FOLLOWING)"),
 
                 arguments(
                         OverClause.of("window1")

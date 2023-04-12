@@ -43,6 +43,11 @@ public class DropTable extends AbstractFragment implements SqlStatement, DropTab
         return this;
     }
 
+    /**
+     * Get the table name.
+     *
+     * @return table name
+     */
     protected String getTableName() {
         return this.table.getName();
     }
@@ -56,6 +61,11 @@ public class DropTable extends AbstractFragment implements SqlStatement, DropTab
         return this.ifExists;
     }
 
+    /**
+     * Get the {@code CASCADE CONSTRAINTS} option.
+     *
+     * @return {@code CASCADE CONSTRAINTS} option
+     */
     protected CascadeConstraints getCascadeConstraints() {
         return this.cascadeConstraints;
     }

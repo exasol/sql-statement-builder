@@ -11,8 +11,22 @@ package com.exasol.sql.dql.select;
  * </pre>
  */
 public enum JoinType {
-    DEFAULT(""), INNER("INNER"), LEFT("LEFT"), RIGHT("RIGHT"), FULL("FULL"), LEFT_OUTER("LEFT OUTER"),
-    RIGHT_OUTER("RIGHT OUTER"), FULL_OUTER("FULL OUTER");
+    /** Default join */
+    DEFAULT(""),
+    /** Inner join ( (x) ) */
+    INNER("INNER"),
+    /** Left join (x(x) )*/
+    LEFT("LEFT"),
+    /** Right join ( (x)x) */
+    RIGHT("RIGHT"),
+    /** Full join (x(x)x) */
+    FULL("FULL"),
+    /** Left outer join (x( ) ) */
+    LEFT_OUTER("LEFT OUTER"),
+    /** Right outer join ( ( )x) */
+    RIGHT_OUTER("RIGHT OUTER"),
+    /** Full outer jon (x( )x) */
+    FULL_OUTER("FULL OUTER");
 
     private final String text;
 

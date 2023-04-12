@@ -16,6 +16,12 @@ public final class BooleanLiteral extends AbstractLiteral implements BooleanExpr
         this.value = value;
     }
 
+    /**
+     * Create a boolean literal from a boolean value
+     *
+     * @param value boolean value
+     * @return boolean literal
+     */
     public static BooleanLiteral of(final boolean value) {
         return new BooleanLiteral(value);
     }

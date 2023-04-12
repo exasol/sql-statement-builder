@@ -6,11 +6,31 @@ import com.exasol.sql.expression.function.exasol.*;
  * Visitor interface for {@link Function}.
  */
 public interface FunctionVisitor {
-    public void visit(ExasolFunction function);
+    /**
+     * Visit a built-in Exasol function.
+     *
+     * @param function function to visit
+     */
+    public void visit(final ExasolFunction function);
 
-    public void visit(ExasolUdf function);
+    /**
+     * Visit an Exasol user-defined function (UDF).
+     *
+     * @param function UDF to visit
+     */
+    public void visit(final ExasolUdf function);
 
-    public void visit(CastExasolFunction castFunction);
+    /**
+     * Visit an explicit cast.
+     *
+     * @param castFunction cast function to visit
+     */
+    public void visit(final CastExasolFunction castFunction);
 
-    public void visit(AnalyticFunction analyticFunction);
+    /**
+     * Visit an analytic function.
+     *
+     * @param analyticFunction analytic function to visit
+     */
+    public void visit(final AnalyticFunction analyticFunction);
 }

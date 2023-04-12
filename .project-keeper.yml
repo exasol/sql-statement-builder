@@ -1,0 +1,8 @@
+sources:
+  - type: maven
+    path: pom.xml
+    modules:
+      - maven_central
+linkReplacements:
+  - "https://github.com/hamcrest/JavaHamcrest/hamcrest-all|https://github.com/hamcrest/JavaHamcrest"
+  - "https://www.mojohaus.org/flatten-maven-plugin/flatten-maven-plugin|https://www.mojohaus.org/flatten-maven-plugin/"

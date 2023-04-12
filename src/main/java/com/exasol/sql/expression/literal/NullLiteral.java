@@ -7,6 +7,11 @@ package com.exasol.sql.expression.literal;
 public final class NullLiteral extends AbstractLiteral {
     private static final NullLiteral instance = new NullLiteral();
 
+    /**
+     * Create a NULL literal.
+     *
+     * @return null literal
+     */
     public static NullLiteral nullLiteral() {
         return instance;
     }

@@ -159,6 +159,11 @@ public class ValueTable extends AbstractFragment {
         return this.rows.get(this.rows.size() - 1);
     }
 
+    /**
+     * Check if the value table is empty.
+     *
+     * @return {@code true} if the table is empty
+     */
     protected boolean isEmpty() {
         return this.rows.isEmpty();
     }
