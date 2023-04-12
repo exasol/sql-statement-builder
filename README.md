@@ -1,19 +1,19 @@
 # SQL Statement Builder
 
 [![Build Status](https://github.com/exasol/sql-statement-builder/actions/workflows/ci-build.yml/badge.svg)](https://github.com/exasol/sql-statement-builder/actions/workflows/ci-build.yml)
-[![Maven Central &ndash; Exasol SQL Statement Builder](https://img.shields.io/maven-central/v/com.exasol/sql-statement-builder)](https://search.maven.org/artifact/com.exasol/sql-statement-builder)
+[![Maven Central &ndash; Exasol SQL Statement Builder](https://img.shields.io/maven-central/v/com.exasol/sql-statement-builder-java8)](https://search.maven.org/artifact/com.exasol/sql-statement-builder-java8)
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=com.exasol%3Asql-statement-builder&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.exasol%3Asql-statement-builder)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=com.exasol%3Asql-statement-builder-java8&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.exasol%3Asql-statement-builder-java8)
 
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=com.exasol%3Asql-statement-builder&metric=security_rating)](https://sonarcloud.io/dashboard?id=com.exasol%3Asql-statement-builder)
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=com.exasol%3Asql-statement-builder&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=com.exasol%3Asql-statement-builder)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=com.exasol%3Asql-statement-builder&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=com.exasol%3Asql-statement-builder)
-[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=com.exasol%3Asql-statement-builder&metric=sqale_index)](https://sonarcloud.io/dashboard?id=com.exasol%3Asql-statement-builder)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=com.exasol%3Asql-statement-builder-java8&metric=security_rating)](https://sonarcloud.io/dashboard?id=com.exasol%3Asql-statement-builder-java8)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=com.exasol%3Asql-statement-builder-java8&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=com.exasol%3Asql-statement-builder-java8)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=com.exasol%3Asql-statement-builder-java8&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=com.exasol%3Asql-statement-builder-java8)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=com.exasol%3Asql-statement-builder-java8&metric=sqale_index)](https://sonarcloud.io/dashboard?id=com.exasol%3Asql-statement-builder-java8)
 
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=com.exasol%3Asql-statement-builder&metric=code_smells)](https://sonarcloud.io/dashboard?id=com.exasol%3Asql-statement-builder)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=com.exasol%3Asql-statement-builder&metric=coverage)](https://sonarcloud.io/dashboard?id=com.exasol%3Asql-statement-builder)
-[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=com.exasol%3Asql-statement-builder&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=com.exasol%3Asql-statement-builder)
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=com.exasol%3Asql-statement-builder&metric=ncloc)](https://sonarcloud.io/dashboard?id=com.exasol%3Asql-statement-builder)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=com.exasol%3Asql-statement-builder-java8&metric=code_smells)](https://sonarcloud.io/dashboard?id=com.exasol%3Asql-statement-builder-java8)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=com.exasol%3Asql-statement-builder-java8&metric=coverage)](https://sonarcloud.io/dashboard?id=com.exasol%3Asql-statement-builder-java8)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=com.exasol%3Asql-statement-builder-java8&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=com.exasol%3Asql-statement-builder-java8)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=com.exasol%3Asql-statement-builder-java8&metric=ncloc)](https://sonarcloud.io/dashboard?id=com.exasol%3Asql-statement-builder-java8)
 
 The Exasol SQL Statement Builder abstracts programmatic creation of SQL statements and is intended to replace ubiquitous string concatenation solutions which make the code hard to read and are prone to error and security risks.
 

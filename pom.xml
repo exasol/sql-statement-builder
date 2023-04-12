@@ -5,7 +5,7 @@
     <artifactId>sql-statement-builder-java8</artifactId>
     <version>4.5.3</version>
     <parent>
-        <artifactId>sql-statement-builder-generated-parent</artifactId>
+        <artifactId>sql-statement-builder-java8-generated-parent</artifactId>
         <groupId>com.exasol</groupId>
         <version>4.5.3</version>
         <relativePath>pk_generated_parent.pom</relativePath>
