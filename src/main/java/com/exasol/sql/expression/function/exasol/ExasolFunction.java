@@ -9,7 +9,7 @@ import com.exasol.sql.expression.function.*;
  * This class represents a function in the Exasol database.
  */
 public class ExasolFunction extends AbstractFunction {
-    private static final List<String> FUNCTIONS_WITHOUT_PARENTHESIS = List.of("SYSDATE", "CURRENT_SCHEMA",
+    private static final List<String> FUNCTIONS_WITHOUT_PARENTHESIS = Arrays.asList("SYSDATE", "CURRENT_SCHEMA",
             "CURRENT_SESSION", "CURRENT_STATEMENT", "CURRENT_USER", "ROWNUM", "ROWID", "SCOPE_USER", "USER");
 
     private ExasolFunction(final FunctionName functionName, final List<ValueExpression> valueExpressions) {

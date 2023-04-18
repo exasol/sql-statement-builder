@@ -5,9 +5,9 @@ import com.exasol.sql.expression.function.FunctionName;
 /**
  * This class is a list of Aggregate Functions that the Exasol database supports.
  *
- * @deprecated Use enum {@link ExasolAnalyticAggregateFunctions}.
+ * @deprecated since {@code 4.5.0}, use enum {@link ExasolAnalyticAggregateFunctions}.
  */
-@Deprecated(since = "4.5.0", forRemoval = true)
+@Deprecated
 public enum ExasolAggregateFunction implements FunctionName {
     /** Faster, but only approximate count of distinct values  */
     APPROXIMATE_COUNT_DISTINCT,

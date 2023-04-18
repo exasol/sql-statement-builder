@@ -17,11 +17,12 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Set up JDK 11
+      # keep it Java 8, to detect issues early, e.g, `List.of`
+      - name: Set up JDK 8
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: 11
+          java-version: 8
           cache: 'maven'
       - name: Cache SonarCloud packages
         uses: actions/cache@v3
@@ -41,15 +42,3 @@ jobs:
         if: ${{ always() && github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Sonar analysis
-        if: ${{ env.SONAR_TOKEN != null }}
-        run: |
-          mvn --batch-mode org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-              -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
-              -DtrimStackTrace=false \
-              -Dsonar.organization=exasol \
-              -Dsonar.host.url=https://sonarcloud.io \
-              -Dsonar.login=$SONAR_TOKEN
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

@@ -281,7 +281,7 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
         if (keyword != null) {
             this.appendKeyword(keyword.name());
         }
-        this.visit(function.getParameters().toArray(ValueExpression[]::new));
+        this.visit(function.getParameters().stream().toArray(ValueExpression[]::new));
         --this.nestedLevel;
         if (function.hasParenthesis()) {
             endParenthesis();

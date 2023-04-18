@@ -46,11 +46,6 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.sonarsource.scanner.maven</groupId>
-                <artifactId>sonar-maven-plugin</artifactId>
-                <version>3.9.1.2184</version>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.10.1</version>
@@ -267,19 +262,6 @@
                         <configuration>
                             <dataFile>${project.build.directory}/aggregate.exec</dataFile>
                         </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>com.exasol</groupId>
-                <artifactId>error-code-crawler-maven-plugin</artifactId>
-                <version>1.2.2</version>
-                <executions>
-                    <execution>
-                        <id>verify</id>
-                        <goals>
-                            <goal>verify</goal>
-                        </goals>
                     </execution>
                 </executions>
             </plugin>
