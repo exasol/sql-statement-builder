@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.exasol</groupId>
     <artifactId>sql-statement-builder-java8</artifactId>
-    <version>4.5.3</version>
+    <version>4.5.4</version>
     <parent>
         <artifactId>sql-statement-builder-java8-generated-parent</artifactId>
         <groupId>com.exasol</groupId>
-        <version>4.5.3</version>
+        <version>4.5.4</version>
         <relativePath>pk_generated_parent.pom</relativePath>
     </parent>
     <name>Exasol SQL Statement Builder</name>
