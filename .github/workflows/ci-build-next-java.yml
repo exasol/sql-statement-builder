@@ -7,7 +7,7 @@ on:
   pull_request:
 
 jobs:
-  java-17-compatibility:
+  java-11-compatibility:
     runs-on: ubuntu-latest
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
@@ -17,11 +17,11 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Set up JDK 17
+      - name: Set up JDK 11
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: 17
+          java-version: 11
           cache: 'maven'
       - name: Run tests and build with Maven
         run: |
