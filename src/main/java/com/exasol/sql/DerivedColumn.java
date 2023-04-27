@@ -4,8 +4,7 @@ import com.exasol.sql.dml.insert.InsertFragment;
 import com.exasol.sql.dml.insert.InsertVisitor;
 import com.exasol.sql.dml.merge.MergeFragment;
 import com.exasol.sql.dml.merge.MergeVisitor;
-import com.exasol.sql.dql.select.SelectFragment;
-import com.exasol.sql.dql.select.SelectVisitor;
+import com.exasol.sql.dql.select.*;
 import com.exasol.sql.expression.ValueExpression;
 
 /**
@@ -14,11 +13,13 @@ import com.exasol.sql.expression.ValueExpression;
 public class DerivedColumn extends AbstractFragment implements SelectFragment, MergeFragment, InsertFragment {
     private final ValueExpression valueExpression;
     private String derivedColumnName;
+    private Boolean isDistinct = false;
+    private Select subSelect;
 
     /**
      * Create a new instance of a {@link DerivedColumn}.
      *
-     * @param root root SQL statement this fragment belongs to
+     * @param root            root SQL statement this fragment belongs to
      * @param valueExpression derived column's content
      */
     public DerivedColumn(final Fragment root, final ValueExpression valueExpression) {
@@ -26,11 +27,17 @@ public class DerivedColumn extends AbstractFragment implements SelectFragment, M
         this.valueExpression = valueExpression;
     }
 
+    public DerivedColumn(final Fragment root, final ValueExpression valueExpression, final Boolean isDistinct) {
+        super(root);
+        this.valueExpression = valueExpression;
+        this.isDistinct = isDistinct;
+    }
+
     /**
      * Create a new instance of a {@link DerivedColumn}.
      *
-     * @param root root SQL statement this fragment belongs to
-     * @param valueExpression derived column's content
+     * @param root              root SQL statement this fragment belongs to
+     * @param valueExpression   derived column's content
      * @param derivedColumnName name of a derived column
      */
     public DerivedColumn(final Fragment root, final ValueExpression valueExpression, final String derivedColumnName) {
@@ -39,9 +46,26 @@ public class DerivedColumn extends AbstractFragment implements SelectFragment, M
         this.derivedColumnName = derivedColumnName;
     }
 
+    public DerivedColumn(final Fragment root, final Select select, final String derivedColumnName) {
+        super(root);
+        this.valueExpression = null;
+        this.subSelect = select;
+        this.derivedColumnName = derivedColumnName;
+    }
+
+    public DerivedColumn(final Fragment root, final Select select) {
+        super(root);
+        this.valueExpression = null;
+        this.subSelect = select;
+    }
+
+    public boolean hasSubSelect() {
+        return this.subSelect != null;
+    }
+
     /**
      * Get a value expression that belongs to this derived column.
-     * 
+     *
      * @return value expression
      */
     public ValueExpression getValueExpression() {
@@ -57,6 +81,10 @@ public class DerivedColumn extends AbstractFragment implements SelectFragment, M
         return this.derivedColumnName.trim();
     }
 
+    public Boolean getIsDistinct() {
+        return this.isDistinct;
+    }
+
     /**
      * Check if this function has a derived column name.
      *
@@ -68,7 +96,14 @@ public class DerivedColumn extends AbstractFragment implements SelectFragment, M
 
     @Override
     public void accept(final SelectVisitor visitor) {
+
         visitor.visit(this);
+        if (this.hasSubSelect()) {
+            this.subSelect.accept(visitor);
+        }
+
+        visitor.leave(this);
+
     }
 
     @Override

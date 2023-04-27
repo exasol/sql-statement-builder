@@ -13,6 +13,7 @@ import com.exasol.sql.expression.function.FunctionName;
  */
 // [impl->dsn~select-statements~1]
 public class Select extends AbstractFragment implements SqlStatement, SelectFragment {
+
     private final List<DerivedColumn> derivedColumns = new ArrayList<>();
     private FromClause fromClause = null;
     private WhereClause whereClause = null;
@@ -38,6 +39,13 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
         return this;
     }
 
+    public Select addDistinct() {
+
+        final DerivedColumn derivedColumn = new DerivedColumn(this, ColumnReference.of("DISTINCT "), true);
+        this.derivedColumns.add(derivedColumn);
+        return this;
+    }
+
     /**
      * Add one or more named fields.
      *
@@ -52,9 +60,21 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
         return this;
     }
 
+    public Select field(final Select select) {
+        final DerivedColumn derivedColumn = new DerivedColumn(this, select);
+        this.derivedColumns.add(derivedColumn);
+        return this;
+    }
+
+    public Select field(final Select select, final String derivedColumnName) {
+        final DerivedColumn derivedColumn = new DerivedColumn(this, select, derivedColumnName);
+        this.derivedColumns.add(derivedColumn);
+        return this;
+    }
+
     /**
      * Add a function.
-     * 
+     *
      * @param functionName     name of function
      * @param valueExpressions zero or more value expression
      * @return {@code this} instance for fluent programming

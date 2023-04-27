@@ -39,7 +39,6 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
         append(this.config.useLowerCase() ? keyword.toLowerCase() : keyword);
     }
 
-
     /**
      * Start a parenthesis.
      */
@@ -106,7 +105,7 @@ public abstract class AbstractFragmentRenderer implements FragmentRenderer {
     }
 
     /**
-     *  Append a comma where necessary.
+     * Append a comma where necessary.
      *
      * @param fragment fragment that might need a comma to separate it from the previous one
      */

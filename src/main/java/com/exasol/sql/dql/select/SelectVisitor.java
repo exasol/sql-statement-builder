@@ -50,7 +50,7 @@ public interface SelectVisitor extends ValueTableVisitor {
 
     /**
      * Visit the {@code GROUP BY} clause.
-     
+     *
      * @param groupByClause {@code GROUP BY} clause to visit
      */
     public void visit(final GroupByClause groupByClause);
@@ -75,4 +75,6 @@ public interface SelectVisitor extends ValueTableVisitor {
      * @param table table to visit
      */
     public void visit(final Table table);
+
+    void leave(DerivedColumn derivedColumn);
 }

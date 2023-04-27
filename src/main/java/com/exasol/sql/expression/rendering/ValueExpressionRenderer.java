@@ -199,7 +199,13 @@ public class ValueExpressionRenderer extends AbstractExpressionRenderer implemen
 
     @Override
     public void visit(final ColumnReference columnReference) {
-        appendAutoQuoted(columnReference.toString());
+        if (columnReference.hasSubSelect()) {
+            append(" (");
+            appendSelect(columnReference.getSubSelect());
+            append(")");
+        } else {
+            appendAutoQuoted(columnReference.toString());
+        }
     }
 
     @Override

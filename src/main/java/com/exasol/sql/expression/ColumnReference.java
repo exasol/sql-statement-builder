@@ -1,11 +1,20 @@
 package com.exasol.sql.expression;
 
+import com.exasol.sql.dql.select.Select;
+
 /**
  * This class represents column reference.
  */
 public final class ColumnReference implements ValueExpression {
     private final String columnName;
     private final String tableName;
+    Select subSelect;
+
+    private ColumnReference(final Select subSelect) {
+        this.columnName = null;
+        this.tableName = null;
+        this.subSelect = subSelect;
+    }
 
     private ColumnReference(final String columnName, final String tableName) {
         this.columnName = columnName;
@@ -34,6 +43,10 @@ public final class ColumnReference implements ValueExpression {
         return new ColumnReference(columnName, null);
     }
 
+    public static ColumnReference of(final Select subSelect) {
+        return new ColumnReference(subSelect);
+    }
+
     /**
      * Get the column name.
      *
@@ -50,6 +63,14 @@ public final class ColumnReference implements ValueExpression {
      */
     public String getTableName() {
         return this.tableName;
+    }
+
+    public boolean hasSubSelect() {
+        return this.subSelect != null;
+    }
+
+    public Select getSubSelect() {
+        return this.subSelect;
     }
 
     @Override
