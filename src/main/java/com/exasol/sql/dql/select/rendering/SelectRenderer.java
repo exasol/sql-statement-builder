@@ -70,6 +70,8 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
     public void leave(final FromClause fromClause) {
         if (fromClause.hasSubSelect()) {
             endParenthesis();
+            appendKeyWord(" AS ");
+            append(fromClause.getAliasForSubSelect());
         }
         setLastVisited(fromClause);
     }

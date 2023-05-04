@@ -13,6 +13,7 @@ public class FromClause extends AbstractFragment implements SelectFragment {
     private final List<Join> joins = new ArrayList<>();
     private final List<ValueTable> valueTables = new ArrayList<>();
     private Select subSelect;
+    private String aliasForSubSelect;
 
     /**
      * Create a new instance of a {@link FromClause}.
@@ -38,7 +39,7 @@ public class FromClause extends AbstractFragment implements SelectFragment {
      * Add a table name with an alias to the {@link FromClause}.
      *
      * @param name table name
-     * @param as table alias
+     * @param as   table alias
      * @return parent {@code FROM} clause
      */
     public FromClause tableAs(final String name, final String as) {
@@ -60,8 +61,8 @@ public class FromClause extends AbstractFragment implements SelectFragment {
     /**
      * Create a {@link FromClause} from a value table and an alias.
      *
-     * @param valueTable table of value expressions
-     * @param tableNameAlias table alias
+     * @param valueTable        table of value expressions
+     * @param tableNameAlias    table alias
      * @param columnNameAliases columns aliases
      * @return parent {@code FROM} clause
      */
@@ -75,7 +76,7 @@ public class FromClause extends AbstractFragment implements SelectFragment {
     /**
      * Create a new {@link Join} that belongs to a {@code FROM} clause.
      *
-     * @param name name of the table to be joined
+     * @param name          name of the table to be joined
      * @param specification join conditions
      * @return parent {@code FROM} clause
      */
@@ -87,7 +88,7 @@ public class FromClause extends AbstractFragment implements SelectFragment {
     /**
      * Create a new inner {@link Join} that belongs to a {@code FROM} clause.
      *
-     * @param name name of the table to be joined
+     * @param name          name of the table to be joined
      * @param specification join conditions
      * @return parent {@code FROM} clause
      */
@@ -99,7 +100,7 @@ public class FromClause extends AbstractFragment implements SelectFragment {
     /**
      * Create a new left {@link Join} that belongs to a {@code FROM} clause.
      *
-     * @param name name of the table to be joined
+     * @param name          name of the table to be joined
      * @param specification join conditions
      * @return parent {@code FROM} clause
      */
@@ -111,7 +112,7 @@ public class FromClause extends AbstractFragment implements SelectFragment {
     /**
      * Create a new right {@link Join} that belongs to a {@code FROM} clause.
      *
-     * @param name name of the table to be joined
+     * @param name          name of the table to be joined
      * @param specification join conditions
      * @return parent {@code FROM} clause
      */
@@ -123,7 +124,7 @@ public class FromClause extends AbstractFragment implements SelectFragment {
     /**
      * Create a new full {@link Join} that belongs to a {@code FROM} clause.
      *
-     * @param name name of the table to be joined
+     * @param name          name of the table to be joined
      * @param specification join conditions
      * @return parent {@code FROM} clause
      */
@@ -135,7 +136,7 @@ public class FromClause extends AbstractFragment implements SelectFragment {
     /**
      * Create a new left outer {@link Join} that belongs to a {@code FROM} clause.
      *
-     * @param name name of the table to be joined
+     * @param name          name of the table to be joined
      * @param specification join conditions
      * @return parent {@code FROM} clause
      */
@@ -147,7 +148,7 @@ public class FromClause extends AbstractFragment implements SelectFragment {
     /**
      * Create a new right outer {@link Join} that belongs to a {@code FROM} clause.
      *
-     * @param name name of the table to be joined
+     * @param name          name of the table to be joined
      * @param specification join conditions
      * @return parent {@code FROM} clause
      */
@@ -159,7 +160,7 @@ public class FromClause extends AbstractFragment implements SelectFragment {
     /**
      * Create a new full outer {@link Join} that belongs to a {@code FROM} clause.
      *
-     * @param name name of the table to be joined
+     * @param name          name of the table to be joined
      * @param specification join conditions
      * @return parent {@code FROM} clause
      */
@@ -179,13 +180,23 @@ public class FromClause extends AbstractFragment implements SelectFragment {
         return this;
     }
 
+    public FromClause select(final Select select, final String alias) {
+        this.subSelect = select;
+        this.aliasForSubSelect = alias;
+        return this;
+    }
+
     /**
      * Check if the {@link FromClause} contains a sub-select statement.
-     * 
+     *
      * @return true if the {@link FromClause} contains a sub-select statement
      */
     public boolean hasSubSelect() {
         return this.subSelect != null;
+    }
+
+    public String getAliasForSubSelect() {
+        return this.aliasForSubSelect;
     }
 
     @Override
