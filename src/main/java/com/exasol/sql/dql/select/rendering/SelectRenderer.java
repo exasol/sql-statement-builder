@@ -24,7 +24,11 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
 
     @Override
     public void visit(final Select select) {
+
         appendKeyWord("SELECT ");
+        if (select.getIsDistinct()) {
+            appendKeyWord("DISTINCT ");
+        }
         setLastVisited(select);
     }
 

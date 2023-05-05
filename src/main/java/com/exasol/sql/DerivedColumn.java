@@ -13,7 +13,6 @@ import com.exasol.sql.expression.ValueExpression;
 public class DerivedColumn extends AbstractFragment implements SelectFragment, MergeFragment, InsertFragment {
     private final ValueExpression valueExpression;
     private String derivedColumnName;
-    private Boolean isDistinct = false;
     private Select subSelect;
 
     /**
@@ -25,12 +24,6 @@ public class DerivedColumn extends AbstractFragment implements SelectFragment, M
     public DerivedColumn(final Fragment root, final ValueExpression valueExpression) {
         super(root);
         this.valueExpression = valueExpression;
-    }
-
-    public DerivedColumn(final Fragment root, final ValueExpression valueExpression, final Boolean isDistinct) {
-        super(root);
-        this.valueExpression = valueExpression;
-        this.isDistinct = isDistinct;
     }
 
     /**
@@ -79,10 +72,6 @@ public class DerivedColumn extends AbstractFragment implements SelectFragment, M
      */
     public String getDerivedColumnName() {
         return this.derivedColumnName.trim();
-    }
-
-    public Boolean getIsDistinct() {
-        return this.isDistinct;
     }
 
     /**

@@ -13,7 +13,7 @@ import com.exasol.sql.expression.function.FunctionName;
  */
 // [impl->dsn~select-statements~1]
 public class Select extends AbstractFragment implements SqlStatement, SelectFragment {
-
+    private Boolean isDistinct = false;
     private final List<DerivedColumn> derivedColumns = new ArrayList<>();
     private FromClause fromClause = null;
     private WhereClause whereClause = null;
@@ -28,6 +28,10 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
         super(null);
     }
 
+    public Boolean getIsDistinct() {
+        return this.isDistinct;
+    }
+
     /**
      * Add a wildcard field for all involved fields.
      *
@@ -39,10 +43,8 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
         return this;
     }
 
-    public Select addDistinct() {
-
-        final DerivedColumn derivedColumn = new DerivedColumn(this, ColumnReference.of("DISTINCT "), true);
-        this.derivedColumns.add(derivedColumn);
+    public Select distinct() {
+        this.isDistinct = true;
         return this;
     }
 
@@ -296,6 +298,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
     @Override
     public void accept(final SelectVisitor visitor) {
         visitor.visit(this);
+
         for (final DerivedColumn derivedColumn : this.derivedColumns) {
             derivedColumn.accept(visitor);
         }
