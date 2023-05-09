@@ -195,6 +195,10 @@ public class FromClause extends AbstractFragment implements SelectFragment {
         return this.subSelect != null;
     }
 
+    public boolean hasAliasForSubSelect() {
+        return this.aliasForSubSelect != null;
+    }
+
     public String getAliasForSubSelect() {
         return this.aliasForSubSelect;
     }
