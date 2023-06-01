@@ -3,14 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.exasol</groupId>
     <artifactId>sql-statement-builder</artifactId>
-    <version>4.5.3-SNAPSHOT</version>
+    <version>4.5.4-SNAPSHOT</version>
     <name>Exasol SQL Statement Builder</name>
     <description>This module provides a Builder for SQL statements that helps creating the correct structure and
         validates variable parts of the statements.</description>
     <url>https://github.com/exasol/sql-statement-builder/</url>
     <inceptionYear>2018</inceptionYear>
     <properties>
-        <mockito.version>4.7.0</mockito.version>
+        <mockito.version>5.2.0</mockito.version>
     </properties>
     <distributionManagement>
         <snapshotRepository>
@@ -22,27 +22,11 @@
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
-    <repositories>
-        <repository>
-            <id>maven.exasol.com</id>
-            <url>https://maven.exasol.com/artifactory/exasol-releases</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>maven.exasol.com-snapshots</id>
-            <url>https://maven.exasol.com/artifactory/exasol-snapshots</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>5.9.0</version>
+            <version>5.9.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -66,7 +50,7 @@
         <dependency>
             <groupId>nl.jqno.equalsverifier</groupId>
             <artifactId>equalsverifier</artifactId>
-            <version>3.10.1</version>
+            <version>3.14.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -83,7 +67,7 @@
             <plugin>
                 <groupId>org.itsallcode</groupId>
                 <artifactId>openfasttrace-maven-plugin</artifactId>
-                <version>1.6.0</version>
+                <version>1.6.1</version>
                 <executions>
                     <execution>
                         <id>trace-requirements</id>
@@ -99,7 +83,7 @@
             <plugin>
                 <groupId>com.exasol</groupId>
                 <artifactId>project-keeper-maven-plugin</artifactId>
-                <version>2.6.2</version>
+                <version>2.9.6</version>
                 <executions>
                     <execution>
                         <goals>
@@ -116,7 +100,7 @@
     <parent>
         <artifactId>sql-statement-builder-generated-parent</artifactId>
         <groupId>com.exasol</groupId>
-        <version>4.5.3-SNAPSHOT</version>
+        <version>4.5.4-SNAPSHOT</version>
         <relativePath>pk_generated_parent.pom</relativePath>
     </parent>
 </project>

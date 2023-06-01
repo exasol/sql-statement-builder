@@ -25,7 +25,7 @@ jobs:
           cache: 'maven'
       - name: Run tests and build with Maven
         run: |
-          mvn --batch-mode --update-snapshots clean package -DtrimStackTrace=false \
+          mvn --batch-mode --update-snapshots clean package -DtrimStackTrace=false  \
               -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
       - name: Publish Test Report
         uses: scacap/action-surefire-report@v1
