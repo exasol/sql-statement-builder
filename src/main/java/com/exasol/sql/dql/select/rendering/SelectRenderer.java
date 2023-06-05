@@ -24,17 +24,39 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
 
     @Override
     public void visit(final Select select) {
+
         appendKeyWord("SELECT ");
+        if (select.getIsDistinct()) {
+            appendKeyWord("DISTINCT ");
+        }
         setLastVisited(select);
     }
 
     @Override
     public void visit(final DerivedColumn derivedColumn) {
-        appendCommaWhenNeeded(derivedColumn);
-        appendRenderedValueExpression(derivedColumn.getValueExpression());
-        if (derivedColumn.hasDerivedColumnName()) {
-            appendSpace();
-            append(derivedColumn.getDerivedColumnName());
+        if (derivedColumn.hasSubSelect()) {
+            appendCommaWhenNeeded(derivedColumn);
+            startParenthesis();
+        } else {
+
+            appendCommaWhenNeeded(derivedColumn);
+            appendRenderedValueExpression(derivedColumn.getValueExpression());
+            if (derivedColumn.hasDerivedColumnName()) {
+                appendSpace();
+                append(derivedColumn.getDerivedColumnName());
+            }
+        }
+        setLastVisited(derivedColumn);
+    }
+
+    @Override
+    public void leave(final DerivedColumn derivedColumn) {
+        if (derivedColumn.hasSubSelect()) {
+            endParenthesis();
+            if (derivedColumn.hasDerivedColumnName()) {
+                appendKeyWord(" AS ");
+                append(derivedColumn.getDerivedColumnName());
+            }
         }
         setLastVisited(derivedColumn);
     }
@@ -52,6 +74,10 @@ public class SelectRenderer extends AbstractFragmentRenderer implements SelectVi
     public void leave(final FromClause fromClause) {
         if (fromClause.hasSubSelect()) {
             endParenthesis();
+            if (fromClause.hasAliasForSubSelect()) {
+                appendKeyWord(" AS ");
+                append(fromClause.getAliasForSubSelect());
+            }
         }
         setLastVisited(fromClause);
     }

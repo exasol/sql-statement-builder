@@ -13,6 +13,7 @@ import com.exasol.sql.expression.function.FunctionName;
  */
 // [impl->dsn~select-statements~1]
 public class Select extends AbstractFragment implements SqlStatement, SelectFragment {
+    private Boolean isDistinct = false;
     private final List<DerivedColumn> derivedColumns = new ArrayList<>();
     private FromClause fromClause = null;
     private WhereClause whereClause = null;
@@ -27,6 +28,10 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
         super(null);
     }
 
+    public Boolean getIsDistinct() {
+        return this.isDistinct;
+    }
+
     /**
      * Add a wildcard field for all involved fields.
      *
@@ -35,6 +40,11 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
     public Select all() {
         final DerivedColumn derivedColumn = new DerivedColumn(this, ColumnReference.of("*"));
         this.derivedColumns.add(derivedColumn);
+        return this;
+    }
+
+    public Select distinct() {
+        this.isDistinct = true;
         return this;
     }
 
@@ -52,9 +62,21 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
         return this;
     }
 
+    public Select field(final Select select) {
+        final DerivedColumn derivedColumn = new DerivedColumn(this, select);
+        this.derivedColumns.add(derivedColumn);
+        return this;
+    }
+
+    public Select field(final Select select, final String derivedColumnName) {
+        final DerivedColumn derivedColumn = new DerivedColumn(this, select, derivedColumnName);
+        this.derivedColumns.add(derivedColumn);
+        return this;
+    }
+
     /**
      * Add a function.
-     * 
+     *
      * @param functionName     name of function
      * @param valueExpressions zero or more value expression
      * @return {@code this} instance for fluent programming
@@ -276,6 +298,7 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
     @Override
     public void accept(final SelectVisitor visitor) {
         visitor.visit(this);
+
         for (final DerivedColumn derivedColumn : this.derivedColumns) {
             derivedColumn.accept(visitor);
         }
@@ -285,14 +308,14 @@ public class Select extends AbstractFragment implements SqlStatement, SelectFrag
         if (this.whereClause != null) {
             this.whereClause.accept(visitor);
         }
-        if (this.limitClause != null) {
-            this.limitClause.accept(visitor);
-        }
         if (this.groupByClause != null) {
             this.groupByClause.accept(visitor);
         }
         if (this.orderByClause != null) {
             this.orderByClause.accept(visitor);
+        }
+        if (this.limitClause != null) {
+            this.limitClause.accept(visitor);
         }
     }
 }
