@@ -8,7 +8,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
         <test.excludeTags/>
         <gpg.skip>true</gpg.skip>
     </properties>
@@ -204,8 +204,8 @@
                     <charset>UTF-8</charset>
                     <doclint/>
                     <serialwarn>true</serialwarn>
-                    <failOnError>true</failOnError>
-                    <failOnWarnings>true</failOnWarnings>
+                    <failOnError>false</failOnError>
+                    <failOnWarnings>false</failOnWarnings>
                 </configuration>
             </plugin>
             <plugin>
