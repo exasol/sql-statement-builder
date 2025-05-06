@@ -156,6 +156,18 @@ public class ColumnsDefinition extends AbstractFragment {
         }
 
         /**
+         * Add timestamp column with the specified fractional seconds precision.
+         *
+         * @param columnName name of the column to be added
+         * @param precision  precision for numeric value
+         * @return {@code this} for fluent programming
+         */
+        public Builder timestampColumn(final String columnName, final int precision) {
+            this.columns.add(new Column(null, columnName, new Timestamp(precision)));
+            return this;
+        }
+
+        /**
          * Add timestamp with local time zone column.
          *
          * @param columnName name of the column to be added
@@ -163,6 +175,18 @@ public class ColumnsDefinition extends AbstractFragment {
          */
         public Builder timestampWithLocalTimeZoneColumn(final String columnName) {
             this.columns.add(new Column(null, columnName, new TimestampWithLocalTimezone()));
+            return this;
+        }
+
+        /**
+         * Add timestamp with local time zone column with the specified fractional seconds precision.
+         *
+         * @param columnName name of the column to be added
+         * @param precision  precision for numeric value
+         * @return {@code this} for fluent programming
+         */
+        public Builder timestampWithLocalTimeZoneColumn(final String columnName, final int precision) {
+            this.columns.add(new Column(null, columnName, new TimestampWithLocalTimezone(precision)));
             return this;
         }
 
