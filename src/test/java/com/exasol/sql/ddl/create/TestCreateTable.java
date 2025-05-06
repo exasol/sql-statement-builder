@@ -24,6 +24,7 @@ class TestCreateTable {
     private static final String DECIMAL_COLUMN_NAME = "decimalColumn";
     private static final int PRECISION = 18;
     private static final int SCALE = 0;
+    private static final int FRACTIONAL_SECONDS_PRECISION = 9;
     private static final String DOUBLE_PRECISION_COLUMN_NAME = "doublePrecisionColumn";
     private static final String TIMESTAMP_COLUMN_NAME = "timestampColumn";
     private static final String TIMESTAMP_WITH_LOCAL_TIMEZONE_COLUMN_NAME = "timestampWithLocalTimeZoneColumn";
@@ -87,15 +88,31 @@ class TestCreateTable {
 
     @Test
     void testCreateTableWithTimestampColumn() {
-        final Column column = this.createTable.timestampColumn(TIMESTAMP_COLUMN_NAME).getColumnsDefinition().getColumns().get(0);
+        final Column column = this.createTable.timestampColumn(TIMESTAMP_COLUMN_NAME)
+                .getColumnsDefinition().getColumns().get(0);
+        assertInstance(column, TIMESTAMP_COLUMN_NAME, Timestamp.class);
+    }
+
+    @Test
+    void testCreateTableWithTimestampColumnWithPrecision() {
+        final Column column = this.createTable.timestampColumn(TIMESTAMP_COLUMN_NAME, FRACTIONAL_SECONDS_PRECISION)
+                .getColumnsDefinition().getColumns().get(0);
         assertInstance(column, TIMESTAMP_COLUMN_NAME, Timestamp.class);
     }
 
     @Test
     void testCreateTableWithTimestampWithLocalTimeZoneColumn() {
         final Column column = this.createTable
-                .timestampWithLocalTimeZoneColumn(TIMESTAMP_WITH_LOCAL_TIMEZONE_COLUMN_NAME).getColumnsDefinition().getColumns()
-                .get(0);
+                .timestampWithLocalTimeZoneColumn(TIMESTAMP_WITH_LOCAL_TIMEZONE_COLUMN_NAME)
+                .getColumnsDefinition().getColumns().get(0);
+        assertInstance(column, TIMESTAMP_WITH_LOCAL_TIMEZONE_COLUMN_NAME, TimestampWithLocalTimezone.class);
+    }
+
+    @Test
+    void testCreateTableWithTimestampWithLocalTimeZoneColumnWithPrecision() {
+        final Column column = this.createTable
+                .timestampWithLocalTimeZoneColumn(TIMESTAMP_WITH_LOCAL_TIMEZONE_COLUMN_NAME, FRACTIONAL_SECONDS_PRECISION)
+                .getColumnsDefinition().getColumns().get(0);
         assertInstance(column, TIMESTAMP_WITH_LOCAL_TIMEZONE_COLUMN_NAME, TimestampWithLocalTimezone.class);
     }
 

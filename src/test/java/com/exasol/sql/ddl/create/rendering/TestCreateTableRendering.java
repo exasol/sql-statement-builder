@@ -56,10 +56,34 @@ class TestCreateTableRendering {
     }
 
     @Test
+    void testCreateTableWithTimestampColumnWithPrecision() {
+        assertThat(this.createTable.timestampColumn("a", 9), rendersTo("CREATE TABLE testName (a TIMESTAMP(9))"));
+    }
+
+    @Test
+    void testCreateTableWithInvalidTimestampColumn() {
+        assertThrows(IllegalArgumentException.class, () -> this.createTable.timestampColumn("a", -1));
+        assertThrows(IllegalArgumentException.class, () -> this.createTable.timestampColumn("a", 10));
+    }
+
+    @Test
     void testCreateTableWithTimestampWithLocalTimeZoneColumn() {
         assertThat(this.createTable.timestampWithLocalTimeZoneColumn("a"),
                 rendersTo("CREATE TABLE testName (a TIMESTAMP WITH LOCAL TIME ZONE)"));
     }
+
+    @Test
+    void testCreateTableWithTimestampWithLocalTimeZoneColumnWithPrecision() {
+        assertThat(this.createTable.timestampWithLocalTimeZoneColumn("a", 6),
+                rendersTo("CREATE TABLE testName (a TIMESTAMP(6) WITH LOCAL TIME ZONE)"));
+    }
+
+    @Test
+    void testCreateTableWithInvalidTimestampWithLocalTimeZoneColumn() {
+        assertThrows(IllegalArgumentException.class, () -> this.createTable.timestampWithLocalTimeZoneColumn("a", -1));
+        assertThrows(IllegalArgumentException.class, () -> this.createTable.timestampWithLocalTimeZoneColumn("a", 10));
+    }
+
 
     @Test
     void testCreateTableWithCharColumn() {
