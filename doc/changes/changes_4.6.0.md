@@ -1,12 +1,15 @@
-# Exasol SQL Statement Builder 4.6.0, released 2025-??-??
+# Exasol SQL Statement Builder 4.6.0, released 2025-05-06
 
-Code name:
+Code name: Timestamps with precision
 
 ## Summary
 
+This release adds support for specifying the fractional seconds precision for columns of type TIMESTAMP and 
+TIMESTAMP WITH LOCAL TIMEZONE 
+
 ## Features
 
-* ISSUE_NUMBER: description
+* #176 Support TIMESTAMP with precision
 
 ## Dependency Updates
 
