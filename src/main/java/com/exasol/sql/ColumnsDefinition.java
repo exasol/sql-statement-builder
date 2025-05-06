@@ -13,7 +13,7 @@ public class ColumnsDefinition extends AbstractFragment {
     private List<Column> columns = new ArrayList<>();
 
     /**
-     * Create an new instance of {@link ColumnsDefinition}.
+     * Create a new instance of {@link ColumnsDefinition}.
      *
      * @param root root statement
      */
@@ -22,7 +22,7 @@ public class ColumnsDefinition extends AbstractFragment {
     }
 
     /**
-     * Create an new instance of {@link ColumnsDefinition}.
+     * Create a new instance of {@link ColumnsDefinition}.
      *
      * @param columns list of columns
      */
