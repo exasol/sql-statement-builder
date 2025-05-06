@@ -6,6 +6,8 @@ import com.exasol.datatype.type.*;
 import com.exasol.datatype.type.Boolean;
 import com.exasol.sql.*;
 
+import static com.exasol.datatype.type.AbstractTimestampDataType.DEFAULT_FRACTIONAL_SECOND_PRECISION;
+
 /**
  * Renderer for columns definition.
  */
@@ -75,7 +77,7 @@ public class ColumnsDefinitionRenderer extends AbstractFragmentRenderer implemen
 
     @Override
     public void visit(final Timestamp timestampColumn) {
-        if (timestampColumn.getPrecision() == Timestamp.DEFAULT_PRECISION) {
+        if (timestampColumn.getPrecision() == DEFAULT_FRACTIONAL_SECOND_PRECISION) {
             appendDataTypeWithoutParameters(timestampColumn);
         } else {
             appendSpace();
@@ -88,7 +90,7 @@ public class ColumnsDefinitionRenderer extends AbstractFragmentRenderer implemen
 
     @Override
     public void visit(final TimestampWithLocalTimezone timestampWithLocalTimezoneColumn) {
-        if (timestampWithLocalTimezoneColumn.getPrecision() == TimestampWithLocalTimezone.DEFAULT_PRECISION) {
+        if (timestampWithLocalTimezoneColumn.getPrecision() == DEFAULT_FRACTIONAL_SECOND_PRECISION) {
             appendDataTypeWithoutParameters(timestampWithLocalTimezoneColumn);
         } else {
             appendSpace();

@@ -5,13 +5,8 @@ import com.exasol.sql.ColumnDefinitionVisitor;
 /**
  * This class implements the SQl data type timestamp
  */
-@SuppressWarnings("common-java:DuplicatedBlocks")
-public class Timestamp implements DataType {
-    /** Default fractional second precision when not specified: milliseconds */
-    public static final int DEFAULT_PRECISION = 3;
+public class Timestamp extends AbstractTimestampDataType {
     private static final String NAME = "TIMESTAMP";
-
-    private final int precision;
 
     /**
      * Create a new instance of a {@link Timestamp} data type
@@ -19,8 +14,7 @@ public class Timestamp implements DataType {
      * @param precision fractional seconds precision
      */
     public Timestamp(final int precision) {
-        validatePrecision(precision);
-        this.precision = precision;
+        super(precision);
     }
 
     /**
@@ -29,14 +23,7 @@ public class Timestamp implements DataType {
      *
      */
     public Timestamp() {
-        this(DEFAULT_PRECISION);
-    }
-
-    /**
-     * @return precision value
-     */
-    public int getPrecision() {
-        return this.precision;
+        super(DEFAULT_FRACTIONAL_SECOND_PRECISION);
     }
 
     @Override
@@ -47,11 +34,5 @@ public class Timestamp implements DataType {
     @Override
     public void accept(final ColumnDefinitionVisitor visitor) {
         visitor.visit(this);
-    }
-
-    private void validatePrecision(final int precision) {
-        if (precision < 0 || precision > 9) {
-            throw new IllegalArgumentException("Precision must be a number between 0 and 9.");
-        }
     }
 }
