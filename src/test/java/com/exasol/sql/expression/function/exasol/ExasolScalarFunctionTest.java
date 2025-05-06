@@ -10,6 +10,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import com.exasol.sql.expression.BooleanTerm;
 
+@SuppressWarnings("removal")
 class ExasolFunctionTest extends AbstractFunctionTest {
     @Test
     void testAggregateFunction() {
