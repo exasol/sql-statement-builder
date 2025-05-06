@@ -7,8 +7,8 @@
 | ----------------------------------------- | -------------------------------- |
 | [JUnit Jupiter (Aggregator)][0]           | [Eclipse Public License v2.0][1] |
 | [Hamcrest All][2]                         | [New BSD License][3]             |
-| [mockito-core][4]                         | [The MIT License][5]             |
-| [mockito-junit-jupiter][4]                | [The MIT License][5]             |
+| [mockito-core][4]                         | [MIT][5]                         |
+| [mockito-junit-jupiter][4]                | [MIT][5]                         |
 | [EqualsVerifier \| release normal jar][6] | [Apache License, Version 2.0][7] |
 
 ## Plugin Dependencies
@@ -46,7 +46,7 @@
 [2]: https://github.com/hamcrest/JavaHamcrest
 [3]: http://www.opensource.org/licenses/bsd-license.php
 [4]: https://github.com/mockito/mockito
-[5]: https://github.com/mockito/mockito/blob/main/LICENSE
+[5]: https://opensource.org/licenses/MIT
 [6]: https://www.jqno.nl/equalsverifier
 [7]: https://www.apache.org/licenses/LICENSE-2.0.txt
 [8]: https://maven.apache.org/plugins/maven-clean-plugin/
