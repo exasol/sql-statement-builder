@@ -5,6 +5,7 @@ import com.exasol.sql.ColumnDefinitionVisitor;
 /**
  * This class implements the SQl data type timestamp
  */
+@SuppressWarnings("common-java:DuplicatedBlocks")
 public class Timestamp implements DataType {
     /** Default fractional second precision when not specified: milliseconds */
     public static final int DEFAULT_PRECISION = 3;
