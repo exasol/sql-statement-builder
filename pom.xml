@@ -5,7 +5,7 @@
     <artifactId>sql-statement-builder</artifactId>
     <version>4.6.0</version>
     <name>Exasol SQL Statement Builder</name>
-    <description>This module provides a Builder for SQL statements that helps creating the correct structure and
+    <description>This module provides a Builder for SQL statements that helps to create the correct structure and
         validates variable parts of the statements.</description>
     <url>https://github.com/exasol/sql-statement-builder/</url>
     <inceptionYear>2018</inceptionYear>
