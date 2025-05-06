@@ -159,7 +159,7 @@ public class ColumnsDefinition extends AbstractFragment {
          * Add timestamp column with the specified fractional seconds precision.
          *
          * @param columnName name of the column to be added
-         * @param precision  precision for numeric value
+         * @param precision  fractional seconds precision
          * @return {@code this} for fluent programming
          */
         public Builder timestampColumn(final String columnName, final int precision) {
@@ -182,7 +182,7 @@ public class ColumnsDefinition extends AbstractFragment {
          * Add timestamp with local time zone column with the specified fractional seconds precision.
          *
          * @param columnName name of the column to be added
-         * @param precision  precision for numeric value
+         * @param precision  fractional seconds precision
          * @return {@code this} for fluent programming
          */
         public Builder timestampWithLocalTimeZoneColumn(final String columnName, final int precision) {
