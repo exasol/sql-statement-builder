@@ -6,6 +6,7 @@ import com.exasol.sql.ColumnDefinitionVisitor;
  * This class implements the Exasol-proprietary data type timestamp with local timezone data
  */
 public class TimestampWithLocalTimezone implements DataType {
+    /** Default fractional second precision when not specified: milliseconds */
     public static final int DEFAULT_PRECISION = 3;
     private static final String NAME = "TIMESTAMP WITH LOCAL TIME ZONE";
 
