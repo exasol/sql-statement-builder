@@ -6,7 +6,7 @@ import com.exasol.sql.ColumnDefinitionVisitor;
  * This class implements the SQl data type timestamp
  */
 public class Timestamp implements DataType {
-    private static final int DEFAULT_PRECISION = 3;
+    public static final int DEFAULT_PRECISION = 3;
     private static final String NAME = "TIMESTAMP";
 
     private final int precision;
