@@ -1,5 +1,7 @@
 package com.exasol.datatype.type;
 
+import static java.lang.String.format;
+
 /**
  * Implements common logic for Timestamp types.
  */
@@ -25,7 +27,7 @@ public abstract class AbstractTimestampDataType implements DataType {
 
     private void validatePrecision(final int precision) {
         if (precision < 0 || precision > 9) {
-            throw new IllegalArgumentException("Precision must be a number between 0 and 9.");
+            throw new IllegalArgumentException(format("Invalid precision: %d. Must be a number between 0 and 9.", precision));
         }
     }
 }
