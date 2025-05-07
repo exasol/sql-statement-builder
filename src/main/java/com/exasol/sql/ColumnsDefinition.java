@@ -13,7 +13,7 @@ public class ColumnsDefinition extends AbstractFragment {
     private List<Column> columns = new ArrayList<>();
 
     /**
-     * Create an new instance of {@link ColumnsDefinition}.
+     * Create a new instance of {@link ColumnsDefinition}.
      *
      * @param root root statement
      */
@@ -22,7 +22,7 @@ public class ColumnsDefinition extends AbstractFragment {
     }
 
     /**
-     * Create an new instance of {@link ColumnsDefinition}.
+     * Create a new instance of {@link ColumnsDefinition}.
      *
      * @param columns list of columns
      */
@@ -156,6 +156,18 @@ public class ColumnsDefinition extends AbstractFragment {
         }
 
         /**
+         * Add timestamp column with the specified fractional seconds precision.
+         *
+         * @param columnName name of the column to be added
+         * @param precision  fractional seconds precision
+         * @return {@code this} for fluent programming
+         */
+        public Builder timestampColumn(final String columnName, final int precision) {
+            this.columns.add(new Column(null, columnName, new Timestamp(precision)));
+            return this;
+        }
+
+        /**
          * Add timestamp with local time zone column.
          *
          * @param columnName name of the column to be added
@@ -163,6 +175,18 @@ public class ColumnsDefinition extends AbstractFragment {
          */
         public Builder timestampWithLocalTimeZoneColumn(final String columnName) {
             this.columns.add(new Column(null, columnName, new TimestampWithLocalTimezone()));
+            return this;
+        }
+
+        /**
+         * Add timestamp with local time zone column with the specified fractional seconds precision.
+         *
+         * @param columnName name of the column to be added
+         * @param precision  fractional seconds precision
+         * @return {@code this} for fluent programming
+         */
+        public Builder timestampWithLocalTimeZoneColumn(final String columnName, final int precision) {
+            this.columns.add(new Column(null, columnName, new TimestampWithLocalTimezone(precision)));
             return this;
         }
 

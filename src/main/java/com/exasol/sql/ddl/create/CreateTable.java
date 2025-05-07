@@ -104,6 +104,18 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
     }
 
     /**
+     * Add timestamp column with the specified fractional seconds precision.
+     *
+     * @param columnName name of the column to be added
+     * @param precision  fractional seconds precision
+     * @return {@code this} for fluent programming
+     */
+    public synchronized CreateTable timestampColumn(final String columnName, final int precision) {
+        this.columnsDefinition.add(columnName, new Timestamp(precision));
+        return this;
+    }
+
+    /**
      * Add timestamp with local time zone column
      *
      * @param columnName name of the column to be added
@@ -111,6 +123,18 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
      */
     public synchronized CreateTable timestampWithLocalTimeZoneColumn(final String columnName) {
         this.columnsDefinition.add(columnName, new TimestampWithLocalTimezone());
+        return this;
+    }
+
+    /**
+     * Add timestamp with local time zone column with the specified fractional seconds precision.
+     *
+     * @param columnName name of the column to be added
+     * @param precision  fractional seconds precision
+     * @return {@code this} for fluent programming
+     */
+    public synchronized CreateTable timestampWithLocalTimeZoneColumn(final String columnName, final int precision) {
+        this.columnsDefinition.add(columnName, new TimestampWithLocalTimezone(precision));
         return this;
     }
 
