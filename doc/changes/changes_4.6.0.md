@@ -16,6 +16,8 @@ TIMESTAMP WITH LOCAL TIMEZONE
 ### Test Dependency Updates
 
 * Updated `nl.jqno.equalsverifier:equalsverifier:3.14.1` to `3.19.4`
+* Removed `org.hamcrest:hamcrest-all:1.3`
+* Added `org.hamcrest:hamcrest:3.0`
 * Updated `org.junit.jupiter:junit-jupiter:5.9.2` to `5.12.2`
 * Updated `org.mockito:mockito-core:5.2.0` to `5.17.0`
 * Updated `org.mockito:mockito-junit-jupiter:5.2.0` to `5.17.0`
