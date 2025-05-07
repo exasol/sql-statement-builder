@@ -23,7 +23,7 @@ public class TimestampWithLocalTimezone extends AbstractTimestampDataType {
      *
      */
     public TimestampWithLocalTimezone() {
-        super(DEFAULT_FRACTIONAL_SECOND_PRECISION);
+        this(DEFAULT_FRACTIONAL_SECOND_PRECISION);
     }
 
     @Override

@@ -23,7 +23,7 @@ public abstract class AbstractTimestampDataType implements DataType {
         return this.precision;
     }
 
-    private void validatePrecision(final int precision) {
+    private static void validatePrecision(final int precision) {
         if (precision < 0 || precision > 9) {
             throw new IllegalArgumentException("Precision must be a number between 0 and 9.");
         }

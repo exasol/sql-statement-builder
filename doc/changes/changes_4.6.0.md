@@ -4,12 +4,12 @@ Code name: Timestamps with precision
 
 ## Summary
 
-This release adds support for specifying the fractional seconds precision for columns of type TIMESTAMP and 
-TIMESTAMP WITH LOCAL TIMEZONE
+This release adds support for specifying the fractional seconds precision for columns of type `TIMESTAMP` and 
+`TIMESTAMP WITH LOCAL TIMEZONE`
 
 ## Features
 
-* #176 Support TIMESTAMP with precision
+* #176 Support `TIMESTAMP` with precision
 
 ## Dependency Updates
 

@@ -23,7 +23,7 @@ public class Timestamp extends AbstractTimestampDataType {
      *
      */
     public Timestamp() {
-        super(DEFAULT_FRACTIONAL_SECOND_PRECISION);
+        this(DEFAULT_FRACTIONAL_SECOND_PRECISION);
     }
 
     @Override
