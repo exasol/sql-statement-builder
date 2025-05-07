@@ -1,0 +1,5 @@
+error-tags:
+  SQLSB:
+    packages:
+      - com.exasol
+    highest-index: 1

@@ -47,14 +47,6 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>com.exasol</groupId>
-                <artifactId>error-code-crawler-maven-plugin</artifactId>
-                <configuration>
-                    <!-- We disable execution because we don't use error reporting in this base library -->
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.itsallcode</groupId>
                 <artifactId>openfasttrace-maven-plugin</artifactId>
                 <version>1.6.1</version>
