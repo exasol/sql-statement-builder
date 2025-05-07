@@ -1,5 +1,5 @@
 error-tags:
-  SQLSB:
+  ESB:
     packages:
       - com.exasol
     highest-index: 1
