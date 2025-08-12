@@ -28,7 +28,7 @@ jobs:
       - {
         name: Checkout,
         id: checkout,
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       }
       - name: Set up JDKs
         id: setup-jdks
