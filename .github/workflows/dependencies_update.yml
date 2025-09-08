@@ -49,7 +49,7 @@ jobs:
       - name: Fail if not running on a branch
         id: check-branch
         if: ${{ !startsWith(github.ref, 'refs/heads/') }}
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             core.setFailed('Not running on a branch, github.ref is ${{ github.ref }}. Please start this workflow only on main or a branch')
