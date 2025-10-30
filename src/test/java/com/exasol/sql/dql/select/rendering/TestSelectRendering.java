@@ -29,73 +29,74 @@ import com.exasol.sql.expression.literal.NullLiteral;
 import com.exasol.sql.rendering.StringRendererConfig;
 
 class TestSelectRendering {
-    private Select select;
+    private Select selectFactory;
 
     @BeforeEach
     void beforeEach() {
-        this.select = StatementFactory.getInstance().select();
+        this.selectFactory = StatementFactory.getInstance().select();
     }
 
     @Test
     // Not a requirement, just to see what happens
     void testSelectWithoutFields() {
-        assertThat(this.select, rendersTo("SELECT "));
+        assertThat(this.selectFactory, rendersTo("SELECT "));
     }
 
     // [utest->dsn~rendering.sql.select~1]
     @Test
     void testSelectAll() {
-        assertThat(this.select.all(), rendersTo("SELECT *"));
+        assertThat(this.selectFactory.all(), rendersTo("SELECT *"));
     }
 
     // [utest->dsn~rendering.sql.configurable-case~1]
     @Test
     void testSelectAllLowerCase() {
-        assertThat(this.select.all(),
+        assertThat(this.selectFactory.all(),
                 rendersWithConfigTo(StringRendererConfig.builder().lowerCase(true).build(), "select *"));
     }
 
     // [utest->dsn~rendering.sql.select~1]
     @Test
     void testSelectFieldNames() {
-        assertThat(this.select.field("a", "b"), rendersTo("SELECT a, b"));
+        assertThat(this.selectFactory.field("a", "b"), rendersTo("SELECT a, b"));
     }
 
     // [utest->dsn~rendering.sql.select~1]
     @Test
     void testSelectChainOfFieldNames() {
-        assertThat(this.select.field("a", "b").field("c"), rendersTo("SELECT a, b, c"));
+        assertThat(this.selectFactory.field("a", "b").field("c"), rendersTo("SELECT a, b, c"));
     }
 
     // [utest->dsn~rendering.sql.select~1]
     @Test
     void testSelectFromTable() {
-        assertThat(this.select.all().from().table("persons"), rendersTo("SELECT * FROM persons"));
+        assertThat(this.selectFactory.all().from().table("persons"), rendersTo("SELECT * FROM persons"));
     }
 
     // [utest->dsn~rendering.sql.select~1]
     @Test
     void testSelectFromMultipleTable() {
-        assertThat(this.select.all().from().table("table1").table("table2"), rendersTo("SELECT * FROM table1, table2"));
+        assertThat(this.selectFactory.all().from().table("table1").table("table2"),
+                rendersTo("SELECT * FROM table1, table2"));
     }
 
     // [utest->dsn~rendering.sql.select~1]
     @Test
     void testSelectFromTableAs() {
-        assertThat(this.select.all().from().tableAs("table", "t"), rendersTo("SELECT * FROM table AS t"));
+        assertThat(this.selectFactory.all().from().tableAs("table", "t"), rendersTo("SELECT * FROM table AS t"));
     }
 
     // [utest->dsn~rendering.sql.select~1]
     @Test
     void testSelectFromMultipleTableAs() {
-        assertThat(this.select.all().from().tableAs("table1", "t1").tableAs("table2", "t2"),
+        assertThat(this.selectFactory.all().from().tableAs("table1", "t1").tableAs("table2", "t2"),
                 rendersTo("SELECT * FROM table1 AS t1, table2 AS t2"));
     }
 
     // [utest->dsn~select-statement.out-of-order-clauses~1]
     @Test
     void testAddClausesInRandomOrder() {
-        assertThat(this.select.limit(1).all().where(not(true)).from().join("A", "A.aa = B.bb").table("B"),
+        assertThat(this.selectFactory.limit(1).all().where(not(true)).from().join("A", "A.aa = B.bb").table("B"),
                 rendersTo("SELECT * FROM B JOIN A ON A.aa = B.bb WHERE NOT(TRUE) LIMIT 1"));
     }
 
@@ -103,7 +104,7 @@ class TestSelectRendering {
     @Test
     void testSelectWithQuotedIdentifiers() {
         final StringRendererConfig config = StringRendererConfig.builder().quoteIdentifiers(true).build();
-        assertThat(this.select.field("fieldA", "tableA.fieldB", "tableB.*").from().table("schemaA.tableA"),
+        assertThat(this.selectFactory.field("fieldA", "tableA.fieldB", "tableB.*").from().table("schemaA.tableA"),
                 rendersWithConfigTo(config,
                         "SELECT \"fieldA\", \"tableA\".\"fieldB\", \"tableB\".* FROM \"schemaA\".\"tableA\""));
     }
@@ -111,14 +112,14 @@ class TestSelectRendering {
     @Test
     void testSelectWithQuotedIdentifiersDoesNotAddExtraQuotes() {
         final StringRendererConfig config = StringRendererConfig.builder().quoteIdentifiers(true).build();
-        assertThat(this.select.field("\"fieldA\"", "\"tableA\".fieldB"),
+        assertThat(this.selectFactory.field("\"fieldA\"", "\"tableA\".fieldB"),
                 rendersWithConfigTo(config, "SELECT \"fieldA\", \"tableA\".\"fieldB\""));
     }
 
     @Test
     void testQuotedIdentifiers() {
         final StringRendererConfig config = StringRendererConfig.builder().quoteIdentifiers(true).build();
-        final Select select = this.select.all();
+        final Select select = this.selectFactory.all();
         select.from().table("person");
         select.where(eq(stringLiteral("foo"), ColumnReference.of("test")));
         assertThat(select, rendersWithConfigTo(config, "SELECT * FROM \"person\" WHERE 'foo' = \"test\""));
@@ -128,19 +129,19 @@ class TestSelectRendering {
     void testSelectFromSubSelect() {
         final Select innerSelect = StatementFactory.getInstance().select();
         innerSelect.all().from().table("t");
-        this.select.all().from().select(innerSelect);
-        assertThat(this.select, rendersTo("SELECT * FROM (SELECT * FROM t)"));
+        this.selectFactory.all().from().select(innerSelect);
+        assertThat(this.selectFactory, rendersTo("SELECT * FROM (SELECT * FROM t)"));
     }
 
     @Test
     void testSelectFromSubSelectInvalid() {
         final Select innerSelect = StatementFactory.getInstance().select();
         innerSelect.all().from().table("t");
-        final ValueTable values = new ValueTable(this.select);
-        this.select.all().from().select(innerSelect).valueTable(values);
+        final ValueTable values = new ValueTable(this.selectFactory);
+        this.selectFactory.all().from().select(innerSelect).valueTable(values);
         final SelectRenderer renderer = SelectRenderer.create();
         final IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> this.select.accept(renderer));
+                () -> this.selectFactory.accept(renderer));
         assertThat(exception.getMessage(),
                 containsString("SELECT statement cannot combine sub-select and value table"));
     }
@@ -150,8 +151,8 @@ class TestSelectRendering {
     void testSelectWithLikePredicate() {
         final BooleanExpression like1 = notLike(stringLiteral("abcd"), stringLiteral("a_d"));
         final BooleanExpression like2 = like(stringLiteral("%bcd"), stringLiteral("\\%%d"));
-        this.select.valueExpression(like1, "res1").valueExpression(like2, "res2");
-        assertThat(this.select, rendersTo("SELECT 'abcd' NOT LIKE 'a_d' res1, '%bcd' LIKE '\\%%d' res2"));
+        this.selectFactory.valueExpression(like1, "res1").valueExpression(like2, "res2");
+        assertThat(this.selectFactory, rendersTo("SELECT 'abcd' NOT LIKE 'a_d' res1, '%bcd' LIKE '\\%%d' res2"));
     }
 
     @Test
