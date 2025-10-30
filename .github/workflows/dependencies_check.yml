@@ -18,7 +18,7 @@ jobs:
       issues: write
     }
     outputs: {
-      created-issues: '${{ steps.security-issues.outputs.created-issues }}'
+      created-issues: '${{ steps.create-security-issues.outputs.created-issues }}'
     }
     concurrency: {
       group: '${{ github.workflow }}-report_security_issues',
@@ -28,17 +28,20 @@ jobs:
       - {
         name: Checkout,
         id: checkout,
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       }
       - name: Set up JDKs
         id: setup-jdks
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: |-
             11
             17
           cache: maven
+          server-id: ossindex
+          server-username: OSSINDEX_USERNAME
+          server-password: OSSINDEX_API_TOKEN
       - name: Generate ossindex report
         id: ossindex-report
         run: |
@@ -46,9 +49,13 @@ jobs:
               org.sonatype.ossindex.maven:ossindex-maven-plugin:audit-aggregate \
               -Dossindex.reportFile=$(pwd)/ossindex-report.json \
               -Dossindex.fail=false
-      - name: Report Security Issues
-        id: security-issues
-        uses: exasol/python-toolbox/.github/actions/security-issues@main
+        env: {
+          OSSINDEX_USERNAME: '${{ secrets.OSSINDEX_USERNAME }}',
+          OSSINDEX_API_TOKEN: '${{ secrets.OSSINDEX_API_TOKEN }}'
+        }
+      - name: Create GitHub Issues
+        id: create-security-issues
+        uses: exasol/python-toolbox/.github/actions/security-issues@1.9.0
         with: {
           format: maven,
           command: cat ossindex-report.json,
@@ -60,7 +67,7 @@ jobs:
           echo "$CREATED_ISSUES" > test.jsonl
           cat test.jsonl
         env: {
-          CREATED_ISSUES: '${{ steps.security-issues.outputs.created-issues }}'
+          CREATED_ISSUES: '${{ steps.create-security-issues.outputs.created-issues }}'
         }
   start_dependency_udpate:
     needs: report_security_issues

@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.exasol</groupId>
     <artifactId>sql-statement-builder-generated-parent</artifactId>
-    <version>4.6.0</version>
+    <version>4.6.1</version>
     <packaging>pom</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -14,17 +14,11 @@
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <test.excludeTags/>
         <gpg.skip>true</gpg.skip>
+        <central-publishing.autoPublish>false</central-publishing.autoPublish>
+        <central-publishing.skipPublishing>false</central-publishing.skipPublishing>
+        <central-publishing.waitUntil>validated</central-publishing.waitUntil>
+        <central-publishing.deploymentName>Manual deployment of repo sql-statement-builder</central-publishing.deploymentName>
     </properties>
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
     <licenses>
         <license>
             <name>MIT License</name>
@@ -51,7 +45,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
-                <version>3.4.1</version>
+                <version>3.5.0</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -71,7 +65,7 @@
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
-                <version>5.0.0.4389</version>
+                <version>5.2.0.4988</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -95,7 +89,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.14.0</version>
+                <version>3.14.1</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -109,7 +103,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.5.0</version>
+                <version>3.6.2</version>
                 <executions>
                     <execution>
                         <id>enforce-maven</id>
@@ -132,7 +126,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
-                <version>1.7.0</version>
+                <version>1.7.3</version>
                 <configuration>
                     <updatePomFile>true</updatePomFile>
                     <flattenMode>oss</flattenMode>
@@ -158,6 +152,9 @@
                 <groupId>org.sonatype.ossindex.maven</groupId>
                 <artifactId>ossindex-maven-plugin</artifactId>
                 <version>3.2.0</version>
+                <configuration>
+                    <authId>ossindex</authId>
+                </configuration>
                 <executions>
                     <execution>
                         <id>audit</id>
@@ -171,7 +168,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.5.2</version>
+                <version>3.5.4</version>
                 <configuration>
                     <!-- Set the highest log level for coverage testing, so that we
           have a chance to reach branches in the logging lambdas too. -->
@@ -182,7 +179,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
-                <version>2.18.0</version>
+                <version>2.19.1</version>
                 <executions>
                     <execution>
                         <id>display-updates</id>
@@ -237,7 +234,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-artifact-plugin</artifactId>
-                <version>3.6.0</version>
+                <version>3.6.1</version>
                 <executions>
                     <execution>
                         <id>check-build-plan</id>
@@ -259,7 +256,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
-                <version>3.2.7</version>
+                <version>3.2.8</version>
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>
@@ -279,9 +276,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <!-- Upgrading to 3.3.0 causes the following error:
-         Failed to execute goal org.apache.maven.plugins:maven-source-plugin:3.3.0:jar-no-fork (attach-sources) on project project-keeper-shared-model-classes: Presumably you have configured maven-source-plugn to execute twice times in your build. You have to configure a classifier for at least on of them.
-         Using goal "jar-no-fork" didn't help. See https://stackoverflow.com/questions/76305897/maven-build-fails-after-upgrading-to-maven-source-plugin-from-3-2-1-to-3-3-0 -->
+                <!-- Upgrading to 3.3.1 causes the following error:
+         Failed to execute goal org.apache.maven.plugins:maven-source-plugin:3.3.1:jar-no-fork (attach-sources) on project project-keeper-shared-model-classes: Presumably you have configured maven-source-plugn to execute twice times in your build. You have to configure a classifier for at least on of them.
+         Using goal "jar-no-fork" and specifying a classifier didn't help. See https://stackoverflow.com/questions/76305897/maven-build-fails-after-upgrading-to-maven-source-plugin-from-3-2-1-to-3-3-0 -->
                 <version>3.2.1</version>
                 <executions>
                     <execution>
@@ -295,7 +292,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.11.2</version>
+                <version>3.12.0</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -315,30 +312,23 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.7.0</version>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.9.0</version>
+                <extensions>true</extensions>
                 <configuration>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <stagingProgressPauseDurationSeconds>15</stagingProgressPauseDurationSeconds>
-                    <stagingProgressTimeoutMinutes>30</stagingProgressTimeoutMinutes>
+                    <publishingServerId>maven-central-portal</publishingServerId>
+                    <!-- We could directly use properties on the command line (e.g. -DautoPublish=true), but this way it's more explicit. -->
+                    <autoPublish>${central-publishing.autoPublish}</autoPublish>
+                    <waitUntil>${central-publishing.waitUntil}</waitUntil>
+                    <deploymentName>${central-publishing.deploymentName}</deploymentName>
+                    <skipPublishing>${central-publishing.skipPublishing}</skipPublishing>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>default-deploy</id>
-                        <phase>deploy</phase>
-                        <goals>
-                            <goal>deploy</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.12</version>
+                <version>0.8.14</version>
                 <executions>
                     <execution>
                         <id>prepare-agent</id>
@@ -379,7 +369,7 @@
             <plugin>
                 <groupId>com.exasol</groupId>
                 <artifactId>quality-summarizer-maven-plugin</artifactId>
-                <version>0.2.0</version>
+                <version>0.2.1</version>
                 <executions>
                     <execution>
                         <id>summarize-metrics</id>
@@ -392,7 +382,7 @@
             <plugin>
                 <groupId>com.exasol</groupId>
                 <artifactId>error-code-crawler-maven-plugin</artifactId>
-                <version>2.0.3</version>
+                <version>2.0.5</version>
                 <executions>
                     <execution>
                         <id>verify</id>
@@ -405,7 +395,7 @@
             <plugin>
                 <groupId>io.github.git-commit-id</groupId>
                 <artifactId>git-commit-id-maven-plugin</artifactId>
-                <version>9.0.1</version>
+                <version>9.0.2</version>
                 <executions>
                     <execution>
                         <id>get-the-git-infos</id>
