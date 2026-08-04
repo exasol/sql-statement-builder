@@ -4,9 +4,11 @@ Code name:
 
 ## Summary
 
-## Features
+This release mark no-args constructor of class `com.exasol.datatype.type.Timestamp` as deprecated. This avoids accidentally using the default timestamp precision 3.
 
-* ISSUE_NUMBER: description
+## Refactoring
+
+* #187: Mark no-args constructor of class `com.exasol.datatype.type.Timestamp` as deprecated
 
 ## Dependency Updates
 
