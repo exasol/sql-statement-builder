@@ -1,10 +1,14 @@
-# Exasol SQL Statement Builder 4.6.2, released 2026-??-??
+# Exasol SQL Statement Builder 4.6.2, released 2026-08-04
 
-Code name:
+Code name: Enforce specifying timestamp precision
 
 ## Summary
 
-This release mark no-args constructor of class `com.exasol.datatype.type.Timestamp` as deprecated. This avoids accidentally using the default timestamp precision 3.
+This release marks the following timestamp related constructors/methods as deprecated. This avoids accidentally using the default timestamp precision 3.
+
+* no-args constructor of `com.exasol.datatype.type.Timestamp`: Use constructor with precision argument instead.
+* `ColumnsDefinition.Builder.timestampColumn(String)`: Use `timestampColumn(String, int)` instead.
+* `CreateTable.timestampColumn(String)`: Use `timestampColumn(String, int)` instead.
 
 ## Refactoring
 

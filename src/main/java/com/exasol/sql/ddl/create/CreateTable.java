@@ -93,14 +93,15 @@ public class CreateTable extends AbstractFragment implements SqlStatement, Creat
     }
 
     /**
-     * Add timestamp column
+     * Add timestamp column with the default fractional seconds precision (3, i.e. millisecond precision).
      *
      * @param columnName name of the column to be added
      * @return {@code this} for fluent programming
+     * @deprecated Use {@link #timestampColumn(String, int)} instead and specify the precision explicitly.
      */
+    @Deprecated(since = "4.6.2", forRemoval = true)
     public synchronized CreateTable timestampColumn(final String columnName) {
-        this.columnsDefinition.add(columnName, new Timestamp());
-        return this;
+        return this.timestampColumn(columnName, Timestamp.DEFAULT_FRACTIONAL_SECOND_PRECISION);
     }
 
     /**
