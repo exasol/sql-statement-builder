@@ -153,7 +153,7 @@ public class ColumnsDefinition extends AbstractFragment {
          */
         @Deprecated(since = "4.6.2", forRemoval = true)
         public Builder timestampColumn(final String columnName) {
-            return this.timestampColumn(columnName, Timestamp.DEFAULT_FRACTIONAL_SECOND_PRECISION);
+            return this.timestampColumn(columnName, AbstractTimestampDataType.DEFAULT_FRACTIONAL_SECOND_PRECISION);
         }
 
         /**
