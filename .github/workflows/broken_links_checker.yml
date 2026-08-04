@@ -21,10 +21,11 @@ jobs:
       cancel-in-progress: true
     }
     steps:
-      - {
-        id: checkout,
-        uses: actions/checkout@v5
-      }
+      - id: checkout
+        uses: actions/checkout@v7
+        with: {
+          persist-credentials: false
+        }
       - id: configure-broken-links-checker
         name: Configure broken links checker
         run: |
@@ -36,7 +37,7 @@ jobs:
           '{"pattern": "^https?://projects.eclipse.org"}' \
           ']}' > ./target/broken_links_checker.json
       - id: run-broken-links-checker
-        uses: tcort/github-action-markdown-link-check@v1
+        uses: tcort/github-action-markdown-link-check@e7c7a18363c842693fadde5d41a3bd3573a7a225
         with: {
           use-quiet-mode: yes,
           use-verbose-mode: yes,

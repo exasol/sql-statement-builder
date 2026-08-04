@@ -43,9 +43,10 @@ jobs:
           sudo rm -rf /usr/share/dotnet
       - name: Checkout the repository
         id: checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with: {
-          fetch-depth: 0
+          fetch-depth: 0,
+          persist-credentials: false
         }
       - name: Set up JDKs
         id: setup-java
@@ -54,14 +55,11 @@ jobs:
           distribution: temurin
           java-version: |-
             11
-            17
+            21
           cache: maven
-          server-id: ossindex
-          server-username: OSSINDEX_USERNAME
-          server-password: OSSINDEX_API_TOKEN
       - name: Cache SonarCloud packages
         id: cache-sonar
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with: {
           path: ~/.sonar/cache,
           key: '${{ runner.os }}-sonar',
@@ -76,17 +74,15 @@ jobs:
         id: build-pk-verify
         run: |
           mvn --batch-mode clean verify \
+              -DossindexSkip=true \
               -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
               -DtrimStackTrace=false
-        env: {
-          OSSINDEX_USERNAME: '${{ secrets.OSSINDEX_USERNAME }}',
-          OSSINDEX_API_TOKEN: '${{ secrets.OSSINDEX_API_TOKEN }}'
-        }
       - name: Sonar analysis
         id: sonar-analysis
         if: ${{ env.SONAR_TOKEN != null }}
         run: |
           mvn --batch-mode org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+              -DossindexSkip=true \
               -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
               -DtrimStackTrace=false \
               -Dsonar.token=$SONAR_TOKEN
@@ -96,13 +92,41 @@ jobs:
         }
       - name: Verify Release Artifacts
         id: verify-release-artifacts
-        run: "print_message() {\n    local -r message=$1\n    echo \"$message\"\n    echo \"$message\" >> \"$GITHUB_STEP_SUMMARY\"\n}\n\nprint_message \"### Release Artifacts\"\n\nIFS=$'\\n' artifacts_array=($ARTIFACTS)\nmissing_files=()\nfor file in \"${artifacts_array[@]}\";\ndo  \n    echo \"Checking if file $file exists...\"\n    if ! [[ -f \"$file\" ]]; then\n        print_message \"* ⚠️ \\`$file\\` does not exist ⚠️\"\n        echo \"Content of directory $(dirname \"$file\"):\"\n        ls \"$(dirname \"$file\")\"\n        missing_files+=(\"$file\")\n    else\n        print_message \"* \\`$file\\` ✅\" \n    fi\ndone\nprint_message \"\"\nnumber_of_missing_files=${#missing_files[@]}\nif [[ $number_of_missing_files -gt 0 ]]; then\n    print_message \"⚠️ $number_of_missing_files release artifact(s) missing ⚠️\"\n    exit 1\nfi\n"
+        run: |
+          print_message() {
+              local -r message=$1
+              echo "$message"
+              echo "$message" >> "$GITHUB_STEP_SUMMARY"
+          }
+
+          print_message "### Release Artifacts"
+
+          IFS=$'\n' artifacts_array=($ARTIFACTS)
+          missing_files=()
+          for file in "${artifacts_array[@]}";
+          do
+              echo "Checking if file $file exists..."
+              if ! [[ -f "$file" ]]; then
+                  print_message "* ⚠️ \`$file\` does not exist ⚠️"
+                  echo "Content of directory $(dirname "$file"):"
+                  ls "$(dirname "$file")"
+                  missing_files+=("$file")
+              else
+                  print_message "* \`$file\` ✅"
+              fi
+          done
+          print_message ""
+          number_of_missing_files=${#missing_files[@]}
+          if [[ $number_of_missing_files -gt 0 ]]; then
+              print_message "⚠️ $number_of_missing_files release artifact(s) missing ⚠️"
+              exit 1
+          fi
         env: {
           ARTIFACTS: '${{ steps.build-pk-verify.outputs.release-artifacts }}'
         }
       - name: Upload artifacts
         id: upload-artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with: {
           name: artifacts,
           path: '${{ steps.build-pk-verify.outputs.release-artifacts }}',
@@ -118,7 +142,7 @@ jobs:
                '{"pattern": "^https?://(www.)?eclipse.org"}' \
                '{"pattern": "^https?://projects.eclipse.org"}' \
                ']}' > ./target/broken_links_checker.json
-      - uses: tcort/github-action-markdown-link-check@v1
+      - uses: tcort/github-action-markdown-link-check@e7c7a18363c842693fadde5d41a3bd3573a7a225
         id: run-link-check
         with: {
           use-quiet-mode: yes,
@@ -141,9 +165,10 @@ jobs:
     steps:
       - name: Checkout the repository
         id: checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with: {
-          fetch-depth: 0
+          fetch-depth: 0,
+          persist-credentials: false
         }
       - name: Set up JDK 17
         id: setup-java
@@ -151,22 +176,91 @@ jobs:
         with: {
           distribution: temurin,
           java-version: '17',
-          cache: maven,
-          server-id: ossindex,
-          server-username: OSSINDEX_USERNAME,
-          server-password: OSSINDEX_API_TOKEN
+          cache: maven
         }
       - name: Run tests and build with Maven 17
         id: build-next-java
-        run: mvn --batch-mode clean package -DtrimStackTrace=false -Djava.version=17
+        run: |
+          mvn --batch-mode clean package -DtrimStackTrace=false -Djava.version=17 \
+              -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+              -DossindexSkip=true \
+  ossindex:
+    runs-on: ubuntu-latest
+    defaults:
+      run: {
+        shell: bash
+      }
+    permissions: {
+      contents: read
+    }
+    concurrency: {
+      group: '${{ github.workflow }}-ossindex-${{ github.ref }}',
+      cancel-in-progress: true
+    }
+    steps:
+      - name: Checkout the repository
+        id: checkout
+        uses: actions/checkout@v7
+        with: {
+          persist-credentials: false
+        }
+      - name: Set up JDKs
+        id: setup-java
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: |-
+            11
+            21
+          cache: maven
+          server-id: ossindex
+          server-username: OSSINDEX_USERNAME
+          server-password: OSSINDEX_API_TOKEN
+      - name: Run Ossindex
+        id: ossindex
+        run: |
+          mvn --batch-mode test-compile \
+              org.sonatype.ossindex.maven:ossindex-maven-plugin:audit \
+              org.sonatype.ossindex.maven:ossindex-maven-plugin:audit-aggregate \
+              -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
         env: {
           OSSINDEX_USERNAME: '${{ secrets.OSSINDEX_USERNAME }}',
           OSSINDEX_API_TOKEN: '${{ secrets.OSSINDEX_API_TOKEN }}'
         }
+  lint-github-actions:
+    runs-on: ubuntu-latest
+    defaults:
+      run: {
+        shell: bash
+      }
+    permissions: {
+      security-events: write,
+      contents: read,
+      actions: read
+    }
+    concurrency: {
+      group: '${{ github.workflow }}-github-actions-linter-${{ github.ref }}',
+      cancel-in-progress: true
+    }
+    steps:
+      - name: Checkout the repository
+        id: checkout
+        uses: actions/checkout@v7
+        with: {
+          persist-credentials: false
+        }
+      - name: Lint GitHub actions with Zizmore
+        id: lint-github-actions
+        uses: zizmorcore/zizmor-action@192e21d79ab29983730a13d1382995c2307fbcaa
+        with: {
+          advanced-security: false
+        }
   build:
     needs: [
       build-and-test,
-      next-java-compatibility
+      next-java-compatibility,
+      ossindex,
+      lint-github-actions
     ]
     runs-on: ubuntu-latest
     defaults:
@@ -183,9 +277,10 @@ jobs:
     steps:
       - name: Checkout the repository
         id: checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with: {
-          fetch-depth: 0
+          fetch-depth: 0,
+          persist-credentials: false
         }
       - name: Set up JDKs
         id: setup-java
@@ -194,7 +289,7 @@ jobs:
           distribution: temurin
           java-version: |-
             11
-            17
+            21
           cache: maven
       - name: Check if release is needed
         id: check-release

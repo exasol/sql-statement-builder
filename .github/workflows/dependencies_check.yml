@@ -4,7 +4,7 @@ on:
   workflow_dispatch: null
   schedule:
     - {
-      cron: 0 2 * * *
+      cron: 42 22 * * 0
     }
 jobs:
   report_security_issues:
@@ -25,11 +25,12 @@ jobs:
       cancel-in-progress: true
     }
     steps:
-      - {
-        name: Checkout,
-        id: checkout,
-        uses: actions/checkout@v5
-      }
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v7
+        with: {
+          persist-credentials: false
+        }
       - name: Set up JDKs
         id: setup-jdks
         uses: actions/setup-java@v5
@@ -37,7 +38,7 @@ jobs:
           distribution: temurin
           java-version: |-
             11
-            17
+            21
           cache: maven
           server-id: ossindex
           server-username: OSSINDEX_USERNAME
@@ -55,7 +56,7 @@ jobs:
         }
       - name: Create GitHub Issues
         id: create-security-issues
-        uses: exasol/python-toolbox/.github/actions/security-issues@1.9.0
+        uses: exasol/python-toolbox/.github/actions/security-issues@10.1.0
         with: {
           format: maven,
           command: cat ossindex-report.json,
