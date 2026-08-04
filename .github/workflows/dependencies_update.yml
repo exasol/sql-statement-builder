@@ -34,10 +34,11 @@ jobs:
       cancel-in-progress: false
     }
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
         id: checkout
         with: {
-          fetch-depth: 0
+          fetch-depth: 0,
+          persist-credentials: true
         }
       - name: Set up JDKs
         id: setup-jdks
@@ -46,7 +47,7 @@ jobs:
           distribution: temurin
           java-version: |-
             11
-            17
+            21
           cache: maven
       - name: Print issues
         id: debug-print-issues
@@ -58,10 +59,14 @@ jobs:
       - name: Fail if not running on a branch
         id: check-branch
         if: ${{ !startsWith(github.ref, 'refs/heads/') }}
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
-            core.setFailed('Not running on a branch, github.ref is ${{ github.ref }}. Please start this workflow only on main or a branch')
+            const ref = process.env.GITHUB_REF
+            core.setFailed(`Not running on a branch, github.ref is '${ref}'. Please start this workflow only on main or a branch`)
+        env: {
+          GITHUB_REF: '${{ github.ref }}'
+        }
       - name: Update dependencies
         id: update-dependencies
         run: |
@@ -119,7 +124,7 @@ jobs:
         id: create-branch
         if: ${{ github.ref == 'refs/heads/main' }}
         run: |
-          branch_name="dependency-update/$(date "+%Y%m%d%H%M%S")"
+          branch_name="dependency-update/$(date "+%Y-%m-%d_%H-%M-%S")"
           echo "Creating branch $branch_name"
           git checkout -b "$branch_name"
       - name: Commit changes & push
@@ -159,7 +164,7 @@ jobs:
       - name: Report failure Status to Slack channel
         id: report-failure-slack
         if: ${{ always() }}
-        uses: ravsamhq/notify-slack-action@v2
+        uses: ravsamhq/notify-slack-action@be814b201e233b2dc673608aa46e5447c8ab13f2
         with: {
           status: '${{ job.status }}',
           token: '${{ secrets.GITHUB_TOKEN }}',
@@ -173,7 +178,7 @@ jobs:
       - name: Report new Pull Request to Slack channel
         id: report-pr-slack
         if: ${{ steps.create-pr.outputs.pr_url }}
-        uses: ravsamhq/notify-slack-action@v2
+        uses: ravsamhq/notify-slack-action@be814b201e233b2dc673608aa46e5447c8ab13f2
         with: {
           status: '${{ job.status }}',
           token: '${{ secrets.GITHUB_TOKEN }}',

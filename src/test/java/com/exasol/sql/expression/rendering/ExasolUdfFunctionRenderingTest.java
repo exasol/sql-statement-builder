@@ -20,6 +20,7 @@ class ExasolUdfFunctionRenderingTest {
     }
 
     @Test
+    @SuppressWarnings("removal") // Need to test deprecated method
     void testUdfFunctionWithEmits() {
         final ColumnsDefinition columnsDefinition = ColumnsDefinition.builder()
                 .decimalColumn("id", 18, 0)

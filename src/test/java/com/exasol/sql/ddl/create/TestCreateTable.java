@@ -5,12 +5,12 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-import com.exasol.sql.Column;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.exasol.datatype.type.*;
 import com.exasol.datatype.type.Boolean;
+import com.exasol.sql.Column;
 import com.exasol.sql.StatementFactory;
 
 // [utest->dsn~create-statements~1]
@@ -68,7 +68,7 @@ class TestCreateTable {
     @Test
     void testCreateTableWithVarcharColumn() {
         final Column column = this.createTable.varcharColumn(VARCHAR_COLUMN_NAME, LENGTH).getColumnsDefinition().getColumns()
-                                              .get(0);
+                .get(0);
         assertInstance(column, VARCHAR_COLUMN_NAME, Varchar.class);
     }
 
@@ -87,6 +87,7 @@ class TestCreateTable {
     }
 
     @Test
+    @SuppressWarnings("removal") // Need to test deprecated method
     void testCreateTableWithTimestampColumn() {
         final Column column = this.createTable.timestampColumn(TIMESTAMP_COLUMN_NAME)
                 .getColumnsDefinition().getColumns().get(0);
@@ -119,14 +120,14 @@ class TestCreateTable {
     @Test
     void testCreateTableWithIntervalDayToSecondColumn() {
         final Column column = this.createTable.intervalDayToSecondColumn(INTERVAL_DAY_TO_SECOND_COLUMN_NAME, 2, 2)
-                                              .getColumnsDefinition().getColumns().get(0);
+                .getColumnsDefinition().getColumns().get(0);
         assertInstance(column, INTERVAL_DAY_TO_SECOND_COLUMN_NAME, IntervalDayToSecond.class);
     }
 
     @Test
     void testCreateTableWithIntervalYearToMonthColumn() {
         final Column column = this.createTable.intervalYearToMonthColumn(INTERVAL_YEAR_TO_MONTH_COLUMN_NAME, 2)
-                                              .getColumnsDefinition().getColumns().get(0);
+                .getColumnsDefinition().getColumns().get(0);
         assertInstance(column, INTERVAL_YEAR_TO_MONTH_COLUMN_NAME, IntervalYearToMonth.class);
     }
 }

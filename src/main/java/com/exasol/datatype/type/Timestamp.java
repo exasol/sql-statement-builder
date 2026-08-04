@@ -21,7 +21,9 @@ public class Timestamp extends AbstractTimestampDataType {
      * Create a new instance of a {@link Timestamp} data type with the default fractional
      * seconds precision (3, i.e. millisecond precision)
      *
+     * @deprecated Use {@link #Timestamp(int)} instead and specify the precision explicitly.
      */
+    @Deprecated(since = "4.6.2", forRemoval = true)
     public Timestamp() {
         this(DEFAULT_FRACTIONAL_SECOND_PRECISION);
     }

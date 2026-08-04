@@ -51,6 +51,7 @@ class TestCreateTableRendering {
     }
 
     @Test
+    @SuppressWarnings("removal") // Need to test deprecated method
     void testCreateTableWithTimestampColumn() {
         assertThat(this.createTable.timestampColumn("a"), rendersTo("CREATE TABLE testName (a TIMESTAMP)"));
     }
@@ -83,7 +84,6 @@ class TestCreateTableRendering {
         assertThrows(IllegalArgumentException.class, () -> this.createTable.timestampWithLocalTimeZoneColumn("a", -1));
         assertThrows(IllegalArgumentException.class, () -> this.createTable.timestampWithLocalTimeZoneColumn("a", 10));
     }
-
 
     @Test
     void testCreateTableWithCharColumn() {

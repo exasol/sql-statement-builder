@@ -145,14 +145,15 @@ public class ColumnsDefinition extends AbstractFragment {
         }
 
         /**
-         * Add timestamp column.
+         * Add timestamp column with the default fractional seconds precision (3, i.e. millisecond precision).
          *
          * @param columnName name of the column to be added
          * @return {@code this} for fluent programming
+         * @deprecated Use {@link #timestampColumn(String, int)} instead and specify the precision explicitly.
          */
+        @Deprecated(since = "4.6.2", forRemoval = true)
         public Builder timestampColumn(final String columnName) {
-            this.columns.add(new Column(null, columnName, new Timestamp()));
-            return this;
+            return this.timestampColumn(columnName, AbstractTimestampDataType.DEFAULT_FRACTIONAL_SECOND_PRECISION);
         }
 
         /**
